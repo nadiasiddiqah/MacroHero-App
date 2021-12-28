@@ -14,21 +14,13 @@ extension PlanViewController {
         view.backgroundColor = UIColor(named: "bgColor")
         addSubviews()
         constrainSubviews()
+        
+        setNavigationBar(navController: navigationController, navItem: navigationItem,
+                         leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
+                                                            style: .done, target: self,
+                                                            action: #selector(goBack)))
     }
-    
-    func setNavigationBar() {
-        let bar = navigationController?.navigationBar
-        bar?.standardAppearance.backgroundColor = UIColor(named: "navColor")
-        bar?.tintColor = UIColor(named: "buttonTint")
-        
-        
-        let title = UIImageView(image: UIImage(named: "macrohero"))
-        navigationItem.titleView = title
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .done, target: self, action: #selector(goBack))
-        navigationItem.hidesBackButton = true
-    }
-    
+
     @objc func goBack(sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -36,8 +28,8 @@ extension PlanViewController {
     fileprivate func addSubviews() {
         view.addSubview(mainTitle)
         view.addSubview(pieChart)
-        
         view.addSubview(macroVStack)
+        view.addSubview(nextButton)
     }
     
     fileprivate func constrainSubviews() {
@@ -55,5 +47,8 @@ extension PlanViewController {
         macroVStack.topToBottom(of: pieChart, offset: screenHeight * 0.05)
         macroVStack.width(screenWidth * 0.75)
         macroVStack.height(screenHeight * 0.18)
+        
+        nextButton.centerXToSuperview()
+        nextButton.topToBottom(of: macroVStack, offset: screenHeight * 0.08)
     }
 }

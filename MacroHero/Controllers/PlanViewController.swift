@@ -26,10 +26,9 @@ class PlanViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
-        setNavigationBar()
     }
     
-    // MARK: - TITLE
+    // MARK: - VIEW OBJECTS
     lazy var mainTitle: UIImageView = {
         let image = createAspectFitImage(imageName: "planTitle",
                                          width: screenWidth * 0.85,
@@ -81,6 +80,20 @@ class PlanViewController: UIViewController {
 
         return HStack
     }()
+    
+    lazy var nextButton: UIButton = {
+        var button = UIButton()
+        button.setBackgroundImage(UIImage(named: "nextButton"), for: .normal)
+        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    // MARK: - TAP METHODS
+    @objc func didTapNextButton() {
+        let rankVC = RankViewController()
+        navigationController?.pushViewController(rankVC, animated: true)
+    }
     
     // MARK: - FUNCTIONS
     

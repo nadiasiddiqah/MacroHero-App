@@ -60,6 +60,20 @@ public func createVStack(subviews: [UIView], width: CGFloat? = nil,
     return VStack
 }
 
+public func setNavigationBar(navController: UINavigationController?, navItem: UINavigationItem,
+                      leftBarButtonItem: UIBarButtonItem) {
+    let bar = navController?.navigationBar
+    bar?.standardAppearance.backgroundColor = UIColor(named: "navColor")
+    bar?.tintColor = UIColor(named: "buttonTint")
+    
+    
+    let title = UIImageView(image: UIImage(named: "macrohero"))
+    navItem.titleView = title
+    
+    navItem.leftBarButtonItem = leftBarButtonItem
+    navItem.hidesBackButton = true
+}
+
 extension UIColor {
     static let bgColor = UIColor(named: "bgColor")
     static let customBlue = UIColor(named: "blue")

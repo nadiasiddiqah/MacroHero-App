@@ -17,6 +17,8 @@
 		093870E4270D6B0D0036A3D7 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E3270D6B0D0036A3D7 /* IntroViewController.swift */; };
 		096CA546274DB7C40071C6EE /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA545274DB7C40071C6EE /* PlanViewController.swift */; };
 		096CA548274DB7F20071C6EE /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA547274DB7F20071C6EE /* PlanView.swift */; };
+		09EE8142277A8D9D00579224 /* RankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE8141277A8D9D00579224 /* RankViewController.swift */; };
+		09EE8144277A8DAA00579224 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE8143277A8DAA00579224 /* RankView.swift */; };
 		09FD0BE0270E24830094BAAC /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FD0BDF270E24830094BAAC /* InfoViewController.swift */; };
 		09FD0BE2270E2D1C0094BAAC /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FD0BE1270E2D1C0094BAAC /* InfoView.swift */; };
 		09FD0BE7270E2E050094BAAC /* KGHAPPY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09FD0BE3270E2E050094BAAC /* KGHAPPY.ttf */; };
@@ -37,6 +39,8 @@
 		093870E3270D6B0D0036A3D7 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		096CA545274DB7C40071C6EE /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		096CA547274DB7F20071C6EE /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
+		09EE8141277A8D9D00579224 /* RankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankViewController.swift; sourceTree = "<group>"; };
+		09EE8143277A8DAA00579224 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		09FD0BDF270E24830094BAAC /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		09FD0BE1270E2D1C0094BAAC /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		09FD0BE3270E2E050094BAAC /* KGHAPPY.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KGHAPPY.ttf; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				093870E3270D6B0D0036A3D7 /* IntroViewController.swift */,
 				09FD0BDF270E24830094BAAC /* InfoViewController.swift */,
 				096CA545274DB7C40071C6EE /* PlanViewController.swift */,
+				09EE8141277A8D9D00579224 /* RankViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 				093870DF270D2D310036A3D7 /* IntroView.swift */,
 				09FD0BE1270E2D1C0094BAAC /* InfoView.swift */,
 				096CA547274DB7F20071C6EE /* PlanView.swift */,
+				09EE8143277A8DAA00579224 /* RankView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EE8142277A8D9D00579224 /* RankViewController.swift in Sources */,
 				093870E4270D6B0D0036A3D7 /* IntroViewController.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Extensions.swift in Sources */,
 				096CA548274DB7F20071C6EE /* PlanView.swift in Sources */,
@@ -287,6 +294,7 @@
 				09FD0BE0270E24830094BAAC /* InfoViewController.swift in Sources */,
 				096CA546274DB7C40071C6EE /* PlanViewController.swift in Sources */,
 				0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */,
+				09EE8144277A8DAA00579224 /* RankView.swift in Sources */,
 				09FD0BE2270E2D1C0094BAAC /* InfoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
