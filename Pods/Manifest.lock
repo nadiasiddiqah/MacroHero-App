@@ -1,0 +1,24 @@
+PODS:
+  - DropDown (2.3.13)
+  - Gifu (3.3.1)
+  - TinyConstraints (4.0.2)
+
+DEPENDENCIES:
+  - DropDown
+  - Gifu
+  - TinyConstraints
+
+SPEC REPOS:
+  trunk:
+    - DropDown
+    - Gifu
+    - TinyConstraints
+
+SPEC CHECKSUMS:
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  Gifu: 416d4e38c4c2fed012f019e0a1d3ffcb58e5b842
+  TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
+
+PODFILE CHECKSUM: d6d1c36a8dac078b6f1a02a81bab566cfab2a0f2
+
+COCOAPODS: 1.11.2
