@@ -19,6 +19,7 @@
 		096CA548274DB7F20071C6EE /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA547274DB7F20071C6EE /* PlanView.swift */; };
 		09EE8142277A8D9D00579224 /* RankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE8141277A8D9D00579224 /* RankViewController.swift */; };
 		09EE8144277A8DAA00579224 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE8143277A8DAA00579224 /* RankView.swift */; };
+		09EE8146277BE6BF00579224 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09EE8145277BE6BF00579224 /* Montserrat-Medium.ttf */; };
 		09FD0BE0270E24830094BAAC /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FD0BDF270E24830094BAAC /* InfoViewController.swift */; };
 		09FD0BE2270E2D1C0094BAAC /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FD0BE1270E2D1C0094BAAC /* InfoView.swift */; };
 		09FD0BE7270E2E050094BAAC /* KGHAPPY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09FD0BE3270E2E050094BAAC /* KGHAPPY.ttf */; };
@@ -41,6 +42,7 @@
 		096CA547274DB7F20071C6EE /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		09EE8141277A8D9D00579224 /* RankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankViewController.swift; sourceTree = "<group>"; };
 		09EE8143277A8DAA00579224 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
+		09EE8145277BE6BF00579224 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		09FD0BDF270E24830094BAAC /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		09FD0BE1270E2D1C0094BAAC /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		09FD0BE3270E2E050094BAAC /* KGHAPPY.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KGHAPPY.ttf; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		09FD0BEB270E2E0B0094BAAC /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				09EE8145277BE6BF00579224 /* Montserrat-Medium.ttf */,
 				09FD0BE3270E2E050094BAAC /* KGHAPPY.ttf */,
 				09FD0BE6270E2E050094BAAC /* KGHAPPYSolid.ttf */,
 			);
@@ -232,6 +235,7 @@
 				0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */,
 				093870DC270D0FFA0036A3D7 /* macroManGif.gif in Resources */,
 				09FD0BEA270E2E050094BAAC /* KGHAPPYSolid.ttf in Resources */,
+				09EE8146277BE6BF00579224 /* Montserrat-Medium.ttf in Resources */,
 				09FD0BE7270E2E050094BAAC /* KGHAPPY.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

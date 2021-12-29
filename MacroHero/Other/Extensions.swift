@@ -74,6 +74,25 @@ public func setNavigationBar(navController: UINavigationController?, navItem: UI
     navItem.hidesBackButton = true
 }
 
+public func createMainTitle(text: String, width: CGFloat? = nil, noOfLines: Int? = nil) -> UILabel {
+    let label = UILabel()
+    label.text = text
+    label.font = UIFont(name: "KGHAPPYSolid", size: 25)
+    label.textColor = UIColor(named: "orange")
+    
+    if let width = width {
+        label.width(width)
+    }
+    
+    if let noOfLines = noOfLines {
+        label.numberOfLines = noOfLines
+    }
+    
+    label.adjustsFontSizeToFitWidth = true
+    
+    return label
+}
+
 extension UIColor {
     static let bgColor = UIColor(named: "bgColor")
     static let customBlue = UIColor(named: "blue")
