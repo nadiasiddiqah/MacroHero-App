@@ -212,7 +212,7 @@ class InfoViewController: UIViewController {
         let weightDropDown = DropDown()
         let weightData = Array(90...300).map { String($0) }
         
-        createDropDown(dropDown: weightDropDown, dataSource: weightData, anchorView: weightButton)
+        createDropDown(dropDown: weightDropDown, dataSource: weightData, anchorView: weightButton, screen: "info")
         
         weightDropDown.bottomOffset = CGPoint(x: 0, y: weightButton.frame.size.height)
         weightDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - weightButton.frame.size.height
@@ -285,7 +285,7 @@ class InfoViewController: UIViewController {
         let ageDropDown = DropDown()
         let ageData = Array(12...80).map { String($0) }
         
-        createDropDown(dropDown: ageDropDown, dataSource: ageData, anchorView: ageButton)
+        createDropDown(dropDown: ageDropDown, dataSource: ageData, anchorView: ageButton, screen: "info")
         
         ageDropDown.bottomOffset = CGPoint(x: 0, y: ageButton.frame.size.height)
         ageDropDown.offsetFromWindowBottom = (screenHeight * 0.67) - ageButton.frame.size.height
@@ -299,7 +299,7 @@ class InfoViewController: UIViewController {
         let ftDropDown = DropDown()
         let ftData = Array(4...7).map { String("\($0)'") }
 
-        createDropDown(dropDown: ftDropDown, dataSource: ftData, anchorView: heightButton, halfWidth: true)
+        createDropDown(dropDown: ftDropDown, dataSource: ftData, anchorView: heightButton, halfWidth: true, screen: "info")
         
         ftDropDown.bottomOffset = CGPoint(x: 0, y: heightButton.frame.size.height)
         ftDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - heightButton.frame.size.height
@@ -313,7 +313,7 @@ class InfoViewController: UIViewController {
         let inDropDown = DropDown()
         let inData = Array(0...11).map { String("\($0)\"") }
         
-        createDropDown(dropDown: inDropDown, dataSource: inData, anchorView: heightButton)
+        createDropDown(dropDown: inDropDown, dataSource: inData, anchorView: heightButton, screen: "info")
         
         inDropDown.bottomOffset = CGPoint(x: heightButton.frame.size.width / 2, y: heightButton.frame.size.height)
         inDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - heightButton.frame.size.height
@@ -327,7 +327,7 @@ class InfoViewController: UIViewController {
         let activityData = ["Sedentary", "Lightly active", "Active", "Very active"]
         
         createDropDown(dropDown: activityDropDown, dataSource: activityData,
-                       anchorView: activityButton)
+                       anchorView: activityButton, screen: "info")
         
         activityDropDown.bottomOffset = CGPoint(x: 0, y: activityButton.frame.size.height)
         

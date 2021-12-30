@@ -12,7 +12,7 @@ import DropDown
 let screenWidth = UIScreen.main.bounds.width
 let screenHeight = UIScreen.main.bounds.height
 
-public func createDropDown(dropDown: DropDown, dataSource: [String], anchorView: UIView, halfWidth: Bool? = nil) {
+public func createDropDown(dropDown: DropDown, dataSource: [String], anchorView: UIView, halfWidth: Bool? = nil, screen: String) {
     dropDown.dataSource = dataSource
 
     if halfWidth != nil {
@@ -20,19 +20,31 @@ public func createDropDown(dropDown: DropDown, dataSource: [String], anchorView:
     }
     dropDown.anchorView = anchorView
     dropDown.direction = .bottom
-    dropDown.cornerRadius = 18
-
-    dropDown.backgroundColor = UIColor(named: "bgColor")
-    dropDown.textColor = UIColor(named: "orange")!
-    dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
-        cell.optionLabel.textAlignment = .center
+    
+    if screen == "info" {
+        dropDown.cornerRadius = 18
+        dropDown.backgroundColor = UIColor.bgColor
+        dropDown.textColor = UIColor.customOrange!
+        dropDown.selectionBackgroundColor = UIColor.customOrange!
+        dropDown.selectedTextColor = UIColor.bgColor!
+    } else if screen == "rank" {
+        dropDown.cornerRadius = 8
+        dropDown.backgroundColor = UIColor.white
+        dropDown.textColor = UIColor.customDarkGray!
+        dropDown.selectionBackgroundColor = UIColor.blueSelectedBg!
+        dropDown.selectedTextColor = UIColor.blueSelectedText!
     }
 
-    dropDown.selectionBackgroundColor = UIColor(named: "orange")!
-    dropDown.selectedTextColor = UIColor(named: "bgColor")!
+    dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+        if screen == "info" {
+            cell.optionLabel.textAlignment = .center
+        } else if screen == "rank" {
+            cell.optionLabel.textAlignment = .left
+            cell.optionLabel.leftToSuperview(offset: screenWidth * 0.04)
+        }
+    }
 
     dropDown.show()
-    dropDown.dismissMode = .onTap
 }
 
 public func createAspectFitImage(imageName: String, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImageView {
@@ -97,5 +109,10 @@ extension UIColor {
     static let bgColor = UIColor(named: "bgColor")
     static let customBlue = UIColor(named: "blue")
     static let customGray = UIColor(named: "gray")
+    static let customDarkGray = UIColor(named: "darkGray")
+    static let customOrange = UIColor(named: "orange")
+    static let blueSelectedText = UIColor(named: "blueSelectedText")
+    static let blueSelectedBg = UIColor(named: "blueSelectedBg")
 }
+
 

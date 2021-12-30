@@ -49,6 +49,6 @@ extension PlanViewController {
         macroVStack.height(screenHeight * 0.18)
         
         nextButton.centerXToSuperview()
-        nextButton.topToBottom(of: macroVStack, offset: screenHeight * 0.08)
+        nextButton.bottomToSuperview(offset: screenHeight * -0.09)
     }
 }

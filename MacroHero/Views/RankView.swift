@@ -31,21 +31,25 @@ extension RankViewController {
         view.addSubview(firstGoalHStack)
         secondGoalButton.addSubview(secondGoalLabel)
         view.addSubview(secondGoalHStack)
+        view.addSubview(nextButton)
     }
     
     fileprivate func constrainSubviews() {
         mainTitle.centerXToSuperview()
         mainTitle.topToSuperview(offset: screenHeight * 0.16)
         
-        firstGoalLabel.center(in: firstGoalButton)
+        firstGoalLabel.leftToSuperview(offset: screenWidth * 0.04)
+        firstGoalLabel.centerYToSuperview()
         
         firstGoalHStack.leftToSuperview(offset: screenWidth * 0.09)
         firstGoalHStack.topToBottom(of: mainTitle, offset: screenWidth * 0.05)
         firstGoalHStack.width(screenWidth * 0.7)
         
-        secondGoalLabel.center(in: secondGoalButton)
+        secondGoalLabel.leftToSuperview(offset: screenWidth * 0.04)
+        secondGoalLabel.centerYToSuperview()
         
         secondGoalHStack.leftToSuperview(offset: screenWidth * 0.09)
+        
         collapsedFirstGoal = secondGoalHStack.topToBottom(of: firstGoalHStack,
                                                           offset: screenHeight * 0.04,
                                                           isActive: false)
@@ -53,5 +57,8 @@ extension RankViewController {
                                                          offset: screenHeight * 0.26,
                                                          isActive: false)
         secondGoalHStack.width(screenWidth * 0.7)
+        
+        nextButton.centerXToSuperview()
+        nextButton.bottomToSuperview(offset: screenHeight * -0.09)
     }
 }
