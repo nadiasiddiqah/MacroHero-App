@@ -18,6 +18,9 @@
 		096CA546274DB7C40071C6EE /* PlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA545274DB7C40071C6EE /* PlanViewController.swift */; };
 		096CA548274DB7F20071C6EE /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA547274DB7F20071C6EE /* PlanView.swift */; };
 		0989FA71277D0E2100234819 /* ProteinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989FA70277D0E2100234819 /* ProteinViewController.swift */; };
+		0989FA73277D4B5200234819 /* ProteinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989FA72277D4B5200234819 /* ProteinView.swift */; };
+		09A26980277E588E005C0BFF /* proteinShakeGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 09A2697F277E588E005C0BFF /* proteinShakeGif.gif */; };
+		09A26982277EB17E005C0BFF /* MealPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A26981277EB17E005C0BFF /* MealPlanViewController.swift */; };
 		09EE8142277A8D9D00579224 /* RankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE8141277A8D9D00579224 /* RankViewController.swift */; };
 		09EE8144277A8DAA00579224 /* RankView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE8143277A8DAA00579224 /* RankView.swift */; };
 		09EE8146277BE6BF00579224 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09EE8145277BE6BF00579224 /* Montserrat-Medium.ttf */; };
@@ -42,6 +45,9 @@
 		096CA545274DB7C40071C6EE /* PlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewController.swift; sourceTree = "<group>"; };
 		096CA547274DB7F20071C6EE /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		0989FA70277D0E2100234819 /* ProteinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinViewController.swift; sourceTree = "<group>"; };
+		0989FA72277D4B5200234819 /* ProteinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinView.swift; sourceTree = "<group>"; };
+		09A2697F277E588E005C0BFF /* proteinShakeGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = proteinShakeGif.gif; sourceTree = "<group>"; };
+		09A26981277EB17E005C0BFF /* MealPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanViewController.swift; sourceTree = "<group>"; };
 		09EE8141277A8D9D00579224 /* RankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankViewController.swift; sourceTree = "<group>"; };
 		09EE8143277A8DAA00579224 /* RankView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankView.swift; sourceTree = "<group>"; };
 		09EE8145277BE6BF00579224 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
@@ -104,6 +110,7 @@
 				0933D8AC270BC56100080FCD /* SceneDelegate.swift */,
 				093870E1270D2D940036A3D7 /* Extensions.swift */,
 				093870DB270D0FFA0036A3D7 /* macroManGif.gif */,
+				09A2697F277E588E005C0BFF /* proteinShakeGif.gif */,
 				0933D8B3270BC56200080FCD /* Assets.xcassets */,
 				09FD0BEB270E2E0B0094BAAC /* Fonts */,
 			);
@@ -125,6 +132,7 @@
 				096CA545274DB7C40071C6EE /* PlanViewController.swift */,
 				09EE8141277A8D9D00579224 /* RankViewController.swift */,
 				0989FA70277D0E2100234819 /* ProteinViewController.swift */,
+				09A26981277EB17E005C0BFF /* MealPlanViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -137,6 +145,7 @@
 				09FD0BE1270E2D1C0094BAAC /* InfoView.swift */,
 				096CA547274DB7F20071C6EE /* PlanView.swift */,
 				09EE8143277A8DAA00579224 /* RankView.swift */,
+				0989FA72277D4B5200234819 /* ProteinView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -234,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09A26980277E588E005C0BFF /* proteinShakeGif.gif in Resources */,
 				0933D8B7270BC56200080FCD /* LaunchScreen.storyboard in Resources */,
 				0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */,
 				093870DC270D0FFA0036A3D7 /* macroManGif.gif in Resources */,
@@ -304,6 +314,8 @@
 				0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */,
 				09EE8144277A8DAA00579224 /* RankView.swift in Sources */,
 				09FD0BE2270E2D1C0094BAAC /* InfoView.swift in Sources */,
+				09A26982277EB17E005C0BFF /* MealPlanViewController.swift in Sources */,
+				0989FA73277D4B5200234819 /* ProteinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

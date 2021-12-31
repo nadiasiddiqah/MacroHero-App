@@ -113,7 +113,7 @@ class PlanViewController: UIViewController {
         
         let valueLabel = UILabel()
         valueLabel.text = value
-        valueLabel.textColor = UIColor(named: "orange")
+        valueLabel.textColor = UIColor.customOrange
         valueLabel.textAlignment = .right
         valueLabel.font = UIFont(name: "KGHAPPYSolid", size: 20)
         

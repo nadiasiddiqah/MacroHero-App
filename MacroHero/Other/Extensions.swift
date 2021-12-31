@@ -89,7 +89,7 @@ public func setNavigationBar(navController: UINavigationController?, navItem: UI
 public func createMainTitle(text: String, width: CGFloat? = nil, noOfLines: Int? = nil) -> UILabel {
     let label = UILabel()
     label.text = text
-    label.font = UIFont(name: "KGHAPPYSolid", size: 25)
+    label.font = UIFont(name: "KGHAPPYSolid", size: 30)
     label.textColor = UIColor(named: "orange")
     
     if let width = width {
