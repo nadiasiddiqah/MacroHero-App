@@ -52,60 +52,28 @@ class ProteinViewController: UIViewController {
         return VStack
     }()
     
-    lazy var calLabel: UITextField = {
+    lazy var calTextField: UITextField = {
         let textField = createValueField(value: calValue)
-    
+        
         return textField
     }()
     
-    lazy var calTextArea: UIImageView = {
-        let image = createAspectFitImage(imageName: "proteinTextArea",
-                                         width: screenWidth * 0.6,
-                                         height: screenHeight * 0.03)
-        
-        return image
-    }()
-    
-    lazy var carbsLabel: UITextField = {
+    lazy var carbsTextField: UITextField = {
         let textField = createValueField(value: carbsValue, inGrams: true)
-    
+        
         return textField
     }()
     
-    lazy var carbsTextArea: UIImageView = {
-        let image = createAspectFitImage(imageName: "proteinTextArea",
-                                         width: screenWidth * 0.6,
-                                         height: screenHeight * 0.03)
-        
-        return image
-    }()
-    
-    lazy var proteinLabel: UITextField = {
+    lazy var proteinTextField: UITextField = {
         let textField = createValueField(value: proteinValue, inGrams: true)
-    
+        
         return textField
     }()
-    
-    lazy var proteinTextArea: UIImageView = {
-        let image = createAspectFitImage(imageName: "proteinTextArea",
-                                         width: screenWidth * 0.6,
-                                         height: screenHeight * 0.03)
+
+    lazy var fatTextField: UITextField = {
+        let textField = createValueField(value: fatValue)
         
-        return image
-    }()
-    
-    lazy var fatLabel: UITextField = {
-        let textField = createValueField(value: fatValue, inGrams: true)
-    
         return textField
-    }()
-    
-    lazy var fatTextArea: UIImageView = {
-        let image = createAspectFitImage(imageName: "proteinTextArea",
-                                         width: screenWidth * 0.6,
-                                         height: screenHeight * 0.03)
-        
-        return image
     }()
     
     lazy var nextButton: UIButton = {
@@ -122,13 +90,12 @@ class ProteinViewController: UIViewController {
         navigationController?.pushViewController(mealPlanVC, animated: true)
     }
     
-    
     // MARK: - FUNCTIONS
     func createMacroVStack(calValue: String, carbsValue: String, proteinValue: String, fatValue: String) -> UIStackView {
-        let cal = createMacroHStack(macro: "Calories", textArea: calTextArea)
-        let carbs = createMacroHStack(macro: "Carbs", textArea: carbsTextArea)
-        let protein = createMacroHStack(macro: "Protein", textArea: proteinTextArea)
-        let fat = createMacroHStack(macro: "Fat", textArea: fatTextArea)
+        let cal = createMacroHStack(macro: "Calories", textField: calTextField)
+        let carbs = createMacroHStack(macro: "Carbs", textField: carbsTextField)
+        let protein = createMacroHStack(macro: "Protein", textField: proteinTextField)
+        let fat = createMacroHStack(macro: "Fat", textField: fatTextField)
         
         let macroVStack = createVStack(subviews: [cal, carbs, protein, fat],
                                        spacing: screenHeight * 0.02)
@@ -136,14 +103,14 @@ class ProteinViewController: UIViewController {
         return macroVStack
     }
     
-    func createMacroHStack(macro: String, textArea: UIImageView) -> UIStackView {
+    func createMacroHStack(macro: String, textField: UITextField) -> UIStackView {
         let macroLabel = UILabel()
         macroLabel.text = macro
         macroLabel.textColor = UIColor.customBlue
         macroLabel.font = UIFont(name: "KGHAPPYSolid", size: 15)
         macroLabel.adjustsFontSizeToFitWidth = true
         
-        let macroHStack = UIStackView(arrangedSubviews: [macroLabel, textArea])
+        let macroHStack = UIStackView(arrangedSubviews: [macroLabel, textField])
         macroHStack.axis = .horizontal
         macroHStack.width(screenWidth * 0.65)
         
@@ -153,9 +120,15 @@ class ProteinViewController: UIViewController {
     func createValueField(value: String, inGrams: Bool? = nil) -> UITextField {
         let textField = UITextField()
         textField.textColor = UIColor.customOrange
+        
+        textField.background = UIImage(named: "proteinTextArea")
+        textField.textAlignment = .center
         textField.font = UIFont(name: "KGHAPPYSolid", size: 15)
         textField.adjustsFontSizeToFitWidth = true
         textField.keyboardType = .numberPad
+        
+        textField.width(screenWidth * 0.16)
+        textField.height(screenHeight * 0.03)
         
         if inGrams != nil {
             if value.isEmpty {
@@ -169,31 +142,3 @@ class ProteinViewController: UIViewController {
     }
 }
 
-
-//func createMacroVStack(calG: String, carbsG: String, proteinG: String, fatG: String) -> UIStackView {
-//    let cal = createMacroHStack(macro: "Calories", value: calG)
-//    let carbs = createMacroHStack(macro: "Carbs", value: carbsG)
-//    let protein = createMacroHStack(macro: "Protein", value: proteinG)
-//    let fat = createMacroHStack(macro: "Fat", value: fatG)
-//
-//    let macroVStack = createVStack(subviews: [cal, carbs, protein, fat],
-//                                   spacing: screenHeight * 0.02)
-//
-//    return macroVStack
-//}
-//
-//func createMacroHStack(macro: String, value: String) -> UIStackView {
-//    let macroLabel = UILabel()
-//    macroLabel.text = macro
-////        let valueLabel = UILabel()
-////        valueLabel.text = value
-//
-////        let calTextArea = createAspectFitImage(imageName: "proteinTextArea",
-////                                               width: screenWidth * 0.6,
-////                                               height: screenHeight * 0.03)
-//
-//    let macroHStack = UIStackView(arrangedSubviews: [macroLabel, calTextArea])
-//    macroHStack.axis = .horizontal
-//
-//    return macroHStack
-//}

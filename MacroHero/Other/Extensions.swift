@@ -114,5 +114,3 @@ extension UIColor {
     static let blueSelectedText = UIColor(named: "blueSelectedText")
     static let blueSelectedBg = UIColor(named: "blueSelectedBg")
 }
-
-

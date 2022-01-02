@@ -28,12 +28,6 @@ extension ProteinViewController {
         view.addSubview(mainTitle)
         view.addSubview(proteinShakeGif)
         view.addSubview(macroVStack)
-        
-        calTextArea.addSubview(calLabel)
-        carbsTextArea.addSubview(carbsLabel)
-        proteinTextArea.addSubview(proteinLabel)
-        fatTextArea.addSubview(fatLabel)
-        
         view.addSubview(nextButton)
     }
     
@@ -50,11 +44,6 @@ extension ProteinViewController {
         macroVStack.topToBottom(of: proteinShakeGif, offset: screenHeight * 0.05)
         macroVStack.width(screenWidth * 0.65)
         macroVStack.height(screenHeight * 0.18)
-        
-        calLabel.centerInSuperview()
-        carbsLabel.centerInSuperview()
-        proteinLabel.centerInSuperview()
-        fatLabel.centerInSuperview()
         
         nextButton.centerXToSuperview()
         nextButton.bottomToSuperview(offset: screenHeight * -0.09)
