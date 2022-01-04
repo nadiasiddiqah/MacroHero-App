@@ -22,6 +22,7 @@ class ProteinViewController: UIViewController {
         super.viewDidLoad()
 
         setupViews()
+        setupDelegates()
     }
     
     // MARK: - VIEW OBJECTS
@@ -86,10 +87,12 @@ class ProteinViewController: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func didTapNextButton() {
-        let mealPlanVC = MealPlanViewController()
-        navigationController?.pushViewController(mealPlanVC, animated: true)
+        if nextButton.isEnabled {
+            let mealPlanVC = MealPlanViewController()
+            navigationController?.pushViewController(mealPlanVC, animated: true)
+        }
     }
-    
+
     // MARK: - FUNCTIONS
     func createMacroVStack(calValue: String, carbsValue: String, proteinValue: String, fatValue: String) -> UIStackView {
         let cal = createMacroHStack(macro: "Calories", textField: calTextField)

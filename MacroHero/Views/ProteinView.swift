@@ -18,6 +18,14 @@ extension ProteinViewController {
                          leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))
+        gestureToHideKeyboard()
+    }
+    
+    func setupDelegates() {
+        calTextField.delegate = self
+        carbsTextField.delegate = self
+        proteinTextField.delegate = self
+        fatTextField.delegate = self
     }
 
     @objc func goBack(sender: UIBarButtonItem) {
@@ -47,5 +55,50 @@ extension ProteinViewController {
         
         nextButton.centerXToSuperview()
         nextButton.bottomToSuperview(offset: screenHeight * -0.09)
+    }
+}
+
+// MARK: - Text Field Delegate Methods
+extension ProteinViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == calTextField {
+            keyboardDistanceFromTextField = macroVStack.frame.height
+            print(keyboardDistanceFromTextField)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = calTextField.text {
+            calValue = text
+        } else if let text = carbsTextField.text {
+            carbsValue = text
+        } else if let text = proteinTextField.text {
+            proteinValue = text
+        } else if let text = fatTextField.text {
+            fatValue = text
+        }
+        
+        view.endEditing(true)
+    }
+    
+    // Ends all editing
+    func gestureToHideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+// MARK: - Text View Delegate Methods
+extension ProteinViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if calValue.isEmpty || carbsValue.isEmpty || proteinValue.isEmpty || fatValue.isEmpty {
+            nextButton.isEnabled = false
+        } else {
+            nextButton.isEnabled = true
+        }
     }
 }

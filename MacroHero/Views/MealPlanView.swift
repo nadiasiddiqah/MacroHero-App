@@ -14,21 +14,27 @@ extension MealPlanViewController {
         view.backgroundColor = UIColor(named: "bgColor")
         addSubviews()
         constrainSubviews()
+        
         setNavigationBar(navController: navigationController, navItem: navigationItem,
-                         leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
-                                                            style: .done, target: self,
-                                                            action: #selector(goBack)))
+                         rightBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "person.circle"),
+                                                             style: .done, target: self,
+                                                             action: #selector(showProfile)))
     }
-
-    @objc func goBack(sender: UIBarButtonItem) {
-        self.navigationController?.popViewController(animated: true)
+    
+    @objc func showProfile(sender: UIBarButtonItem) {
+        print("showProfile")
     }
     
     fileprivate func addSubviews() {
-        
+        view.addSubview(mainTitle)
+        view.addSubview(mealGrid)
     }
     
     fileprivate func constrainSubviews() {
+        mainTitle.centerXToSuperview()
+        mainTitle.topToSuperview(offset: screenHeight * 0.14)
         
+        mealGrid.centerXToSuperview()
+        mealGrid.topToBottom(of: mainTitle, offset: screenHeight * 0.04)
     }
 }

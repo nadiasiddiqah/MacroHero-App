@@ -9,8 +9,9 @@ import Foundation
 import UIKit
 import DropDown
 
-let screenWidth = UIScreen.main.bounds.width
-let screenHeight = UIScreen.main.bounds.height
+public var keyboardDistanceFromTextField: CGFloat = 55
+public let screenWidth = UIScreen.main.bounds.width
+public let screenHeight = UIScreen.main.bounds.height
 
 public func createDropDown(dropDown: DropDown, dataSource: [String], anchorView: UIView, halfWidth: Bool? = nil, screen: String) {
     dropDown.dataSource = dataSource
@@ -73,24 +74,36 @@ public func createVStack(subviews: [UIView], width: CGFloat? = nil,
 }
 
 public func setNavigationBar(navController: UINavigationController?, navItem: UINavigationItem,
-                      leftBarButtonItem: UIBarButtonItem) {
+                             leftBarButtonItem: UIBarButtonItem? = nil,
+                             rightBarButtonItem: UIBarButtonItem? = nil) {
     let bar = navController?.navigationBar
-    bar?.standardAppearance.backgroundColor = UIColor(named: "navColor")
-    bar?.tintColor = UIColor(named: "buttonTint")
-    
-    
+    bar?.standardAppearance.backgroundColor = UIColor.navColor
+    bar?.tintColor = UIColor.customNavy
+
     let title = UIImageView(image: UIImage(named: "macrohero"))
     navItem.titleView = title
     
-    navItem.leftBarButtonItem = leftBarButtonItem
+    if leftBarButtonItem != nil {
+        navItem.leftBarButtonItem = leftBarButtonItem
+    }
     navItem.hidesBackButton = true
+    
+    if rightBarButtonItem != nil {
+        navItem.rightBarButtonItem = rightBarButtonItem
+    }
 }
 
-public func createMainTitle(text: String, width: CGFloat? = nil, noOfLines: Int? = nil) -> UILabel {
+public func createMainTitle(text: String, width: CGFloat? = nil, textColor: UIColor? = nil, noOfLines: Int? = nil) -> UILabel {
     let label = UILabel()
     label.text = text
-    label.font = UIFont(name: "KGHAPPYSolid", size: 30)
-    label.textColor = UIColor(named: "orange")
+    
+    if textColor != nil {
+        label.font = UIFont(name: "KGHAPPY", size: 30)
+        label.textColor = textColor
+    } else {
+        label.font = UIFont(name: "KGHAPPYSolid", size: 30)
+        label.textColor = UIColor.customOrange
+    }
     
     if let width = width {
         label.width(width)
@@ -106,8 +119,10 @@ public func createMainTitle(text: String, width: CGFloat? = nil, noOfLines: Int?
 }
 
 extension UIColor {
+    static let navColor = UIColor(named: "navColor")
     static let bgColor = UIColor(named: "bgColor")
     static let customBlue = UIColor(named: "blue")
+    static let customNavy = UIColor(named: "buttonTint")
     static let customGray = UIColor(named: "gray")
     static let customDarkGray = UIColor(named: "darkGray")
     static let customOrange = UIColor(named: "orange")

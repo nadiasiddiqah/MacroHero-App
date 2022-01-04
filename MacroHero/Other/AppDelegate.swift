@@ -7,12 +7,19 @@
 
 import UIKit
 import DropDown
+import IQKeyboardManager
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        // Show keyboard below text field
+        IQKeyboardManager.shared().isEnabled = true
+        IQKeyboardManager.shared().keyboardDistanceFromTextField = keyboardDistanceFromTextField
+        IQKeyboardManager.shared().isEnableAutoToolbar = false
+        
+        // Show dropdown menu
         DropDown.startListeningToKeyboard()
         
         return true

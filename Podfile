@@ -9,5 +9,6 @@ target 'MacroHero' do
   pod 'TinyConstraints'
   pod 'Gifu'
   pod 'DropDown'
+  pod 'IQKeyboardManager'
 
 end
