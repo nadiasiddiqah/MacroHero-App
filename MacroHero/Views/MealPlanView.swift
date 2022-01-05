@@ -27,14 +27,25 @@ extension MealPlanViewController {
     
     fileprivate func addSubviews() {
         view.addSubview(mainTitle)
-        view.addSubview(mealGrid)
+        view.addSubview(breakfastTitle)
+        view.addSubview(breakfastImage)
+        view.addSubview(breakfastMacro)
     }
     
     fileprivate func constrainSubviews() {
         mainTitle.centerXToSuperview()
         mainTitle.topToSuperview(offset: screenHeight * 0.14)
         
-        mealGrid.centerXToSuperview()
-        mealGrid.topToBottom(of: mainTitle, offset: screenHeight * 0.04)
+        breakfastTitle.leftToSuperview(offset: screenWidth * 0.05)
+        breakfastTitle.topToBottom(of: mainTitle, offset: screenHeight * 0.03)
+        
+        breakfastImage.leftToSuperview(offset: screenWidth * 0.05)
+        breakfastImage.topToBottom(of: breakfastTitle, offset: screenHeight * 0.01)
+        breakfastImage.width(screenWidth * 0.45)
+        breakfastImage.aspectRatio(1.63)
+        
+        breakfastMacro.topToBottom(of: breakfastTitle, offset: screenHeight * 0.01)
+        breakfastMacro.leftToRight(of: breakfastImage, offset: screenWidth * 0.02)
+        
     }
 }

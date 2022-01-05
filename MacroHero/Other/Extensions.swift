@@ -59,16 +59,19 @@ public func createAspectFitImage(imageName: String, width: CGFloat? = nil, heigh
 }
 
 public func createVStack(subviews: [UIView], width: CGFloat? = nil,
-                         height: CGFloat? = nil, spacing: CGFloat) -> UIStackView {
+                         height: CGFloat? = nil, spacing: CGFloat? = nil) -> UIStackView {
     let VStack = UIStackView(arrangedSubviews: subviews)
     if let width = width, let height = height {
-    VStack.frame = CGRect(x: 0, y: 0,
-                          width: width,
-                          height: height)
+        VStack.frame = CGRect(x: 0, y: 0,
+                              width: width,
+                              height: height)
+    }
+    
+    if let spacing = spacing {
+        VStack.spacing = spacing
     }
 
     VStack.axis = .vertical
-    VStack.spacing = spacing
 
     return VStack
 }
