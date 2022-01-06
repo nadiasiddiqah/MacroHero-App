@@ -24,8 +24,16 @@ extension MealDetailsViewController {
     }
     
     fileprivate func addSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(topView)
     }
     
     fileprivate func constrainSubviews() {
+        
+        topView.centerXToSuperview()
+        topView.topToSuperview(offset: screenHeight * 0.04)
+        topView.width(screenWidth * 0.8)
     }
 }

@@ -96,7 +96,9 @@ public func setNavigationBar(navController: UINavigationController?, navItem: UI
     }
 }
 
-public func createMainTitle(text: String, width: CGFloat? = nil, textColor: UIColor? = nil, noOfLines: Int? = nil) -> UILabel {
+public func createMainTitle(text: String, width: CGFloat? = nil,
+                            textColor: UIColor? = nil,
+                            noOfLines: Int? = nil) -> UILabel {
     let label = UILabel()
     label.text = text
     
