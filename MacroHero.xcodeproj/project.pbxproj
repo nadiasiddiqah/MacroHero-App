@@ -12,6 +12,7 @@
 		0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0933D8B3270BC56200080FCD /* Assets.xcassets */; };
 		0933D8B7270BC56200080FCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0933D8B5270BC56200080FCD /* LaunchScreen.storyboard */; };
 		0935F3942783C310002AA106 /* MacroBreakdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935F3932783C310002AA106 /* MacroBreakdown.swift */; };
+		0935F396278640DF002AA106 /* MealData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935F395278640DF002AA106 /* MealData.swift */; };
 		093870DC270D0FFA0036A3D7 /* macroManGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 093870DB270D0FFA0036A3D7 /* macroManGif.gif */; };
 		093870E0270D2D310036A3D7 /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870DF270D2D310036A3D7 /* IntroView.swift */; };
 		093870E2270D2D940036A3D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E1270D2D940036A3D7 /* Extensions.swift */; };
@@ -41,6 +42,7 @@
 		0933D8B6270BC56200080FCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0933D8B8270BC56200080FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0935F3932783C310002AA106 /* MacroBreakdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroBreakdown.swift; sourceTree = "<group>"; };
+		0935F395278640DF002AA106 /* MealData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealData.swift; sourceTree = "<group>"; };
 		093870DB270D0FFA0036A3D7 /* macroManGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = macroManGif.gif; sourceTree = "<group>"; };
 		093870DF270D2D310036A3D7 /* IntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroView.swift; sourceTree = "<group>"; };
 		093870E1270D2D940036A3D7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		0933D8C2270BC6A200080FCD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0935F395278640DF002AA106 /* MealData.swift */,
 				0935F3932783C310002AA106 /* MacroBreakdown.swift */,
 			);
 			path = Models;
@@ -313,6 +316,7 @@
 				0989FA71277D0E2100234819 /* ProteinViewController.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Extensions.swift in Sources */,
 				096CA548274DB7F20071C6EE /* PlanView.swift in Sources */,
+				0935F396278640DF002AA106 /* MealData.swift in Sources */,
 				0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */,
 				093870E0270D2D310036A3D7 /* IntroView.swift in Sources */,
 				09FD0BE0270E24830094BAAC /* InfoViewController.swift in Sources */,

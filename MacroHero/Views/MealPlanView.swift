@@ -26,26 +26,48 @@ extension MealPlanViewController {
     }
     
     fileprivate func addSubviews() {
-        view.addSubview(mainTitle)
-        view.addSubview(breakfastTitle)
-        view.addSubview(breakfastImage)
-        view.addSubview(breakfastMacro)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(mainTitle)
+        
+        contentView.addSubview(breakfastTitle)
+        contentView.addSubview(breakfastImage)
+        contentView.addSubview(breakfastMacro)
+        contentView.addSubview(refreshBreakfast)
+        
+        contentView.addSubview(lunchTitle)
+        contentView.addSubview(lunchImage)
+        contentView.addSubview(lunchMacro)
+        contentView.addSubview(refreshLunch)
+        
+        contentView.addSubview(dinnerTitle)
+        contentView.addSubview(dinnerImage)
+        contentView.addSubview(dinnerMacro)
+        contentView.addSubview(refreshDinner)
+
+        contentView.addSubview(proteinShakeTitle)
+        contentView.addSubview(proteinShakeImage)
+        contentView.addSubview(proteinShakeMacro)
     }
     
     fileprivate func constrainSubviews() {
         mainTitle.centerXToSuperview()
-        mainTitle.topToSuperview(offset: screenHeight * 0.14)
+        mainTitle.topToSuperview(offset: screenHeight * 0.04)
         
-        breakfastTitle.leftToSuperview(offset: screenWidth * 0.05)
-        breakfastTitle.topToBottom(of: mainTitle, offset: screenHeight * 0.03)
+        addConstraintsForMeal(title: breakfastTitle, topToBottomOf: mainTitle,
+                              image: breakfastImage, macro: breakfastMacro,
+                              refreshButton: refreshBreakfast)
         
-        breakfastImage.leftToSuperview(offset: screenWidth * 0.05)
-        breakfastImage.topToBottom(of: breakfastTitle, offset: screenHeight * 0.01)
-        breakfastImage.width(screenWidth * 0.45)
-        breakfastImage.aspectRatio(1.63)
+        addConstraintsForMeal(title: lunchTitle, topToBottomOf: breakfastImage,
+                              image: lunchImage, macro: lunchMacro,
+                              refreshButton: refreshLunch)
         
-        breakfastMacro.topToBottom(of: breakfastTitle, offset: screenHeight * 0.01)
-        breakfastMacro.leftToRight(of: breakfastImage, offset: screenWidth * 0.02)
+        addConstraintsForMeal(title: dinnerTitle, topToBottomOf: lunchImage,
+                              image: dinnerImage, macro: dinnerMacro,
+                              refreshButton: refreshDinner)
         
+        addConstraintsForMeal(title: proteinShakeTitle, topToBottomOf: dinnerImage,
+                              image: proteinShakeImage, macro: proteinShakeMacro)
     }
 }

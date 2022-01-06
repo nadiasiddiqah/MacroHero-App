@@ -9,17 +9,32 @@ import UIKit
 
 class MealPlanViewController: UIViewController {
     
-    var breakfast = "Poached Egg & Avocado Toast"
-    var breakfastMacros = MacroBreakdown(calories: "393", carbs: "60g", protein: "23 g", fat: "20 g")
+    lazy var contentViewSize = CGSize(width: screenWidth,
+                                      height: screenHeight + screenHeight * 0.11)
     
-    var lunch = "Poached Egg & Avocado Toast"
-    var lunchMacros = MacroBreakdown(calories: "393", carbs: "60g", protein: "23 g", fat: "20 g")
     
-    var dinner = "Poached Egg & Avocado Toast"
-    var dinnerMacros = MacroBreakdown(calories: "393", carbs: "60g", protein: "23 g", fat: "20 g")
+    var breakfastData = MealData(image: "defaultMealImage",
+                                 type: "Breakfast",
+                                 name: "Poached Egg & Avocado Toast",
+                                 macros: MacroBreakdown(calories: "394", carbs: "60g",
+                                                        protein: "23g", fat: "20g"))
     
-    var proteinShake = "Protein Shake"
-    var proteinShakeMacros = MacroBreakdown(calories: "393", carbs: "60g", protein: "23 g", fat: "20 g")
+    var lunchData = MealData(image: "defaultMealImage",
+                             type: "Lunch",
+                             name: "Poached Egg & Avocado Toast",
+                             macros: MacroBreakdown(calories: "394", carbs: "60g",
+                                                    protein: "23g", fat: "20g"))
+    
+    var dinnerData = MealData(image: "defaultMealImage",
+                              type: "Dinner",
+                              name: "Poached Egg & Avocado Toast",
+                              macros: MacroBreakdown(calories: "394", carbs: "60g",
+                                                     protein: "23g", fat: "20g"))
+    
+    var proteinShakeData = MealData(image: "defaultMealImage",
+                                    type: "Protein Shake",
+                                    macros: MacroBreakdown(calories: "394", carbs: "60g",
+                                                           protein: "23g", fat: "20g"))
 
     // MARK: VIEW METHODS
     override func viewDidLoad() {
@@ -29,6 +44,24 @@ class MealPlanViewController: UIViewController {
     }
     
     // MARK: - VIEW OBJECTS
+    lazy var scrollView: UIScrollView = {
+        let view = UIScrollView(frame: .zero)
+        view.frame = self.view.bounds
+        view.contentSize = contentViewSize
+        view.autoresizingMask = .flexibleHeight
+        view.showsHorizontalScrollIndicator = true
+        view.bounces = true
+        
+        return view
+    }()
+    
+    lazy var contentView: UIView = {
+        let view = UIView()
+        view.frame.size = contentViewSize
+        
+        return view
+    }()
+    
     lazy var mainTitle: UILabel = {
         let label = createMainTitle(text: "TODAY'S MEAL PLAN",
                                     width: screenWidth * 0.8,
@@ -38,60 +71,129 @@ class MealPlanViewController: UIViewController {
         return label
     }()
     
-    func createTitleVStack(title: String, mealName: String) -> UIStackView {
-        let gridWidth = screenWidth * 0.9
-        
-        let label1 = UILabel()
-        label1.text = title
-        label1.font = UIFont(name: "KGHAPPYSolid", size: 30)
-        label1.textColor = UIColor.customOrange
-        label1.width(gridWidth)
-        label1.adjustsFontSizeToFitWidth = true
-        
-        let label2 = UILabel()
-        label2.text = mealName
-        label2.font = UIFont(name: "KGHAPPYSolid", size: 20)
-        label2.textColor = UIColor.customNavy
-        label2.width(gridWidth)
-        label2.adjustsFontSizeToFitWidth = true
-        
-        let labelVStack = createVStack(subviews: [label1, label2],
-                                       spacing: screenHeight * 0.001)
-        
-        return labelVStack
-    }
-    
     lazy var breakfastTitle: UIStackView = {
-        let title = createTitleVStack(title: "Breakfast", mealName: breakfast)
+        let title = createTitleVStack(mealType: breakfastData.type,
+                                      mealName: breakfastData.name ?? "")
         
         return title
     }()
     
     lazy var breakfastImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "defaultMealImage"))
+        let image = UIImageView(image: UIImage(named: breakfastData.image))
         image.contentMode = .scaleAspectFill
         
         return image
     }()
     
     lazy var breakfastMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: breakfastMacros)
+        let macroView = createMacroVStack(macros: breakfastData.macros)
         
         return macroView
     }()
     
     lazy var refreshBreakfast: UIButton = {
-        let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "arrow.clockwise.circle.fill"), for: .normal)
-        button.addTarget(self, action: #selector(didTapRefreshBreakfast), for: .touchUpInside)
-        button.tintColor = UIColor.customOrange
-        button.frame = CGRect(x: 0, y: 0, width: screenWidth * 0.07, height: screenHeight * 0.03)
+        let button = createRefreshButton(action: #selector(didTapRefreshBreakfast))
         
         return button
     }()
     
+    lazy var lunchTitle: UIStackView = {
+        let title = createTitleVStack(mealType: lunchData.type,
+                                      mealName: lunchData.name ?? "")
+        
+        return title
+    }()
+    
+    lazy var lunchImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: lunchData.image))
+        image.contentMode = .scaleAspectFill
+        
+        return image
+    }()
+    
+    lazy var lunchMacro: UIStackView = {
+        let macroView = createMacroVStack(macros: lunchData.macros)
+        
+        return macroView
+    }()
+    
+    lazy var refreshLunch: UIButton = {
+        let button = createRefreshButton(action: #selector(didTapRefreshLunch))
+        
+        return button
+    }()
+    
+    lazy var dinnerTitle: UIStackView = {
+        let title = createTitleVStack(mealType: dinnerData.type,
+                                      mealName: dinnerData.name ?? "")
+        
+        return title
+    }()
+    
+    lazy var dinnerImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: dinnerData.image))
+        image.contentMode = .scaleAspectFill
+        
+        return image
+    }()
+    
+    lazy var dinnerMacro: UIStackView = {
+        let macroView = createMacroVStack(macros: dinnerData.macros)
+        
+        return macroView
+    }()
+    
+    lazy var refreshDinner: UIButton = {
+        let button = createRefreshButton(action: #selector(didTapRefreshDinner))
+        
+        return button
+    }()
+    
+    lazy var proteinShakeTitle: UILabel = {
+        let label = UILabel()
+        label.text = proteinShakeData.type
+        label.font = UIFont(name: "KGHAPPYSolid", size: 30)
+        label.textColor = UIColor.customOrange
+        label.width(screenWidth * 0.9)
+        label.adjustsFontSizeToFitWidth = true
+        
+        return label
+    }()
+    
+    lazy var proteinShakeImage: UIImageView = {
+        let image = UIImageView(image: UIImage(named: lunchData.image))
+        image.contentMode = .scaleAspectFill
+        
+        return image
+    }()
+    
+    lazy var proteinShakeMacro: UIStackView = {
+        let macroView = createMacroVStack(macros: proteinShakeData.macros)
+        
+        return macroView
+    }()
+    
+    // MARK: - TAP METHODS
     @objc func didTapRefreshBreakfast() {
         print("refresh")
+    }
+    
+    @objc func didTapRefreshLunch() {
+        print("refresh")
+    }
+    
+    @objc func didTapRefreshDinner() {
+        print("refresh")
+    }
+    
+    // MARK: - FUNCTIONS
+    func createRefreshButton(action: Selector) -> UIButton {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(systemName: "arrow.clockwise.circle.fill"), for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.tintColor = UIColor.customOrange
+        
+        return button
     }
     
     func createMacroHStack(macro: String, value: String) -> UIStackView {
@@ -124,5 +226,50 @@ class MealPlanViewController: UIViewController {
         macroVStack.spacing = screenHeight * 0.006
         
         return macroVStack
+    }
+    
+    func createTitleVStack(mealType: String, mealName: String) -> UIStackView {
+        let gridWidth = screenWidth * 0.9
+        
+        let label1 = UILabel()
+        label1.text = mealType
+        label1.font = UIFont(name: "KGHAPPYSolid", size: 30)
+        label1.textColor = UIColor.customOrange
+        label1.width(gridWidth)
+        label1.adjustsFontSizeToFitWidth = true
+        
+        let label2 = UILabel()
+        label2.text = mealName
+        label2.font = UIFont(name: "KGHAPPYSolid", size: 20)
+        label2.textColor = UIColor.customNavy
+        label2.width(gridWidth)
+        label2.adjustsFontSizeToFitWidth = true
+        
+        let labelVStack = createVStack(subviews: [label1, label2],
+                                       spacing: screenHeight * 0.001)
+        
+        return labelVStack
+    }
+    
+    func addConstraintsForMeal(title: UIView, topToBottomOf: UIView,
+                               image: UIView, macro: UIView,
+                               refreshButton: UIView? = nil) {
+        title.leftToSuperview(offset: screenWidth * 0.05)
+        title.topToBottom(of: topToBottomOf, offset: screenHeight * 0.03)
+        
+        image.leftToSuperview(offset: screenWidth * 0.05)
+        image.topToBottom(of: title, offset: screenHeight * 0.01)
+        image.width(screenWidth * 0.45)
+        image.aspectRatio(1.63)
+        
+        macro.topToBottom(of: title, offset: screenHeight * 0.01)
+        macro.leftToRight(of: image, offset: screenWidth * 0.02)
+        
+        if let refreshButton = refreshButton {
+            refreshButton.topToBottom(of: title, offset: screenHeight * 0.05)
+            refreshButton.leftToRight(of: macro, offset: screenWidth * 0.07)
+            refreshButton.width(screenWidth * 0.07)
+            refreshButton.aspectRatio(1)
+        }
     }
 }
