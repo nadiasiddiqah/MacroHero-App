@@ -60,6 +60,7 @@ extension ProteinViewController {
 
 // MARK: - Text Field Delegate Methods
 extension ProteinViewController: UITextFieldDelegate {
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == calTextField {
             keyboardDistanceFromTextField = macroVStack.frame.height
@@ -69,13 +70,13 @@ extension ProteinViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = calTextField.text {
-            calValue = text
+            proteinData.macros.calories = text
         } else if let text = carbsTextField.text {
-            carbsValue = text
+            proteinData.macros.carbs = text
         } else if let text = proteinTextField.text {
-            proteinValue = text
+            proteinData.macros.protein = text
         } else if let text = fatTextField.text {
-            fatValue = text
+            proteinData.macros.fat = text
         }
         
         view.endEditing(true)
@@ -95,7 +96,7 @@ extension ProteinViewController: UITextFieldDelegate {
 // MARK: - Text View Delegate Methods
 extension ProteinViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        if calValue.isEmpty || carbsValue.isEmpty || proteinValue.isEmpty || fatValue.isEmpty {
+        if proteinData.macros.calories.isEmpty || proteinData.macros.carbs.isEmpty || proteinData.macros.protein.isEmpty || proteinData.macros.fat.isEmpty {
             nextButton.isEnabled = false
         } else {
             nextButton.isEnabled = true

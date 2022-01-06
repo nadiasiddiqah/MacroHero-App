@@ -12,10 +12,10 @@ import Gifu
 class ProteinViewController: UIViewController {
     
     // MARK: - VARIABLES
-    var calValue = ""
-    var carbsValue = ""
-    var proteinValue = ""
-    var fatValue = ""
+    var proteinData = MealData(image: "defaultMealImage",
+                               type: "Protein Shake",
+                               macros: MacroBreakdown(calories: "", carbs: "",
+                                                      protein: "", fat: ""))
 
     // MARK: VIEW METHODS
     override func viewDidLoad() {
@@ -47,32 +47,31 @@ class ProteinViewController: UIViewController {
     }()
     
     lazy var macroVStack: UIStackView = {
-        let VStack = createMacroVStack(calValue: calValue, carbsValue: carbsValue,
-                                       proteinValue: proteinValue, fatValue: fatValue)
+        let VStack = createMacroVStack()
         
         return VStack
     }()
     
     lazy var calTextField: UITextField = {
-        let textField = createValueField(value: calValue)
+        let textField = createValueField(value: proteinData.macros.calories)
         
         return textField
     }()
     
     lazy var carbsTextField: UITextField = {
-        let textField = createValueField(value: carbsValue, inGrams: true)
+        let textField = createValueField(value: proteinData.macros.carbs, inGrams: true)
         
         return textField
     }()
     
     lazy var proteinTextField: UITextField = {
-        let textField = createValueField(value: proteinValue, inGrams: true)
+        let textField = createValueField(value: proteinData.macros.protein, inGrams: true)
         
         return textField
     }()
 
     lazy var fatTextField: UITextField = {
-        let textField = createValueField(value: fatValue)
+        let textField = createValueField(value: proteinData.macros.fat, inGrams: true)
         
         return textField
     }()
@@ -94,7 +93,7 @@ class ProteinViewController: UIViewController {
     }
 
     // MARK: - FUNCTIONS
-    func createMacroVStack(calValue: String, carbsValue: String, proteinValue: String, fatValue: String) -> UIStackView {
+    func createMacroVStack() -> UIStackView {
         let cal = createMacroHStack(macro: "Calories", textField: calTextField)
         let carbs = createMacroHStack(macro: "Carbs", textField: carbsTextField)
         let protein = createMacroHStack(macro: "Protein", textField: proteinTextField)

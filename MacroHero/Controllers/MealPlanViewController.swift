@@ -9,8 +9,9 @@ import UIKit
 
 class MealPlanViewController: UIViewController {
     
-    lazy var contentViewSize = CGSize(width: screenWidth,
-                                      height: screenHeight + screenHeight * 0.11)
+    // MARK: - PROPERTIES
+    var contentViewSize = CGSize(width: screenWidth,
+                                 height: screenHeight + screenHeight * 0.11)
     
     
     var breakfastData = MealData(image: "defaultMealImage",
@@ -36,7 +37,7 @@ class MealPlanViewController: UIViewController {
                                     macros: MacroBreakdown(calories: "394", carbs: "60g",
                                                            protein: "23g", fat: "20g"))
 
-    // MARK: VIEW METHODS
+    // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -73,20 +74,22 @@ class MealPlanViewController: UIViewController {
     
     lazy var breakfastTitle: UIStackView = {
         let title = createTitleVStack(mealType: breakfastData.type,
-                                      mealName: breakfastData.name ?? "")
+                                      mealName: breakfastData.name ?? "",
+                                      action: #selector(showBreakfastDetails))
         
         return title
     }()
     
     lazy var breakfastImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: breakfastData.image))
-        image.contentMode = .scaleAspectFill
+        let image = createImage(imageName: breakfastData.image,
+                                action: #selector(showBreakfastDetails))
         
         return image
     }()
     
     lazy var breakfastMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: breakfastData.macros)
+        let macroView = createMacroVStack(macros: breakfastData.macros,
+                                          action: #selector(showBreakfastDetails))
         
         return macroView
     }()
@@ -99,20 +102,22 @@ class MealPlanViewController: UIViewController {
     
     lazy var lunchTitle: UIStackView = {
         let title = createTitleVStack(mealType: lunchData.type,
-                                      mealName: lunchData.name ?? "")
+                                      mealName: lunchData.name ?? "",
+                                      action: #selector(showLunchDetails))
         
         return title
     }()
     
     lazy var lunchImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: lunchData.image))
-        image.contentMode = .scaleAspectFill
+        let image = createImage(imageName: lunchData.image,
+                                action: #selector(showLunchDetails))
         
         return image
     }()
     
     lazy var lunchMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: lunchData.macros)
+        let macroView = createMacroVStack(macros: lunchData.macros,
+                                          action: #selector(showLunchDetails))
         
         return macroView
     }()
@@ -125,20 +130,22 @@ class MealPlanViewController: UIViewController {
     
     lazy var dinnerTitle: UIStackView = {
         let title = createTitleVStack(mealType: dinnerData.type,
-                                      mealName: dinnerData.name ?? "")
+                                      mealName: dinnerData.name ?? "",
+                                      action: #selector(showDinnerDetails))
         
         return title
     }()
     
     lazy var dinnerImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: dinnerData.image))
-        image.contentMode = .scaleAspectFill
+        let image = createImage(imageName: dinnerData.image,
+                                action: #selector(showDinnerDetails))
         
         return image
     }()
     
     lazy var dinnerMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: dinnerData.macros)
+        let macroView = createMacroVStack(macros: dinnerData.macros,
+                                          action: #selector(showDinnerDetails))
         
         return macroView
     }()
@@ -161,7 +168,7 @@ class MealPlanViewController: UIViewController {
     }()
     
     lazy var proteinShakeImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: lunchData.image))
+        let image = UIImageView(image: UIImage(named: proteinShakeData.image))
         image.contentMode = .scaleAspectFill
         
         return image
@@ -174,6 +181,21 @@ class MealPlanViewController: UIViewController {
     }()
     
     // MARK: - TAP METHODS
+    @objc func showBreakfastDetails() {
+        let nextVC = MealDetailsViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func showLunchDetails() {
+        let nextVC = MealDetailsViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func showDinnerDetails() {
+        let nextVC = MealDetailsViewController()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     @objc func didTapRefreshBreakfast() {
         print("refresh")
     }
@@ -215,7 +237,7 @@ class MealPlanViewController: UIViewController {
         return macroHStack
     }
     
-    func createMacroVStack(macros: MacroBreakdown) -> UIStackView {
+    func createMacroVStack(macros: MacroBreakdown, action: Selector? = nil) -> UIStackView {
         let cal = createMacroHStack(macro: "Calories", value: macros.calories)
         let carbs = createMacroHStack(macro: "Carbs", value: macros.carbs)
         let protein = createMacroHStack(macro: "Protein", value: macros.protein)
@@ -225,10 +247,14 @@ class MealPlanViewController: UIViewController {
         macroVStack.width(screenWidth * 0.3)
         macroVStack.spacing = screenHeight * 0.006
         
+        if let action = action {
+            addGestureRecognizer(object: macroVStack, action: action)
+        }
+        
         return macroVStack
     }
     
-    func createTitleVStack(mealType: String, mealName: String) -> UIStackView {
+    func createTitleVStack(mealType: String, mealName: String, action: Selector) -> UIStackView {
         let gridWidth = screenWidth * 0.9
         
         let label1 = UILabel()
@@ -247,6 +273,8 @@ class MealPlanViewController: UIViewController {
         
         let labelVStack = createVStack(subviews: [label1, label2],
                                        spacing: screenHeight * 0.001)
+        
+        addGestureRecognizer(object: labelVStack, action: action)
         
         return labelVStack
     }
@@ -271,5 +299,20 @@ class MealPlanViewController: UIViewController {
             refreshButton.width(screenWidth * 0.07)
             refreshButton.aspectRatio(1)
         }
+    }
+    
+    func addGestureRecognizer(object: UIView, action: Selector) {
+        let tap = UITapGestureRecognizer(target: self, action: action)
+        object.addGestureRecognizer(tap)
+    }
+    
+    func createImage(imageName: String, action: Selector) -> UIImageView {
+        let image = UIImageView(image: UIImage(named: imageName))
+        image.contentMode = .scaleAspectFill
+        image.isUserInteractionEnabled = true
+        
+        addGestureRecognizer(object: image, action: action)
+        
+        return image
     }
 }
