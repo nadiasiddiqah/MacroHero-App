@@ -13,5 +13,5 @@ struct MealData {
     var image, type: String
     var name: String? = nil
     var macros: MacroBreakdown
-    
+    var ingredients, instructions: [String]
 }

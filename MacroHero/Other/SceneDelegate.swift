@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         
-        let vc = MealPlanViewController()
+        let vc = MealDetailsViewController()
         let navController = UINavigationController(rootViewController: vc)
         
         window.rootViewController = navController

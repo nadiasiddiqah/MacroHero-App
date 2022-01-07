@@ -15,7 +15,9 @@ class ProteinViewController: UIViewController {
     var proteinData = MealData(image: "defaultMealImage",
                                type: "Protein Shake",
                                macros: MacroBreakdown(calories: "", carbs: "",
-                                                      protein: "", fat: ""))
+                                                      protein: "", fat: ""),
+                               ingredients: [],
+                               instructions: [])
 
     // MARK: VIEW METHODS
     override func viewDidLoad() {

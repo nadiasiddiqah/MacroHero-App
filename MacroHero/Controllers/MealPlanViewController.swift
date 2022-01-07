@@ -18,24 +18,32 @@ class MealPlanViewController: UIViewController {
                                  type: "Breakfast",
                                  name: "Poached Egg & Avocado Toast",
                                  macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                        protein: "23g", fat: "20g"))
+                                                        protein: "23g", fat: "20g"),
+                                 ingredients: [],
+                                 instructions: [])
     
     var lunchData = MealData(image: "defaultMealImage",
                              type: "Lunch",
                              name: "Poached Egg & Avocado Toast",
                              macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                    protein: "23g", fat: "20g"))
+                                                    protein: "23g", fat: "20g"),
+                             ingredients: [],
+                             instructions: [])
     
     var dinnerData = MealData(image: "defaultMealImage",
                               type: "Dinner",
                               name: "Poached Egg & Avocado Toast",
                               macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                     protein: "23g", fat: "20g"))
+                                                     protein: "23g", fat: "20g"),
+                              ingredients: [],
+                              instructions: [])
     
     var proteinShakeData = MealData(image: "defaultMealImage",
                                     type: "Protein Shake",
                                     macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                           protein: "23g", fat: "20g"))
+                                                           protein: "23g", fat: "20g"),
+                                    ingredients: [],
+                                    instructions: [])
 
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
