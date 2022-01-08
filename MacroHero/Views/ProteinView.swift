@@ -51,7 +51,6 @@ extension ProteinViewController {
         macroVStack.centerXToSuperview()
         macroVStack.topToBottom(of: proteinShakeGif, offset: screenHeight * 0.05)
         macroVStack.width(screenWidth * 0.65)
-        macroVStack.height(screenHeight * 0.18)
         
         nextButton.centerXToSuperview()
         nextButton.bottomToSuperview(offset: screenHeight * -0.09)

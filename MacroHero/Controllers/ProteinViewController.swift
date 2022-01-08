@@ -116,7 +116,6 @@ class ProteinViewController: UIViewController {
         
         let macroHStack = UIStackView(arrangedSubviews: [macroLabel, textField])
         macroHStack.axis = .horizontal
-        macroHStack.width(screenWidth * 0.65)
         
         return macroHStack
     }
