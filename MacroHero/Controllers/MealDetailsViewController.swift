@@ -10,9 +10,6 @@ import UIKit
 class MealDetailsViewController: UIViewController {
 
     // MARK: - PROPERTIES
-    var contentViewSize = CGSize(width: screenWidth,
-                                 height: screenHeight + 1000)
-    
     var mealData = MealData(image: "defaultMealImage",
                             type: "Breakfast",
                             name: "Poached Egg & Avocado Toast",
@@ -29,30 +26,30 @@ class MealDetailsViewController: UIViewController {
                                 "Sprinkle with Parmesan cheese, salt, pepper, and fresh herbs; serve with the fresh quartered heirloom tomatoes."
                             ])
     
-    // MARK: VIEW METHODS
+    // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupViews()
     }
 
     // MARK: - VIEW OBJECTS
     lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView(frame: .zero)
-        scrollView.frame = view.bounds
-        scrollView.contentSize = contentViewSize
-        scrollView.autoresizingMask = .flexibleHeight
-        scrollView.showsHorizontalScrollIndicator = true
-        scrollView.bounces = true
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
     }()
     
     lazy var contentView: UIView = {
-        let view = UIView()
-        view.frame.size = contentViewSize
+        let partialView = createVStack(subviews: [topView, nutritionView, ingredientsView],
+                                       spacing: screenHeight * 0.03)
+        partialView.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
+        let fullView = createVStack(subviews: [partialView, instructionsView],
+                                    spacing: screenHeight * 0.001)
+        
+        return fullView
     }()
     
     lazy var topView: UIStackView = {

@@ -26,21 +26,16 @@ extension MealDetailsViewController {
     fileprivate func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        
-        contentView.addSubview(topView)
-        contentView.addSubview(nutritionView)
-        contentView.addSubview(ingredientsView)
-        contentView.addSubview(instructionsView)
     }
     
     fileprivate func constrainSubviews() {
-        let VStack = [topView, nutritionView, ingredientsView]
-        contentView.stack(VStack, spacing: screenHeight * 0.03)
-        contentView.centerXToSuperview()
-        contentView.topToSuperview(offset: screenHeight * 0.04)
-        contentView.width(screenWidth * 0.8)
+        scrollView.edgesToSuperview()
         
-        instructionsView.width(screenWidth * 0.8)
-        instructionsView.topToBottom(of: contentView, offset: screenHeight * 0.001)
+        contentView.topToSuperview(offset: screenHeight * 0.04)
+        contentView.centerXToSuperview()
+        contentView.bottomToSuperview()
+        contentView.width(screenWidth * 0.8)
     }
+
 }
+
