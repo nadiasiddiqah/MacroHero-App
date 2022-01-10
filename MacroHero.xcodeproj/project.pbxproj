@@ -23,6 +23,9 @@
 		096CA548274DB7F20071C6EE /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA547274DB7F20071C6EE /* PlanView.swift */; };
 		0989FA71277D0E2100234819 /* ProteinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989FA70277D0E2100234819 /* ProteinViewController.swift */; };
 		0989FA73277D4B5200234819 /* ProteinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989FA72277D4B5200234819 /* ProteinView.swift */; };
+		09975BBE278CDE8B0096E00A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BBD278CDE8B0096E00A /* TabBarViewController.swift */; };
+		09975BC4278CF78F0096E00A /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BC3278CF78F0096E00A /* AddViewController.swift */; };
+		09975BC6278CF7AA0096E00A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BC5278CF7AA0096E00A /* ProfileViewController.swift */; };
 		09A26980277E588E005C0BFF /* proteinShakeGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 09A2697F277E588E005C0BFF /* proteinShakeGif.gif */; };
 		09A26982277EB17E005C0BFF /* MealPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A26981277EB17E005C0BFF /* MealPlanViewController.swift */; };
 		09A26984277F9673005C0BFF /* MealPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A26983277F9673005C0BFF /* MealPlanView.swift */; };
@@ -55,6 +58,9 @@
 		096CA547274DB7F20071C6EE /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		0989FA70277D0E2100234819 /* ProteinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinViewController.swift; sourceTree = "<group>"; };
 		0989FA72277D4B5200234819 /* ProteinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinView.swift; sourceTree = "<group>"; };
+		09975BBD278CDE8B0096E00A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		09975BC3278CF78F0096E00A /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		09975BC5278CF7AA0096E00A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		09A2697F277E588E005C0BFF /* proteinShakeGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = proteinShakeGif.gif; sourceTree = "<group>"; };
 		09A26981277EB17E005C0BFF /* MealPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanViewController.swift; sourceTree = "<group>"; };
 		09A26983277F9673005C0BFF /* MealPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanView.swift; sourceTree = "<group>"; };
@@ -138,12 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				093870E3270D6B0D0036A3D7 /* IntroViewController.swift */,
-				09FD0BDF270E24830094BAAC /* InfoViewController.swift */,
-				096CA545274DB7C40071C6EE /* PlanViewController.swift */,
-				09EE8141277A8D9D00579224 /* RankViewController.swift */,
-				0989FA70277D0E2100234819 /* ProteinViewController.swift */,
-				09A26981277EB17E005C0BFF /* MealPlanViewController.swift */,
-				0935F39927867715002AA106 /* MealDetailsViewController.swift */,
+				09975BC2278CF62B0096E00A /* Onboarding */,
+				09975BC1278CF6030096E00A /* Tab Bar */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -170,6 +172,29 @@
 				0935F3932783C310002AA106 /* MacroBreakdown.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		09975BC1278CF6030096E00A /* Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				09975BBD278CDE8B0096E00A /* TabBarViewController.swift */,
+				09A26981277EB17E005C0BFF /* MealPlanViewController.swift */,
+				0935F39927867715002AA106 /* MealDetailsViewController.swift */,
+				09975BC3278CF78F0096E00A /* AddViewController.swift */,
+				09975BC5278CF7AA0096E00A /* ProfileViewController.swift */,
+			);
+			path = "Tab Bar";
+			sourceTree = "<group>";
+		};
+		09975BC2278CF62B0096E00A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				09FD0BDF270E24830094BAAC /* InfoViewController.swift */,
+				096CA545274DB7C40071C6EE /* PlanViewController.swift */,
+				09EE8141277A8D9D00579224 /* RankViewController.swift */,
+				0989FA70277D0E2100234819 /* ProteinViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		09FD0BEB270E2E0B0094BAAC /* Fonts */ = {
@@ -321,6 +346,7 @@
 				093870E4270D6B0D0036A3D7 /* IntroViewController.swift in Sources */,
 				0935F39A27867715002AA106 /* MealDetailsViewController.swift in Sources */,
 				0989FA71277D0E2100234819 /* ProteinViewController.swift in Sources */,
+				09975BBE278CDE8B0096E00A /* TabBarViewController.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Extensions.swift in Sources */,
 				096CA548274DB7F20071C6EE /* PlanView.swift in Sources */,
 				0935F396278640DF002AA106 /* MealData.swift in Sources */,
@@ -329,6 +355,8 @@
 				093870E0270D2D310036A3D7 /* IntroView.swift in Sources */,
 				09FD0BE0270E24830094BAAC /* InfoViewController.swift in Sources */,
 				096CA546274DB7C40071C6EE /* PlanViewController.swift in Sources */,
+				09975BC4278CF78F0096E00A /* AddViewController.swift in Sources */,
+				09975BC6278CF7AA0096E00A /* ProfileViewController.swift in Sources */,
 				0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */,
 				09EE8144277A8DAA00579224 /* RankView.swift in Sources */,
 				09FD0BE2270E2D1C0094BAAC /* InfoView.swift in Sources */,

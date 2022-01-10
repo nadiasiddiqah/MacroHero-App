@@ -89,8 +89,27 @@ class ProteinViewController: UIViewController {
     // MARK: - TAP METHODS
     @objc func didTapNextButton() {
         if nextButton.isEnabled {
-            let mealPlanVC = MealPlanViewController()
-            navigationController?.pushViewController(mealPlanVC, animated: true)
+            let tabBarController = UITabBarController()
+            
+            let vc1 = UINavigationController(rootViewController: MealPlanViewController())
+            let vc2 = UINavigationController(rootViewController: AddViewController())
+            let vc3 = UINavigationController(rootViewController: ProfileViewController())
+            
+            vc1.title = "Plan"
+            vc2.title = "Add"
+            vc3.title = "Profile"
+            
+            tabBarController.setViewControllers([vc1, vc2, vc3], animated: false)
+            
+            guard let items = tabBarController.tabBar.items else { return }
+            let images = ["note.text", "plus.circle", "person.circle"]
+            
+            for item in 0..<items.count {
+                items[item].image = UIImage(systemName: images[item])
+            }
+            
+            tabBarController.modalPresentationStyle = .fullScreen
+            present(tabBarController, animated: true)
         }
     }
 
@@ -144,4 +163,3 @@ class ProteinViewController: UIViewController {
         return textField
     }
 }
-

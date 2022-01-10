@@ -15,14 +15,7 @@ extension MealPlanViewController {
         addSubviews()
         constrainSubviews()
         
-        setNavigationBar(navController: navigationController, navItem: navigationItem,
-                         rightBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "person.circle"),
-                                                             style: .done, target: self,
-                                                             action: #selector(showProfile)))
-    }
-    
-    @objc func showProfile(sender: UIBarButtonItem) {
-        print("showProfile")
+        setNavigationBar(navController: navigationController, navItem: navigationItem)
     }
     
     fileprivate func addSubviews() {
