@@ -108,8 +108,9 @@ class ProteinViewController: UIViewController {
                 items[item].image = UIImage(systemName: images[item])
             }
             
+            tabBarController.tabBar.tintColor = UIColor.customNavy
             tabBarController.modalPresentationStyle = .fullScreen
-            present(tabBarController, animated: true)
+            present(tabBarController, animated: false)
         }
     }
 

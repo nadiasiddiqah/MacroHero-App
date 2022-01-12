@@ -80,8 +80,9 @@ public func setNavigationBar(navController: UINavigationController?, navItem: UI
                              leftBarButtonItem: UIBarButtonItem? = nil,
                              rightBarButtonItem: UIBarButtonItem? = nil) {
     let bar = navController?.navigationBar
-    bar?.standardAppearance.backgroundColor = UIColor.navColor
     bar?.tintColor = UIColor.customNavy
+    bar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+    bar?.shadowImage = UIImage()
 
     let title = UIImageView(image: UIImage(named: "macrohero"))
     navItem.titleView = title

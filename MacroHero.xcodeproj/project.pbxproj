@@ -23,7 +23,6 @@
 		096CA548274DB7F20071C6EE /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA547274DB7F20071C6EE /* PlanView.swift */; };
 		0989FA71277D0E2100234819 /* ProteinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989FA70277D0E2100234819 /* ProteinViewController.swift */; };
 		0989FA73277D4B5200234819 /* ProteinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989FA72277D4B5200234819 /* ProteinView.swift */; };
-		09975BBE278CDE8B0096E00A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BBD278CDE8B0096E00A /* TabBarViewController.swift */; };
 		09975BC4278CF78F0096E00A /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BC3278CF78F0096E00A /* AddViewController.swift */; };
 		09975BC6278CF7AA0096E00A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BC5278CF7AA0096E00A /* ProfileViewController.swift */; };
 		09A26980277E588E005C0BFF /* proteinShakeGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 09A2697F277E588E005C0BFF /* proteinShakeGif.gif */; };
@@ -58,7 +57,6 @@
 		096CA547274DB7F20071C6EE /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		0989FA70277D0E2100234819 /* ProteinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinViewController.swift; sourceTree = "<group>"; };
 		0989FA72277D4B5200234819 /* ProteinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinView.swift; sourceTree = "<group>"; };
-		09975BBD278CDE8B0096E00A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		09975BC3278CF78F0096E00A /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		09975BC5278CF7AA0096E00A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		09A2697F277E588E005C0BFF /* proteinShakeGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = proteinShakeGif.gif; sourceTree = "<group>"; };
@@ -177,11 +175,9 @@
 		09975BC1278CF6030096E00A /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
-				09975BBD278CDE8B0096E00A /* TabBarViewController.swift */,
-				09A26981277EB17E005C0BFF /* MealPlanViewController.swift */,
-				0935F39927867715002AA106 /* MealDetailsViewController.swift */,
-				09975BC3278CF78F0096E00A /* AddViewController.swift */,
-				09975BC5278CF7AA0096E00A /* ProfileViewController.swift */,
+				09975BC7278D0B7F0096E00A /* Plan */,
+				09975BC8278D0B950096E00A /* Add */,
+				09975BC9278D0B9B0096E00A /* Profile */,
 			);
 			path = "Tab Bar";
 			sourceTree = "<group>";
@@ -195,6 +191,31 @@
 				0989FA70277D0E2100234819 /* ProteinViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		09975BC7278D0B7F0096E00A /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				09A26981277EB17E005C0BFF /* MealPlanViewController.swift */,
+				0935F39927867715002AA106 /* MealDetailsViewController.swift */,
+			);
+			name = Plan;
+			sourceTree = "<group>";
+		};
+		09975BC8278D0B950096E00A /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				09975BC3278CF78F0096E00A /* AddViewController.swift */,
+			);
+			name = Add;
+			sourceTree = "<group>";
+		};
+		09975BC9278D0B9B0096E00A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				09975BC5278CF7AA0096E00A /* ProfileViewController.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		09FD0BEB270E2E0B0094BAAC /* Fonts */ = {
@@ -346,7 +367,6 @@
 				093870E4270D6B0D0036A3D7 /* IntroViewController.swift in Sources */,
 				0935F39A27867715002AA106 /* MealDetailsViewController.swift in Sources */,
 				0989FA71277D0E2100234819 /* ProteinViewController.swift in Sources */,
-				09975BBE278CDE8B0096E00A /* TabBarViewController.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Extensions.swift in Sources */,
 				096CA548274DB7F20071C6EE /* PlanView.swift in Sources */,
 				0935F396278640DF002AA106 /* MealData.swift in Sources */,

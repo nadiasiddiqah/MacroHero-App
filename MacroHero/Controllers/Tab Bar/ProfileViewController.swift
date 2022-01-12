@@ -15,3 +15,19 @@ class ProfileViewController: UIViewController {
         title = "Profile"
     }
 }
+
+class SearchViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .red
+        title = "Search"
+    }
+}
+
+class FavViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .lightGray
+        title = "Favorites"
+    }
+}
