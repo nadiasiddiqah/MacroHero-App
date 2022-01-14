@@ -9,20 +9,27 @@ import UIKit
 
 class MealPlanViewController: UIViewController {
     
+    #warning("Test to see that breakfastData inputs can be shown in app, need to convert image variable into JPG compatible image")
     // MARK: - PROPERTIES
+    var viewModel: MealPlanViewModel!
+    
     var contentViewSize = CGSize(width: screenWidth,
                                  height: screenHeight + screenHeight * 0.11)
     
+    var breakfastReq = MealReq(type: "Breakfast",
+                               macros: MacroBreakdown(calories: "394", carbs: "60",
+                                                      protein: "20", fat: "20"),
+                               random: true)
     
-    var breakfastData = MealData(image: "defaultMealImage",
-                                 type: "Breakfast",
-                                 name: "Poached Egg & Avocado Toast",
-                                 macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                        protein: "23g", fat: "20g"),
-                                 ingredients: [],
-                                 instructions: [])
-    
-    var lunchData = MealData(image: "defaultMealImage",
+//    var breakfastData = MealInfo(image: "defaultMealImage",
+//                                 type: "Breakfast",
+//                                 name: "Poached Egg & Avocado Toast",
+//                                 macros: MacroBreakdown(calories: "394", carbs: "60g",
+//                                                        protein: "23g", fat: "20g"),
+//                                 ingredients: [],
+//                                 instructions: [])
+
+    var lunchData = MealInfo(image: "defaultMealImage",
                              type: "Lunch",
                              name: "Poached Egg & Avocado Toast",
                              macros: MacroBreakdown(calories: "394", carbs: "60g",
@@ -30,7 +37,7 @@ class MealPlanViewController: UIViewController {
                              ingredients: [],
                              instructions: [])
     
-    var dinnerData = MealData(image: "defaultMealImage",
+    var dinnerData = MealInfo(image: "defaultMealImage",
                               type: "Dinner",
                               name: "Poached Egg & Avocado Toast",
                               macros: MacroBreakdown(calories: "394", carbs: "60g",
@@ -38,8 +45,8 @@ class MealPlanViewController: UIViewController {
                               ingredients: [],
                               instructions: [])
     
-    var proteinShakeData = MealData(image: "defaultMealImage",
-                                    type: "Protein Shake",
+    var proteinShakeData = MealInfo(image: "defaultMealImage",
+                                    type: "Protein Shake", name: "No Moo Vegan Protein Powder",
                                     macros: MacroBreakdown(calories: "394", carbs: "60g",
                                                            protein: "23g", fat: "20g"),
                                     ingredients: [],
@@ -50,6 +57,7 @@ class MealPlanViewController: UIViewController {
         super.viewDidLoad()
 
         setupViews()
+        viewModel.getMealData(reqs: breakfastReq)
     }
     
     // MARK: - VIEW OBJECTS
@@ -81,23 +89,32 @@ class MealPlanViewController: UIViewController {
     }()
     
     lazy var breakfastTitle: UIStackView = {
-        let title = createTitleVStack(mealType: breakfastData.type,
-                                      mealName: breakfastData.name ?? "",
-                                      action: #selector(showBreakfastDetails))
+        var title = UIStackView()
+        if let breakfast = viewModel.breakfastData {
+            title = createTitleVStack(mealType: breakfast.type,
+                                          mealName: breakfast.name,
+                                          action: #selector(showBreakfastDetails))
+        }
         
         return title
     }()
     
     lazy var breakfastImage: UIImageView = {
-        let image = createImage(imageName: breakfastData.image,
+        var image = UIImageView()
+        if let breakfast = viewModel.breakfastData {
+            image = createImage(imageName: breakfast.image,
                                 action: #selector(showBreakfastDetails))
+        }
         
         return image
     }()
     
     lazy var breakfastMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: breakfastData.macros,
+        var macroView = UIStackView()
+        if let breakfast = viewModel.breakfastData {
+            macroView = createMacroVStack(macros: breakfast.macros,
                                           action: #selector(showBreakfastDetails))
+        }
         
         return macroView
     }()
@@ -110,7 +127,7 @@ class MealPlanViewController: UIViewController {
     
     lazy var lunchTitle: UIStackView = {
         let title = createTitleVStack(mealType: lunchData.type,
-                                      mealName: lunchData.name ?? "",
+                                      mealName: lunchData.name ,
                                       action: #selector(showLunchDetails))
         
         return title
@@ -138,7 +155,7 @@ class MealPlanViewController: UIViewController {
     
     lazy var dinnerTitle: UIStackView = {
         let title = createTitleVStack(mealType: dinnerData.type,
-                                      mealName: dinnerData.name ?? "",
+                                      mealName: dinnerData.name ,
                                       action: #selector(showDinnerDetails))
         
         return title

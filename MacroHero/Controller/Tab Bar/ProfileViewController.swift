@@ -31,3 +31,7 @@ class FavViewController: UIViewController {
         title = "Favorites"
     }
 }
+
+// Add in allergies
+// Food intolerances + food preferences
+// Groceries tab - add to groceries, buy from instacart?

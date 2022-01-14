@@ -10,7 +10,7 @@ import UIKit
 class MealDetailsViewController: UIViewController {
 
     // MARK: - PROPERTIES
-    var mealData = MealData(image: "defaultMealImage",
+    var mealData = MealInfo(image: "defaultMealImage",
                             type: "Breakfast",
                             name: "Poached Egg & Avocado Toast",
                             macros: MacroBreakdown(calories: "394", carbs: "60g",

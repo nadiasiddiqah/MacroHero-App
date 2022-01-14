@@ -12,7 +12,7 @@ import Gifu
 class ProteinViewController: UIViewController {
     
     // MARK: - VARIABLES
-    var proteinData = MealData(image: "defaultMealImage",
+    var proteinData = MealInfo(image: "defaultMealImage",
                                type: "Protein Shake",
                                macros: MacroBreakdown(calories: "", carbs: "",
                                                       protein: "", fat: ""),
