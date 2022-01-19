@@ -9,11 +9,11 @@ import UIKit
 import Foundation
 import Gifu
 
-class ProteinViewController: UIViewController {
+class ProteinView: UIViewController {
     
     // MARK: - VARIABLES
     var proteinData = MealInfo(image: "defaultMealImage",
-                               type: "Protein Shake",
+                               type: "Protein Shake", name: "",
                                macros: MacroBreakdown(calories: "", carbs: "",
                                                       protein: "", fat: ""),
                                ingredients: [],
@@ -91,9 +91,9 @@ class ProteinViewController: UIViewController {
         if nextButton.isEnabled {
             let tabBarController = UITabBarController()
             
-            let vc1 = UINavigationController(rootViewController: MealPlanViewController())
-            let vc2 = UINavigationController(rootViewController: AddViewController())
-            let vc3 = UINavigationController(rootViewController: ProfileViewController())
+            let vc1 = UINavigationController(rootViewController: MealPlanView())
+            let vc2 = UINavigationController(rootViewController: AddView())
+            let vc3 = UINavigationController(rootViewController: ProfileView())
             
             vc1.title = "Plan"
             vc2.title = "Add"
@@ -162,5 +162,100 @@ class ProteinViewController: UIViewController {
         }
         
         return textField
+    }
+}
+
+extension ProteinView {
+
+    func setupViews() {
+        view.backgroundColor = UIColor(named: "bgColor")
+        addSubviews()
+        constrainSubviews()
+        setNavigationBar(navController: navigationController, navItem: navigationItem,
+                         leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
+                                                            style: .done, target: self,
+                                                            action: #selector(goBack)))
+        gestureToHideKeyboard()
+    }
+    
+    func setupDelegates() {
+        calTextField.delegate = self
+        carbsTextField.delegate = self
+        proteinTextField.delegate = self
+        fatTextField.delegate = self
+    }
+
+    @objc func goBack(sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    fileprivate func addSubviews() {
+        view.addSubview(mainTitle)
+        view.addSubview(proteinShakeGif)
+        view.addSubview(macroVStack)
+        view.addSubview(nextButton)
+    }
+    
+    fileprivate func constrainSubviews() {
+        mainTitle.topToSuperview(offset: screenHeight * 0.21)
+        mainTitle.centerXToSuperview()
+        
+        proteinShakeGif.topToBottom(of: mainTitle)
+        proteinShakeGif.centerXToSuperview()
+        proteinShakeGif.width(screenWidth * 0.67)
+        proteinShakeGif.height(screenHeight * 0.18)
+        
+        macroVStack.centerXToSuperview()
+        macroVStack.topToBottom(of: proteinShakeGif, offset: screenHeight * 0.05)
+        macroVStack.width(screenWidth * 0.65)
+        
+        nextButton.centerXToSuperview()
+        nextButton.bottomToSuperview(offset: screenHeight * -0.09)
+    }
+}
+
+// MARK: - Text Field Delegate Methods
+extension ProteinView: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == calTextField {
+            keyboardDistanceFromTextField = macroVStack.frame.height
+            print(keyboardDistanceFromTextField)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = calTextField.text {
+            proteinData.macros.calories = text
+        } else if let text = carbsTextField.text {
+            proteinData.macros.carbs = text
+        } else if let text = proteinTextField.text {
+            proteinData.macros.protein = text
+        } else if let text = fatTextField.text {
+            proteinData.macros.fat = text
+        }
+        
+        view.endEditing(true)
+    }
+    
+    // Ends all editing
+    func gestureToHideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+// MARK: - Text View Delegate Methods
+extension ProteinView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if proteinData.macros.calories.isEmpty || proteinData.macros.carbs.isEmpty || proteinData.macros.protein.isEmpty || proteinData.macros.fat.isEmpty {
+            nextButton.isEnabled = false
+        } else {
+            nextButton.isEnabled = true
+        }
     }
 }

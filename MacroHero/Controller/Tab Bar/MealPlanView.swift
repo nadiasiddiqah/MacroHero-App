@@ -7,28 +7,29 @@
 
 import UIKit
 
-class MealPlanViewController: UIViewController {
+class MealPlanView: UIViewController {
     
-    #warning("Test to see that breakfastData inputs can be shown in app, need to convert image variable into JPG compatible image")
     // MARK: - PROPERTIES
-    var viewModel: MealPlanViewModel!
+    var viewModel = MealPlanVM()
     
     var contentViewSize = CGSize(width: screenWidth,
                                  height: screenHeight + screenHeight * 0.11)
+    
+    var meal: MealInfo?
     
     var breakfastReq = MealReq(type: "Breakfast",
                                macros: MacroBreakdown(calories: "394", carbs: "60",
                                                       protein: "20", fat: "20"),
                                random: true)
     
-//    var breakfastData = MealInfo(image: "defaultMealImage",
-//                                 type: "Breakfast",
-//                                 name: "Poached Egg & Avocado Toast",
-//                                 macros: MacroBreakdown(calories: "394", carbs: "60g",
-//                                                        protein: "23g", fat: "20g"),
-//                                 ingredients: [],
-//                                 instructions: [])
-
+    var breakfastData = MealInfo(image: "defaultMealImage",
+                                 type: "Breakfast",
+                                 name: "Poached Egg & Avocado Toast",
+                                 macros: MacroBreakdown(calories: "394", carbs: "60g",
+                                                        protein: "23g", fat: "20g"),
+                                 ingredients: [],
+                                 instructions: [])
+    
     var lunchData = MealInfo(image: "defaultMealImage",
                              type: "Lunch",
                              name: "Poached Egg & Avocado Toast",
@@ -57,7 +58,18 @@ class MealPlanViewController: UIViewController {
         super.viewDidLoad()
 
         setupViews()
-        viewModel.getMealData(reqs: breakfastReq)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        DispatchQueue.main.async {
+            self.viewModel.getMealData(reqs: self.breakfastReq) { [weak self] data in
+                self?.meal = data
+            }
+        }
+        
+        print(meal)
     }
     
     // MARK: - VIEW OBJECTS
@@ -89,32 +101,23 @@ class MealPlanViewController: UIViewController {
     }()
     
     lazy var breakfastTitle: UIStackView = {
-        var title = UIStackView()
-        if let breakfast = viewModel.breakfastData {
-            title = createTitleVStack(mealType: breakfast.type,
-                                          mealName: breakfast.name,
-                                          action: #selector(showBreakfastDetails))
-        }
+        let title = createTitleVStack(mealType: breakfastData.type,
+                                      mealName: breakfastData.name ,
+                                      action: #selector(showBreakfastDetails))
         
         return title
     }()
     
     lazy var breakfastImage: UIImageView = {
-        var image = UIImageView()
-        if let breakfast = viewModel.breakfastData {
-            image = createImage(imageName: breakfast.image,
+        let image = createImage(imageName: breakfastData.image,
                                 action: #selector(showBreakfastDetails))
-        }
         
         return image
     }()
     
     lazy var breakfastMacro: UIStackView = {
-        var macroView = UIStackView()
-        if let breakfast = viewModel.breakfastData {
-            macroView = createMacroVStack(macros: breakfast.macros,
+        let macroView = createMacroVStack(macros: breakfastData.macros,
                                           action: #selector(showBreakfastDetails))
-        }
         
         return macroView
     }()
@@ -207,17 +210,17 @@ class MealPlanViewController: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func showBreakfastDetails() {
-        let nextVC = MealDetailsViewController()
+        let nextVC = MealDetailsView()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func showLunchDetails() {
-        let nextVC = MealDetailsViewController()
+        let nextVC = MealDetailsView()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func showDinnerDetails() {
-        let nextVC = MealDetailsViewController()
+        let nextVC = MealDetailsView()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -339,5 +342,62 @@ class MealPlanViewController: UIViewController {
         addGestureRecognizer(object: image, action: action)
         
         return image
+    }
+}
+
+extension MealPlanView {
+    
+    func setupViews() {
+        view.backgroundColor = UIColor(named: "bgColor")
+        addSubviews()
+        constrainSubviews()
+        
+        setNavigationBar(navController: navigationController, navItem: navigationItem)
+    }
+    
+    fileprivate func addSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(mainTitle)
+        
+        contentView.addSubview(breakfastTitle)
+        contentView.addSubview(breakfastImage)
+        contentView.addSubview(breakfastMacro)
+        contentView.addSubview(refreshBreakfast)
+        
+        contentView.addSubview(lunchTitle)
+        contentView.addSubview(lunchImage)
+        contentView.addSubview(lunchMacro)
+        contentView.addSubview(refreshLunch)
+        
+        contentView.addSubview(dinnerTitle)
+        contentView.addSubview(dinnerImage)
+        contentView.addSubview(dinnerMacro)
+        contentView.addSubview(refreshDinner)
+
+        contentView.addSubview(proteinShakeTitle)
+        contentView.addSubview(proteinShakeImage)
+        contentView.addSubview(proteinShakeMacro)
+    }
+    
+    fileprivate func constrainSubviews() {
+        mainTitle.centerXToSuperview()
+        mainTitle.topToSuperview(offset: screenHeight * 0.04)
+        
+        addConstraintsForMeal(title: breakfastTitle, topToBottomOf: mainTitle,
+                              image: breakfastImage, macro: breakfastMacro,
+                              refreshButton: refreshBreakfast)
+        
+        addConstraintsForMeal(title: lunchTitle, topToBottomOf: breakfastImage,
+                              image: lunchImage, macro: lunchMacro,
+                              refreshButton: refreshLunch)
+        
+        addConstraintsForMeal(title: dinnerTitle, topToBottomOf: lunchImage,
+                              image: dinnerImage, macro: dinnerMacro,
+                              refreshButton: refreshDinner)
+        
+        addConstraintsForMeal(title: proteinShakeTitle, topToBottomOf: dinnerImage,
+                              image: proteinShakeImage, macro: proteinShakeMacro)
     }
 }
