@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		093261942791156300C8B233 /* MealPlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093261932791156300C8B233 /* MealPlanVM.swift */; };
 		0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AA270BC56100080FCD /* AppDelegate.swift */; };
 		0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AC270BC56100080FCD /* SceneDelegate.swift */; };
 		0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0933D8B3270BC56200080FCD /* Assets.xcassets */; };
@@ -24,6 +23,7 @@
 		097F8F73279783A100B638BC /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F72279783A100B638BC /* UserData.swift */; };
 		097F8F75279783D600B638BC /* InfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F74279783D600B638BC /* InfoVM.swift */; };
 		097F8F772797889E00B638BC /* PlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F762797889E00B638BC /* PlanVM.swift */; };
+		097F8F7B2797ACA700B638BC /* MealPlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F7A2797ACA700B638BC /* MealPlanVM.swift */; };
 		0989FA71277D0E2100234819 /* ProteinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0989FA70277D0E2100234819 /* ProteinView.swift */; };
 		09975BC4278CF78F0096E00A /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BC3278CF78F0096E00A /* AddView.swift */; };
 		09975BC6278CF7AA0096E00A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BC5278CF7AA0096E00A /* ProfileView.swift */; };
@@ -38,7 +38,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		093261932791156300C8B233 /* MealPlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanVM.swift; sourceTree = "<group>"; };
 		0933D8A7270BC56100080FCD /* MacroHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0933D8AA270BC56100080FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0933D8AC270BC56100080FCD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +56,7 @@
 		097F8F72279783A100B638BC /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		097F8F74279783D600B638BC /* InfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVM.swift; sourceTree = "<group>"; };
 		097F8F762797889E00B638BC /* PlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVM.swift; sourceTree = "<group>"; };
+		097F8F7A2797ACA700B638BC /* MealPlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanVM.swift; sourceTree = "<group>"; };
 		0989FA70277D0E2100234819 /* ProteinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinView.swift; sourceTree = "<group>"; };
 		09975BC3278CF78F0096E00A /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		09975BC5278CF7AA0096E00A /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 		09975BC7278D0B7F0096E00A /* Plan Tab */ = {
 			isa = PBXGroup;
 			children = (
-				093261932791156300C8B233 /* MealPlanVM.swift */,
+				097F8F7A2797ACA700B638BC /* MealPlanVM.swift */,
 				09A26981277EB17E005C0BFF /* MealPlanView.swift */,
 				0935F39927867715002AA106 /* MealDetailsView.swift */,
 			);
@@ -353,9 +353,9 @@
 				093870E4270D6B0D0036A3D7 /* IntroVC.swift in Sources */,
 				0935F39A27867715002AA106 /* MealDetailsView.swift in Sources */,
 				0989FA71277D0E2100234819 /* ProteinView.swift in Sources */,
-				093261942791156300C8B233 /* MealPlanVM.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Extensions.swift in Sources */,
 				0935F396278640DF002AA106 /* MealInfo.swift in Sources */,
+				097F8F7B2797ACA700B638BC /* MealPlanVM.swift in Sources */,
 				0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */,
 				09FD0BE0270E24830094BAAC /* InfoVC.swift in Sources */,
 				096CA546274DB7C40071C6EE /* PlanVC.swift in Sources */,
