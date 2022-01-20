@@ -13,7 +13,8 @@ public var keyboardDistanceFromTextField: CGFloat = 55
 public let screenWidth = UIScreen.main.bounds.width
 public let screenHeight = UIScreen.main.bounds.height
 
-public func createDropDown(dropDown: DropDown, dataSource: [String], anchorView: UIView, halfWidth: Bool? = nil, screen: String) {
+public func createDropDown(dropDown: DropDown, dataSource: [String], anchorView: UIView,
+                           halfWidth: Bool? = nil, screen: String) {
     dropDown.dataSource = dataSource
 
     if halfWidth != nil {

@@ -15,7 +15,6 @@ class PlanVC: UIViewController {
     
     // MARK: - PROPERTIES
     private var viewModel: PlanVM
-    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - INITIALIZERS
     init(viewModel: PlanVM) {
@@ -105,7 +104,7 @@ class PlanVC: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func didTapNextButton() {
-        let rankVC = RankView()
+        let rankVC = RankVC(viewModel: .init(dailyMacro: viewModel.dailyMacro))
         navigationController?.pushViewController(rankVC, animated: true)
     }
     

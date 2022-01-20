@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Combine
 
-class MealPlanView: UIViewController {
+class MealPlanVC: UIViewController {
     
     // MARK: - PROPERTIES
-    var viewModel = MealPlanVM()
+    private var viewModel: MealPlanVM
+    private var cancellables = Set<AnyCancellable>()
     
     var contentViewSize = CGSize(width: screenWidth,
                                  height: screenHeight + screenHeight * 0.11)
@@ -46,12 +48,15 @@ class MealPlanView: UIViewController {
                               ingredients: [],
                               instructions: [])
     
-    var proteinShakeData = MealInfo(image: "defaultMealImage",
-                                    type: "Protein Shake", name: "No Moo Vegan Protein Powder",
-                                    macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                           protein: "23g", fat: "20g"),
-                                    ingredients: [],
-                                    instructions: [])
+    // MARK: - Initializers
+    init(viewModel: MealPlanVM) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
@@ -210,17 +215,17 @@ class MealPlanView: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func showBreakfastDetails() {
-        let nextVC = MealDetailsView()
+        let nextVC = MealDetailsVC()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func showLunchDetails() {
-        let nextVC = MealDetailsView()
+        let nextVC = MealDetailsVC()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func showDinnerDetails() {
-        let nextVC = MealDetailsView()
+        let nextVC = MealDetailsVC()
         navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -345,7 +350,7 @@ class MealPlanView: UIViewController {
     }
 }
 
-extension MealPlanView {
+extension MealPlanVC {
     
     func setupViews() {
         view.backgroundColor = UIColor(named: "bgColor")

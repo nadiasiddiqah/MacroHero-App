@@ -4,10 +4,9 @@
 //
 //  Created by Nadia Siddiqah on 1/5/22.
 //
-
 import UIKit
 
-class MealDetailsView: UIViewController {
+class MealDetailsVC: UIViewController {
 
     // MARK: - PROPERTIES
     var mealData = MealInfo(image: "defaultMealImage",
@@ -231,7 +230,7 @@ class MealDetailsView: UIViewController {
     }
 }
 
-extension MealDetailsView {
+extension MealDetailsVC {
     func setupViews() {
         view.backgroundColor = UIColor(named: "bgColor")
         addSubviews()

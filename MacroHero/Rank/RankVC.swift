@@ -9,25 +9,39 @@ import Foundation
 import TinyConstraints
 import Gifu
 import DropDown
+import Combine
 
-class RankView: UIViewController {
+class RankVC: UIViewController {
     
-    let calories = "Calories (1890)"
-    let carbs = "Carbs (215g)"
-    let protein = "Protein (145g)"
-    let fat = "Fat (55g)"
+    // MARK: - PROPERTIES
+    private var viewModel: RankVM
+    private var cancellables = Set<AnyCancellable>()
     
-    var goalData = [String]()
+    var dailyMacros = [String]()
+    var calories = String()
+    var carbs = String()
+    var protein = String()
+    var fat = String()
     
     var collapsedFirstGoal: Constraint?
     var expandedFirstGoal: Constraint?
+    
+    // MARK: - Initializers
+    init(viewModel: RankVM) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
-        goalData = ["\(calories)", "\(carbs)", "\(protein)", "\(fat)"]
+        initializeMacros()
     }
     
     // MARK: - VIEW OBJECTS
@@ -67,7 +81,7 @@ class RankView: UIViewController {
     
     lazy var firstGoalLabel: UILabel = {
         let label = UILabel()
-        label.text = calories
+        label.text = ""
         label.font = UIFont(name: "Montserrat-Medium", size: 14)
         label.textColor = UIColor.customDarkGray
 
@@ -88,7 +102,6 @@ class RankView: UIViewController {
         label.text = "#2"
         label.font = UIFont(name: "KGHAPPYSolid", size: 20)
         label.textColor = UIColor(named: "orange")
-        label.frame = CGRect(x: 0, y: 0, width: screenWidth * 0.09, height: screenHeight * 0.03)
         label.adjustsFontSizeToFitWidth = true
 
         return label
@@ -107,10 +120,9 @@ class RankView: UIViewController {
     
     lazy var secondGoalLabel: UILabel = {
         let label = UILabel()
-        label.text = protein
+        label.text = ""
         label.font = UIFont(name: "Montserrat-Medium", size: 14)
         label.textColor = UIColor.customDarkGray
-        label.width(screenWidth * 0.42)
 
         return label
     }()
@@ -137,12 +149,13 @@ class RankView: UIViewController {
         
         updateDropDownView(action: "expand")
         
-        createDropDown(dropDown: firstGoalDropDown, dataSource: goalData,
+        createDropDown(dropDown: firstGoalDropDown, dataSource: dailyMacros,
                        anchorView: firstGoalButton, screen: "rank")
         firstGoalDropDown.bottomOffset = CGPoint(x: 0, y: firstGoalButton.frame.size.height + screenHeight * 0.01)
         
         firstGoalDropDown.selectionAction = { [weak self] (index: Int, item: String) in
             self?.firstGoalLabel.text = item
+            print(item)
             self?.updateDropDownView(action: "collapse")
         }
         
@@ -156,7 +169,7 @@ class RankView: UIViewController {
         let secondGoalDropDown = DropDown()
         
         secondGoalButton.isSelected = true
-        createDropDown(dropDown: secondGoalDropDown, dataSource: goalData,
+        createDropDown(dropDown: secondGoalDropDown, dataSource: dailyMacros,
                        anchorView: secondGoalButton, screen: "rank")
         secondGoalDropDown.bottomOffset = CGPoint(x: 0, y: secondGoalButton.frame.size.height + screenHeight * 0.01)
         
@@ -171,11 +184,22 @@ class RankView: UIViewController {
     }
     
     @objc func didTapNextButton() {
-        let proteinVC = ProteinView()
+        let proteinVC = ProteinVC()
         navigationController?.pushViewController(proteinVC, animated: true)
     }
     
     // MARK: - FUNCTIONS
+    func initializeMacros() {
+        calories = viewModel.dailyMacro.calories
+        carbs = viewModel.dailyMacro.carbs
+        protein = viewModel.dailyMacro.protein
+        fat = viewModel.dailyMacro.fat
+        
+        dailyMacros = [
+            "Calories (\(calories))", "Carbs (\(carbs)g)", "Protein (\(protein)g)", "Fat (\(fat)g)"
+        ]
+    }
+    
     func updateDropDownView(action: String) {
         if action == "expand" {
             firstGoalButton.isSelected = true
@@ -195,7 +219,7 @@ class RankView: UIViewController {
     }
 }
 
-extension RankView {
+extension RankVC {
     
     func setupViews() {
         view.backgroundColor = UIColor(named: "bgColor")

@@ -8,18 +8,27 @@
 import UIKit
 import Foundation
 import Gifu
+import Combine
 
-class ProteinView: UIViewController {
+class ProteinVC: UIViewController {
     
-    // MARK: - VARIABLES
-    var proteinData = MealInfo(image: "defaultMealImage",
-                               type: "Protein Shake", name: "",
-                               macros: MacroBreakdown(calories: "", carbs: "",
-                                                      protein: "", fat: ""),
-                               ingredients: [],
-                               instructions: [])
+    // MARK: - PROPERTIES
+    private var viewModel: RankVM
+    private var cancellables = Set<AnyCancellable>()
+    
+    var proteinData = MealInfo()
+    
+    // MARK: - Initializers
+    init(viewModel: RankVM) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-    // MARK: VIEW METHODS
+    // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,25 +64,25 @@ class ProteinView: UIViewController {
     }()
     
     lazy var calTextField: UITextField = {
-        let textField = createValueField(value: proteinData.macros.calories)
+        let textField = createValueField(value: proteinData.macros?.calories ?? "")
         
         return textField
     }()
     
     lazy var carbsTextField: UITextField = {
-        let textField = createValueField(value: proteinData.macros.carbs, inGrams: true)
+        let textField = createValueField(value: proteinData.macros?.carbs ?? "", inGrams: true)
         
         return textField
     }()
     
     lazy var proteinTextField: UITextField = {
-        let textField = createValueField(value: proteinData.macros.protein, inGrams: true)
+        let textField = createValueField(value: proteinData.macros?.protein ?? "", inGrams: true)
         
         return textField
     }()
 
     lazy var fatTextField: UITextField = {
-        let textField = createValueField(value: proteinData.macros.fat, inGrams: true)
+        let textField = createValueField(value: proteinData.macros?.fat ?? "", inGrams: true)
         
         return textField
     }()
@@ -89,32 +98,36 @@ class ProteinView: UIViewController {
     // MARK: - TAP METHODS
     @objc func didTapNextButton() {
         if nextButton.isEnabled {
-            let tabBarController = UITabBarController()
-            
-            let vc1 = UINavigationController(rootViewController: MealPlanView())
-            let vc2 = UINavigationController(rootViewController: AddView())
-            let vc3 = UINavigationController(rootViewController: ProfileView())
-            
-            vc1.title = "Plan"
-            vc2.title = "Add"
-            vc3.title = "Profile"
-            
-            tabBarController.setViewControllers([vc1, vc2, vc3], animated: false)
-            
-            guard let items = tabBarController.tabBar.items else { return }
-            let images = ["note.text", "plus.circle", "person.circle"]
-            
-            for item in 0..<items.count {
-                items[item].image = UIImage(systemName: images[item])
-            }
-            
-            tabBarController.tabBar.tintColor = UIColor.customNavy
-            tabBarController.modalPresentationStyle = .fullScreen
-            present(tabBarController, animated: false)
+            setupTabBar()
         }
     }
 
     // MARK: - FUNCTIONS
+    func setupTabBar() {
+        let tabBarController = UITabBarController()
+        
+        let vc1 = UINavigationController(rootViewController: MealPlanVC(viewModel: .init(mealPlan: MealPlan(protein: proteinData))))
+        let vc2 = UINavigationController(rootViewController: AddView())
+        let vc3 = UINavigationController(rootViewController: ProfileView())
+        
+        vc1.title = "Plan"
+        vc2.title = "Add"
+        vc3.title = "Profile"
+        
+        tabBarController.setViewControllers([vc1, vc2, vc3], animated: false)
+        
+        guard let items = tabBarController.tabBar.items else { return }
+        let images = ["note.text", "plus.circle", "person.circle"]
+        
+        for item in 0..<items.count {
+            items[item].image = UIImage(systemName: images[item])
+        }
+        
+        tabBarController.tabBar.tintColor = UIColor.customNavy
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: false)
+    }
+    
     func createMacroVStack() -> UIStackView {
         let cal = createMacroHStack(macro: "Calories", textField: calTextField)
         let carbs = createMacroHStack(macro: "Carbs", textField: carbsTextField)
@@ -165,7 +178,7 @@ class ProteinView: UIViewController {
     }
 }
 
-extension ProteinView {
+extension ProteinVC {
 
     func setupViews() {
         view.backgroundColor = UIColor(named: "bgColor")
@@ -215,7 +228,7 @@ extension ProteinView {
 }
 
 // MARK: - Text Field Delegate Methods
-extension ProteinView: UITextFieldDelegate {
+extension ProteinVC: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == calTextField {
@@ -226,13 +239,13 @@ extension ProteinView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if let text = calTextField.text {
-            proteinData.macros.calories = text
+            proteinData.macros?.calories = text
         } else if let text = carbsTextField.text {
-            proteinData.macros.carbs = text
+            proteinData.macros?.carbs = text
         } else if let text = proteinTextField.text {
-            proteinData.macros.protein = text
+            proteinData.macros?.protein = text
         } else if let text = fatTextField.text {
-            proteinData.macros.fat = text
+            proteinData.macros?.fat = text
         }
         
         view.endEditing(true)
@@ -250,9 +263,9 @@ extension ProteinView: UITextFieldDelegate {
 }
 
 // MARK: - Text View Delegate Methods
-extension ProteinView: UITextViewDelegate {
+extension ProteinVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        if proteinData.macros.calories.isEmpty || proteinData.macros.carbs.isEmpty || proteinData.macros.protein.isEmpty || proteinData.macros.fat.isEmpty {
+        if proteinData.macros?.calories.isEmpty ?? true || proteinData.macros?.carbs.isEmpty ?? true || proteinData.macros?.protein.isEmpty ?? true || proteinData.macros?.fat.isEmpty ?? true {
             nextButton.isEnabled = false
         } else {
             nextButton.isEnabled = true
