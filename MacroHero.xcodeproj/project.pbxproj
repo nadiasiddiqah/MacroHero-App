@@ -22,6 +22,7 @@
 		09975BC4278CF78F0096E00A /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09975BC3278CF78F0096E00A /* AddView.swift */; };
 		09A26980277E588E005C0BFF /* proteinShakeGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 09A2697F277E588E005C0BFF /* proteinShakeGif.gif */; };
 		09A26982277EB17E005C0BFF /* MealPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A26981277EB17E005C0BFF /* MealPlanVC.swift */; };
+		09B353D3279F806B00871FA2 /* MacroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B353D2279F806B00871FA2 /* MacroData.swift */; };
 		09E3043727989F0D003FB240 /* RankVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E3043627989F0D003FB240 /* RankVM.swift */; };
 		09E3043A2798D3E6003FB240 /* ProteinVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304392798D3E6003FB240 /* ProteinVM.swift */; };
 		09E304492798F2DE003FB240 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304432798F2DE003FB240 /* UserData.swift */; };
@@ -34,6 +35,7 @@
 		09E304522798F3DA003FB240 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304512798F3DA003FB240 /* ProfileVC.swift */; };
 		09EE8142277A8D9D00579224 /* RankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EE8141277A8D9D00579224 /* RankVC.swift */; };
 		09EE8146277BE6BF00579224 /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09EE8145277BE6BF00579224 /* Montserrat-Medium.ttf */; };
+		09F000742799F98400C80AD2 /* MealDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F000732799F98400C80AD2 /* MealDetailsVM.swift */; };
 		09FD0BE0270E24830094BAAC /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FD0BDF270E24830094BAAC /* InfoVC.swift */; };
 		09FD0BE7270E2E050094BAAC /* KGHAPPY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09FD0BE3270E2E050094BAAC /* KGHAPPY.ttf */; };
 		09FD0BEA270E2E050094BAAC /* KGHAPPYSolid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09FD0BE6270E2E050094BAAC /* KGHAPPYSolid.ttf */; };
@@ -58,6 +60,7 @@
 		09975BC3278CF78F0096E00A /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		09A2697F277E588E005C0BFF /* proteinShakeGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = proteinShakeGif.gif; sourceTree = "<group>"; };
 		09A26981277EB17E005C0BFF /* MealPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanVC.swift; sourceTree = "<group>"; };
+		09B353D2279F806B00871FA2 /* MacroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroData.swift; sourceTree = "<group>"; };
 		09E3043627989F0D003FB240 /* RankVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankVM.swift; sourceTree = "<group>"; };
 		09E304392798D3E6003FB240 /* ProteinVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinVM.swift; sourceTree = "<group>"; };
 		09E304432798F2DE003FB240 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 		09E304512798F3DA003FB240 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		09EE8141277A8D9D00579224 /* RankVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankVC.swift; sourceTree = "<group>"; };
 		09EE8145277BE6BF00579224 /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
+		09F000732799F98400C80AD2 /* MealDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailsVM.swift; sourceTree = "<group>"; };
 		09FD0BDF270E24830094BAAC /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		09FD0BE3270E2E050094BAAC /* KGHAPPY.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KGHAPPY.ttf; sourceTree = "<group>"; };
 		09FD0BE6270E2E050094BAAC /* KGHAPPYSolid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KGHAPPYSolid.ttf; sourceTree = "<group>"; };
@@ -143,12 +147,13 @@
 		0933D8C2270BC6A200080FCD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				09E304432798F2DE003FB240 /* UserData.swift */,
 				09E304482798F2DE003FB240 /* MacroBreakdown.swift */,
+				09B353D2279F806B00871FA2 /* MacroData.swift */,
 				09E304452798F2DE003FB240 /* MealData.swift */,
 				09E304462798F2DE003FB240 /* MealInfo.swift */,
 				09E304442798F2DE003FB240 /* MealPlan.swift */,
 				09E304472798F2DE003FB240 /* MealReq.swift */,
-				09E304432798F2DE003FB240 /* UserData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				09A26981277EB17E005C0BFF /* MealPlanVC.swift */,
 				097F8F7A2797ACA700B638BC /* MealPlanVM.swift */,
 				09E3044F2798F3C1003FB240 /* MealDetailsVC.swift */,
+				09F000732799F98400C80AD2 /* MealDetailsVM.swift */,
 			);
 			path = "Meal Plan";
 			sourceTree = "<group>";
@@ -368,12 +374,14 @@
 				097F8F7B2797ACA700B638BC /* MealPlanVM.swift in Sources */,
 				0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */,
 				09FD0BE0270E24830094BAAC /* InfoVC.swift in Sources */,
+				09F000742799F98400C80AD2 /* MealDetailsVM.swift in Sources */,
 				096CA546274DB7C40071C6EE /* PlanVC.swift in Sources */,
 				09E304492798F2DE003FB240 /* UserData.swift in Sources */,
 				09975BC4278CF78F0096E00A /* AddView.swift in Sources */,
 				097F8F772797889E00B638BC /* PlanVM.swift in Sources */,
 				0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */,
 				09E3044C2798F2DE003FB240 /* MealInfo.swift in Sources */,
+				09B353D3279F806B00871FA2 /* MacroData.swift in Sources */,
 				09E3044A2798F2DE003FB240 /* MealPlan.swift in Sources */,
 				09A26982277EB17E005C0BFF /* MealPlanVC.swift in Sources */,
 				09E3044E2798F2DE003FB240 /* MacroBreakdown.swift in Sources */,

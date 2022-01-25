@@ -184,7 +184,7 @@ class RankVC: UIViewController {
     }
     
     @objc func didTapNextButton() {
-        let proteinVC = ProteinVC()
+        let proteinVC = ProteinVC(viewModel: .init(dailyMacro: viewModel.dailyMacro))
         navigationController?.pushViewController(proteinVC, animated: true)
     }
     

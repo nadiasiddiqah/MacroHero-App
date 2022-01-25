@@ -16,11 +16,13 @@ class ProteinVC: UIViewController {
     private var viewModel: RankVM
     private var cancellables = Set<AnyCancellable>()
     
-    var proteinData = MealInfo()
+    var proteinData: MealInfo
     
     // MARK: - Initializers
     init(viewModel: RankVM) {
         self.viewModel = viewModel
+        self.proteinData = MealInfo(image: "defaultImage", type: "Protein", name: "Protein Shake",
+                                    macros: MacroBreakdown(calories: "", carbs: "", protein: "", fat: ""))
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,8 +34,8 @@ class ProteinVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupViews()
         setupDelegates()
+        setupViews()
     }
     
     // MARK: - VIEW OBJECTS
@@ -107,6 +109,7 @@ class ProteinVC: UIViewController {
         let tabBarController = UITabBarController()
         
         let vc1 = UINavigationController(rootViewController: MealPlanVC(viewModel: .init(mealPlan: MealPlan(protein: proteinData))))
+        print(proteinData)
         let vc2 = UINavigationController(rootViewController: AddView())
         let vc3 = UINavigationController(rootViewController: ProfileView())
         
@@ -168,7 +171,7 @@ class ProteinVC: UIViewController {
         
         if inGrams != nil {
             if value.isEmpty {
-                textField.text = "    g"
+                textField.text = ""
             } else {
                 textField.text = "\(value)g"
             }
@@ -229,26 +232,37 @@ extension ProteinVC {
 
 // MARK: - Text Field Delegate Methods
 extension ProteinVC: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            if calTextField == textField {
+                proteinData.macros?.calories = text
+            } else if carbsTextField == textField {
+                proteinData.macros?.carbs = text
+            } else if proteinTextField == textField {
+                proteinData.macros?.protein = text
+            } else if fatTextField == textField {
+                proteinData.macros?.fat = text
+            }
+        }
+
+        print(proteinData)
+    }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == calTextField {
-            keyboardDistanceFromTextField = macroVStack.frame.height
-            print(keyboardDistanceFromTextField)
+    func areTextFieldsValid() {
+        if let calories = calTextField.text, let carbs = carbsTextField.text,
+           let protein = proteinTextField.text, let fat = fatTextField.text {
+            guard !calories.isEmpty || !protein.isEmpty || !carbs.isEmpty || !fat.isEmpty else {
+                nextButton.isEnabled = false
+                return
+            }
         }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = calTextField.text {
-            proteinData.macros?.calories = text
-        } else if let text = carbsTextField.text {
-            proteinData.macros?.carbs = text
-        } else if let text = proteinTextField.text {
-            proteinData.macros?.protein = text
-        } else if let text = fatTextField.text {
-            proteinData.macros?.fat = text
-        }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // return NO to not change text
         
-        view.endEditing(true)
+        print("While entering the characters this method gets called")
+        return true
     }
     
     // Ends all editing
@@ -263,12 +277,14 @@ extension ProteinVC: UITextFieldDelegate {
 }
 
 // MARK: - Text View Delegate Methods
-extension ProteinVC: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        if proteinData.macros?.calories.isEmpty ?? true || proteinData.macros?.carbs.isEmpty ?? true || proteinData.macros?.protein.isEmpty ?? true || proteinData.macros?.fat.isEmpty ?? true {
-            nextButton.isEnabled = false
-        } else {
-            nextButton.isEnabled = true
-        }
-    }
-}
+//extension ProteinVC: UITextViewDelegate {
+//
+//    func textViewDidChange(_ textView: UITextView) {
+//        if calTextField.text?.isEmpty ?? true || carbsTextField.text?.isEmpty ?? true || proteinTextField.text?.isEmpty ?? true || fatTextField.text?.isEmpty ?? true {
+//            nextButton.isEnabled = false
+//        } else {
+//            nextButton.isEnabled = true
+//        }
+//        print(nextButton.isEnabled)
+//    }
+//}

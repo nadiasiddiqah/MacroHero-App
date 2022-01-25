@@ -224,20 +224,6 @@ class InfoVC: UIViewController {
         return VStack
     }()
 
-    @objc func didTapWeightButton() {
-        let weightDropDown = DropDown()
-        let weightData = Array(90...300).map { String($0) }
-        
-        createDropDown(dropDown: weightDropDown, dataSource: weightData, anchorView: weightButton, screen: "info")
-        
-        weightDropDown.bottomOffset = CGPoint(x: 0, y: weightButton.frame.size.height)
-        weightDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - weightButton.frame.size.height
-
-        weightDropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.weightLabel.text = "\(item) lbs"
-        }
-    }
-
     // MARK: - ACTIVITY LEVEL BUTTON
     lazy var activityButton: UIButton = {
         var button = UIButton()
@@ -252,8 +238,8 @@ class InfoVC: UIViewController {
     
     lazy var activityLabel: UILabel = {
         var label = UILabel()
-        label.text = " "
         label.textColor = UIColor(named: "orange")
+        label.text = " "
         label.textAlignment = .center
         label.font = UIFont(name: "KGHAPPYSolid", size: 15)
         
@@ -299,7 +285,7 @@ class InfoVC: UIViewController {
     // MARK: - TAP METHODS
     @objc func didTapAgeButton() {
         let ageDropDown = DropDown()
-        let ageData = Array(12...80).map { String($0) }
+        let ageData = Array(18...80).map { String("\($0) yrs") }
         
         createDropDown(dropDown: ageDropDown, dataSource: ageData, anchorView: ageButton, screen: "info")
         
@@ -307,7 +293,7 @@ class InfoVC: UIViewController {
         ageDropDown.offsetFromWindowBottom = (screenHeight * 0.67) - ageButton.frame.size.height
 
         ageDropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.ageLabel.text = "\(item) yrs"
+            self?.ageLabel.text = item
         }
     }
 
@@ -315,26 +301,52 @@ class InfoVC: UIViewController {
         let ftDropDown = DropDown()
         let ftData = Array(4...7).map { String("\($0)'") }
 
-        createDropDown(dropDown: ftDropDown, dataSource: ftData, anchorView: heightButton, halfWidth: true, screen: "info")
+        createDropDown(dropDown: ftDropDown, dataSource: ftData, anchorView: heightButton,
+                       halfWidth: true, screen: "info")
         
         ftDropDown.bottomOffset = CGPoint(x: 0, y: heightButton.frame.size.height)
         ftDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - heightButton.frame.size.height
         
         ftDropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.ftLabel.text = "\(item)"
+            self?.ftLabel.text = item
+            if item == "4'" || item == "7'" {
+                self?.inLabel.text = #"   ""#
+            }
         }
     }
     
     @objc func didTapInField() {
         let inDropDown = DropDown()
-        let inData = Array(0...11).map { String("\($0)\"") }
+        var inData = [String]()
+        
+        if ftLabel.text == "4'" {
+            inData = Array(4...11).map { String("\($0)\"") }
+        } else if ftLabel.text == "7'" {
+            inData = Array(0...6).map { String("\($0)\"") }
+        } else {
+            inData = Array(0...11).map { String("\($0)\"") }
+        }
         
         createDropDown(dropDown: inDropDown, dataSource: inData, anchorView: heightButton, screen: "info")
         
         inDropDown.bottomOffset = CGPoint(x: heightButton.frame.size.width / 2, y: heightButton.frame.size.height)
         inDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - heightButton.frame.size.height
         inDropDown.selectionAction = { [weak self] (index: Int, item: String) in
-            self?.inLabel.text = "\(item)"
+            self?.inLabel.text = item
+        }
+    }
+    
+    @objc func didTapWeightButton() {
+        let weightDropDown = DropDown()
+        let weightData = Array(90...300).map { String("\($0) lbs") }
+        
+        createDropDown(dropDown: weightDropDown, dataSource: weightData, anchorView: weightButton, screen: "info")
+        
+        weightDropDown.bottomOffset = CGPoint(x: 0, y: weightButton.frame.size.height)
+        weightDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - weightButton.frame.size.height
+
+        weightDropDown.selectionAction = { [weak self] (index: Int, item: String) in
+            self?.weightLabel.text = item
         }
     }
     
@@ -353,18 +365,49 @@ class InfoVC: UIViewController {
     }
     
     @objc func didTapCalculateButton() {
-        guard let age = ageLabel.text,
-              let ft = ftLabel.text,
-              let inch = inLabel.text,
-              let weight = weightLabel.text,
-              let activityLevel = activityLabel.text else { return }
+        guard let age = ageLabel.text, age != "    yrs",
+              let ft = ftLabel.text, ft != "  '",
+              let inch = inLabel.text, inch != #"   ""#,
+              let weight = weightLabel.text, weight != "     lbs",
+              let activity = activityLabel.text, activity != " " else { return }
         
-        viewModel.userData = UserData(age: age, height: "\(ft + inch)", weight: weight, activityLevel: activityLevel)
+        let ageData = age.replacingOccurrences(of: " yrs", with: "")
+        let genderData = "female"
+        let ftData = (Double(ft.replacingOccurrences(of: "'", with: "")) ?? 0) * 12
+        let inData = Double(inch.replacingOccurrences(of: #"""#, with: "")) ?? 0
+        let heightData = round((ftData + inData) * 2.54)
+        let weightData = round((Double(weight.replacingOccurrences(of: " lbs", with: "")) ?? 0) * 0.45)
+        var activityData = ""
+        let goalData = "maintain"
         
-        let dailyMacro = MacroBreakdown(calories: "1890", carbs: "215", protein: "145", fat: "55")
+        switch activity {
+        case "Sedentary":
+            activityData = "1"
+        case "Lightly active":
+            activityData = "2"
+        case "Active":
+            activityData = "3"
+        case "Very Active":
+            activityData = "4"
+        default:
+            activityData = "1"
+        }
         
-        let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
-        navigationController?.pushViewController(planVC, animated: true)
+        viewModel.userData = UserData(age: ageData, gender: genderData,
+                                      heightCm: "\(Int(heightData))", weightKg: "\(Int(weightData))",
+                                      activityLevel: activityData, goal: goalData)
+        
+        if let userData = viewModel.userData {
+            self.viewModel.requestMacroData(for: userData) {
+                DispatchQueue.main.async {
+                    if let dailyMacro = self.viewModel.dailyMacro {
+                        let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
+                        self.navigationController?.pushViewController(planVC, animated: true)
+                    }
+                }
+            }
+        }
+        
     }
 }
 

@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 struct MealReq {
-    var type: String
-    var macros: MacroBreakdown
+    var type: String?
+    var macros: MacroBreakdown?
     var random: Bool = false
 }
 

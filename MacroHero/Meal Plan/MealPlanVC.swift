@@ -17,36 +17,16 @@ class MealPlanVC: UIViewController {
     var contentViewSize = CGSize(width: screenWidth,
                                  height: screenHeight + screenHeight * 0.11)
     
-    var meal: MealInfo?
+    var breakfastReq = MealReq()
+    var lunchReq = MealReq()
+    var dinnerReq = MealReq()
     
-    var breakfastReq = MealReq(type: "Breakfast",
-                               macros: MacroBreakdown(calories: "394", carbs: "60",
-                                                      protein: "20", fat: "20"),
-                               random: true)
+    var breakfast = MealInfo()
+    var lunch = MealInfo()
+    var dinner = MealInfo()
+    var protein = MealInfo()
     
-    var breakfastData = MealInfo(image: "defaultMealImage",
-                                 type: "Breakfast",
-                                 name: "Poached Egg & Avocado Toast",
-                                 macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                        protein: "23g", fat: "20g"),
-                                 ingredients: [],
-                                 instructions: [])
-    
-    var lunchData = MealInfo(image: "defaultMealImage",
-                             type: "Lunch",
-                             name: "Poached Egg & Avocado Toast",
-                             macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                    protein: "23g", fat: "20g"),
-                             ingredients: [],
-                             instructions: [])
-    
-    var dinnerData = MealInfo(image: "defaultMealImage",
-                              type: "Dinner",
-                              name: "Poached Egg & Avocado Toast",
-                              macros: MacroBreakdown(calories: "394", carbs: "60g",
-                                                     protein: "23g", fat: "20g"),
-                              ingredients: [],
-                              instructions: [])
+    var allMeals = MealPlan()
     
     // MARK: - Initializers
     init(viewModel: MealPlanVM) {
@@ -63,18 +43,20 @@ class MealPlanVC: UIViewController {
         super.viewDidLoad()
 
         setupViews()
+        allMeals = MealPlan(breakfast: breakfast, lunch: lunch,
+                            dinner: dinner, protein: viewModel.proteinData)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        DispatchQueue.main.async {
-            self.viewModel.getMealData(reqs: self.breakfastReq) { [weak self] data in
-                self?.meal = data
-            }
-        }
-        
-        print(meal)
+//        DispatchQueue.main.async {
+//            self.viewModel.getMealData(reqs: self.breakfastReq) { [weak self] data in
+//                self?.meal = data
+//            }
+//        }
+//
+//        print(meal)
     }
     
     // MARK: - VIEW OBJECTS
@@ -106,23 +88,33 @@ class MealPlanVC: UIViewController {
     }()
     
     lazy var breakfastTitle: UIStackView = {
-        let title = createTitleVStack(mealType: breakfastData.type,
-                                      mealName: breakfastData.name ,
+        var title = UIStackView()
+        if let name = allMeals.breakfast?.name {
+            title = createTitleVStack(mealType: "Breakfast",
+                                      mealName: name,
                                       action: #selector(showBreakfastDetails))
+        }
         
         return title
     }()
     
     lazy var breakfastImage: UIImageView = {
-        let image = createImage(imageName: breakfastData.image,
+        var imageView = UIImageView()
+        if let image = allMeals.breakfast?.image {
+            imageView = createImage(imageName: image,
                                 action: #selector(showBreakfastDetails))
+        }
         
-        return image
+        return imageView
     }()
     
     lazy var breakfastMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: breakfastData.macros,
+        var macroView = UIStackView()
+        
+        if let macros = allMeals.breakfast?.macros {
+            macroView = createMacroVStack(macros: macros,
                                           action: #selector(showBreakfastDetails))
+        }
         
         return macroView
     }()
@@ -134,23 +126,33 @@ class MealPlanVC: UIViewController {
     }()
     
     lazy var lunchTitle: UIStackView = {
-        let title = createTitleVStack(mealType: lunchData.type,
-                                      mealName: lunchData.name ,
+        var title = UIStackView()
+        if let name = allMeals.lunch?.name {
+            title = createTitleVStack(mealType: "Lunch",
+                                      mealName: name,
                                       action: #selector(showLunchDetails))
+        }
         
         return title
     }()
     
     lazy var lunchImage: UIImageView = {
-        let image = createImage(imageName: lunchData.image,
-                                action: #selector(showLunchDetails))
+        var imageView = UIImageView()
+        if let image = allMeals.lunch?.image {
+            imageView = createImage(imageName: image,
+                                    action: #selector(showLunchDetails))
+        }
         
-        return image
+        return imageView
     }()
     
     lazy var lunchMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: lunchData.macros,
+        var macroView = UIStackView()
+        
+        if let macros = allMeals.lunch?.macros {
+            macroView = createMacroVStack(macros: macros,
                                           action: #selector(showLunchDetails))
+        }
         
         return macroView
     }()
@@ -162,23 +164,35 @@ class MealPlanVC: UIViewController {
     }()
     
     lazy var dinnerTitle: UIStackView = {
-        let title = createTitleVStack(mealType: dinnerData.type,
-                                      mealName: dinnerData.name ,
-                                      action: #selector(showDinnerDetails))
+        let title = UIStackView()
+        
+        if let name = allMeals.dinner?.name {
+            let title = createTitleVStack(mealType: "Dinner",
+                                          mealName: name,
+                                          action: #selector(showDinnerDetails))
+        }
         
         return title
     }()
     
     lazy var dinnerImage: UIImageView = {
-        let image = createImage(imageName: dinnerData.image,
-                                action: #selector(showDinnerDetails))
+        var imageView = UIImageView()
         
-        return image
+        if let image = allMeals.dinner?.image {
+            imageView = createImage(imageName: image,
+                                    action: #selector(showDinnerDetails))
+        }
+        
+        return imageView
     }()
     
     lazy var dinnerMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: dinnerData.macros,
-                                          action: #selector(showDinnerDetails))
+        let macroView = UIStackView()
+        
+        if let macros = allMeals.dinner?.macros {
+            let macroView = createMacroVStack(macros: macros,
+                                              action: #selector(showDinnerDetails))
+        }
         
         return macroView
     }()
@@ -191,7 +205,7 @@ class MealPlanVC: UIViewController {
     
     lazy var proteinShakeTitle: UILabel = {
         let label = UILabel()
-        label.text = proteinShakeData.type
+        label.text = allMeals.protein?.type
         label.font = UIFont(name: "KGHAPPYSolid", size: 30)
         label.textColor = UIColor.customOrange
         label.width(screenWidth * 0.9)
@@ -201,32 +215,46 @@ class MealPlanVC: UIViewController {
     }()
     
     lazy var proteinShakeImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: proteinShakeData.image))
-        image.contentMode = .scaleAspectFill
+        var imageView = UIImageView()
         
-        return image
+        if let image = allMeals.protein?.image {
+            imageView = UIImageView(image: UIImage(named: image))
+            imageView.contentMode = .scaleAspectFill
+        }
+        
+        return imageView
     }()
     
     lazy var proteinShakeMacro: UIStackView = {
-        let macroView = createMacroVStack(macros: proteinShakeData.macros)
+        var macroView = UIStackView()
         
+        if let macros = allMeals.protein?.macros {
+            macroView = createMacroVStack(macros: macros)
+        }
+       
         return macroView
     }()
     
     // MARK: - TAP METHODS
     @objc func showBreakfastDetails() {
-        let nextVC = MealDetailsVC()
-        navigationController?.pushViewController(nextVC, animated: true)
+        if let breakfast = allMeals.breakfast {
+            let nextVC = MealDetailsVC(viewModel: .init(mealInfo: breakfast))
+            navigationController?.pushViewController(nextVC, animated: true)
+        }
     }
     
     @objc func showLunchDetails() {
-        let nextVC = MealDetailsVC()
-        navigationController?.pushViewController(nextVC, animated: true)
+        if let lunch = allMeals.lunch {
+            let nextVC = MealDetailsVC(viewModel: .init(mealInfo: lunch))
+            navigationController?.pushViewController(nextVC, animated: true)
+        }
     }
     
     @objc func showDinnerDetails() {
-        let nextVC = MealDetailsVC()
-        navigationController?.pushViewController(nextVC, animated: true)
+        if let dinner = allMeals.dinner {
+            let nextVC = MealDetailsVC(viewModel: .init(mealInfo: dinner))
+            navigationController?.pushViewController(nextVC, animated: true)
+        }
     }
     
     @objc func didTapRefreshBreakfast() {

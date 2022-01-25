@@ -8,6 +8,6 @@
 import Foundation
 
 struct UserData {
-    var age, height, weight, activityLevel: String
+    var age, gender, heightCm, weightKg, activityLevel, goal: String
 }
 
