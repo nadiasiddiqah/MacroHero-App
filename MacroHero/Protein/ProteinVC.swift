@@ -72,19 +72,19 @@ class ProteinVC: UIViewController {
     }()
     
     lazy var carbsTextField: UITextField = {
-        let textField = createValueField(value: proteinData.macros?.carbs ?? "", inGrams: true)
+        let textField = createValueField(value: proteinData.macros?.carbs ?? "")
         
         return textField
     }()
     
     lazy var proteinTextField: UITextField = {
-        let textField = createValueField(value: proteinData.macros?.protein ?? "", inGrams: true)
+        let textField = createValueField(value: proteinData.macros?.protein ?? "")
         
         return textField
     }()
-
+    
     lazy var fatTextField: UITextField = {
-        let textField = createValueField(value: proteinData.macros?.fat ?? "", inGrams: true)
+        let textField = createValueField(value: proteinData.macros?.fat ?? "")
         
         return textField
     }()
@@ -133,9 +133,9 @@ class ProteinVC: UIViewController {
     
     func createMacroVStack() -> UIStackView {
         let cal = createMacroHStack(macro: "Calories", textField: calTextField)
-        let carbs = createMacroHStack(macro: "Carbs", textField: carbsTextField)
-        let protein = createMacroHStack(macro: "Protein", textField: proteinTextField)
-        let fat = createMacroHStack(macro: "Fat", textField: fatTextField)
+        let carbs = createMacroHStack(macro: "Carbs (g)", textField: carbsTextField)
+        let protein = createMacroHStack(macro: "Protein (g)", textField: proteinTextField)
+        let fat = createMacroHStack(macro: "Fat (g)", textField: fatTextField)
         
         let macroVStack = createVStack(subviews: [cal, carbs, protein, fat],
                                        spacing: screenHeight * 0.02)
@@ -156,7 +156,7 @@ class ProteinVC: UIViewController {
         return macroHStack
     }
     
-    func createValueField(value: String, inGrams: Bool? = nil) -> UITextField {
+    func createValueField(value: String) -> UITextField {
         let textField = UITextField()
         textField.textColor = UIColor.customOrange
         
@@ -168,14 +168,6 @@ class ProteinVC: UIViewController {
         
         textField.width(screenWidth * 0.16)
         textField.height(screenHeight * 0.03)
-        
-        if inGrams != nil {
-            if value.isEmpty {
-                textField.text = ""
-            } else {
-                textField.text = "\(value)g"
-            }
-        }
         
         return textField
     }
@@ -232,19 +224,32 @@ extension ProteinVC {
 
 // MARK: - Text Field Delegate Methods
 extension ProteinVC: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let text = textField.text, !text.isEmpty {
+            if carbsTextField == textField || proteinTextField == textField || fatTextField == textField {
+                textField.text?.removeLast()
+            }
+        }
+        
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text {
+        if let text = textField.text, !text.isEmpty {
             if calTextField == textField {
                 proteinData.macros?.calories = text
             } else if carbsTextField == textField {
+                carbsTextField.text = "\(text)g"
                 proteinData.macros?.carbs = text
             } else if proteinTextField == textField {
+                proteinTextField.text = "\(text)g"
                 proteinData.macros?.protein = text
             } else if fatTextField == textField {
+                fatTextField.text = "\(text)g"
                 proteinData.macros?.fat = text
             }
         }
-
+        
         print(proteinData)
     }
     
@@ -258,13 +263,6 @@ extension ProteinVC: UITextFieldDelegate {
         }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // return NO to not change text
-        
-        print("While entering the characters this method gets called")
-        return true
-    }
-    
     // Ends all editing
     func gestureToHideKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -276,15 +274,3 @@ extension ProteinVC: UITextFieldDelegate {
     }
 }
 
-// MARK: - Text View Delegate Methods
-//extension ProteinVC: UITextViewDelegate {
-//
-//    func textViewDidChange(_ textView: UITextView) {
-//        if calTextField.text?.isEmpty ?? true || carbsTextField.text?.isEmpty ?? true || proteinTextField.text?.isEmpty ?? true || fatTextField.text?.isEmpty ?? true {
-//            nextButton.isEnabled = false
-//        } else {
-//            nextButton.isEnabled = true
-//        }
-//        print(nextButton.isEnabled)
-//    }
-//}

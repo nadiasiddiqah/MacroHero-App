@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import DropDown
 
-public var keyboardDistanceFromTextField: CGFloat = 55
+public var keyboardDistanceFromTextField: CGFloat = 10
 public let screenWidth = UIScreen.main.bounds.width
 public let screenHeight = UIScreen.main.bounds.height
 
