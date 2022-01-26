@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Show keyboard below text field
         IQKeyboardManager.shared().isEnabled = true
-        IQKeyboardManager.shared().keyboardDistanceFromTextField = keyboardDistanceFromTextField
+        IQKeyboardManager.shared().keyboardDistanceFromTextField = Utils.keyboardDistanceFromTextField
         IQKeyboardManager.shared().isEnableAutoToolbar = false
         
         // Show dropdown menu

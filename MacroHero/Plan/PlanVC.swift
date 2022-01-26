@@ -16,6 +16,9 @@ class PlanVC: UIViewController {
     // MARK: - PROPERTIES
     private var viewModel: PlanVM
     
+    var screenHeight = Utils.screenHeight
+    var screenWidth = Utils.screenWidth
+    
     // MARK: - INITIALIZERS
     init(viewModel: PlanVM) {
         self.viewModel = viewModel
@@ -35,7 +38,7 @@ class PlanVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UIImageView = {
-        let image = createAspectFitImage(imageName: "planTitle",
+        let image = Utils.createAspectFitImage(imageName: "planTitle",
                                          width: screenWidth * 0.85,
                                          height: screenHeight * 0.05)
         
@@ -44,7 +47,7 @@ class PlanVC: UIViewController {
     
     // MARK: - PIE CHART IMAGE
     lazy var pieChart: UIImageView = {
-        let image = createAspectFitImage(imageName: "piechart",
+        let image = Utils.createAspectFitImage(imageName: "piechart",
                                          width: screenWidth * 0.71,
                                          height: screenHeight * 0.25)
         
@@ -156,7 +159,7 @@ extension PlanVC {
         addSubviews()
         constrainSubviews()
         
-        setNavigationBar(navController: navigationController, navItem: navigationItem,
+        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
                          leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))

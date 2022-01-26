@@ -26,6 +26,9 @@ class RankVC: UIViewController {
     var collapsedFirstGoal: Constraint?
     var expandedFirstGoal: Constraint?
     
+    var screenHeight = Utils.screenHeight
+    var screenWidth = Utils.screenWidth
+    
     // MARK: - Initializers
     init(viewModel: RankVM) {
         self.viewModel = viewModel
@@ -46,7 +49,7 @@ class RankVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        let label = createMainTitle(text: """
+        let label = Utils.createMainTitle(text: """
             Rank top two macro
             goals:
             """,
@@ -149,7 +152,7 @@ class RankVC: UIViewController {
         
         updateDropDownView(action: "expand")
         
-        createDropDown(dropDown: firstGoalDropDown, dataSource: dailyMacros,
+        Utils.createDropDown(dropDown: firstGoalDropDown, dataSource: dailyMacros,
                        anchorView: firstGoalButton, screen: "rank")
         firstGoalDropDown.bottomOffset = CGPoint(x: 0, y: firstGoalButton.frame.size.height + screenHeight * 0.01)
         
@@ -169,7 +172,7 @@ class RankVC: UIViewController {
         let secondGoalDropDown = DropDown()
         
         secondGoalButton.isSelected = true
-        createDropDown(dropDown: secondGoalDropDown, dataSource: dailyMacros,
+        Utils.createDropDown(dropDown: secondGoalDropDown, dataSource: dailyMacros,
                        anchorView: secondGoalButton, screen: "rank")
         secondGoalDropDown.bottomOffset = CGPoint(x: 0, y: secondGoalButton.frame.size.height + screenHeight * 0.01)
         
@@ -226,7 +229,7 @@ extension RankVC {
         addSubviews()
         constrainSubviews()
         collapsedFirstGoal?.isActive = true
-        setNavigationBar(navController: navigationController, navItem: navigationItem,
+        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
                          leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))

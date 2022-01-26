@@ -12,6 +12,9 @@ import Combine
 
 class IntroVC: UIViewController {
     
+    var screenHeight = Utils.screenHeight
+    var screenWidth = Utils.screenWidth
+    
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -15,6 +15,9 @@ class InfoVC: UIViewController {
     private var viewModel: InfoVM
     private var cancellables = Set<AnyCancellable>()
     
+    var screenHeight = Utils.screenHeight
+    var screenWidth = Utils.screenWidth
+    
     // MARK: - INITIALIZERS
     init(viewModel: InfoVM) {
         self.viewModel = viewModel
@@ -36,7 +39,7 @@ class InfoVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -44,13 +47,13 @@ class InfoVC: UIViewController {
     
     // MARK: - TITLE
     lazy var mainTitle: UIImageView = {
-        let image = createAspectFitImage(imageName: "letsplan:",
-                                         width: screenWidth * 0.5,
-                                         height: screenHeight * 0.06)
-
+        let image = Utils.createAspectFitImage(imageName: "letsplan:",
+                                               width: screenWidth * 0.5,
+                                               height: screenHeight * 0.06)
+        
         return image
     }()
-
+    
     // MARK: - AGE BUTTON
     lazy var ageButton: UIButton = {
         var button = UIButton()
@@ -80,11 +83,11 @@ class InfoVC: UIViewController {
     }()
     
     lazy var ageVStack: UIStackView = {
-        let VStack = createVStack(subviews: [ageLabel, ageTextArea],
-                                  width: ageButton.frame.width * 0.66,
-                                  height: ageButton.frame.height * 0.33,
-                                  spacing: ageButton.frame.height * -0.07)
-    
+        let VStack = Utils.createVStack(subviews: [ageLabel, ageTextArea],
+                                        width: ageButton.frame.width * 0.66,
+                                        height: ageButton.frame.height * 0.33,
+                                        spacing: ageButton.frame.height * -0.07)
+        
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(didTapAgeButton))
         VStack.addGestureRecognizer(tapGesture)
@@ -100,42 +103,42 @@ class InfoVC: UIViewController {
                               height: screenHeight * 0.15)
         button.setBackgroundImage(UIImage(named: "heightButton"), for: .normal)
         button.addTarget(self, action: #selector(didTapFtField), for: .touchUpInside)
-
+        
         return button
     }()
-
+    
     lazy var ftLabel: UILabel = {
         var label = UILabel()
         label.text = "  '"
         label.textColor = UIColor(named: "orange")
         label.textAlignment = .center
         label.font = UIFont(name: "KGHAPPYSolid", size: 15)
-
+        
         return label
     }()
-
+    
     lazy var ftTextArea: UIImageView = {
-        let image = createAspectFitImage(imageName: "heightTextArea")
+        let image = Utils.createAspectFitImage(imageName: "heightTextArea")
         
         return image
     }()
     
     lazy var inTextArea: UIImageView = {
-        let image = createAspectFitImage(imageName: "heightTextArea")
+        let image = Utils.createAspectFitImage(imageName: "heightTextArea")
         
         return image
     }()
-
+    
     lazy var ftVStack: UIStackView = {
-        let VStack = createVStack(subviews: [ftLabel, ftTextArea],
-                                  width: heightButton.frame.width * 0.39,
-                                  height: heightButton.frame.height * 0.3,
-                                  spacing: heightButton.frame.height * -0.08)
-
+        let VStack = Utils.createVStack(subviews: [ftLabel, ftTextArea],
+                                        width: heightButton.frame.width * 0.39,
+                                        height: heightButton.frame.height * 0.3,
+                                        spacing: heightButton.frame.height * -0.08)
+        
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(didTapFtField))
         VStack.addGestureRecognizer(tapGesture)
-
+        
         return VStack
     }()
     
@@ -145,20 +148,20 @@ class InfoVC: UIViewController {
         label.textColor = UIColor(named: "orange")
         label.textAlignment = .center
         label.font = UIFont(name: "KGHAPPYSolid", size: 15)
-
+        
         return label
     }()
     
     lazy var inVStack: UIStackView = {
-        let VStack = createVStack(subviews: [inLabel, inTextArea],
-                                  width: heightButton.frame.width * 0.39,
-                                  height: heightButton.frame.height * 0.3,
-                                  spacing: heightButton.frame.height * -0.08)
+        let VStack = Utils.createVStack(subviews: [inLabel, inTextArea],
+                                        width: heightButton.frame.width * 0.39,
+                                        height: heightButton.frame.height * 0.3,
+                                        spacing: heightButton.frame.height * -0.08)
         
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(didTapInField))
         VStack.addGestureRecognizer(tapGesture)
-
+        
         return VStack
     }()
     
@@ -167,7 +170,7 @@ class InfoVC: UIViewController {
         
         HStack.axis = .horizontal
         HStack.spacing = heightButton.frame.width * 0.05
-
+        
         return HStack
     }()
     
@@ -176,10 +179,10 @@ class InfoVC: UIViewController {
         
         HStack.axis = .horizontal
         HStack.spacing = heightButton.frame.width * 0.06
-
+        
         return HStack
     }()
-
+    
     // MARK: - WEIGHT BUTTON
     lazy var weightButton: UIButton = {
         var button = UIButton()
@@ -188,7 +191,7 @@ class InfoVC: UIViewController {
                               height: screenHeight * 0.15)
         button.setBackgroundImage(UIImage(named: "weightButton"), for: .normal)
         button.addTarget(self, action: #selector(didTapWeightButton), for: .touchUpInside)
-
+        
         return button
     }()
     
@@ -212,18 +215,18 @@ class InfoVC: UIViewController {
     }()
     
     lazy var weightVStack: UIStackView = {
-        let VStack = createVStack(subviews: [weightLabel, weightTextArea],
-                                  width: weightButton.frame.width * 0.65,
-                                  height: weightButton.frame.height * 0.3,
-                                  spacing: ageButton.frame.height * -0.07)
-
+        let VStack = Utils.createVStack(subviews: [weightLabel, weightTextArea],
+                                        width: weightButton.frame.width * 0.65,
+                                        height: weightButton.frame.height * 0.3,
+                                        spacing: ageButton.frame.height * -0.07)
+        
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(didTapWeightButton))
         VStack.addGestureRecognizer(tapGesture)
-
+        
         return VStack
     }()
-
+    
     // MARK: - ACTIVITY LEVEL BUTTON
     lazy var activityButton: UIButton = {
         var button = UIButton()
@@ -254,8 +257,8 @@ class InfoVC: UIViewController {
     }()
     
     lazy var activityVStack: UIStackView = {
-        let VStack = createVStack(subviews: [activityLabel, activityTextArea],
-                                  spacing: activityButton.frame.height * -0.08)
+        let VStack = Utils.createVStack(subviews: [activityLabel, activityTextArea],
+                                        spacing: activityButton.frame.height * -0.08)
         
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(didTapActivityButton))
@@ -271,14 +274,14 @@ class InfoVC: UIViewController {
         
         return button
     }()
-
+    
     lazy var allButtonsVStack: UIStackView = {
         let VStack = UIStackView(arrangedSubviews: [ageButton, heightWeightHStack,
                                                     activityButton, calculateButton])
         
         VStack.axis = .vertical
         VStack.spacing = screenHeight * 0.05
-
+        
         return VStack
     }()
     
@@ -287,22 +290,22 @@ class InfoVC: UIViewController {
         let ageDropDown = DropDown()
         let ageData = Array(18...80).map { String("\($0) yrs") }
         
-        createDropDown(dropDown: ageDropDown, dataSource: ageData, anchorView: ageButton, screen: "info")
+        Utils.createDropDown(dropDown: ageDropDown, dataSource: ageData, anchorView: ageButton, screen: "info")
         
         ageDropDown.bottomOffset = CGPoint(x: 0, y: ageButton.frame.size.height)
         ageDropDown.offsetFromWindowBottom = (screenHeight * 0.67) - ageButton.frame.size.height
-
+        
         ageDropDown.selectionAction = { [weak self] (index: Int, item: String) in
             self?.ageLabel.text = item
         }
     }
-
+    
     @objc func didTapFtField() {
         let ftDropDown = DropDown()
         let ftData = Array(4...7).map { String("\($0)'") }
-
-        createDropDown(dropDown: ftDropDown, dataSource: ftData, anchorView: heightButton,
-                       halfWidth: true, screen: "info")
+        
+        Utils.createDropDown(dropDown: ftDropDown, dataSource: ftData, anchorView: heightButton,
+                             halfWidth: true, screen: "info")
         
         ftDropDown.bottomOffset = CGPoint(x: 0, y: heightButton.frame.size.height)
         ftDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - heightButton.frame.size.height
@@ -327,7 +330,7 @@ class InfoVC: UIViewController {
             inData = Array(0...11).map { String("\($0)\"") }
         }
         
-        createDropDown(dropDown: inDropDown, dataSource: inData, anchorView: heightButton, screen: "info")
+        Utils.createDropDown(dropDown: inDropDown, dataSource: inData, anchorView: heightButton, screen: "info")
         
         inDropDown.bottomOffset = CGPoint(x: heightButton.frame.size.width / 2, y: heightButton.frame.size.height)
         inDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - heightButton.frame.size.height
@@ -340,11 +343,11 @@ class InfoVC: UIViewController {
         let weightDropDown = DropDown()
         let weightData = Array(90...300).map { String("\($0) lbs") }
         
-        createDropDown(dropDown: weightDropDown, dataSource: weightData, anchorView: weightButton, screen: "info")
+        Utils.createDropDown(dropDown: weightDropDown, dataSource: weightData, anchorView: weightButton, screen: "info")
         
         weightDropDown.bottomOffset = CGPoint(x: 0, y: weightButton.frame.size.height)
         weightDropDown.offsetFromWindowBottom = (screenHeight * 0.46) - weightButton.frame.size.height
-
+        
         weightDropDown.selectionAction = { [weak self] (index: Int, item: String) in
             self?.weightLabel.text = item
         }
@@ -354,8 +357,8 @@ class InfoVC: UIViewController {
         let activityDropDown = DropDown()
         let activityData = ["Sedentary", "Lightly active", "Active", "Very active"]
         
-        createDropDown(dropDown: activityDropDown, dataSource: activityData,
-                       anchorView: activityButton, screen: "info")
+        Utils.createDropDown(dropDown: activityDropDown, dataSource: activityData,
+                             anchorView: activityButton, screen: "info")
         
         activityDropDown.bottomOffset = CGPoint(x: 0, y: activityButton.frame.size.height)
         

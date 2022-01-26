@@ -18,6 +18,9 @@ class ProteinVC: UIViewController {
     
     var proteinData: MealInfo
     
+    var screenHeight = Utils.screenHeight
+    var screenWidth = Utils.screenWidth
+    
     // MARK: - Initializers
     init(viewModel: RankVM) {
         self.viewModel = viewModel
@@ -40,7 +43,7 @@ class ProteinVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        let label = createMainTitle(text: """
+        let label = Utils.createMainTitle(text: """
             What's the scoop on
             your protein shake?
             """,
@@ -137,7 +140,7 @@ class ProteinVC: UIViewController {
         let protein = createMacroHStack(macro: "Protein (g)", textField: proteinTextField)
         let fat = createMacroHStack(macro: "Fat (g)", textField: fatTextField)
         
-        let macroVStack = createVStack(subviews: [cal, carbs, protein, fat],
+        let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat],
                                        spacing: screenHeight * 0.02)
         
         return macroVStack
@@ -179,7 +182,7 @@ extension ProteinVC {
         view.backgroundColor = UIColor(named: "bgColor")
         addSubviews()
         constrainSubviews()
-        setNavigationBar(navController: navigationController, navItem: navigationItem,
+        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
                          leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))

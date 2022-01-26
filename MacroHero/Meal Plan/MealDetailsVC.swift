@@ -14,6 +14,9 @@ class MealDetailsVC: UIViewController {
     private var viewModel: MealDetailsVM
     private var cancellables = Set<AnyCancellable>()
     
+    var screenHeight = Utils.screenHeight
+    var screenWidth = Utils.screenWidth
+    
     // MARK: - Initializers
     init(viewModel: MealDetailsVM) {
         self.viewModel = viewModel
@@ -40,12 +43,12 @@ class MealDetailsVC: UIViewController {
     }()
 
     lazy var contentView: UIView = {
-        let partialView = createVStack(subviews: [topView, nutritionView, ingredientsView],
-                                       spacing: screenHeight * 0.03)
+        let partialView = Utils.createVStack(subviews: [topView, nutritionView, ingredientsView],
+                                             spacing: Utils.screenHeight * 0.03)
         partialView.translatesAutoresizingMaskIntoConstraints = false
 
-        let fullView = createVStack(subviews: [partialView, instructionsView],
-                                    spacing: screenHeight * 0.001)
+        let fullView = Utils.createVStack(subviews: [partialView, instructionsView],
+                                          spacing: Utils.screenHeight * 0.001)
 
         return fullView
     }()
@@ -57,7 +60,7 @@ class MealDetailsVC: UIViewController {
         if let type = viewModel.mealInfo.type,
            let name = viewModel.mealInfo.name,
            let image = viewModel.mealInfo.image {
-            let title = createMainTitle(text: type.uppercased(),
+            let title = Utils.createMainTitle(text: type.uppercased(),
                                         textColor: UIColor.customNavy,
                                         noOfLines: 1)
             title.textAlignment = .center
@@ -70,7 +73,7 @@ class MealDetailsVC: UIViewController {
             label.numberOfLines = 2
             label.adjustsFontSizeToFitWidth = true
             
-            titleLabelStack = createVStack(subviews: [title, label],
+            titleLabelStack = Utils.createVStack(subviews: [title, label],
                                            spacing: screenHeight * 0.03)
             
             imageView = UIImageView(image: UIImage(named: image))
@@ -78,7 +81,7 @@ class MealDetailsVC: UIViewController {
             imageView.aspectRatio(1.63)
         }
         
-        let fullVStack = createVStack(subviews: [titleLabelStack, imageView],
+        let fullVStack = Utils.createVStack(subviews: [titleLabelStack, imageView],
                                       spacing: screenHeight * 0.02)
         
         return fullVStack
@@ -99,17 +102,17 @@ class MealDetailsVC: UIViewController {
             fat = createMacroHStack(macro: "Fat", value: macroData.fat)
         }
 
-        let leftVStack = createVStack(subviews: [cal, carbs],
+        let leftVStack = Utils.createVStack(subviews: [cal, carbs],
                                       spacing: screenHeight * 0.01)
 
-        let rightVStack = createVStack(subviews: [protein, fat],
+        let rightVStack = Utils.createVStack(subviews: [protein, fat],
                                        spacing: screenHeight * 0.01)
 
         let macroHStack = UIStackView(arrangedSubviews: [leftVStack, rightVStack])
         macroHStack.axis = .horizontal
         macroHStack.spacing = screenWidth * 0.1
 
-        let fullVStack = createVStack(subviews: [label, macroHStack],
+        let fullVStack = Utils.createVStack(subviews: [label, macroHStack],
                                       spacing: screenWidth * 0.02)
 
         return fullVStack
@@ -124,7 +127,7 @@ class MealDetailsVC: UIViewController {
             textView.attributedText = add(stringList: ingredients)
         }
 
-        let VStack = createVStack(subviews: [label, textView],
+        let VStack = Utils.createVStack(subviews: [label, textView],
                                   spacing: screenWidth * 0.02)
 
         return VStack
@@ -140,7 +143,7 @@ class MealDetailsVC: UIViewController {
                                           indentation: 25, numberedList: true)
         }
 
-        let VStack = createVStack(subviews: [label, textView],
+        let VStack = Utils.createVStack(subviews: [label, textView],
                                   spacing: screenWidth * 0.02)
 
         return VStack
@@ -251,7 +254,7 @@ extension MealDetailsVC {
         view.backgroundColor = UIColor(named: "bgColor")
         addSubviews()
         constrainSubviews()
-        setNavigationBar(navController: navigationController, navItem: navigationItem,
+        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
                          leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))
