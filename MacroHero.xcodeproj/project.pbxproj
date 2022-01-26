@@ -63,6 +63,7 @@
 		09A26981277EB17E005C0BFF /* MealPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanVC.swift; sourceTree = "<group>"; };
 		09B353D2279F806B00871FA2 /* MacroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroData.swift; sourceTree = "<group>"; };
 		09DC9A5327A1E78500EF78E7 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		09DC9A5B27A1F5A500EF78E7 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		09E3043627989F0D003FB240 /* RankVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankVM.swift; sourceTree = "<group>"; };
 		09E304392798D3E6003FB240 /* ProteinVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinVM.swift; sourceTree = "<group>"; };
 		09E304432798F2DE003FB240 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -127,6 +128,7 @@
 				09975BC8278D0B950096E00A /* Add */,
 				0933D8BE270BC66600080FCD /* Other */,
 				0933D8B8270BC56200080FCD /* Info.plist */,
+				09DC9A5B27A1F5A500EF78E7 /* Config.xcconfig */,
 			);
 			path = MacroHero;
 			sourceTree = "<group>";
@@ -408,6 +410,7 @@
 /* Begin XCBuildConfiguration section */
 		0933D8B9270BC56200080FCD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09DC9A5B27A1F5A500EF78E7 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -469,6 +472,7 @@
 		};
 		0933D8BA270BC56200080FCD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09DC9A5B27A1F5A500EF78E7 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
