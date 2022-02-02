@@ -126,4 +126,7 @@ class Utils {
         return label
     }
 
+    static func doubleToStr(_ double: Double) -> String {
+        return "\(Int(round(double)))"
+    }
 }

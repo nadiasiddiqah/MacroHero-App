@@ -13,7 +13,7 @@ import Combine
 class ProteinVC: UIViewController {
     
     // MARK: - PROPERTIES
-    private var viewModel: RankVM
+    private var viewModel: ProteinVM
     private var cancellables = Set<AnyCancellable>()
     
     var proteinData: MealInfo
@@ -22,9 +22,9 @@ class ProteinVC: UIViewController {
     var screenWidth = Utils.screenWidth
     
     // MARK: - Initializers
-    init(viewModel: RankVM) {
+    init(viewModel: ProteinVM) {
         self.viewModel = viewModel
-        self.proteinData = MealInfo(image: "defaultImage", type: "Protein", name: "Protein Shake",
+        self.proteinData = MealInfo(image: "defaultMealImage", type: "Protein", name: "Protein Shake",
                                     macros: MacroBreakdown(calories: "", carbs: "", protein: "", fat: ""))
         super.init(nibName: nil, bundle: nil)
     }
@@ -102,17 +102,23 @@ class ProteinVC: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func didTapNextButton() {
-        if nextButton.isEnabled {
-            setupTabBar()
-        }
+        segueToMealPlanTab()
+        
+//        guard let macros = proteinData.macros, !macros.calories.isEmpty,
+//              !macros.carbs.isEmpty, !macros.protein.isEmpty, !macros.fat.isEmpty else { return }
+//
+//        guard Int(macros.calories) != nil, Int(macros.carbs) != nil,
+//              Int(macros.protein) != nil, Int(macros.fat) != nil else { return }
+//
+//        segueToMealPlanTab()
     }
 
     // MARK: - FUNCTIONS
-    func setupTabBar() {
+    func segueToMealPlanTab() {
         let tabBarController = UITabBarController()
         
-        let vc1 = UINavigationController(rootViewController: MealPlanVC(viewModel: .init(mealPlan: MealPlan(protein: proteinData))))
-        print(proteinData)
+        let vc1 = UINavigationController(rootViewController:
+                                            MealPlanVC(viewModel: .init(mealPlan: MealPlan(protein: proteinData))))
         let vc2 = UINavigationController(rootViewController: AddView())
         let vc3 = UINavigationController(rootViewController: ProfileView())
         
@@ -141,7 +147,7 @@ class ProteinVC: UIViewController {
         let fat = createMacroHStack(macro: "Fat (g)", textField: fatTextField)
         
         let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat],
-                                       spacing: screenHeight * 0.02)
+                                             spacing: screenHeight * 0.02)
         
         return macroVStack
     }

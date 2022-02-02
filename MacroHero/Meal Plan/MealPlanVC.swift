@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import PKHUD
 
 class MealPlanVC: UIViewController {
     
@@ -16,10 +17,6 @@ class MealPlanVC: UIViewController {
     
     var contentViewSize = CGSize(width: Utils.screenWidth,
                                  height: Utils.screenHeight + Utils.screenHeight * 0.11)
-    
-    var breakfastReq = MealReq()
-    var lunchReq = MealReq()
-    var dinnerReq = MealReq()
     
     var breakfast = MealInfo()
     var lunch = MealInfo()
@@ -31,6 +28,7 @@ class MealPlanVC: UIViewController {
     // MARK: - Initializers
     init(viewModel: MealPlanVM) {
         self.viewModel = viewModel
+        self.allMeals = viewModel.mealPlan
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,8 +41,12 @@ class MealPlanVC: UIViewController {
         super.viewDidLoad()
 
         setupViews()
-        allMeals = MealPlan(breakfast: breakfast, lunch: lunch,
-                            dinner: dinner, protein: viewModel.proteinData)
+//        viewModel.getMealData(reqs: breakfastReq) { _ in
+//            self.allMeals.breakfast = self.viewModel.mealPlan.breakfast
+//        }
+//        viewModel.getMealData(reqs: self.breakfastReq) { _ in
+//            print("retrieved")
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -205,7 +207,7 @@ class MealPlanVC: UIViewController {
     
     lazy var proteinShakeTitle: UILabel = {
         let label = UILabel()
-        label.text = allMeals.protein?.type
+        label.text = "Protein Shake"
         label.font = UIFont(name: "KGHAPPYSolid", size: 30)
         label.textColor = UIColor.customOrange
         label.width(Utils.screenWidth * 0.9)
@@ -299,10 +301,10 @@ class MealPlanVC: UIViewController {
     }
     
     func createMacroVStack(macros: MacroBreakdown, action: Selector? = nil) -> UIStackView {
-        let cal = createMacroHStack(macro: "Calories", value: macros.calories)
-        let carbs = createMacroHStack(macro: "Carbs", value: macros.carbs)
-        let protein = createMacroHStack(macro: "Protein", value: macros.protein)
-        let fat = createMacroHStack(macro: "Fat", value: macros.fat)
+        let cal = createMacroHStack(macro: "Calories", value: "\(macros.calories)g")
+        let carbs = createMacroHStack(macro: "Carbs", value: "\(macros.carbs)g")
+        let protein = createMacroHStack(macro: "Protein", value: "\(macros.protein)g")
+        let fat = createMacroHStack(macro: "Fat", value: "\(macros.fat)")
         
         let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat])
         macroVStack.width(Utils.screenWidth * 0.3)

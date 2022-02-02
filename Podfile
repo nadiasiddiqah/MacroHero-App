@@ -10,5 +10,6 @@ target 'MacroHero' do
   pod 'Gifu'
   pod 'DropDown'
   pod 'IQKeyboardManager'
+  pod 'PKHUD'
 
 end
