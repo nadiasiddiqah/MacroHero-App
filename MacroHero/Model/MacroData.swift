@@ -12,12 +12,6 @@ struct MacroData: Codable {
     let statusCode: Int?
     let requestResult: String?
     let data: MacroOptions?
-
-    enum CodingKeys: String, CodingKey {
-        case statusCode
-        case requestResult
-        case data
-    }
 }
 
 // MARK: - DataClass

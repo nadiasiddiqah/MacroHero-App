@@ -13,12 +13,6 @@ struct MealData: Codable {
     let from, to, count: Int?
     let links: MealDataLinks?
     let hits: [Hit]?
-
-    enum CodingKeys: String, CodingKey {
-        case from, to, count
-        case links
-        case hits
-    }
 }
 
 // MARK: - Hit
@@ -26,20 +20,11 @@ struct Hit: Codable {
     let recipe: Recipe?
     let bookmarked, bought: Bool?
     let links: HitLinks?
-
-    enum CodingKeys: String, CodingKey {
-        case recipe, bookmarked, bought
-        case links
-    }
 }
 
 // MARK: - HitLinks
 struct HitLinks: Codable {
     let linksSelf: Next?
-
-    enum CodingKeys: String, CodingKey {
-        case linksSelf
-    }
 }
 
 // MARK: - Next
@@ -74,13 +59,6 @@ struct Recipe: Codable {
 // MARK: - Images
 struct Images: Codable {
     let thumbnail, small, regular, large: ImageInfo?
-
-    enum CodingKeys: String, CodingKey {
-        case thumbnail
-        case small
-        case regular
-        case large
-    }
 }
 
 // MARK: - Large
