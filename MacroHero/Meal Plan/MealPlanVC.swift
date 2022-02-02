@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import PKHUD
+import Kingfisher
 
 class MealPlanVC: UIViewController {
     
@@ -41,24 +42,18 @@ class MealPlanVC: UIViewController {
         super.viewDidLoad()
 
         setupViews()
-//        viewModel.getMealData(reqs: breakfastReq) { _ in
-//            self.allMeals.breakfast = self.viewModel.mealPlan.breakfast
-//        }
-//        viewModel.getMealData(reqs: self.breakfastReq) { _ in
-//            print("retrieved")
-//        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-//        DispatchQueue.main.async {
-//            self.viewModel.getMealData(reqs: self.breakfastReq) { [weak self] data in
-//                self?.meal = data
-//            }
-//        }
-//
-//        print(meal)
+        HUD.show(.progress)
+        HUD.dimsBackground = true
+        viewModel.getMealData(reqs: viewModel.breakfastReq) {
+            self.allMeals.breakfast = self.viewModel.mealPlan.breakfast
+            DispatchQueue.main.async {
+                HUD.hide(animated: true) { _ in
+                    HUD.dimsBackground = false
+                }
+                self.addSubviews()
+                self.constrainSubviews()
+            }
+        }
     }
     
     // MARK: - VIEW OBJECTS
@@ -103,8 +98,11 @@ class MealPlanVC: UIViewController {
     lazy var breakfastImage: UIImageView = {
         var imageView = UIImageView()
         if let image = allMeals.breakfast?.image {
-            imageView = createImage(imageName: image,
-                                action: #selector(showBreakfastDetails))
+            imageView.kf.setImage(with: URL(string: image))
+            imageView.contentMode = .scaleToFill
+            imageView.isUserInteractionEnabled = true
+            
+            addGestureRecognizer(object: imageView, action: #selector(showBreakfastDetails))
         }
         
         return imageView
@@ -307,7 +305,7 @@ class MealPlanVC: UIViewController {
         let fat = createMacroHStack(macro: "Fat", value: "\(macros.fat)")
         
         let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat])
-        macroVStack.width(Utils.screenWidth * 0.3)
+        macroVStack.width(Utils.screenWidth * 0.33)
         macroVStack.spacing = Utils.screenHeight * 0.006
         
         if let action = action {
@@ -332,6 +330,8 @@ class MealPlanVC: UIViewController {
         label2.font = UIFont(name: "KGHAPPYSolid", size: 20)
         label2.textColor = UIColor.customNavy
         label2.width(gridWidth)
+        label2.lineBreakStrategy = []
+        label2.numberOfLines = 0
         label2.adjustsFontSizeToFitWidth = true
         
         let labelVStack = Utils.createVStack(subviews: [label1, label2],
@@ -340,28 +340,6 @@ class MealPlanVC: UIViewController {
         addGestureRecognizer(object: labelVStack, action: action)
         
         return labelVStack
-    }
-    
-    func addConstraintsForMeal(title: UIView, topToBottomOf: UIView,
-                               image: UIView, macro: UIView,
-                               refreshButton: UIView? = nil) {
-        title.leftToSuperview(offset: Utils.screenWidth * 0.05)
-        title.topToBottom(of: topToBottomOf, offset: Utils.screenHeight * 0.03)
-        
-        image.leftToSuperview(offset: Utils.screenWidth * 0.05)
-        image.topToBottom(of: title, offset: Utils.screenHeight * 0.01)
-        image.width(Utils.screenWidth * 0.45)
-        image.aspectRatio(1.63)
-        
-        macro.topToBottom(of: title, offset: Utils.screenHeight * 0.01)
-        macro.leftToRight(of: image, offset: Utils.screenWidth * 0.02)
-        
-        if let refreshButton = refreshButton {
-            refreshButton.topToBottom(of: title, offset: Utils.screenHeight * 0.05)
-            refreshButton.leftToRight(of: macro, offset: Utils.screenWidth * 0.07)
-            refreshButton.width(Utils.screenWidth * 0.07)
-            refreshButton.aspectRatio(1)
-        }
     }
     
     func addGestureRecognizer(object: UIView, action: Selector) {
@@ -384,8 +362,6 @@ extension MealPlanVC {
     
     func setupViews() {
         view.backgroundColor = UIColor(named: "bgColor")
-        addSubviews()
-        constrainSubviews()
         
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem)
     }
@@ -434,5 +410,27 @@ extension MealPlanVC {
         
         addConstraintsForMeal(title: proteinShakeTitle, topToBottomOf: dinnerImage,
                               image: proteinShakeImage, macro: proteinShakeMacro)
+    }
+    
+    func addConstraintsForMeal(title: UIView, topToBottomOf: UIView,
+                               image: UIView, macro: UIView,
+                               refreshButton: UIView? = nil) {
+        title.leftToSuperview(offset: Utils.screenWidth * 0.05)
+        title.topToBottom(of: topToBottomOf, offset: Utils.screenHeight * 0.03)
+        
+        image.leftToSuperview(offset: Utils.screenWidth * 0.05)
+        image.topToBottom(of: title, offset: Utils.screenHeight * 0.01)
+        image.width(Utils.screenWidth * 0.45)
+        image.aspectRatio(1.63)
+        
+        macro.topToBottom(of: title, offset: Utils.screenHeight * 0.01)
+        macro.leftToRight(of: image, offset: Utils.screenWidth * 0.03)
+        
+        if let refreshButton = refreshButton {
+            refreshButton.topToBottom(of: title, offset: Utils.screenHeight * 0.05)
+            refreshButton.leftToRight(of: macro, offset: Utils.screenWidth * 0.03)
+            refreshButton.width(Utils.screenWidth * 0.07)
+            refreshButton.aspectRatio(1)
+        }
     }
 }

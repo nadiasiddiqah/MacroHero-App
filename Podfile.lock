@@ -2,6 +2,7 @@ PODS:
   - DropDown (2.3.13)
   - Gifu (3.3.1)
   - IQKeyboardManager (6.5.9)
+  - Kingfisher (7.1.2)
   - PKHUD (5.3.0)
   - TinyConstraints (4.0.2)
 
@@ -9,6 +10,7 @@ DEPENDENCIES:
   - DropDown
   - Gifu
   - IQKeyboardManager
+  - Kingfisher
   - PKHUD
   - TinyConstraints
 
@@ -17,6 +19,7 @@ SPEC REPOS:
     - DropDown
     - Gifu
     - IQKeyboardManager
+    - Kingfisher
     - PKHUD
     - TinyConstraints
 
@@ -24,9 +27,10 @@ SPEC CHECKSUMS:
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   Gifu: 416d4e38c4c2fed012f019e0a1d3ffcb58e5b842
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
+  Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: b221978fefa48f512546916e207dabecaf7de08b
+PODFILE CHECKSUM: 1152c8f49fa78fa746d9f850cd4421e60c9dd54e
 
 COCOAPODS: 1.11.2

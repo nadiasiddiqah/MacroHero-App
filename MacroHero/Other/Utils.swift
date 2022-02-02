@@ -122,6 +122,7 @@ class Utils {
         }
         
         label.adjustsFontSizeToFitWidth = true
+        label.lineBreakStrategy = []
         
         return label
     }

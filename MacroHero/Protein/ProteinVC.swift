@@ -43,10 +43,8 @@ class ProteinVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        let label = Utils.createMainTitle(text: """
-            What's the scoop on
-            your protein shake?
-            """,
+        let label = Utils.createMainTitle(
+            text: "What's the scoop on your protein shake?",
             width: screenWidth * 0.9,
             noOfLines: 2
         )

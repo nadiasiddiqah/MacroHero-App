@@ -49,10 +49,8 @@ class RankVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        let label = Utils.createMainTitle(text: """
-            Rank top two macro
-            goals:
-            """,
+        let label = Utils.createMainTitle(
+            text: "Rank top two macro goals:",
             width: screenWidth * 0.9,
             noOfLines: 2
         )
