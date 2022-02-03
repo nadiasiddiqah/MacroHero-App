@@ -10,15 +10,14 @@ import UIKit
 
 // MARK: - MealData
 struct MealData: Codable {
-    let from, to, count: Int?
-    let links: MealDataLinks?
+    let count: Int?
     let hits: [Hit]?
 }
 
 // MARK: - Hit
 struct Hit: Codable {
     let recipe: Recipe?
-    let bookmarked, bought: Bool?
+    let bookmarked: Bool?
     let links: HitLinks?
 }
 
@@ -40,7 +39,6 @@ enum Title: String, Codable {
 
 // MARK: - Recipe
 struct Recipe: Codable {
-    let uri: String?
     let label: String?
     let image: String?
     let images: Images?
@@ -51,7 +49,6 @@ struct Recipe: Codable {
     let dietLabels, healthLabels, ingredientLines: [String]?
     let ingredients: [Ingredient]?
     let calories: Double?
-    let cuisineType: [String]?
     let mealType: [MealType]?
     let totalNutrients: [String: TotalNutrient]?
 }
@@ -73,7 +70,7 @@ struct Ingredient: Codable {
     let quantity: Double?
     let measure: String?
     let food: String?
-    let weight: Double?
+//    let weight: Double?
 }
 
 enum MealType: String, Codable {
@@ -92,9 +89,4 @@ enum Unit: String, Codable {
     case kcal = "kcal"
     case mg = "mg"
     case µg = "µg"
-}
-
-// MARK: - MealDataLinks
-struct MealDataLinks: Codable {
-    let next: Next?
 }
