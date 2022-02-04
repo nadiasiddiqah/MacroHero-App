@@ -16,8 +16,10 @@ class MealPlanVC: UIViewController {
     private var viewModel: MealPlanVM
     private var cancellables = Set<AnyCancellable>()
     
-    var contentViewSize = CGSize(width: Utils.screenWidth,
-                                 height: Utils.screenHeight + Utils.screenHeight * 0.11)
+    var screenHeight = Utils.screenHeight
+    var screenWidth = Utils.screenWidth
+    
+    var contentViewSize = CGSize()
     
     var allMeals = MealPlan()
     
@@ -31,17 +33,19 @@ class MealPlanVC: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        contentViewSize = CGSize(width: screenWidth,
+                                 height: screenHeight + screenHeight * 0.11)
+        
         setupViews()
         HUD.show(.progress)
         HUD.dimsBackground = true
         viewModel.fetchAllMealData(mealReqs: AllMealReqs(breakfast: viewModel.breakfastReq,
-                                                      lunch: viewModel.lunchReq,
-                                                      dinner: viewModel.dinnerReq)) {
+                                                         lunch: viewModel.lunchReq,
+                                                         dinner: viewModel.dinnerReq)) {
             self.allMeals = MealPlan(breakfast: self.viewModel.mealPlan.breakfast,
                                      lunch: self.viewModel.mealPlan.lunch,
                                      dinner: self.viewModel.mealPlan.dinner,
@@ -78,7 +82,7 @@ class MealPlanVC: UIViewController {
     
     lazy var mainTitle: UILabel = {
         let label = Utils.createMainTitle(text: "TODAY'S MEAL PLAN",
-                                          width: Utils.screenWidth * 0.8,
+                                          width: screenWidth * 0.8,
                                           textColor: UIColor.customNavy,
                                           noOfLines: 1)
         
@@ -213,7 +217,7 @@ class MealPlanVC: UIViewController {
         label.text = "Protein Shake"
         label.font = UIFont(name: "KGHAPPYSolid", size: 30)
         label.textColor = UIColor.customOrange
-        label.width(Utils.screenWidth * 0.9)
+        label.width(screenWidth * 0.9)
         label.adjustsFontSizeToFitWidth = true
         
         return label
@@ -236,7 +240,7 @@ class MealPlanVC: UIViewController {
         if let macros = allMeals.protein?.macros {
             macroView = createMacroVStack(macros: macros)
         }
-       
+        
         return macroView
     }()
     
@@ -290,7 +294,7 @@ class MealPlanVC: UIViewController {
         macroLabel.textColor = UIColor.customBlue
         macroLabel.font = UIFont(name: "KGHAPPYSolid", size: 15)
         macroLabel.adjustsFontSizeToFitWidth = true
-
+        
         let valueLabel = UILabel()
         valueLabel.text = value
         valueLabel.textColor = UIColor.customBlue
@@ -304,14 +308,14 @@ class MealPlanVC: UIViewController {
     }
     
     func createMacroVStack(macros: MacroBreakdown, action: Selector? = nil) -> UIStackView {
-        let cal = createMacroHStack(macro: "Calories", value: "\(macros.calories)g")
+        let cal = createMacroHStack(macro: "Calories", value: "\(macros.calories)")
         let carbs = createMacroHStack(macro: "Carbs", value: "\(macros.carbs)g")
         let protein = createMacroHStack(macro: "Protein", value: "\(macros.protein)g")
-        let fat = createMacroHStack(macro: "Fat", value: "\(macros.fat)")
+        let fat = createMacroHStack(macro: "Fat", value: "\(macros.fat)g")
         
         let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat])
-        macroVStack.width(Utils.screenWidth * 0.33)
-        macroVStack.spacing = Utils.screenHeight * 0.006
+        macroVStack.width(screenWidth * 0.33)
+        macroVStack.spacing = screenHeight * 0.006
         
         if let action = action {
             addGestureRecognizer(object: macroVStack, action: action)
@@ -321,7 +325,7 @@ class MealPlanVC: UIViewController {
     }
     
     func createTitleVStack(mealType: String, mealName: String, action: Selector) -> UIStackView {
-        let gridWidth = Utils.screenWidth * 0.9
+        let gridWidth = screenWidth * 0.9
         
         let label1 = UILabel()
         label1.text = mealType
@@ -340,7 +344,7 @@ class MealPlanVC: UIViewController {
         label2.adjustsFontSizeToFitWidth = true
         
         let labelVStack = Utils.createVStack(subviews: [label1, label2],
-                                             spacing: Utils.screenHeight * 0.001)
+                                             spacing: screenHeight * 0.001)
         
         addGestureRecognizer(object: labelVStack, action: action)
         
@@ -399,7 +403,7 @@ extension MealPlanVC {
     
     fileprivate func constrainSubviews() {
         mainTitle.centerXToSuperview()
-        mainTitle.topToSuperview(offset: Utils.screenHeight * 0.04)
+        mainTitle.topToSuperview(offset: screenHeight * 0.04)
         
         addConstraintsForMeal(title: breakfastTitle, topToBottomOf: mainTitle,
                               image: breakfastImage, macro: breakfastMacro,
@@ -420,21 +424,21 @@ extension MealPlanVC {
     func addConstraintsForMeal(title: UIView, topToBottomOf: UIView,
                                image: UIView, macro: UIView,
                                refreshButton: UIView? = nil) {
-        title.leftToSuperview(offset: Utils.screenWidth * 0.05)
-        title.topToBottom(of: topToBottomOf, offset: Utils.screenHeight * 0.03)
+        title.leftToSuperview(offset: screenWidth * 0.05)
+        title.topToBottom(of: topToBottomOf, offset: screenHeight * 0.03)
         
-        image.leftToSuperview(offset: Utils.screenWidth * 0.05)
-        image.topToBottom(of: title, offset: Utils.screenHeight * 0.01)
-        image.width(Utils.screenWidth * 0.45)
+        image.leftToSuperview(offset: screenWidth * 0.05)
+        image.topToBottom(of: title, offset: screenHeight * 0.01)
+        image.width(screenWidth * 0.45)
         image.aspectRatio(1.63)
         
-        macro.topToBottom(of: title, offset: Utils.screenHeight * 0.01)
-        macro.leftToRight(of: image, offset: Utils.screenWidth * 0.03)
+        macro.topToBottom(of: title, offset: screenHeight * 0.01)
+        macro.leftToRight(of: image, offset: screenWidth * 0.03)
         
         if let refreshButton = refreshButton {
-            refreshButton.topToBottom(of: title, offset: Utils.screenHeight * 0.05)
-            refreshButton.leftToRight(of: macro, offset: Utils.screenWidth * 0.03)
-            refreshButton.width(Utils.screenWidth * 0.07)
+            refreshButton.topToBottom(of: title, offset: screenHeight * 0.05)
+            refreshButton.leftToRight(of: macro, offset: screenWidth * 0.03)
+            refreshButton.width(screenWidth * 0.07)
             refreshButton.aspectRatio(1)
         }
     }

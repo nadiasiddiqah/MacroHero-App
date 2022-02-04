@@ -70,14 +70,15 @@ class MealDetailsVC: UIViewController {
             label.textColor = UIColor.customNavy
             label.textAlignment = .center
             label.text = name
-            label.numberOfLines = 2
+            label.numberOfLines = 0
+            label.lineBreakStrategy = []
             label.adjustsFontSizeToFitWidth = true
             
             titleLabelStack = Utils.createVStack(subviews: [title, label],
                                            spacing: screenHeight * 0.03)
             
-            imageView = UIImageView(image: UIImage(named: image))
-            imageView.contentMode = .scaleAspectFill
+            imageView.kf.setImage(with: URL(string: image))
+            imageView.contentMode = .scaleToFill
             imageView.aspectRatio(1.63)
         }
         
@@ -94,27 +95,27 @@ class MealDetailsVC: UIViewController {
         var carbs = UIStackView()
         var protein = UIStackView()
         var fat = UIStackView()
-
+        
         if let macroData = viewModel.mealInfo.macros {
             cal = createMacroHStack(macro: "Calories", value: macroData.calories)
-            carbs = createMacroHStack(macro: "Carbs", value: macroData.carbs)
-            protein = createMacroHStack(macro: "Protein", value: macroData.protein)
-            fat = createMacroHStack(macro: "Fat", value: macroData.fat)
+            carbs = createMacroHStack(macro: "Carbs", value: "\(macroData.carbs)g")
+            protein = createMacroHStack(macro: "Protein", value: "\(macroData.protein)g")
+            fat = createMacroHStack(macro: "Fat", value: "\(macroData.fat)g")
         }
-
+        
         let leftVStack = Utils.createVStack(subviews: [cal, carbs],
-                                      spacing: screenHeight * 0.01)
-
+                                            spacing: screenHeight * 0.01)
+        
         let rightVStack = Utils.createVStack(subviews: [protein, fat],
-                                       spacing: screenHeight * 0.01)
-
+                                             spacing: screenHeight * 0.01)
+        
         let macroHStack = UIStackView(arrangedSubviews: [leftVStack, rightVStack])
         macroHStack.axis = .horizontal
-        macroHStack.spacing = screenWidth * 0.1
-
+        macroHStack.spacing = screenWidth * 0.05
+        
         let fullVStack = Utils.createVStack(subviews: [label, macroHStack],
-                                      spacing: screenWidth * 0.02)
-
+                                            spacing: screenWidth * 0.02)
+        
         return fullVStack
     }()
 
@@ -170,13 +171,14 @@ class MealDetailsVC: UIViewController {
         macroLabel.textColor = UIColor.customBlue
         macroLabel.font = font
         macroLabel.adjustsFontSizeToFitWidth = true
-        macroLabel.width(screenWidth * 0.2)
+//        macroLabel.width(screenWidth * 0.2)
 
         let valueLabel = UILabel()
         valueLabel.text = value
         valueLabel.textColor = UIColor.customNavy
         valueLabel.font = font
         valueLabel.adjustsFontSizeToFitWidth = true
+        valueLabel.textAlignment = .right
 
         let macroHStack = UIStackView(arrangedSubviews: [macroLabel, valueLabel])
         macroHStack.axis = .horizontal
