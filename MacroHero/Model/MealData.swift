@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 // MARK: - MealData
 struct MealData: Codable {
@@ -70,11 +69,16 @@ struct Ingredient: Codable {
     let quantity: Double?
     let measure: String?
     let food: String?
-//    let weight: Double?
 }
 
 enum MealType: String, Codable {
     case breakfast = "breakfast"
+    case brunch = "brunch"
+    case lunch = "lunch"
+    case dinner = "dinner"
+    case teatime = "teatime"
+    case lunchOrDinner = "lunch/dinner"
+    case snack = "snack"
 }
 
 // MARK: - TotalNutrient

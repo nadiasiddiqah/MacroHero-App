@@ -19,11 +19,6 @@ class MealPlanVC: UIViewController {
     var contentViewSize = CGSize(width: Utils.screenWidth,
                                  height: Utils.screenHeight + Utils.screenHeight * 0.11)
     
-    var breakfast = MealInfo()
-    var lunch = MealInfo()
-    var dinner = MealInfo()
-    var protein = MealInfo()
-    
     var allMeals = MealPlan()
     
     // MARK: - Initializers
@@ -44,8 +39,14 @@ class MealPlanVC: UIViewController {
         setupViews()
         HUD.show(.progress)
         HUD.dimsBackground = true
-        viewModel.getMealData(reqs: viewModel.breakfastReq) {
-            self.allMeals.breakfast = self.viewModel.mealPlan.breakfast
+        viewModel.fetchAllMealData(mealReqs: AllMealReqs(breakfast: viewModel.breakfastReq,
+                                                      lunch: viewModel.lunchReq,
+                                                      dinner: viewModel.dinnerReq)) {
+            self.allMeals = MealPlan(breakfast: self.viewModel.mealPlan.breakfast,
+                                     lunch: self.viewModel.mealPlan.lunch,
+                                     dinner: self.viewModel.mealPlan.dinner,
+                                     protein: self.viewModel.mealPlan.protein)
+            
             DispatchQueue.main.async {
                 HUD.hide(animated: true) { _ in
                     HUD.dimsBackground = false
@@ -139,8 +140,11 @@ class MealPlanVC: UIViewController {
     lazy var lunchImage: UIImageView = {
         var imageView = UIImageView()
         if let image = allMeals.lunch?.image {
-            imageView = createImage(imageName: image,
-                                    action: #selector(showLunchDetails))
+            imageView.kf.setImage(with: URL(string: image))
+            imageView.contentMode = .scaleToFill
+            imageView.isUserInteractionEnabled = true
+            
+            addGestureRecognizer(object: imageView, action: #selector(showLunchDetails))
         }
         
         return imageView
@@ -164,12 +168,11 @@ class MealPlanVC: UIViewController {
     }()
     
     lazy var dinnerTitle: UIStackView = {
-        let title = UIStackView()
-        
+        var title = UIStackView()
         if let name = allMeals.dinner?.name {
-            let title = createTitleVStack(mealType: "Dinner",
-                                          mealName: name,
-                                          action: #selector(showDinnerDetails))
+            title = createTitleVStack(mealType: "Dinner",
+                                      mealName: name,
+                                      action: #selector(showDinnerDetails))
         }
         
         return title
@@ -177,21 +180,23 @@ class MealPlanVC: UIViewController {
     
     lazy var dinnerImage: UIImageView = {
         var imageView = UIImageView()
-        
         if let image = allMeals.dinner?.image {
-            imageView = createImage(imageName: image,
-                                    action: #selector(showDinnerDetails))
+            imageView.kf.setImage(with: URL(string: image))
+            imageView.contentMode = .scaleToFill
+            imageView.isUserInteractionEnabled = true
+            
+            addGestureRecognizer(object: imageView, action: #selector(showDinnerDetails))
         }
         
         return imageView
     }()
     
     lazy var dinnerMacro: UIStackView = {
-        let macroView = UIStackView()
+        var macroView = UIStackView()
         
         if let macros = allMeals.dinner?.macros {
-            let macroView = createMacroVStack(macros: macros,
-                                              action: #selector(showDinnerDetails))
+            macroView = createMacroVStack(macros: macros,
+                                          action: #selector(showDinnerDetails))
         }
         
         return macroView

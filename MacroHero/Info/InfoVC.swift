@@ -401,7 +401,7 @@ class InfoVC: UIViewController {
 //                                      activityLevel: activityData, goal: goalData)
 //
 //        if let userData = viewModel.userData {
-//            self.viewModel.requestMacroData(for: userData) {
+//            self.viewModel.fetchMacroData(for: userData) {
 //                DispatchQueue.main.async {
 //                    if let dailyMacro = self.viewModel.dailyMacro {
 //                        let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
@@ -412,7 +412,7 @@ class InfoVC: UIViewController {
 //        }
         
         let dailyMacro = MacroBreakdown(calories: "1890", carbs: "215", protein: "145", fat: "55")
-        
+
         let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
         navigationController?.pushViewController(planVC, animated: true)
     }

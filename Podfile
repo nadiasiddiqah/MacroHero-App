@@ -12,7 +12,6 @@ target 'MacroHero' do
   pod 'IQKeyboardManager'
   pod 'PKHUD'
   pod 'Kingfisher'
+  pod 'Alamofire'
 
 end
-self.addSubviews()
-self.constrainSubviews()

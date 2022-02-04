@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.5.0)
   - DropDown (2.3.13)
   - Gifu (3.3.1)
   - IQKeyboardManager (6.5.9)
@@ -7,6 +8,7 @@ PODS:
   - TinyConstraints (4.0.2)
 
 DEPENDENCIES:
+  - Alamofire
   - DropDown
   - Gifu
   - IQKeyboardManager
@@ -16,6 +18,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - DropDown
     - Gifu
     - IQKeyboardManager
@@ -24,6 +27,7 @@ SPEC REPOS:
     - TinyConstraints
 
 SPEC CHECKSUMS:
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   Gifu: 416d4e38c4c2fed012f019e0a1d3ffcb58e5b842
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
@@ -31,6 +35,6 @@ SPEC CHECKSUMS:
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: 1152c8f49fa78fa746d9f850cd4421e60c9dd54e
+PODFILE CHECKSUM: c5ce13d1bb26aa356aebb9aef3a2c187ad09398f
 
 COCOAPODS: 1.11.2

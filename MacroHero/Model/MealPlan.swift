@@ -13,3 +13,15 @@ struct MealPlan {
     var dinner: MealInfo?
     var protein: MealInfo?
 }
+
+struct MealInfo {
+    var image, type, name: String?
+    var macros: MacroBreakdown?
+    var ingredients, instructions: [String]?
+}
+
+struct MacroBreakdown {
+    var calories, carbs, protein, fat: String
+}
+
+
