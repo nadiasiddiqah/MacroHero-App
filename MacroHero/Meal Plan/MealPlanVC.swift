@@ -356,7 +356,6 @@ class MealPlanVC: UIViewController {
             return imageView
         }
         
-        ImageResponseSerializer.addAcceptableImageContentTypes(["image/jpg", "image/png", "binary/octet-stream"])
         let filter = AspectScaledToFillSizeFilter(size: imageView.frame.size)
         imageView.af.setImage(withURL: url, filter: filter)
         imageView.isUserInteractionEnabled = true

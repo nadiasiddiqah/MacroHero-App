@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 import IQKeyboardManager
+import AlamofireImage
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().keyboardDistanceFromTextField = Utils.keyboardDistanceFromTextField
         IQKeyboardManager.shared().isEnableAutoToolbar = false
+        
+        // Update acceptable downloadable image content types
+        ImageResponseSerializer.addAcceptableImageContentTypes(["image/jpg", "image/png", "binary/octet-stream"])
         
         // Show dropdown menu
         DropDown.startListeningToKeyboard()

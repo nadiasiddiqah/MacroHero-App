@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import AlamofireImage
 
 class MealDetailsVC: UIViewController {
     
@@ -55,7 +56,9 @@ class MealDetailsVC: UIViewController {
     
     lazy var topView: UIStackView = {
         var titleLabelStack = UIStackView()
-        var imageView = UIImageView()
+        var imageView = UIImageView(frame: CGRect(x: 0, y: 0,
+                                                  width: screenWidth * 0.8,
+                                                  height: screenHeight * 0.22))
         
         if let type = viewModel.mealInfo.type,
            let name = viewModel.mealInfo.name,
@@ -77,9 +80,14 @@ class MealDetailsVC: UIViewController {
             titleLabelStack = Utils.createVStack(subviews: [title, label],
                                                  spacing: screenHeight * 0.01)
             
-            imageView.kf.setImage(with: URL(string: image))
-            imageView.contentMode = .scaleToFill
+            imageView.width(screenWidth * 0.8)
             imageView.aspectRatio(1.63)
+            if let url = URL(string: image) {
+                let filter = AspectScaledToFillSizeFilter(size: imageView.frame.size)
+                imageView.af.setImage(withURL: url, filter: filter)
+            } else {
+                imageView = UIImageView(image: UIImage(named: "defaultMealImage"))
+            }
         }
         
         let fullVStack = Utils.createVStack(subviews: [titleLabelStack, imageView],
