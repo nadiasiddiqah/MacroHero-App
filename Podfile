@@ -11,7 +11,7 @@ target 'MacroHero' do
   pod 'DropDown'
   pod 'IQKeyboardManager'
   pod 'PKHUD'
-  pod 'Kingfisher'
   pod 'Alamofire'
+  pod 'AlamofireImage'
 
 end

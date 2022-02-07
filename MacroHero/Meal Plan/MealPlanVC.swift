@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 import PKHUD
-import Kingfisher
+import AlamofireImage
 
 class MealPlanVC: UIViewController {
     
@@ -21,12 +21,9 @@ class MealPlanVC: UIViewController {
     
     var contentViewSize = CGSize()
     
-    var allMeals = MealPlan()
-    
     // MARK: - Initializers
     init(viewModel: MealPlanVM) {
         self.viewModel = viewModel
-        self.allMeals = viewModel.mealPlan
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -46,11 +43,6 @@ class MealPlanVC: UIViewController {
         viewModel.fetchAllMealData(mealReqs: AllMealReqs(breakfast: viewModel.breakfastReq,
                                                          lunch: viewModel.lunchReq,
                                                          dinner: viewModel.dinnerReq)) {
-            self.allMeals = MealPlan(breakfast: self.viewModel.mealPlan.breakfast,
-                                     lunch: self.viewModel.mealPlan.lunch,
-                                     dinner: self.viewModel.mealPlan.dinner,
-                                     protein: self.viewModel.mealPlan.protein)
-            
             DispatchQueue.main.async {
                 HUD.hide(animated: true) { _ in
                     HUD.dimsBackground = false
@@ -91,7 +83,7 @@ class MealPlanVC: UIViewController {
     
     lazy var breakfastTitle: UIStackView = {
         var title = UIStackView()
-        if let name = allMeals.breakfast?.name {
+        if let name = viewModel.mealPlan.breakfast?.name {
             title = createTitleVStack(mealType: "Breakfast",
                                       mealName: name,
                                       action: #selector(showBreakfastDetails))
@@ -102,12 +94,8 @@ class MealPlanVC: UIViewController {
     
     lazy var breakfastImage: UIImageView = {
         var imageView = UIImageView()
-        if let image = allMeals.breakfast?.image {
-            imageView.kf.setImage(with: URL(string: image))
-            imageView.contentMode = .scaleToFill
-            imageView.isUserInteractionEnabled = true
-            
-            addGestureRecognizer(object: imageView, action: #selector(showBreakfastDetails))
+        if let image = viewModel.mealPlan.breakfast?.image {
+            imageView = loadAFImage(image: image, action: #selector(showBreakfastDetails))
         }
         
         return imageView
@@ -116,7 +104,7 @@ class MealPlanVC: UIViewController {
     lazy var breakfastMacro: UIStackView = {
         var macroView = UIStackView()
         
-        if let macros = allMeals.breakfast?.macros {
+        if let macros = viewModel.mealPlan.breakfast?.macros {
             macroView = createMacroVStack(macros: macros,
                                           action: #selector(showBreakfastDetails))
         }
@@ -132,7 +120,7 @@ class MealPlanVC: UIViewController {
     
     lazy var lunchTitle: UIStackView = {
         var title = UIStackView()
-        if let name = allMeals.lunch?.name {
+        if let name = viewModel.mealPlan.lunch?.name {
             title = createTitleVStack(mealType: "Lunch",
                                       mealName: name,
                                       action: #selector(showLunchDetails))
@@ -143,12 +131,8 @@ class MealPlanVC: UIViewController {
     
     lazy var lunchImage: UIImageView = {
         var imageView = UIImageView()
-        if let image = allMeals.lunch?.image {
-            imageView.kf.setImage(with: URL(string: image))
-            imageView.contentMode = .scaleToFill
-            imageView.isUserInteractionEnabled = true
-            
-            addGestureRecognizer(object: imageView, action: #selector(showLunchDetails))
+        if let image = viewModel.mealPlan.lunch?.image {
+            imageView = loadAFImage(image: image, action: #selector(showLunchDetails))
         }
         
         return imageView
@@ -157,7 +141,7 @@ class MealPlanVC: UIViewController {
     lazy var lunchMacro: UIStackView = {
         var macroView = UIStackView()
         
-        if let macros = allMeals.lunch?.macros {
+        if let macros = viewModel.mealPlan.lunch?.macros {
             macroView = createMacroVStack(macros: macros,
                                           action: #selector(showLunchDetails))
         }
@@ -173,7 +157,7 @@ class MealPlanVC: UIViewController {
     
     lazy var dinnerTitle: UIStackView = {
         var title = UIStackView()
-        if let name = allMeals.dinner?.name {
+        if let name = viewModel.mealPlan.dinner?.name {
             title = createTitleVStack(mealType: "Dinner",
                                       mealName: name,
                                       action: #selector(showDinnerDetails))
@@ -184,12 +168,8 @@ class MealPlanVC: UIViewController {
     
     lazy var dinnerImage: UIImageView = {
         var imageView = UIImageView()
-        if let image = allMeals.dinner?.image {
-            imageView.kf.setImage(with: URL(string: image))
-            imageView.contentMode = .scaleToFill
-            imageView.isUserInteractionEnabled = true
-            
-            addGestureRecognizer(object: imageView, action: #selector(showDinnerDetails))
+        if let image = viewModel.mealPlan.dinner?.image {
+            imageView = loadAFImage(image: image, action: #selector(showDinnerDetails))
         }
         
         return imageView
@@ -198,7 +178,7 @@ class MealPlanVC: UIViewController {
     lazy var dinnerMacro: UIStackView = {
         var macroView = UIStackView()
         
-        if let macros = allMeals.dinner?.macros {
+        if let macros = viewModel.mealPlan.dinner?.macros {
             macroView = createMacroVStack(macros: macros,
                                           action: #selector(showDinnerDetails))
         }
@@ -226,7 +206,7 @@ class MealPlanVC: UIViewController {
     lazy var proteinShakeImage: UIImageView = {
         var imageView = UIImageView()
         
-        if let image = allMeals.protein?.image {
+        if let image = viewModel.mealPlan.protein?.image {
             imageView = UIImageView(image: UIImage(named: image))
             imageView.contentMode = .scaleAspectFill
         }
@@ -237,7 +217,7 @@ class MealPlanVC: UIViewController {
     lazy var proteinShakeMacro: UIStackView = {
         var macroView = UIStackView()
         
-        if let macros = allMeals.protein?.macros {
+        if let macros = viewModel.mealPlan.protein?.macros {
             macroView = createMacroVStack(macros: macros)
         }
         
@@ -246,21 +226,21 @@ class MealPlanVC: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func showBreakfastDetails() {
-        if let breakfast = allMeals.breakfast {
+        if let breakfast = viewModel.mealPlan.breakfast {
             let nextVC = MealDetailsVC(viewModel: .init(mealInfo: breakfast))
             navigationController?.pushViewController(nextVC, animated: true)
         }
     }
     
     @objc func showLunchDetails() {
-        if let lunch = allMeals.lunch {
+        if let lunch = viewModel.mealPlan.lunch {
             let nextVC = MealDetailsVC(viewModel: .init(mealInfo: lunch))
             navigationController?.pushViewController(nextVC, animated: true)
         }
     }
     
     @objc func showDinnerDetails() {
-        if let dinner = allMeals.dinner {
+        if let dinner = viewModel.mealPlan.dinner {
             let nextVC = MealDetailsVC(viewModel: .init(mealInfo: dinner))
             navigationController?.pushViewController(nextVC, animated: true)
         }
@@ -365,6 +345,25 @@ class MealPlanVC: UIViewController {
         
         return image
     }
+    
+    func loadAFImage(image: String, action: Selector) -> UIImageView {
+        var imageView = UIImageView(frame: CGRect(x: 0, y: 0,
+                                                  width: screenWidth * 0.45,
+                                                  height: screenHeight * 0.15))
+        
+        guard let url = URL(string: image) else {
+            imageView = UIImageView(image: UIImage(named: "defaultMealImage"))
+            return imageView
+        }
+        
+        ImageResponseSerializer.addAcceptableImageContentTypes(["image/jpg", "image/png", "binary/octet-stream"])
+        let filter = AspectScaledToFillSizeFilter(size: imageView.frame.size)
+        imageView.af.setImage(withURL: url, filter: filter)
+        imageView.isUserInteractionEnabled = true
+        addGestureRecognizer(object: imageView, action: action)
+        
+        return imageView
+    }
 }
 
 extension MealPlanVC {
@@ -435,6 +434,8 @@ extension MealPlanVC {
         macro.topToBottom(of: title, offset: screenHeight * 0.01)
         macro.leftToRight(of: image, offset: screenWidth * 0.03)
         
+        print(macro.frame.height)
+        
         if let refreshButton = refreshButton {
             refreshButton.topToBottom(of: title, offset: screenHeight * 0.05)
             refreshButton.leftToRight(of: macro, offset: screenWidth * 0.03)
@@ -443,3 +444,4 @@ extension MealPlanVC {
         }
     }
 }
+

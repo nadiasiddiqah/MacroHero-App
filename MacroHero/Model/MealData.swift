@@ -55,6 +55,13 @@ struct Recipe: Codable {
 // MARK: - Images
 struct Images: Codable {
     let thumbnail, small, regular, large: ImageInfo?
+    
+    enum CodingKeys: String, CodingKey {
+        case thumbnail = "THUMBNAIL"
+        case small = "SMALL"
+        case regular = "REGULAR"
+        case large = "LARGE"
+    }
 }
 
 // MARK: - Large
