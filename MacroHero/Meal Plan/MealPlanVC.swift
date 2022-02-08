@@ -34,6 +34,7 @@ class MealPlanVC: UIViewController {
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("view did load")
         contentViewSize = CGSize(width: screenWidth,
                                  height: screenHeight + screenHeight * 0.11)
         
@@ -51,6 +52,16 @@ class MealPlanVC: UIViewController {
                 self.constrainSubviews()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        print("view will appear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        print("view will disappear")
     }
     
     // MARK: - VIEW OBJECTS
@@ -75,7 +86,7 @@ class MealPlanVC: UIViewController {
     lazy var mainTitle: UILabel = {
         let label = Utils.createMainTitle(text: "TODAY'S MEAL PLAN",
                                           width: screenWidth * 0.8,
-                                          textColor: UIColor.customNavy,
+                                          textColor: Color.customNavy,
                                           noOfLines: 1)
         
         return label
@@ -195,8 +206,8 @@ class MealPlanVC: UIViewController {
     lazy var proteinShakeTitle: UILabel = {
         let label = UILabel()
         label.text = "Protein Shake"
-        label.font = UIFont(name: "KGHAPPYSolid", size: 30)
-        label.textColor = UIColor.customOrange
+        label.font = Fonts.solid_30
+        label.textColor = Color.customOrange
         label.width(screenWidth * 0.9)
         label.adjustsFontSizeToFitWidth = true
         
@@ -248,6 +259,16 @@ class MealPlanVC: UIViewController {
     
     @objc func didTapRefreshBreakfast() {
         print("refresh")
+        HUD.show(.progress)
+        HUD.dimsBackground = true
+        viewModel.fetchMealBasedOn(req: viewModel.breakfastReq) { mealInfo in
+            self.viewModel.mealPlan.breakfast = mealInfo
+            DispatchQueue.main.async {
+                HUD.hide(animated: true) { _ in
+                    HUD.dimsBackground = false
+                }
+            }
+        }
     }
     
     @objc func didTapRefreshLunch() {
@@ -261,9 +282,9 @@ class MealPlanVC: UIViewController {
     // MARK: - FUNCTIONS
     func createRefreshButton(action: Selector) -> UIButton {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(systemName: "arrow.clockwise.circle.fill"), for: .normal)
+        button.setBackgroundImage(Image.refreshButton, for: .normal)
         button.addTarget(self, action: action, for: .touchUpInside)
-        button.tintColor = UIColor.customOrange
+        button.tintColor = Color.customOrange
         
         return button
     }
@@ -271,14 +292,14 @@ class MealPlanVC: UIViewController {
     func createMacroHStack(macro: String, value: String) -> UIStackView {
         let macroLabel = UILabel()
         macroLabel.text = macro
-        macroLabel.textColor = UIColor.customBlue
-        macroLabel.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        macroLabel.textColor = Color.customBlue
+        macroLabel.font = Fonts.solid_15
         macroLabel.adjustsFontSizeToFitWidth = true
         
         let valueLabel = UILabel()
         valueLabel.text = value
-        valueLabel.textColor = UIColor.customBlue
-        valueLabel.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        valueLabel.textColor = Color.customBlue
+        valueLabel.font = Fonts.solid_15
         valueLabel.adjustsFontSizeToFitWidth = true
         
         let macroHStack = UIStackView(arrangedSubviews: [macroLabel, valueLabel])
@@ -309,15 +330,15 @@ class MealPlanVC: UIViewController {
         
         let label1 = UILabel()
         label1.text = mealType
-        label1.font = UIFont(name: "KGHAPPYSolid", size: 30)
-        label1.textColor = UIColor.customOrange
+        label1.font = Fonts.solid_30
+        label1.textColor = Color.customOrange
         label1.width(gridWidth)
         label1.adjustsFontSizeToFitWidth = true
         
         let label2 = UILabel()
         label2.text = mealName
-        label2.font = UIFont(name: "KGHAPPYSolid", size: 20)
-        label2.textColor = UIColor.customNavy
+        label2.font = Fonts.solid_20
+        label2.textColor = Color.customNavy
         label2.width(gridWidth)
         label2.lineBreakStrategy = []
         label2.numberOfLines = 0
@@ -352,7 +373,7 @@ class MealPlanVC: UIViewController {
                                                   height: screenHeight * 0.15))
         
         guard let url = URL(string: image) else {
-            imageView = UIImageView(image: UIImage(named: "defaultMealImage"))
+            imageView = UIImageView(image: Image.defaultMealImage)
             return imageView
         }
         
@@ -368,7 +389,7 @@ class MealPlanVC: UIViewController {
 extension MealPlanVC {
     
     func setupViews() {
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = Color.bgColor
         
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem)
     }

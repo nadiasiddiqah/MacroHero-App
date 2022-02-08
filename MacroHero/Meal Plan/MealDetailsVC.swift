@@ -44,14 +44,14 @@ class MealDetailsVC: UIViewController {
     }()
     
     lazy var contentView: UIView = {
-        let partialView = Utils.createVStack(subviews: [topView, nutritionView, ingredientsView],
+        let view = Utils.createVStack(subviews: [topView, nutritionView, ingredientsView],
                                              spacing: Utils.screenHeight * 0.03)
-        partialView.translatesAutoresizingMaskIntoConstraints = false
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        let fullView = Utils.createVStack(subviews: [partialView, instructionsView],
-                                          spacing: Utils.screenHeight * 0.001)
+//        let fullView = Utils.createVStack(subviews: [partialView, instructionsView],
+//                                          spacing: Utils.screenHeight * 0.001)
         
-        return fullView
+        return view
     }()
     
     lazy var topView: UIStackView = {
@@ -64,13 +64,13 @@ class MealDetailsVC: UIViewController {
            let name = viewModel.mealInfo.name,
            let image = viewModel.mealInfo.image {
             let title = Utils.createMainTitle(text: type.uppercased(),
-                                              textColor: UIColor.customNavy,
+                                              textColor: Color.customNavy,
                                               noOfLines: 1)
             title.textAlignment = .center
             
             let label = UILabel()
-            label.font = UIFont(name: "KGHAPPYSolid", size: 23)
-            label.textColor = UIColor.customNavy
+            label.font = Fonts.solid_23
+            label.textColor = Color.customNavy
             label.textAlignment = .center
             label.text = name
             label.numberOfLines = 0
@@ -86,7 +86,7 @@ class MealDetailsVC: UIViewController {
                 let filter = AspectScaledToFillSizeFilter(size: imageView.frame.size)
                 imageView.af.setImage(withURL: url, filter: filter)
             } else {
-                imageView = UIImageView(image: UIImage(named: "defaultMealImage"))
+                imageView = UIImageView(image: Image.defaultMealImage)
             }
         }
         
@@ -144,29 +144,29 @@ class MealDetailsVC: UIViewController {
         return VStack
     }()
     
-    lazy var instructionsView: UIStackView = {
-        let label = createHeader(title: "INSTRUCTIONS:")
-        let textView = UILabel()
-        textView.numberOfLines = 0
-        
-        if let instructions = viewModel.mealInfo.instructions {
-            textView.attributedText = add(stringList: instructions,
-                                          indentation: 25, numberedList: true)
-        }
-        
-        let VStack = Utils.createVStack(subviews: [label, textView],
-                                        spacing: screenWidth * 0.02)
-        
-        return VStack
-    }()
+//    lazy var instructionsView: UIStackView = {
+//        let label = createHeader(title: "INSTRUCTIONS:")
+//        let textView = UILabel()
+//        textView.numberOfLines = 0
+//
+//        if let instructions = viewModel.mealInfo.instructions {
+//            textView.attributedText = add(stringList: instructions,
+//                                          indentation: 25, numberedList: true)
+//        }
+//
+//        let VStack = Utils.createVStack(subviews: [label, textView],
+//                                        spacing: screenWidth * 0.02)
+//
+//        return VStack
+//    }()
     
     // MARK: - TAP METHODS
     
     // MARK: - FUNCTIONS
     func createHeader(title: String) -> UILabel {
         let label = UILabel()
-        label.font = UIFont(name: "KGHAPPY", size: 25)
-        label.textColor = UIColor.customNavy
+        label.font = Fonts.shadow_25
+        label.textColor = Color.customNavy
         label.text = title
         label.adjustsFontSizeToFitWidth = true
         
@@ -174,16 +174,16 @@ class MealDetailsVC: UIViewController {
     }
     
     func createMacroHStack(macro: String, value: String) -> UIStackView {
-        let font = UIFont(name: "KGHAPPYSolid", size: 17)
+        let font = Fonts.solid_17
         
         let macroLabel = UILabel()
         macroLabel.text = macro
-        macroLabel.textColor = UIColor.customBlue
+        macroLabel.textColor = Color.customBlue
         macroLabel.font = font
         
         let valueLabel = UILabel()
         valueLabel.text = value
-        valueLabel.textColor = UIColor.customNavy
+        valueLabel.textColor = Color.customNavy
         valueLabel.font = font
         valueLabel.textAlignment = .right
         
@@ -195,15 +195,15 @@ class MealDetailsVC: UIViewController {
     }
     
     func add(stringList: [String],
-             font: UIFont = UIFont(name: "KGHAPPYSolid", size: 17)!,
+             font: UIFont = Fonts.solid_17!,
              bullet: String = "\u{2022}",
              indentation: CGFloat = 20,
              lineSpacing: CGFloat = 0,
              paragraphSpacing: CGFloat = 0,
              numberedList: Bool = false) -> NSAttributedString {
         
-        let textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.customBlue!]
-        let bulletAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.customBlue!]
+        let textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Color.customBlue!]
+        let bulletAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Color.customBlue!]
         
         let paragraphStyle = NSMutableParagraphStyle()
         let nonOptions = [NSTextTab.OptionKey: Any]()
@@ -260,11 +260,11 @@ class MealDetailsVC: UIViewController {
 
 extension MealDetailsVC {
     func setupViews() {
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-                         leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
+                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))
     }

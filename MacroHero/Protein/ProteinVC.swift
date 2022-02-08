@@ -92,7 +92,7 @@ class ProteinVC: UIViewController {
     
     lazy var nextButton: UIButton = {
         var button = UIButton()
-        button.setBackgroundImage(UIImage(named: "nextButton"), for: .normal)
+        button.setBackgroundImage(Image.nextButton, for: .normal)
         button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         
         return button
@@ -133,7 +133,7 @@ class ProteinVC: UIViewController {
             items[item].image = UIImage(systemName: images[item])
         }
         
-        tabBarController.tabBar.tintColor = UIColor.customNavy
+        tabBarController.tabBar.tintColor = Color.customNavy
         tabBarController.modalPresentationStyle = .fullScreen
         present(tabBarController, animated: false)
     }
@@ -153,8 +153,8 @@ class ProteinVC: UIViewController {
     func createMacroHStack(macro: String, textField: UITextField) -> UIStackView {
         let macroLabel = UILabel()
         macroLabel.text = macro
-        macroLabel.textColor = UIColor.customBlue
-        macroLabel.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        macroLabel.textColor = Color.customBlue
+        macroLabel.font = Fonts.solid_15
         macroLabel.adjustsFontSizeToFitWidth = true
         
         let macroHStack = UIStackView(arrangedSubviews: [macroLabel, textField])
@@ -165,11 +165,11 @@ class ProteinVC: UIViewController {
     
     func createValueField(value: String) -> UITextField {
         let textField = UITextField()
-        textField.textColor = UIColor.customOrange
+        textField.textColor = Color.customOrange
         
-        textField.background = UIImage(named: "proteinTextArea")
+        textField.background = Image.proteinTextArea
         textField.textAlignment = .center
-        textField.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        textField.font = Fonts.solid_15
         textField.adjustsFontSizeToFitWidth = true
         textField.keyboardType = .numberPad
         
@@ -183,11 +183,11 @@ class ProteinVC: UIViewController {
 extension ProteinVC {
 
     func setupViews() {
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-                         leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
+                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))
         gestureToHideKeyboard()

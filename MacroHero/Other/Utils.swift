@@ -26,16 +26,16 @@ class Utils {
         
         if screen == "info" {
             dropDown.cornerRadius = 18
-            dropDown.backgroundColor = UIColor.bgColor
-            dropDown.textColor = UIColor.customOrange!
-            dropDown.selectionBackgroundColor = UIColor.customOrange!
-            dropDown.selectedTextColor = UIColor.bgColor!
+            dropDown.backgroundColor = Color.bgColor
+            dropDown.textColor = Color.customOrange!
+            dropDown.selectionBackgroundColor = Color.customOrange!
+            dropDown.selectedTextColor = Color.bgColor!
         } else if screen == "rank" {
             dropDown.cornerRadius = 8
             dropDown.backgroundColor = UIColor.white
-            dropDown.textColor = UIColor.customDarkGray!
-            dropDown.selectionBackgroundColor = UIColor.blueSelectedBg!
-            dropDown.selectedTextColor = UIColor.blueSelectedText!
+            dropDown.textColor = Color.customDarkGray!
+            dropDown.selectionBackgroundColor = Color.blueSelectedBg!
+            dropDown.selectedTextColor = Color.blueSelectedText!
         }
 
         dropDown.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
@@ -50,8 +50,8 @@ class Utils {
         dropDown.show()
     }
 
-    static func createAspectFitImage(imageName: String, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImageView {
-        let image = UIImageView(image: UIImage(named: imageName))
+    static func createAspectFitImage(image: UIImage?, width: CGFloat? = nil, height: CGFloat? = nil) -> UIImageView {
+        let image = UIImageView(image: image)
         if let width = width, let height = height {
             image.frame = CGRect(x: 0, y: 0, width: width, height: height)
         }
@@ -82,11 +82,11 @@ class Utils {
                                  leftBarButtonItem: UIBarButtonItem? = nil,
                                  rightBarButtonItem: UIBarButtonItem? = nil) {
         let bar = navController?.navigationBar
-        bar?.tintColor = UIColor.customNavy
+        bar?.tintColor = Color.customNavy
         bar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         bar?.shadowImage = UIImage()
 
-        let title = UIImageView(image: UIImage(named: "macrohero"))
+        let title = UIImageView(image: Image.macrohero)
         navItem.titleView = title
         
         if leftBarButtonItem != nil {
@@ -106,11 +106,11 @@ class Utils {
         label.text = text
         
         if textColor != nil {
-            label.font = UIFont(name: "KGHAPPY", size: 30)
+            label.font = Fonts.shadow_30
             label.textColor = textColor
         } else {
-            label.font = UIFont(name: "KGHAPPYSolid", size: 30)
-            label.textColor = UIColor.customOrange
+            label.font = Fonts.solid_30
+            label.textColor = Color.customOrange
         }
         
         if let width = width {

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UIColor {
+struct Color {
     static let navColor = UIColor(named: "navColor")
     static let bgColor = UIColor(named: "bgColor")
     static let customBlue = UIColor(named: "blue")

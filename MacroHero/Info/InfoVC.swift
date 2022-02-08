@@ -47,7 +47,7 @@ class InfoVC: UIViewController {
     
     // MARK: - TITLE
     lazy var mainTitle: UIImageView = {
-        let image = Utils.createAspectFitImage(imageName: "letsplan:",
+        let image = Utils.createAspectFitImage(image: Image.letsplan,
                                                width: screenWidth * 0.5,
                                                height: screenHeight * 0.06)
         
@@ -60,7 +60,7 @@ class InfoVC: UIViewController {
         button.frame = CGRect(x: 0, y: 0,
                               width: screenWidth * 0.39,
                               height: screenHeight * 0.15)
-        button.setBackgroundImage(UIImage(named: "ageButton"), for: .normal)
+        button.setBackgroundImage(Image.ageButton, for: .normal)
         button.addTarget(self, action: #selector(didTapAgeButton), for: .touchUpInside)
         
         return button
@@ -69,15 +69,15 @@ class InfoVC: UIViewController {
     lazy var ageLabel: UILabel = {
         var label = UILabel()
         label.text = "    yrs"
-        label.textColor = UIColor(named: "orange")
+        label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        label.font = Fonts.solid_15
         
         return label
     }()
     
     lazy var ageTextArea: UIImageView = {
-        var image = UIImageView(image: UIImage(named: "ageTextArea"))
+        var image = UIImageView(image: Image.ageTextArea)
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -101,7 +101,7 @@ class InfoVC: UIViewController {
         button.frame = CGRect(x: 0, y: 0,
                               width: screenWidth * 0.42,
                               height: screenHeight * 0.15)
-        button.setBackgroundImage(UIImage(named: "heightButton"), for: .normal)
+        button.setBackgroundImage(Image.heightButton, for: .normal)
         button.addTarget(self, action: #selector(didTapFtField), for: .touchUpInside)
         
         return button
@@ -110,21 +110,21 @@ class InfoVC: UIViewController {
     lazy var ftLabel: UILabel = {
         var label = UILabel()
         label.text = "  '"
-        label.textColor = UIColor(named: "orange")
+        label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        label.font = Fonts.solid_15
         
         return label
     }()
     
     lazy var ftTextArea: UIImageView = {
-        let image = Utils.createAspectFitImage(imageName: "heightTextArea")
+        let image = Utils.createAspectFitImage(image: Image.heightTextArea)
         
         return image
     }()
     
     lazy var inTextArea: UIImageView = {
-        let image = Utils.createAspectFitImage(imageName: "heightTextArea")
+        let image = Utils.createAspectFitImage(image: Image.heightTextArea)
         
         return image
     }()
@@ -145,9 +145,9 @@ class InfoVC: UIViewController {
     lazy var inLabel: UILabel = {
         var label = UILabel()
         label.text = #"   ""#
-        label.textColor = UIColor(named: "orange")
+        label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        label.font = Fonts.solid_15
         
         return label
     }()
@@ -189,7 +189,7 @@ class InfoVC: UIViewController {
         button.frame = CGRect(x: 0, y: 0,
                               width: screenWidth * 0.42,
                               height: screenHeight * 0.15)
-        button.setBackgroundImage(UIImage(named: "weightButton"), for: .normal)
+        button.setBackgroundImage(Image.weightButton, for: .normal)
         button.addTarget(self, action: #selector(didTapWeightButton), for: .touchUpInside)
         
         return button
@@ -198,15 +198,15 @@ class InfoVC: UIViewController {
     lazy var weightLabel: UILabel = {
         var label = UILabel()
         label.text = "     lbs"
-        label.textColor = UIColor(named: "orange")
+        label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        label.font = Fonts.solid_15
         
         return label
     }()
     
     lazy var weightTextArea: UIImageView = {
-        var image = UIImageView(image: UIImage(named: "ageTextArea"))
+        var image = UIImageView(image: Image.ageTextArea)
         image.frame = CGRect(x: 0, y: 0,
                              width: screenWidth * 0.65, height: screenHeight * 0.3)
         image.contentMode = .scaleAspectFit
@@ -233,7 +233,7 @@ class InfoVC: UIViewController {
         button.frame = CGRect(x: 0, y: 0,
                               width: screenWidth * 0.51,
                               height: screenHeight * 0.15)
-        button.setBackgroundImage(UIImage(named: "activityButton"), for: .normal)
+        button.setBackgroundImage(Image.activityButton, for: .normal)
         button.addTarget(self, action: #selector(didTapActivityButton), for: .touchUpInside)
         
         return button
@@ -241,16 +241,16 @@ class InfoVC: UIViewController {
     
     lazy var activityLabel: UILabel = {
         var label = UILabel()
-        label.textColor = UIColor(named: "orange")
+        label.textColor = Color.customOrange
         label.text = " "
         label.textAlignment = .center
-        label.font = UIFont(name: "KGHAPPYSolid", size: 15)
+        label.font = Fonts.solid_15
         
         return label
     }()
     
     lazy var activityTextArea: UIImageView = {
-        var image = UIImageView(image: UIImage(named: "activityTextArea"))
+        var image = UIImageView(image: Image.activityTextArea)
         image.contentMode = .scaleAspectFit
         
         return image
@@ -269,7 +269,7 @@ class InfoVC: UIViewController {
     
     lazy var calculateButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(named: "calculateButton"), for: .normal)
+        button.setBackgroundImage(Image.calculateButton, for: .normal)
         button.addTarget(self, action: #selector(didTapCalculateButton), for: .touchUpInside)
         
         return button
@@ -421,7 +421,7 @@ class InfoVC: UIViewController {
 extension InfoVC {
 
     func setupViews() {
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
     }

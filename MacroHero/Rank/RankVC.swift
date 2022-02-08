@@ -62,8 +62,8 @@ class RankVC: UIViewController {
     lazy var firstGoal: UILabel = {
         let label = UILabel()
         label.text = "#1"
-        label.font = UIFont(name: "KGHAPPYSolid", size: 20)
-        label.textColor = UIColor(named: "orange")
+        label.font = Fonts.solid_20
+        label.textColor = Color.customOrange
         label.adjustsFontSizeToFitWidth = true
 
         return label
@@ -73,8 +73,8 @@ class RankVC: UIViewController {
         let button = UIButton()
         
         button.width(screenWidth * 0.57)
-        button.setBackgroundImage(UIImage(named: "rankTextArea"), for: .normal)
-        button.setBackgroundImage(UIImage(named: "rankTextAreaSelected"), for: .selected)
+        button.setBackgroundImage(Image.rankTextArea, for: .normal)
+        button.setBackgroundImage(Image.rankTextAreaSelected, for: .selected)
         button.addTarget(self, action: #selector(didTapFirstGoal), for: .touchUpInside)
         
         return button
@@ -83,8 +83,8 @@ class RankVC: UIViewController {
     lazy var firstGoalLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont(name: "Montserrat-Medium", size: 14)
-        label.textColor = UIColor.customDarkGray
+        label.font = Fonts.normal_14
+        label.textColor = Color.customDarkGray
 
         return label
     }()
@@ -101,8 +101,8 @@ class RankVC: UIViewController {
     lazy var secondGoal: UILabel = {
         let label = UILabel()
         label.text = "#2"
-        label.font = UIFont(name: "KGHAPPYSolid", size: 20)
-        label.textColor = UIColor(named: "orange")
+        label.font = Fonts.solid_20
+        label.textColor = Color.customOrange
         label.adjustsFontSizeToFitWidth = true
 
         return label
@@ -112,8 +112,8 @@ class RankVC: UIViewController {
         let button = UIButton()
         
         button.width(screenWidth * 0.57)
-        button.setBackgroundImage(UIImage(named: "rankTextArea"), for: .normal)
-        button.setBackgroundImage(UIImage(named: "rankTextAreaSelected"), for: .selected)
+        button.setBackgroundImage(Image.rankTextArea, for: .normal)
+        button.setBackgroundImage(Image.rankTextAreaSelected, for: .selected)
         button.addTarget(self, action: #selector(didTapSecondGoal), for: .touchUpInside)
         
         return button
@@ -122,8 +122,8 @@ class RankVC: UIViewController {
     lazy var secondGoalLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = UIFont(name: "Montserrat-Medium", size: 14)
-        label.textColor = UIColor.customDarkGray
+        label.font = Fonts.normal_14
+        label.textColor = Color.customDarkGray
 
         return label
     }()
@@ -138,7 +138,7 @@ class RankVC: UIViewController {
     
     lazy var nextButton: UIButton = {
         var button = UIButton()
-        button.setBackgroundImage(UIImage(named: "nextButton"), for: .normal)
+        button.setBackgroundImage(Image.nextButton, for: .normal)
         button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         
         return button
@@ -223,12 +223,12 @@ class RankVC: UIViewController {
 extension RankVC {
     
     func setupViews() {
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
         collapsedFirstGoal?.isActive = true
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-                         leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
+                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))
     }

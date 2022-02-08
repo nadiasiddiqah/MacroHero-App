@@ -34,7 +34,7 @@ class IntroVC: UIViewController {
     
     // MARK: - VIEW VARIABLES
     lazy var textBubble: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "textBubble"))
+        let imageView = UIImageView(image: Image.textBubble)
         imageView.contentMode = .scaleAspectFit
         
         return imageView
@@ -48,7 +48,7 @@ class IntroVC: UIViewController {
     }()
     
     lazy var logo: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "logo"))
+        let imageView = UIImageView(image: Image.logo)
         imageView.contentMode = .scaleAspectFit
         
         return imageView
@@ -56,7 +56,7 @@ class IntroVC: UIViewController {
     
     lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(UIImage(named: "startButton"), for: .normal)
+        button.setBackgroundImage(Image.startButton, for: .normal)
         button.addTarget(self, action: #selector(didTapStart), for: .touchUpInside)
         
         return button
@@ -70,7 +70,7 @@ class IntroVC: UIViewController {
 
 extension IntroVC {
     fileprivate func setupViews() {
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
     }

@@ -38,7 +38,7 @@ class PlanVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UIImageView = {
-        let image = Utils.createAspectFitImage(imageName: "planTitle",
+        let image = Utils.createAspectFitImage(image: Image.planTitle,
                                          width: screenWidth * 0.85,
                                          height: screenHeight * 0.05)
         
@@ -47,7 +47,7 @@ class PlanVC: UIViewController {
     
     // MARK: - PIE CHART IMAGE
     lazy var pieChart: UIImageView = {
-        let image = Utils.createAspectFitImage(imageName: "piechart",
+        let image = Utils.createAspectFitImage(image: Image.piechart,
                                          width: screenWidth * 0.71,
                                          height: screenHeight * 0.25)
         
@@ -99,7 +99,7 @@ class PlanVC: UIViewController {
     
     lazy var nextButton: UIButton = {
         var button = UIButton()
-        button.setBackgroundImage(UIImage(named: "nextButton"), for: .normal)
+        button.setBackgroundImage(Image.nextButton, for: .normal)
         button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         
         return button
@@ -129,21 +129,21 @@ class PlanVC: UIViewController {
         let macroLabel = UILabel()
         let attributedLabel = NSMutableAttributedString()
         attributedLabel.append(NSAttributedString(string: macro,
-                                                  attributes: [NSAttributedString.Key.foregroundColor: UIColor.customBlue ?? ""]))
+                                                  attributes: [NSAttributedString.Key.foregroundColor: Color.customBlue ?? ""]))
         if let grams = grams {
             attributedLabel.append(NSAttributedString(string: grams,
-                                                      attributes: [NSAttributedString.Key.foregroundColor: UIColor.customGray ?? ""]))
+                                                      attributes: [NSAttributedString.Key.foregroundColor: Color.customGray ?? ""]))
         }
         
         macroLabel.attributedText = attributedLabel
         macroLabel.textAlignment = .left
-        macroLabel.font = UIFont(name: "KGHAPPYSolid", size: 20)
+        macroLabel.font = Fonts.solid_20
         
         let valueLabel = UILabel()
         valueLabel.text = value
-        valueLabel.textColor = UIColor.customOrange
+        valueLabel.textColor = Color.customOrange
         valueLabel.textAlignment = .right
-        valueLabel.font = UIFont(name: "KGHAPPYSolid", size: 20)
+        valueLabel.font = Fonts.solid_20
         
         let HStack = UIStackView(arrangedSubviews: [macroLabel, valueLabel])
         HStack.axis = .horizontal
@@ -155,12 +155,12 @@ class PlanVC: UIViewController {
 extension PlanVC {
     
     func setupViews() {
-        view.backgroundColor = UIColor(named: "bgColor")
+        view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
         
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-                         leftBarButtonItem: UIBarButtonItem(image: UIImage(systemName: "arrow.left"),
+                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
                                                             style: .done, target: self,
                                                             action: #selector(goBack)))
     }
