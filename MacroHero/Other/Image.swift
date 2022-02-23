@@ -10,7 +10,7 @@ import UIKit
 
 struct Image {
     static let activityButton = UIImage(named: "activityButton")
-    static let activityTextArea = UIImage(named: "activityButton")
+    static let activityTextArea = UIImage(named: "activityTextArea")
     static let ageTextArea = UIImage(named: "ageTextArea")
     static let dashedLine = UIImage(named: "dashedLine")
     static let defaultMealImage = UIImage(named: "defaultMealImage")

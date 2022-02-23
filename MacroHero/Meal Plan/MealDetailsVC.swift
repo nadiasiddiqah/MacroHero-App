@@ -82,6 +82,7 @@ class MealDetailsVC: UIViewController {
             
             imageView.width(screenWidth * 0.8)
             imageView.aspectRatio(1.63)
+            
             if let url = URL(string: image) {
                 let filter = AspectScaledToFillSizeFilter(size: imageView.frame.size)
                 imageView.af.setImage(withURL: url, filter: filter)

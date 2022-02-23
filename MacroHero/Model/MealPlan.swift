@@ -7,14 +7,8 @@
 
 import Foundation
 
-struct MealPlan {
-    var breakfast: MealInfo?
-    var lunch: MealInfo?
-    var dinner: MealInfo?
-    var protein: MealInfo?
-}
-
 struct MealInfo {
+    var mealOrder: Int
     var image, type, name: String?
     var macros: MacroBreakdown?
     var ingredients, instructions: [String]?

@@ -185,7 +185,7 @@ class RankVC: UIViewController {
     }
     
     @objc func didTapNextButton() {
-        let proteinVC = ProteinVC(viewModel: .init(mealPlan: MealPlan()))
+        let proteinVC = ProteinVC(viewModel: .init(mealPlan: [MealInfo]()))
         navigationController?.pushViewController(proteinVC, animated: true)
     }
     

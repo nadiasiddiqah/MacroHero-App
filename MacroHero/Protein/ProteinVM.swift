@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class ProteinVM {
-    @Published var mealPlan: MealPlan
+    @Published var mealPlan: [MealInfo]
     
-    init(mealPlan: MealPlan) {
+    init(mealPlan: [MealInfo]) {
         self.mealPlan = mealPlan
     }
 }

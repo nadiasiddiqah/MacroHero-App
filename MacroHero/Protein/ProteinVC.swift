@@ -24,7 +24,9 @@ class ProteinVC: UIViewController {
     // MARK: - Initializers
     init(viewModel: ProteinVM) {
         self.viewModel = viewModel
-        self.proteinData = MealInfo(image: "defaultMealImage", type: "Protein", name: "Protein Shake",
+        self.proteinData = MealInfo(mealOrder: 3,
+                                    image: "defaultMealImage",
+                                    type: "Protein", name: "Protein Shake",
                                     macros: MacroBreakdown(calories: "", carbs: "", protein: "", fat: ""))
         super.init(nibName: nil, bundle: nil)
     }
@@ -116,7 +118,7 @@ class ProteinVC: UIViewController {
         let tabBarController = UITabBarController()
         
         let vc1 = UINavigationController(rootViewController:
-                                            MealPlanVC(viewModel: .init(mealPlan: MealPlan(protein: proteinData))))
+                                            MealPlanVC(viewModel: .init(mealPlan: [proteinData])))
         let vc2 = UINavigationController(rootViewController: AddView())
         let vc3 = UINavigationController(rootViewController: ProfileView())
         
