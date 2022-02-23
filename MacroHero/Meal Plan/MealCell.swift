@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import PKHUD
-import AlamofireImage
 
 class MealCell: UITableViewCell {
     
@@ -66,9 +65,8 @@ class MealCell: UITableViewCell {
         let protein = createMacroHStack(macro: "Protein", valueLabel: proteinLabel)
         let fat = createMacroHStack(macro: "Fat", valueLabel: fatLabel)
         
-        let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat])
-        macroVStack.width(screenWidth * 0.33)
-        macroVStack.spacing = screenHeight * 0.006
+        let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat],
+                                             spacing: screenHeight * 0.006)
         
         return macroVStack
     }()
@@ -76,15 +74,17 @@ class MealCell: UITableViewCell {
     // MARK: - SETUP FUNCTIONS
     func setupView() {
         addSubview(titleVStack)
-        setupImageIV()
+        addSubview(imageIV)
         addSubview(macroVStack)
+        addSubview(refreshButton)
+        
+        setupImageIV()
         setupRefreshButton()
         
         addConstraints()
     }
     
     func setupImageIV() {
-        addSubview(imageIV)
         
         imageIV.width(screenWidth * 0.45)
         imageIV.aspectRatio(1.63)
@@ -94,20 +94,18 @@ class MealCell: UITableViewCell {
     }
     
     func setupRefreshButton() {
-        addSubview(refreshButton)
-        
         refreshButton.setBackgroundImage(Image.refreshButton, for: .normal)
-        refreshButton.addTarget(self, action: #selector(didTapRefreshBreakfast), for: .touchUpInside)
+        refreshButton.addTarget(self, action: #selector(didTapRefresh), for: .touchUpInside)
         refreshButton.tintColor = Color.customOrange
         refreshButton.width(screenWidth * 0.07)
         refreshButton.aspectRatio(1)
     }
     
     // MARK: - TAP FUNCTIONS
-    @objc func didTapRefreshBreakfast() {
+    @objc func didTapRefresh() {
         print("refresh")
-        HUD.show(.progress)
-        HUD.dimsBackground = true
+//        HUD.show(.progress)
+//        HUD.dimsBackground = true
         //        viewModel.fetchMealBasedOn(req: viewModel.breakfastReq) { mealInfo in
         //            self.viewModel.mealPlan.breakfast = mealInfo
         //            DispatchQueue.main.async {
@@ -138,13 +136,16 @@ class MealCell: UITableViewCell {
     }
 
     func addConstraints() {
+        titleVStack.topToSuperview()
         titleVStack.leftToSuperview()
         
         imageIV.leftToSuperview()
         imageIV.topToBottom(of: titleVStack, offset: screenHeight * 0.01)
+        imageIV.bottomToSuperview(offset: screenHeight * -0.03)
         
         macroVStack.topToBottom(of: titleVStack, offset: screenHeight * 0.01)
         macroVStack.leftToRight(of: imageIV, offset: screenWidth * 0.025)
+        macroVStack.width(screenWidth * 0.33)
         
         refreshButton.topToBottom(of: titleVStack, offset: screenHeight * 0.05)
         refreshButton.leftToRight(of: macroVStack, offset: screenWidth * 0.025)

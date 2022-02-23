@@ -35,7 +35,7 @@ class MealDetailsVC: UIViewController {
         setupViews()
     }
     
-    // MARK: - VIEW OBJECTS
+    // MARK: - LAZY PROPERTIES
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -161,9 +161,40 @@ class MealDetailsVC: UIViewController {
 //        return VStack
 //    }()
     
+    // MARK: - SETUP FUNCTIONS
+    func setupViews() {
+        view.backgroundColor = Color.bgColor
+        addSubviews()
+        constrainSubviews()
+        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
+                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
+                                                            style: .done, target: self,
+                                                            action: #selector(goBack)))
+    }
+
+    @objc func goBack(sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    fileprivate func addSubviews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+    }
+
+    fileprivate func constrainSubviews() {
+        scrollView.topToSuperview(usingSafeArea: true)
+        scrollView.bottomToSuperview()
+        scrollView.horizontalToSuperview()
+
+        contentView.topToSuperview(offset: screenHeight * 0.04)
+        contentView.centerXToSuperview()
+        contentView.bottomToSuperview()
+        contentView.width(screenWidth * 0.8)
+    }
+    
     // MARK: - TAP METHODS
     
-    // MARK: - FUNCTIONS
+    // MARK: - HELPER FUNCTIONS
     func createHeader(title: String) -> UILabel {
         let label = UILabel()
         label.font = Fonts.shadow_25
@@ -259,33 +290,4 @@ class MealDetailsVC: UIViewController {
     }
 }
 
-extension MealDetailsVC {
-    func setupViews() {
-        view.backgroundColor = Color.bgColor
-        addSubviews()
-        constrainSubviews()
-        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
-                                                            style: .done, target: self,
-                                                            action: #selector(goBack)))
-    }
 
-    @objc func goBack(sender: UIBarButtonItem) {
-        self.navigationController?.popViewController(animated: true)
-    }
-
-    fileprivate func addSubviews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-    }
-
-    fileprivate func constrainSubviews() {
-        scrollView.edgesToSuperview()
-
-        contentView.topToSuperview(offset: screenHeight * 0.04)
-        contentView.centerXToSuperview()
-        contentView.bottomToSuperview()
-        contentView.width(screenWidth * 0.8)
-    }
-
-}

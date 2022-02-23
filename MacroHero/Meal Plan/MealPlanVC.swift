@@ -13,14 +13,10 @@ import AlamofireImage
 class MealPlanVC: UIViewController {
     
     // MARK: - PROPERTIES
-    private var viewModel: MealPlanVM
+    var viewModel: MealPlanVM
     
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
-    
-    struct Cells {
-        static let mealCell = "MealCell"
-    }
     
     // MARK: - Initializers
     init(viewModel: MealPlanVM) {
@@ -38,18 +34,6 @@ class MealPlanVC: UIViewController {
         print("view did load")
         
         setupView()
-        HUD.show(.progress)
-        HUD.dimsBackground = true
-        viewModel.fetchAllMealData(mealReqs: AllMealReqs(breakfast: viewModel.breakfastReq,
-                                                         lunch: viewModel.lunchReq,
-                                                         dinner: viewModel.dinnerReq)) {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                HUD.hide(animated: true) { _ in
-                    HUD.dimsBackground = false
-                }
-            }
-        }
     }
     
     // MARK: - VIEW OBJECTS
@@ -66,29 +50,33 @@ class MealPlanVC: UIViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 300
-        tableView.register(MealCell.self, forCellReuseIdentifier: Cells.mealCell)
+        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.register(MealCell.self, forCellReuseIdentifier: "mealCell")
         tableView.backgroundColor = .none
         tableView.separatorStyle = .none
         
         return tableView
     }()
     
+    // MARK: - SETUP FUNCTIONS
     func setupView() {
         view.backgroundColor = Color.bgColor
         
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem)
         
+        HUD.show(.progress)
+        HUD.dimsBackground = true
         addSubviews()
         constrainSubviews()
+        fetchData()
     }
     
-    fileprivate func addSubviews() {
+    func addSubviews() {
         view.addSubview(mainTitle)
         view.addSubview(tableView)
     }
     
-    fileprivate func constrainSubviews() {
+    func constrainSubviews() {
         mainTitle.centerXToSuperview()
         mainTitle.topToSuperview(offset: screenHeight * 0.04, usingSafeArea: true)
         
@@ -97,24 +85,40 @@ class MealPlanVC: UIViewController {
         tableView.topToBottom(of: mainTitle, offset: screenHeight * 0.03)
         tableView.bottomToSuperview()
     }
+    
+    func fetchData() {
+        viewModel.fetchAllMealData(mealReqs: AllMealReqs(breakfast: viewModel.breakfastReq,
+                                                         lunch: viewModel.lunchReq,
+                                                         dinner: viewModel.dinnerReq)) {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                HUD.hide(animated: true) { _ in
+                    HUD.dimsBackground = false
+                }
+            }
+        }
+    }
 }
-
 
 extension MealPlanVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.mealPlan.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sortedMealPlan = viewModel.mealPlan.sorted { $0.mealOrder < $1.mealOrder }
+        let meal = sortedMealPlan[indexPath.row]
+        
+        let nextVC = MealDetailsVC(viewModel: .init(mealInfo: meal))
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Cells.mealCell) as! MealCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mealCell") as! MealCell
         
-        let orderedMealPlan = viewModel.mealPlan.sorted {
-            $0.mealOrder < $1.mealOrder
-        }
-        let meal = orderedMealPlan[indexPath.row]
-        
-        cell.backgroundColor = UIColor.clear
-        
+        let sortedMealPlan = viewModel.mealPlan.sorted { $0.mealOrder < $1.mealOrder }
+        let meal = sortedMealPlan[indexPath.row]
+
         if let name = meal.name, let type = meal.type, let image = meal.image, let macros = meal.macros {
             cell.nameLabel.text = name
             cell.typeLabel.text = type.capitalized
@@ -137,6 +141,9 @@ extension MealPlanVC: UITableViewDelegate, UITableViewDataSource {
             cell.proteinLabel.text = "\(macros.protein)g"
             cell.fatLabel.text = "\(macros.fat)g"
         }
+        
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = .none
         
         return cell
     }
