@@ -98,6 +98,41 @@ class MealPlanVC: UIViewController {
             }
         }
     }
+    
+    func fetchNewMeal(type: String) {
+        HUD.show(.progress)
+        HUD.dimsBackground = true
+        
+        var req: MealReq?
+        var removeAt = 0
+        
+        if type == MealType.breakfast.rawValue {
+            req = viewModel.breakfastReq
+            removeAt = 0
+        } else if type == MealType.lunch.rawValue {
+            req = viewModel.lunchReq
+            removeAt = 1
+        } else if type == MealType.dinner.rawValue {
+            req = viewModel.dinnerReq
+            removeAt = 2
+        }
+        
+        if let req = req {
+            viewModel.fetchMealBasedOn(req: req) { newMeal in
+                if let newMeal = newMeal {
+                    self.viewModel.mealPlan.remove(at: removeAt)
+                    self.viewModel.mealPlan.append(newMeal)
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        HUD.hide(animated: true) { _ in
+                            HUD.dimsBackground = false
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension MealPlanVC: UITableViewDelegate, UITableViewDataSource {
@@ -106,8 +141,7 @@ extension MealPlanVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let sortedMealPlan = viewModel.mealPlan.sorted { $0.mealOrder < $1.mealOrder }
-        let meal = sortedMealPlan[indexPath.row]
+        let meal = viewModel.mealPlan[indexPath.row]
         
         let nextVC = MealDetailsVC(viewModel: .init(mealInfo: meal))
         navigationController?.pushViewController(nextVC, animated: true)
@@ -116,9 +150,11 @@ extension MealPlanVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealCell") as! MealCell
         
-        let sortedMealPlan = viewModel.mealPlan.sorted { $0.mealOrder < $1.mealOrder }
-        let meal = sortedMealPlan[indexPath.row]
+        // sort meal plan data
+        viewModel.mealPlan = viewModel.mealPlan.sorted { $0.mealOrder < $1.mealOrder }
+        let meal = viewModel.mealPlan[indexPath.row]
 
+        // populate meal plan cells with sorted data
         if let name = meal.name, let type = meal.type, let image = meal.image, let macros = meal.macros {
             cell.nameLabel.text = name
             cell.typeLabel.text = type.capitalized
@@ -140,12 +176,17 @@ extension MealPlanVC: UITableViewDelegate, UITableViewDataSource {
             cell.carbLabel.text = "\(macros.carbs)g"
             cell.proteinLabel.text = "\(macros.protein)g"
             cell.fatLabel.text = "\(macros.fat)g"
+            
+            cell.buttonAction = {
+                print("refresh \(type)")
+                self.fetchNewMeal(type: type)
+            }
         }
         
+        // update cell UI
         cell.backgroundColor = UIColor.clear
         cell.selectionStyle = .none
         
         return cell
     }
-   
 }

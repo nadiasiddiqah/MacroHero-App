@@ -26,6 +26,8 @@ class MealCell: UITableViewCell {
     
     var refreshButton = UIButton()
     
+    var buttonAction: () -> () = {}
+    
     // MARK: - INITIALIZERS
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -73,10 +75,10 @@ class MealCell: UITableViewCell {
     
     // MARK: - SETUP FUNCTIONS
     func setupView() {
-        addSubview(titleVStack)
-        addSubview(imageIV)
-        addSubview(macroVStack)
-        addSubview(refreshButton)
+        contentView.addSubview(titleVStack)
+        contentView.addSubview(imageIV)
+        contentView.addSubview(macroVStack)
+        contentView.addSubview(refreshButton)
         
         setupImageIV()
         setupRefreshButton()
@@ -85,9 +87,6 @@ class MealCell: UITableViewCell {
     }
     
     func setupImageIV() {
-        
-        imageIV.width(screenWidth * 0.45)
-        imageIV.aspectRatio(1.63)
         imageIV.frame = CGRect(x: 0, y: 0,
                                width: screenWidth * 0.45,
                                height: screenHeight * 0.15)
@@ -97,13 +96,12 @@ class MealCell: UITableViewCell {
         refreshButton.setBackgroundImage(Image.refreshButton, for: .normal)
         refreshButton.addTarget(self, action: #selector(didTapRefresh), for: .touchUpInside)
         refreshButton.tintColor = Color.customOrange
-        refreshButton.width(screenWidth * 0.07)
-        refreshButton.aspectRatio(1)
+        refreshButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 5, right: 10)
     }
     
     // MARK: - TAP FUNCTIONS
     @objc func didTapRefresh() {
-        print("refresh")
+        buttonAction()
 //        HUD.show(.progress)
 //        HUD.dimsBackground = true
         //        viewModel.fetchMealBasedOn(req: viewModel.breakfastReq) { mealInfo in
@@ -142,6 +140,8 @@ class MealCell: UITableViewCell {
         imageIV.leftToSuperview()
         imageIV.topToBottom(of: titleVStack, offset: screenHeight * 0.01)
         imageIV.bottomToSuperview(offset: screenHeight * -0.03)
+        imageIV.width(screenWidth * 0.45)
+        imageIV.aspectRatio(1.63)
         
         macroVStack.topToBottom(of: titleVStack, offset: screenHeight * 0.01)
         macroVStack.leftToRight(of: imageIV, offset: screenWidth * 0.025)
@@ -149,5 +149,7 @@ class MealCell: UITableViewCell {
         
         refreshButton.topToBottom(of: titleVStack, offset: screenHeight * 0.05)
         refreshButton.leftToRight(of: macroVStack, offset: screenWidth * 0.025)
+        refreshButton.width(screenWidth * 0.07)
+        refreshButton.aspectRatio(1)
     }
 }

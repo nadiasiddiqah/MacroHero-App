@@ -227,7 +227,7 @@ class MealDetailsVC: UIViewController {
     }
     
     func add(stringList: [String],
-             font: UIFont = Fonts.solid_17!,
+             font: UIFont = Fonts.solid_15!,
              bullet: String = "\u{2022}",
              indentation: CGFloat = 20,
              lineSpacing: CGFloat = 0,

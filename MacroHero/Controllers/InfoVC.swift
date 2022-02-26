@@ -368,53 +368,55 @@ class InfoVC: UIViewController {
     }
     
     @objc func didTapCalculateButton() {
-//        guard let age = ageLabel.text, age != "    yrs",
-//              let ft = ftLabel.text, ft != "  '",
-//              let inch = inLabel.text, inch != #"   ""#,
-//              let weight = weightLabel.text, weight != "     lbs",
-//              let activity = activityLabel.text, activity != " " else { return }
-//
-//        let ageData = age.replacingOccurrences(of: " yrs", with: "")
-//        let genderData = "female"
-//        let ftData = (Double(ft.replacingOccurrences(of: "'", with: "")) ?? 0) * 12
-//        let inData = Double(inch.replacingOccurrences(of: #"""#, with: "")) ?? 0
-//        let heightData = round((ftData + inData) * 2.54)
-//        let weightData = round((Double(weight.replacingOccurrences(of: " lbs", with: "")) ?? 0) * 0.45)
-//        var activityData = ""
-//        let goalData = "maintain"
-//
-//        switch activity {
-//        case "Sedentary":
-//            activityData = "1"
-//        case "Lightly active":
-//            activityData = "2"
-//        case "Active":
-//            activityData = "3"
-//        case "Very Active":
-//            activityData = "4"
-//        default:
-//            activityData = "1"
-//        }
-//
-//        viewModel.userData = UserData(age: ageData, gender: genderData,
-//                                      heightCm: "\(Int(heightData))", weightKg: "\(Int(weightData))",
-//                                      activityLevel: activityData, goal: goalData)
-//
-//        if let userData = viewModel.userData {
-//            self.viewModel.fetchMacroData(for: userData) {
-//                DispatchQueue.main.async {
-//                    if let dailyMacro = self.viewModel.dailyMacro {
-//                        let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
-//                        self.navigationController?.pushViewController(planVC, animated: true)
-//                    }
-//                }
-//            }
-//        }
-        
-        let dailyMacro = MacroBreakdown(calories: "1890", carbs: "215", protein: "145", fat: "55")
+        guard let age = ageLabel.text, age != "    yrs",
+              let ft = ftLabel.text, ft != "  '",
+              let inch = inLabel.text, inch != #"   ""#,
+              let weight = weightLabel.text, weight != "     lbs",
+              let activity = activityLabel.text, activity != " " else { return }
 
-        let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
-        navigationController?.pushViewController(planVC, animated: true)
+        let ageData = age.replacingOccurrences(of: " yrs", with: "")
+        let genderData = "female"
+        let ftData = (Double(ft.replacingOccurrences(of: "'", with: "")) ?? 0) * 12
+        let inData = Double(inch.replacingOccurrences(of: #"""#, with: "")) ?? 0
+        let heightData = round((ftData + inData) * 2.54)
+        let weightData = round((Double(weight.replacingOccurrences(of: " lbs", with: "")) ?? 0) * 0.45)
+        var activityData = ""
+        let goalData = "maintain"
+
+        switch activity {
+        case "Sedentary":
+            activityData = "1"
+        case "Lightly active":
+            activityData = "2"
+        case "Active":
+            activityData = "3"
+        case "Very Active":
+            activityData = "4"
+        default:
+            activityData = "1"
+        }
+
+        viewModel.userData = UserData(age: ageData, gender: genderData,
+                                      heightCm: "\(Int(heightData))", weightKg: "\(Int(weightData))",
+                                      activityLevel: activityData, goal: goalData)
+
+        if let userData = viewModel.userData {
+            MacroCalculatorAPI.fetchMacroData(for: userData) { [weak self] dailyMacro in
+                guard let self = self else { return }
+                self.viewModel.dailyMacro = dailyMacro
+                DispatchQueue.main.async {
+                    if let dailyMacro = self.viewModel.dailyMacro {
+                        let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
+                        self.navigationController?.pushViewController(planVC, animated: true)
+                    }
+                }
+            }
+        }
+        
+//        let dailyMacro = MacroBreakdown(calories: "1890", carbs: "215", protein: "145", fat: "55")
+//
+//        let planVC = PlanVC(viewModel: .init(dailyMacro: dailyMacro))
+//        navigationController?.pushViewController(planVC, animated: true)
     }
 }
 

@@ -14,6 +14,7 @@
 		093870DC270D0FFA0036A3D7 /* macroManGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 093870DB270D0FFA0036A3D7 /* macroManGif.gif */; };
 		093870E2270D2D940036A3D7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E1270D2D940036A3D7 /* Utils.swift */; };
 		093870E4270D6B0D0036A3D7 /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E3270D6B0D0036A3D7 /* IntroVC.swift */; };
+		0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */; };
 		096CA546274DB7C40071C6EE /* PlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA545274DB7C40071C6EE /* PlanVC.swift */; };
 		097F8F75279783D600B638BC /* InfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F74279783D600B638BC /* InfoVM.swift */; };
 		097F8F772797889E00B638BC /* PlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F762797889E00B638BC /* PlanVM.swift */; };
@@ -57,6 +58,7 @@
 		093870DB270D0FFA0036A3D7 /* macroManGif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = macroManGif.gif; sourceTree = "<group>"; };
 		093870E1270D2D940036A3D7 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		093870E3270D6B0D0036A3D7 /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
+		0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroCalculatorAPI.swift; sourceTree = "<group>"; };
 		096CA545274DB7C40071C6EE /* PlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVC.swift; sourceTree = "<group>"; };
 		097F8F74279783D600B638BC /* InfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVM.swift; sourceTree = "<group>"; };
 		097F8F762797889E00B638BC /* PlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVM.swift; sourceTree = "<group>"; };
@@ -126,16 +128,16 @@
 		0933D8A9270BC56100080FCD /* MacroHero */ = {
 			isa = PBXGroup;
 			children = (
-				0933D8C2270BC6A200080FCD /* Model */,
-				093870E3270D6B0D0036A3D7 /* IntroVC.swift */,
-				097F8F782797AB5600B638BC /* Info */,
-				097F8F792797AB6000B638BC /* Plan */,
-				09E3043827989F1B003FB240 /* Rank */,
-				09E3043B2798D3FE003FB240 /* Protein */,
-				09E3043E2798F224003FB240 /* Meal Plan */,
-				09975BC8278D0B950096E00A /* Add */,
-				0933D8BE270BC66600080FCD /* Other */,
+				0933D8AA270BC56100080FCD /* AppDelegate.swift */,
+				0933D8AC270BC56100080FCD /* SceneDelegate.swift */,
 				0933D8B8270BC56200080FCD /* Info.plist */,
+				0933D8C2270BC6A200080FCD /* Models */,
+				0966D41C27C9A9BC00A90754 /* View Models */,
+				0966D42027C9AA5D00A90754 /* Views */,
+				0966D41D27C9A9F600A90754 /* Controllers */,
+				0966D42327C9AC6C00A90754 /* Networking */,
+				0966D41B27C9A96500A90754 /* Extensions */,
+				0933D8BE270BC66600080FCD /* Other */,
 				09DC9A5B27A1F5A500EF78E7 /* Config.xcconfig */,
 			);
 			path = MacroHero;
@@ -144,13 +146,7 @@
 		0933D8BE270BC66600080FCD /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				0933D8B5270BC56200080FCD /* LaunchScreen.storyboard */,
-				0933D8AA270BC56100080FCD /* AppDelegate.swift */,
-				0933D8AC270BC56100080FCD /* SceneDelegate.swift */,
 				093870E1270D2D940036A3D7 /* Utils.swift */,
-				09DC9A5327A1E78500EF78E7 /* Colors.swift */,
-				09ABA5FE27B30B9C008A9641 /* Fonts.swift */,
-				09ABA5FC27B3095D008A9641 /* Image.swift */,
 				093870DB270D0FFA0036A3D7 /* macroManGif.gif */,
 				09A2697F277E588E005C0BFF /* proteinShakeGif.gif */,
 				0933D8B3270BC56200080FCD /* Assets.xcassets */,
@@ -159,7 +155,7 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
-		0933D8C2270BC6A200080FCD /* Model */ = {
+		0933D8C2270BC6A200080FCD /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				09E304432798F2DE003FB240 /* UserData.swift */,
@@ -168,65 +164,63 @@
 				09E304442798F2DE003FB240 /* MealPlan.swift */,
 				09E304472798F2DE003FB240 /* MealReq.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		097F8F782797AB5600B638BC /* Info */ = {
+		0966D41B27C9A96500A90754 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				09DC9A5327A1E78500EF78E7 /* Colors.swift */,
+				09ABA5FE27B30B9C008A9641 /* Fonts.swift */,
+				09ABA5FC27B3095D008A9641 /* Image.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0966D41C27C9A9BC00A90754 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				093870E3270D6B0D0036A3D7 /* IntroVC.swift */,
+				097F8F74279783D600B638BC /* InfoVM.swift */,
+				097F8F762797889E00B638BC /* PlanVM.swift */,
+				09E3043627989F0D003FB240 /* RankVM.swift */,
+				09E304392798D3E6003FB240 /* ProteinVM.swift */,
+				097F8F7A2797ACA700B638BC /* MealPlanVM.swift */,
+				09F000732799F98400C80AD2 /* MealDetailsVM.swift */,
+				09E304512798F3DA003FB240 /* ProfileVC.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		0966D41D27C9A9F600A90754 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				09FD0BDF270E24830094BAAC /* InfoVC.swift */,
-				097F8F74279783D600B638BC /* InfoVM.swift */,
-			);
-			path = Info;
-			sourceTree = "<group>";
-		};
-		097F8F792797AB6000B638BC /* Plan */ = {
-			isa = PBXGroup;
-			children = (
 				096CA545274DB7C40071C6EE /* PlanVC.swift */,
-				097F8F762797889E00B638BC /* PlanVM.swift */,
-			);
-			path = Plan;
-			sourceTree = "<group>";
-		};
-		09975BC8278D0B950096E00A /* Add */ = {
-			isa = PBXGroup;
-			children = (
-				09975BC3278CF78F0096E00A /* AddView.swift */,
-				09E304512798F3DA003FB240 /* ProfileVC.swift */,
-			);
-			name = Add;
-			path = "Tab Bar";
-			sourceTree = "<group>";
-		};
-		09E3043827989F1B003FB240 /* Rank */ = {
-			isa = PBXGroup;
-			children = (
 				09EE8141277A8D9D00579224 /* RankVC.swift */,
-				09E3043627989F0D003FB240 /* RankVM.swift */,
-			);
-			path = Rank;
-			sourceTree = "<group>";
-		};
-		09E3043B2798D3FE003FB240 /* Protein */ = {
-			isa = PBXGroup;
-			children = (
 				0989FA70277D0E2100234819 /* ProteinVC.swift */,
-				09E304392798D3E6003FB240 /* ProteinVM.swift */,
+				09A26981277EB17E005C0BFF /* MealPlanVC.swift */,
+				09E3044F2798F3C1003FB240 /* MealDetailsVC.swift */,
+				09975BC3278CF78F0096E00A /* AddView.swift */,
 			);
-			path = Protein;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
-		09E3043E2798F224003FB240 /* Meal Plan */ = {
+		0966D42027C9AA5D00A90754 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0933D8B5270BC56200080FCD /* LaunchScreen.storyboard */,
 				09ABA62227B346EC008A9641 /* MealCell.swift */,
-				09A26981277EB17E005C0BFF /* MealPlanVC.swift */,
-				097F8F7A2797ACA700B638BC /* MealPlanVM.swift */,
-				09E3044F2798F3C1003FB240 /* MealDetailsVC.swift */,
-				09F000732799F98400C80AD2 /* MealDetailsVM.swift */,
 			);
-			path = "Meal Plan";
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0966D42327C9AC6C00A90754 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		09FD0BEB270E2E0B0094BAAC /* Fonts */ = {
@@ -387,6 +381,7 @@
 				09ABA5FF27B30B9C008A9641 /* Fonts.swift in Sources */,
 				09E3044D2798F2DE003FB240 /* MealReq.swift in Sources */,
 				09EE8142277A8D9D00579224 /* RankVC.swift in Sources */,
+				0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */,
 				097F8F75279783D600B638BC /* InfoVM.swift in Sources */,
 				09E304502798F3C1003FB240 /* MealDetailsVC.swift in Sources */,
 				093870E4270D6B0D0036A3D7 /* IntroVC.swift in Sources */,
