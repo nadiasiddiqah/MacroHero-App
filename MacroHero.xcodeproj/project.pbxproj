@@ -15,6 +15,7 @@
 		093870E2270D2D940036A3D7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E1270D2D940036A3D7 /* Utils.swift */; };
 		093870E4270D6B0D0036A3D7 /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E3270D6B0D0036A3D7 /* IntroVC.swift */; };
 		0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */; };
+		0966D42727CD804100A90754 /* MealPlanAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42627CD804100A90754 /* MealPlanAPI.swift */; };
 		096CA546274DB7C40071C6EE /* PlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA545274DB7C40071C6EE /* PlanVC.swift */; };
 		097F8F75279783D600B638BC /* InfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F74279783D600B638BC /* InfoVM.swift */; };
 		097F8F772797889E00B638BC /* PlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F762797889E00B638BC /* PlanVM.swift */; };
@@ -59,6 +60,7 @@
 		093870E1270D2D940036A3D7 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		093870E3270D6B0D0036A3D7 /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroCalculatorAPI.swift; sourceTree = "<group>"; };
+		0966D42627CD804100A90754 /* MealPlanAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanAPI.swift; sourceTree = "<group>"; };
 		096CA545274DB7C40071C6EE /* PlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVC.swift; sourceTree = "<group>"; };
 		097F8F74279783D600B638BC /* InfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVM.swift; sourceTree = "<group>"; };
 		097F8F762797889E00B638BC /* PlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVM.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */,
+				0966D42627CD804100A90754 /* MealPlanAPI.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				09E3044B2798F2DE003FB240 /* MealData.swift in Sources */,
 				0989FA71277D0E2100234819 /* ProteinVC.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Utils.swift in Sources */,
+				0966D42727CD804100A90754 /* MealPlanAPI.swift in Sources */,
 				097F8F7B2797ACA700B638BC /* MealPlanVM.swift in Sources */,
 				0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */,
 				09FD0BE0270E24830094BAAC /* InfoVC.swift in Sources */,

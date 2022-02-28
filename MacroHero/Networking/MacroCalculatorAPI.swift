@@ -8,7 +8,6 @@
 import Foundation
 import Alamofire
 
-#warning("more conventional way to do this?")
 class MacroCalculatorAPI {
     
     static func fetchMacroData(for user: UserData, completion: @escaping (MacroBreakdown) -> Void ) {

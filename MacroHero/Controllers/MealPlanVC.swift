@@ -87,9 +87,10 @@ class MealPlanVC: UIViewController {
     }
     
     func fetchData() {
-        viewModel.fetchAllMealData(mealReqs: AllMealReqs(breakfast: viewModel.breakfastReq,
-                                                         lunch: viewModel.lunchReq,
-                                                         dinner: viewModel.dinnerReq)) {
+        MealPlanAPI.fetchMealPlan(mealReqs: AllMealReqs(breakfast: viewModel.breakfastReq,
+                                                        lunch: viewModel.lunchReq,
+                                                        dinner: viewModel.dinnerReq)) { mealPlan in
+            self.viewModel.mealPlan = mealPlan
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 HUD.hide(animated: true) { _ in
@@ -118,7 +119,7 @@ class MealPlanVC: UIViewController {
         }
         
         if let req = req {
-            viewModel.fetchMealBasedOn(req: req) { newMeal in
+            MealPlanAPI.fetchMealBasedOn(req: req) { newMeal in
                 if let newMeal = newMeal {
                     self.viewModel.mealPlan.remove(at: removeAt)
                     self.viewModel.mealPlan.append(newMeal)

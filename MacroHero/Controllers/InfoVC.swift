@@ -367,12 +367,12 @@ class InfoVC: UIViewController {
         }
     }
     
-    @objc func didTapCalculateButton() {
+    func convertInputsIntoUserData() -> UserData? {
         guard let age = ageLabel.text, age != "    yrs",
               let ft = ftLabel.text, ft != "  '",
               let inch = inLabel.text, inch != #"   ""#,
               let weight = weightLabel.text, weight != "     lbs",
-              let activity = activityLabel.text, activity != " " else { return }
+              let activity = activityLabel.text, activity != " " else { return nil }
 
         let ageData = age.replacingOccurrences(of: " yrs", with: "")
         let genderData = "female"
@@ -395,10 +395,18 @@ class InfoVC: UIViewController {
         default:
             activityData = "1"
         }
-
-        viewModel.userData = UserData(age: ageData, gender: genderData,
-                                      heightCm: "\(Int(heightData))", weightKg: "\(Int(weightData))",
-                                      activityLevel: activityData, goal: goalData)
+        
+        let userData = UserData(age: ageData, gender: genderData,
+                                heightCm: "\(Int(heightData))",
+                                weightKg: "\(Int(weightData))",
+                                activityLevel: activityData,
+                                goal: goalData)
+        
+        return userData
+    }
+    
+    @objc func didTapCalculateButton() {
+        viewModel.userData = convertInputsIntoUserData()
 
         if let userData = viewModel.userData {
             MacroCalculatorAPI.fetchMacroData(for: userData) { [weak self] dailyMacro in
