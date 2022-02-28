@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,9 +27,6 @@
 		09ABA5FD27B3095D008A9641 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABA5FC27B3095D008A9641 /* Image.swift */; };
 		09ABA5FF27B30B9C008A9641 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABA5FE27B30B9C008A9641 /* Fonts.swift */; };
 		09ABA62327B346EC008A9641 /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABA62227B346EC008A9641 /* MealCell.swift */; };
-		09ABA66627B8596D008A9641 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 09ABA66527B8596D008A9641 /* OrderedCollections */; };
-		09ABA66827B8596D008A9641 /* DequeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 09ABA66727B8596D008A9641 /* DequeModule */; };
-		09ABA66A27B8596D008A9641 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 09ABA66927B8596D008A9641 /* Collections */; };
 		09B353D3279F806B00871FA2 /* MacroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B353D2279F806B00871FA2 /* MacroData.swift */; };
 		09DC9A5427A1E78500EF78E7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC9A5327A1E78500EF78E7 /* Colors.swift */; };
 		09E3043727989F0D003FB240 /* RankVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E3043627989F0D003FB240 /* RankVM.swift */; };
@@ -99,10 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09ABA66627B8596D008A9641 /* OrderedCollections in Frameworks */,
 				5E40A7D5B34463021FEC598D /* Pods_MacroHero.framework in Frameworks */,
-				09ABA66A27B8596D008A9641 /* Collections in Frameworks */,
-				09ABA66827B8596D008A9641 /* DequeModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,9 +266,6 @@
 			);
 			name = MacroHero;
 			packageProductDependencies = (
-				09ABA66527B8596D008A9641 /* OrderedCollections */,
-				09ABA66727B8596D008A9641 /* DequeModule */,
-				09ABA66927B8596D008A9641 /* Collections */,
 			);
 			productName = MacroHero;
 			productReference = 0933D8A7270BC56100080FCD /* MacroHero.app */;
@@ -304,7 +295,6 @@
 			);
 			mainGroup = 0933D89E270BC56100080FCD;
 			packageReferences = (
-				09ABA66427B8596D008A9641 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 0933D8A8270BC56100080FCD /* Products */;
 			projectDirPath = "";
@@ -607,35 +597,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		09ABA66427B8596D008A9641 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		09ABA66527B8596D008A9641 /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09ABA66427B8596D008A9641 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
-		};
-		09ABA66727B8596D008A9641 /* DequeModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09ABA66427B8596D008A9641 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = DequeModule;
-		};
-		09ABA66927B8596D008A9641 /* Collections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 09ABA66427B8596D008A9641 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = Collections;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0933D89F270BC56100080FCD /* Project object */;
 }
