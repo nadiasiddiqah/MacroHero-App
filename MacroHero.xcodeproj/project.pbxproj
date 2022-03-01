@@ -16,7 +16,6 @@
 		093870E4270D6B0D0036A3D7 /* IntroVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E3270D6B0D0036A3D7 /* IntroVC.swift */; };
 		0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */; };
 		0966D42727CD804100A90754 /* MealPlanAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42627CD804100A90754 /* MealPlanAPI.swift */; };
-		0966D42B27CEC0CF00A90754 /* MealPlanVM2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42A27CEC0CF00A90754 /* MealPlanVM2.swift */; };
 		096CA546274DB7C40071C6EE /* PlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA545274DB7C40071C6EE /* PlanVC.swift */; };
 		097F8F75279783D600B638BC /* InfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F74279783D600B638BC /* InfoVM.swift */; };
 		097F8F772797889E00B638BC /* PlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F762797889E00B638BC /* PlanVM.swift */; };
@@ -58,7 +57,6 @@
 		093870E3270D6B0D0036A3D7 /* IntroVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroVC.swift; sourceTree = "<group>"; };
 		0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroCalculatorAPI.swift; sourceTree = "<group>"; };
 		0966D42627CD804100A90754 /* MealPlanAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanAPI.swift; sourceTree = "<group>"; };
-		0966D42A27CEC0CF00A90754 /* MealPlanVM2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanVM2.swift; sourceTree = "<group>"; };
 		096CA545274DB7C40071C6EE /* PlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVC.swift; sourceTree = "<group>"; };
 		097F8F74279783D600B638BC /* InfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVM.swift; sourceTree = "<group>"; };
 		097F8F762797889E00B638BC /* PlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVM.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 				097F8F762797889E00B638BC /* PlanVM.swift */,
 				09E3043627989F0D003FB240 /* RankVM.swift */,
 				09E304392798D3E6003FB240 /* ProteinVM.swift */,
-				0966D42A27CEC0CF00A90754 /* MealPlanVM2.swift */,
 				09F000732799F98400C80AD2 /* MealDetailsVM.swift */,
 				09E304512798F3DA003FB240 /* ProfileVC.swift */,
 			);
@@ -393,7 +390,6 @@
 				09DC9A5427A1E78500EF78E7 /* Colors.swift in Sources */,
 				09B353D3279F806B00871FA2 /* MacroData.swift in Sources */,
 				09ABA5FD27B3095D008A9641 /* Image.swift in Sources */,
-				0966D42B27CEC0CF00A90754 /* MealPlanVM2.swift in Sources */,
 				09E3044A2798F2DE003FB240 /* MealPlan.swift in Sources */,
 				09A26982277EB17E005C0BFF /* MealPlanVC.swift in Sources */,
 			);
