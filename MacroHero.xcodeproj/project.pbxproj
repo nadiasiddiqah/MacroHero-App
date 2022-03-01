@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0904DAB227CECA1800478415 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0904DAB127CECA1800478415 /* Config.xcconfig */; };
 		0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AA270BC56100080FCD /* AppDelegate.swift */; };
 		0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AC270BC56100080FCD /* SceneDelegate.swift */; };
 		0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0933D8B3270BC56200080FCD /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0904DAB127CECA1800478415 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		0933D8A7270BC56100080FCD /* MacroHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0933D8AA270BC56100080FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0933D8AC270BC56100080FCD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				0966D42327C9AC6C00A90754 /* Networking */,
 				0966D41B27C9A96500A90754 /* Extensions */,
 				0933D8BE270BC66600080FCD /* Other */,
+				0904DAB127CECA1800478415 /* Config.xcconfig */,
 			);
 			path = MacroHero;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				0933D8B7270BC56200080FCD /* LaunchScreen.storyboard in Resources */,
 				0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */,
 				093870DC270D0FFA0036A3D7 /* macroManGif.gif in Resources */,
+				0904DAB227CECA1800478415 /* Config.xcconfig in Resources */,
 				09FD0BEA270E2E050094BAAC /* KGHAPPYSolid.ttf in Resources */,
 				09EE8146277BE6BF00579224 /* Montserrat-Medium.ttf in Resources */,
 				09FD0BE7270E2E050094BAAC /* KGHAPPY.ttf in Resources */,
