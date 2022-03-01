@@ -399,7 +399,7 @@
 		EA1465B9B7A9F6960E7D45259D64DBB9 /* IQKeyboardManager-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "IQKeyboardManager-Info.plist"; sourceTree = "<group>"; };
 		EAB3582274B1E95457ADD46456884BCC /* IQKeyboardManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = IQKeyboardManager.debug.xcconfig; sourceTree = "<group>"; };
 		EB57E704596E48FF3325A1F46B6E783C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		EB92FED3EE4AABDDA69FE865C840621D /* Pods-MacroHero */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-MacroHero"; path = Pods_MacroHero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB92FED3EE4AABDDA69FE865C840621D /* Pods_MacroHero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroHero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8837785F200C4BBB5739666BDA3017 /* PKHUD.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKHUD.swift; path = PKHUD/PKHUD.swift; sourceTree = "<group>"; };
 		F169B1CD3D14A4CC84DCC9123EA8A333 /* CachedResponseHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CachedResponseHandler.swift; path = Source/CachedResponseHandler.swift; sourceTree = "<group>"; };
 		F2836F127CBB4C5C8449DAA3E78C4B7C /* PKHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PKHUD.modulemap; sourceTree = "<group>"; };
@@ -819,7 +819,7 @@
 				98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager.framework */,
 				05A2656F46E8CA87E77A035911B33D10 /* PKHUD.framework */,
 				BFCB2D5C605270A32522299AED3B5AE6 /* PKHUDResources.bundle */,
-				EB92FED3EE4AABDDA69FE865C840621D /* Pods-MacroHero */,
+				EB92FED3EE4AABDDA69FE865C840621D /* Pods_MacroHero.framework */,
 				248EB203AE249596FFC55952F5590D95 /* TinyConstraints.framework */,
 			);
 			name = Products;
@@ -981,7 +981,7 @@
 			);
 			name = "Pods-MacroHero";
 			productName = Pods_MacroHero;
-			productReference = EB92FED3EE4AABDDA69FE865C840621D /* Pods-MacroHero */;
+			productReference = EB92FED3EE4AABDDA69FE865C840621D /* Pods_MacroHero.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		364873017BA37260EF589D44B6B73D21 /* PKHUD */ = {
