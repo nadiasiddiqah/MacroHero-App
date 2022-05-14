@@ -9,6 +9,7 @@ import UIKit
 import TinyConstraints
 import Gifu
 import Combine
+import Inject
 
 class IntroVC: UIViewController {
     
@@ -56,14 +57,14 @@ class IntroVC: UIViewController {
     
     lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(Image.startButton, for: .normal)
+        button.setBackgroundImage(Image.startButton2, for: .normal)
         button.addTarget(self, action: #selector(didTapStart), for: .touchUpInside)
         
         return button
     }()
     
     @objc func didTapStart() {
-        let infoVC = InfoVC(viewModel: .init())
+        let infoVC = Inject.ViewControllerHost(InfoVC(viewModel: .init()))
         navigationController?.pushViewController(infoVC, animated: true)
     }
 }
@@ -99,8 +100,8 @@ extension IntroVC {
         logo.height(screenHeight * 0.17)
         
         startButton.centerXToSuperview()
-        startButton.topToSuperview(offset: screenHeight * 0.82)
-        startButton.width(screenWidth * 0.36)
+        startButton.bottomToSuperview(offset: screenHeight * -0.16)
+        startButton.aspectRatio(4)
         startButton.height(screenHeight * 0.06)
     }
 }

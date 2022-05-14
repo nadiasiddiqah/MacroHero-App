@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import Gifu
 import Combine
+import Inject
 
 class ProteinVC: UIViewController {
     
@@ -119,12 +120,8 @@ class ProteinVC: UIViewController {
         
         let vc1 = UINavigationController(rootViewController:
                                             MealPlanVC(viewModel: .init(mealPlan: [proteinData])))
-        let vc2 = UINavigationController(rootViewController: AddView())
+        let vc2 = UINavigationController(rootViewController: Inject.ViewControllerHost(FavoritesView()))
         let vc3 = UINavigationController(rootViewController: ProfileView())
-        
-        vc1.title = "Plan"
-        vc2.title = "Add"
-        vc3.title = "Profile"
         
         tabBarController.setViewControllers([vc1, vc2, vc3], animated: false)
         

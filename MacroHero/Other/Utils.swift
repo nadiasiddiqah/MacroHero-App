@@ -78,7 +78,7 @@ class Utils {
         return VStack
     }
 
-    static func setNavigationBar(navController: UINavigationController?, navItem: UINavigationItem,
+    static func setNavigationBar(navController: UINavigationController?, navItem: UINavigationItem, showTitle: Bool = true,
                                  leftBarButtonItem: UIBarButtonItem? = nil,
                                  rightBarButtonItem: UIBarButtonItem? = nil) {
         let bar = navController?.navigationBar
@@ -87,7 +87,9 @@ class Utils {
         bar?.shadowImage = UIImage()
 
         let title = UIImageView(image: Image.macrohero)
-        navItem.titleView = title
+        if showTitle {
+            navItem.titleView = title
+        }
         
         if leftBarButtonItem != nil {
             navItem.leftBarButtonItem = leftBarButtonItem

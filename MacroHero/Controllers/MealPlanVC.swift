@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import PKHUD
 import AlamofireImage
+import Inject
 
 class MealPlanVC: UIViewController {
     
@@ -144,7 +145,7 @@ extension MealPlanVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let meal = viewModel.mealPlan[indexPath.row]
         
-        let nextVC = MealDetailsVC(viewModel: .init(mealInfo: meal))
+        let nextVC = Inject.ViewControllerHost(MealDetailsVC(viewModel: .init(mealInfo: meal)))
         navigationController?.pushViewController(nextVC, animated: true)
     }
     

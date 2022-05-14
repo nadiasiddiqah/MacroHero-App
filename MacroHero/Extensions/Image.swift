@@ -30,6 +30,7 @@ struct Image {
     static let calculateButton = UIImage(named: "calculateButton")
     static let nextButton = UIImage(named: "nextButton")
     static let startButton = UIImage(named: "startButton")
+    static let startButton2 = UIImage(named: "startButton2")
     static let piechart = UIImage(named: "piechart")
     static let backButton = UIImage(systemName: "arrow.left")
     static let refreshButton = UIImage(systemName: "arrow.clockwise.circle.fill")
