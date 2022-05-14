@@ -34,30 +34,16 @@ class IntroVC: UIViewController {
     }
     
     // MARK: - VIEW VARIABLES
-    lazy var textBubble: UIImageView = {
-        let imageView = UIImageView(image: Image.textBubble)
+    lazy var introImage: UIImageView = {
+        let imageView = UIImageView(image: Image.introImage)
         imageView.contentMode = .scaleAspectFit
-        
-        return imageView
-    }()
-    
-    lazy var macroManGif: GIFImageView = {
-        let gifImageView = GIFImageView()
-        gifImageView.animate(withGIFNamed: "macroManGif")
-        
-        return gifImageView
-    }()
-    
-    lazy var logo: UIImageView = {
-        let imageView = UIImageView(image: Image.logo)
-        imageView.contentMode = .scaleAspectFit
-        
+
         return imageView
     }()
     
     lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(Image.startButton2, for: .normal)
+        button.setBackgroundImage(Image.startButton, for: .normal)
         button.addTarget(self, action: #selector(didTapStart), for: .touchUpInside)
         
         return button
@@ -77,31 +63,17 @@ extension IntroVC {
     }
     
     fileprivate func addSubviews() {
-        view.addSubview(textBubble)
-        view.addSubview(macroManGif)
-        view.addSubview(logo)
+        view.addSubview(introImage)
         view.addSubview(startButton)
     }
     
     fileprivate func constrainSubviews() {
-        textBubble.topToSuperview(offset: screenHeight * 0.15)
-        textBubble.rightToSuperview(offset: screenWidth * -0.06)
-        textBubble.width(screenWidth * 0.3)
-        textBubble.height(screenHeight * 0.12)
-        
-        macroManGif.centerXToSuperview()
-        macroManGif.topToBottom(of: textBubble, offset: screenHeight * -0.02)
-        macroManGif.width(screenWidth * 0.93)
-        macroManGif.height(screenHeight * 0.3)
-        
-        logo.centerXToSuperview()
-        logo.topToBottom(of: macroManGif, offset: screenHeight * -0.03)
-        logo.width(screenWidth * 0.86)
-        logo.height(screenHeight * 0.17)
+        introImage.centerXToSuperview()
+        introImage.topToSuperview(offset: screenHeight * 0.15)
+        introImage.width(screenWidth * 0.9)
         
         startButton.centerXToSuperview()
-        startButton.bottomToSuperview(offset: screenHeight * -0.16)
-        startButton.aspectRatio(4)
-        startButton.height(screenHeight * 0.06)
+        startButton.bottomToSuperview(offset: screenHeight * -0.15)
+        startButton.width(screenWidth * 0.82)
     }
 }
