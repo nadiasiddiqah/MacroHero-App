@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import Alamofire
 
-class InfoVM {
+class StartVM {
     @Published var userData: UserData?
     @Published var dailyMacro: MacroBreakdown?
 }

@@ -83,8 +83,6 @@ class Utils {
                                  rightBarButtonItem: UIBarButtonItem? = nil) {
         let bar = navController?.navigationBar
         bar?.tintColor = Color.customNavy
-        bar?.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        bar?.shadowImage = UIImage()
 
         let title = UIImageView(image: Image.macrohero)
         if showTitle {

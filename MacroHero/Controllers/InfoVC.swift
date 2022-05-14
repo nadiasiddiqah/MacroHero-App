@@ -12,14 +12,14 @@ import Combine
 class InfoVC: UIViewController {
     
     // MARK: - PROPERTIES
-    private var viewModel: InfoVM
+    private var viewModel: StartVM
     private var cancellables = Set<AnyCancellable>()
     
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
     
     // MARK: - INITIALIZERS
-    init(viewModel: InfoVM) {
+    init(viewModel: StartVM) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

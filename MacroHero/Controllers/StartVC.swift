@@ -11,7 +11,7 @@ import Gifu
 import Combine
 import Inject
 
-class IntroVC: UIViewController {
+class StartVC: UIViewController {
     
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
@@ -50,12 +50,12 @@ class IntroVC: UIViewController {
     }()
     
     @objc func didTapStart() {
-        let infoVC = Inject.ViewControllerHost(InfoVC(viewModel: .init()))
-        navigationController?.pushViewController(infoVC, animated: true)
+        let setGoalVC = Inject.ViewControllerHost(SetGoalVC())
+        navigationController?.pushViewController(setGoalVC, animated: true)
     }
 }
 
-extension IntroVC {
+extension StartVC {
     fileprivate func setupViews() {
         view.backgroundColor = Color.bgColor
         addSubviews()
