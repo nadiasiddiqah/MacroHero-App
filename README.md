@@ -31,9 +31,9 @@ A health app that allows users to calculate a personalized nutrition plan and ea
 - Used Edamame Recipes API to generate automatic meal plans that fit user's personalized nutrition plan
 ## Tech Stack 
 
-UIKit, Programmatic UI, RESTFul API, Alamofire, CocoaPods, Figma, MVVM 
+UIKit, Programmatic UI, RESTful API, Alamofire, CocoaPods, Figma, MVVM 
 
 
 ## Feedback
 
-If you have any feedback, please reach out to us at nadiasiddiqah@gmail.com
+If you have any feedback, please reach out to me at nadiasiddiqah@gmail.com
