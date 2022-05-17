@@ -78,16 +78,12 @@ class Utils {
         return VStack
     }
 
-    static func setNavigationBar(navController: UINavigationController?, navItem: UINavigationItem, showTitle: Bool = true,
+    static func setNavigationBar(navController: UINavigationController?,
+                                 navItem: UINavigationItem,
                                  leftBarButtonItem: UIBarButtonItem? = nil,
                                  rightBarButtonItem: UIBarButtonItem? = nil) {
         let bar = navController?.navigationBar
         bar?.tintColor = Color.customNavy
-
-        let title = UIImageView(image: Image.macrohero)
-        if showTitle {
-            navItem.titleView = title
-        }
         
         if leftBarButtonItem != nil {
             navItem.leftBarButtonItem = leftBarButtonItem
@@ -99,7 +95,7 @@ class Utils {
         }
     }
 
-    static func createMainTitle(text: String, width: CGFloat? = nil,
+    static func createMainTitle(text: String,
                                 textColor: UIColor? = nil,
                                 noOfLines: Int? = nil) -> UILabel {
         let label = UILabel()
@@ -111,10 +107,6 @@ class Utils {
         } else {
             label.font = Fonts.solid_30
             label.textColor = Color.customOrange
-        }
-        
-        if let width = width {
-            label.width(width)
         }
         
         if let noOfLines = noOfLines {

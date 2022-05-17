@@ -48,7 +48,6 @@ class ProteinVC: UIViewController {
     lazy var mainTitle: UILabel = {
         let label = Utils.createMainTitle(
             text: "What's the scoop on your protein shake?",
-            width: screenWidth * 0.9,
             noOfLines: 2
         )
         
@@ -188,7 +187,7 @@ extension ProteinVC {
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
                                leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
                                                             style: .done, target: self,
-                                                            action: #selector(goBack)))
+                                                            action: #selector(didTapBackButton)))
         gestureToHideKeyboard()
     }
     
@@ -199,7 +198,7 @@ extension ProteinVC {
         fatTextField.delegate = self
     }
 
-    @objc func goBack(sender: UIBarButtonItem) {
+    @objc func didTapBackButton(sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     

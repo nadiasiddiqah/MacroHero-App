@@ -24,7 +24,6 @@ class FavoritesView: UIViewController {
     // MARK: - LAZY OBJECTS
     lazy var mainTitle: UILabel = {
         var label = Utils.createMainTitle(text: "FAVORITES",
-                                          width: screenWidth * 0.8,
                                           textColor: Color.customNavy,
                                           noOfLines: 1)
         

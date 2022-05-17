@@ -169,10 +169,10 @@ class MealDetailsVC: UIViewController {
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
                                leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
                                                             style: .done, target: self,
-                                                            action: #selector(goBack)))
+                                                            action: #selector(didTapBackButton)))
     }
 
-    @objc func goBack(sender: UIBarButtonItem) {
+    @objc func didTapBackButton(sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
 

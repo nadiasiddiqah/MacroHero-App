@@ -51,7 +51,6 @@ class RankVC: UIViewController {
     lazy var mainTitle: UILabel = {
         let label = Utils.createMainTitle(
             text: "Rank top two macro goals:",
-            width: screenWidth * 0.9,
             noOfLines: 2
         )
         
@@ -230,10 +229,10 @@ extension RankVC {
         Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
                                leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
                                                             style: .done, target: self,
-                                                            action: #selector(goBack)))
+                                                            action: #selector(didTapBackButton)))
     }
     
-    @objc func goBack(sender: UIBarButtonItem) {
+    @objc func didTapBackButton(sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     

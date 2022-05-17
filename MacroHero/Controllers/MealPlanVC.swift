@@ -40,7 +40,6 @@ class MealPlanVC: UIViewController {
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
         let label = Utils.createMainTitle(text: "TODAY'S MEAL PLAN",
-                                          width: screenWidth * 0.8,
                                           textColor: Color.customNavy,
                                           noOfLines: 1)
 
