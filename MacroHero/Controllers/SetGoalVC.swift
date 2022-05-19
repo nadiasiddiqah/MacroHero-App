@@ -37,6 +37,7 @@ class SetGoalVC: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapFirst), for: .touchUpInside)
+        button.addShadowEffect()
         
         return button
     }()
@@ -48,6 +49,7 @@ class SetGoalVC: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapSecond), for: .touchUpInside)
+        button.addShadowEffect()
         
         return button
     }()
@@ -59,6 +61,7 @@ class SetGoalVC: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapThird), for: .touchUpInside)
+        button.addShadowEffect()
         
         return button
     }()

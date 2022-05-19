@@ -69,7 +69,7 @@ extension StartVC {
     
     fileprivate func constrainSubviews() {
         introImage.centerXToSuperview()
-        introImage.topToSuperview(offset: screenHeight * 0.15)
+        introImage.topToSuperview(offset: screenHeight * 0.18)
         introImage.width(screenWidth * 0.9)
         
         startButton.centerXToSuperview()

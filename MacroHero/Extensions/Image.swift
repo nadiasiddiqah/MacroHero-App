@@ -37,10 +37,6 @@ struct Image {
     static let refreshButton = UIImage(systemName: "arrow.clockwise.circle.fill")
     static let theoCrossroads = UIImage(named: "theoCrossroads")
     static let theoStrong = UIImage(named: "theoStrong")
-    static let noButton = UIImage(named: "noButton")
-    static let lightButton = UIImage(named: "lightButton")
-    static let moderateButton = UIImage(named: "moderateButton")
-    static let hardButton = UIImage(named: "hardButton")
     static let aboutButtonBg = UIImage(named: "aboutButtonBg")
-    static let aboutButtonBgLarge = UIImage(named: "aboutButtonBgLarge")
+    static let ctaButton = UIImage(named: "ctaButton")
 }

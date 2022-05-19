@@ -35,32 +35,48 @@ class SetActivityVC: UIViewController {
     
     lazy var firstButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(Image.noButton, for: .normal)
+        button.setTitle("No Exercise", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapFirst), for: .touchUpInside)
+        button.addShadowEffect()
         
         return button
     }()
 
     lazy var secondButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(Image.lightButton, for: .normal)
+        button.setTitle("Light Exercise", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapSecond), for: .touchUpInside)
+        button.addShadowEffect()
         
         return button
     }()
 
     lazy var thirdButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(Image.moderateButton, for: .normal)
+        button.setTitle("Moderate Exercise", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapThird), for: .touchUpInside)
+        button.addShadowEffect()
         
         return button
     }()
 
     lazy var fourthButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(Image.hardButton, for: .normal)
+        button.setTitle("Hard Exercise", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapFourth), for: .touchUpInside)
+        button.addShadowEffect()
         
         return button
     }()
@@ -135,19 +151,19 @@ extension SetActivityVC {
         firstButton.width(screenWidth * 0.9)
         
         secondButton.centerXToSuperview()
-        secondButton.topToBottom(of: firstButton, offset: screenHeight * 0.025)
+        secondButton.topToBottom(of: firstButton, offset: screenHeight * 0.03)
         secondButton.width(screenWidth * 0.9)
         
         thirdButton.centerXToSuperview()
-        thirdButton.topToBottom(of: secondButton, offset: screenHeight * 0.025)
+        thirdButton.topToBottom(of: secondButton, offset: screenHeight * 0.03)
         thirdButton.width(screenWidth * 0.9)
         
         fourthButton.centerXToSuperview()
-        fourthButton.topToBottom(of: thirdButton, offset: screenHeight * 0.025)
+        fourthButton.topToBottom(of: thirdButton, offset: screenHeight * 0.03)
         fourthButton.width(screenWidth * 0.9)
         
         lowerImage.centerXToSuperview()
-        lowerImage.topToBottom(of: fourthButton, offset: screenHeight * 0.04)
+        lowerImage.topToBottom(of: fourthButton, offset: screenHeight * 0.06)
         lowerImage.width(screenWidth * 0.8)
     }
 }

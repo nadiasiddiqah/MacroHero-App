@@ -18,4 +18,5 @@ struct Color {
     static let customOrange = UIColor(named: "orange")
     static let blueSelectedText = UIColor(named: "blueSelectedText")
     static let blueSelectedBg = UIColor(named: "blueSelectedBg")
+    static let buttonShadow = UIColor(named: "buttonShadow")
 }
