@@ -1,39 +1,45 @@
 
 # MacroHero iOS App
 
-A health app that allows users to calculate a personalized nutrition plan and easily generate automatic meal plans based on their personal health goals.
+A health app that allows users to calculate a personalized nutrition plan and easily generate automatic meal plans based on their personal diet goals.
 
-![App Screenshot](https://uploads-ssl.webflow.com/6222c95e94125f20cd00b586/622d4c09b86a2b19dfb509d5_Untitled-1.gif)
+![App Screenshot](https://camo.githubusercontent.com/8f563953b8a4c73e64ac8542f376f6f023d58fd5bfdbe97274358d7ef4f2f536/68747470733a2f2f75706c6f6164732d73736c2e776562666c6f772e636f6d2f3632323263393565393431323566323063643030623538362f3632326434633039623836613262313964666235303964355f556e7469746c65642d312e676966)
 
 
-## App Screenshots
 
-![App Screenshot](https://uploads-ssl.webflow.com/6222c95e94125f1e9800b566/627efa64ea58cfafaa407074_Group%20119.png)
 
-## App Features
+## Screenshots
 
-- Set your personal health goal whether it's to lose, maintain, or gain weight
-- Generate a nutrition plan with daily macronutrient requirements based on your goals
+![App Screenshot](https://camo.githubusercontent.com/240130f2269c31824e5d8ced94077d2dab1dc140daa0c4596e3588dba83d55ae/68747470733a2f2f75706c6f6164732d73736c2e776562666c6f772e636f6d2f3632323263393565393431323566316539383030623536362f3632376566613634656135386366616661613430373037345f47726f75702532303131392e706e67)
+
+
+## Features
+
+- Set your personal health goal whether it is to lose, maintain, or gain weight
+- Generate a nutrion plan with daily macronutrient requirements based on your diet goals
 - Generate daily meal plans with recipes based on your macronutrient requirements
-- Access recipe details in the app to help you prepare healthy meals 
+- Access recipe details in the app to help your prepare healthy meals
 - Quickly change recipes in your meal plan 
 
-## In Development & Future Features
-- Save and access your favorite recipes 
+## In development 
+- Save your favorite recipes
 - Update your nutrition plan to match your current goals
 - Generate grocery list based on meal plan 
 
 ## Development Details
+- Used **Alamofire** and **Codable** to decode data requested from RESTful APIs
+- Utilized APIs and CRUD methodology to make it easy for users to reach their diet goals by generating personalized nutrition plans
+- Used **DispatchGroups** to make concurrent API requests to generate daily meal plans from a database of 2.3M+ recipes
+- Created app design system using **Figma** and developed **UI programmatically** with **MVVM** architectural pattern
+## Tech Stack
 
-- Built **UI programmatically** with custom view objects and **MVVM** architectural pattern
-- Used **CocoaPods** to integrate third-party libraries, like **Alamofire** to decode data from RESTful API services
-- Used MacroCalculator API to calculate a personalized nutrition plan
-- Used Edamame Recipes API to generate automatic meal plans that fit user's personalized nutrition plan
-## Tech Stack 
-
-UIKit, Programmatic UI, RESTful API, Alamofire, CocoaPods, Figma, MVVM 
+UIKit, Programmatic UI, RESTful APIs, Alamofire, CocoaPods, Figma, MVVM
 
 
 ## Feedback
 
 If you have any feedback, please reach out to me at nadiasiddiqah@gmail.com
+
+
+
+
