@@ -8,10 +8,14 @@
 import Foundation
 import UIKit
 
-#warning("delete after setting up activitybutton class")
+#warning("tap gesture causing app to crash")
 extension UIButton {
     class func activityButton(action: Selector, text: String, subText: String) -> UIButton {
         let button = UIButton()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: action)
+        button.addGestureRecognizer(tapGesture)
+        
         button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(SetActivityVC(), action: action, for: .touchUpInside)
         button.addShadowEffect()
@@ -29,6 +33,8 @@ extension UIButton {
         let stack = UIStackView(arrangedSubviews: [label, subLabel])
         stack.axis = .vertical
         stack.alignment = .center
+        stack.isUserInteractionEnabled = true
+        stack.addGestureRecognizer(tapGesture)
         
         button.addSubview(stack)
         stack.centerInSuperview()

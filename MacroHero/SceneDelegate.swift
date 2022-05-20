@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let vc = Inject.ViewControllerHost(StartVC())
         let navController = UINavigationController(rootViewController: vc)
+        navController.navigationBar.tintColor = Color.customNavy
         
         window.rootViewController = navController
         window.makeKeyAndVisible()

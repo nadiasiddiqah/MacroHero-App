@@ -8,23 +8,46 @@
 import UIKit
 
 struct ActivityButtonVM {
-    let text: String
-    let subText: String
+    let labelText: String
+    let subLabelText: String
+    let action: Selector
 }
 
+#warning("work in progress, stack view doesn't appear")
+#warning("creating uicontrol class instead of uibutton class: https://www.youtube.com/watch?v=chj2ceZl51s&ab_channel=SamMeech-Ward")
 // Note: Final cannot be subclassed
-#warning("Continue to set up ActivityButton: https://youtu.be/2ApnvSzf6Xo?t=368")
 final class ActivityButton: UIButton {
-    private let primaryLabel: UILabel = {
+    private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
         label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .black
+        
+        return label
+    }()
+    
+    private let subLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .gray
         
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        setBackgroundImage(Image.setButtonBg, for: .normal)
+        addShadowEffect()
+        
+        let stack = UIStackView(arrangedSubviews: [label, subLabel])
+        stack.axis = .vertical
+        stack.alignment = .center
+        addSubview(stack)
+        clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
@@ -32,10 +55,14 @@ final class ActivityButton: UIButton {
     }
     
     func configure(with viewModel: ActivityButtonVM) {
-        
+        label.text = viewModel.labelText
+        subLabel.text = viewModel.subLabelText
+        self.addTarget(SetActivityVC(), action: viewModel.action,
+                       for: .touchUpInside)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
     }
 }

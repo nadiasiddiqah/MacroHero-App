@@ -23,11 +23,29 @@ class SetGoalVC: UIViewController {
     }
     
     // MARK: - VIEW OBJECTS
-    lazy var mainTitle: UILabel = {
-        let title = Utils.createMainTitle(text: "What's your goal?",
-                                          noOfLines: 1)
+    lazy var navController: UINavigationController = {
+        let navController = UINavigationController()
+        var navBar = navController.navigationBar
+        navBar.tintColor = Color.customNavy
         
-        return title
+        let navItem = UINavigationItem()
+        navItem.leftBarButtonItem = UIBarButtonItem(image: Image.backButton,
+                                                    style: .done, target: self,
+                                                    action: #selector(goBack))
+        
+        return navController
+    }()
+    
+    lazy var mainTitle: UILabel = {
+        var label = UILabel()
+        label.text = "What's your goal?"
+        label.font = Fonts.solid_30
+        label.textColor = Color.customOrange
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        
+        return label
     }()
     
     lazy var firstButton: UIButton = {
@@ -100,18 +118,19 @@ class SetGoalVC: UIViewController {
 extension SetGoalVC {
     fileprivate func setupViews() {
         view.backgroundColor = Color.bgColor
-        Utils.setNavigationBar(navController: navigationController,
-                               navItem: navigationItem,
-                               leftBarButtonItem:
-                                UIBarButtonItem(image: Image.backButton,
-                                                style: .done, target: self,
-                                                action: #selector(didTapBackButton)))
-        
+        addBackButton()
         addViews()
         constrainViews()
     }
     
-    @objc func didTapBackButton(sender: UIBarButtonItem) {
+    fileprivate func addBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Image.backButton,
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(goBack))
+    }
+    
+    @objc func goBack(sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     

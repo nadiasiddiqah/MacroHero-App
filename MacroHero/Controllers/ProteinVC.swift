@@ -184,10 +184,10 @@ extension ProteinVC {
         view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
-        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
-                                                            style: .done, target: self,
-                                                            action: #selector(didTapBackButton)))
+//        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
+//                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
+//                                                            style: .done, target: self,
+//                                                            action: #selector(didTapBackButton)))
         gestureToHideKeyboard()
     }
     

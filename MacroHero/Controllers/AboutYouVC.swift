@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Inject
 
 class AboutYouVC: UIViewController {
     
@@ -22,8 +23,14 @@ class AboutYouVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        let label = Utils.createMainTitle(text: "Tell us about yourself",
-                                          noOfLines: 1)
+        var label = UILabel()
+        label.text = "Tell us about yourself"
+        label.font = Fonts.solid_30
+        label.textColor = Color.customOrange
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 1
+        label.textAlignment = .center
+        
         return label
     }()
     
@@ -161,7 +168,7 @@ class AboutYouVC: UIViewController {
     }()
     
     // MARK: - TAP METHODS
-    @objc func didTapMale() {
+    @objc func didTapMale(sender: UIButton) {
         print("male")
     }
     
@@ -190,23 +197,27 @@ class AboutYouVC: UIViewController {
     
     #warning("add go to next screen functionality")
     func goToNextScreen() {
+        let nextScreen = Inject.ViewControllerHost(MacroPlanVC())
+        navigationController?.pushViewController(nextScreen, animated: true)
     }
 }
 
 extension AboutYouVC {
     fileprivate func setupViews() {
         view.backgroundColor = Color.bgColor
-        Utils.setNavigationBar(navController: navigationController,
-                               navItem: navigationItem,
-                               leftBarButtonItem:
-                                UIBarButtonItem(image: Image.backButton,
-                                                style: .done, target: self,
-                                                action: #selector(didTapBackButton)))
+        addBackButton()
         addViews()
         constrainViews()
     }
     
-    @objc func didTapBackButton() {
+    fileprivate func addBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Image.backButton,
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(goBack))
+    }
+    
+    @objc func goBack(sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     

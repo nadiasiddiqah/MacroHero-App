@@ -62,7 +62,7 @@ class MealPlanVC: UIViewController {
     func setupView() {
         view.backgroundColor = Color.bgColor
         
-        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem)
+//        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem)
         
         HUD.show(.progress)
         HUD.dimsBackground = true

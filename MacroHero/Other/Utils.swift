@@ -78,23 +78,6 @@ class Utils {
         return VStack
     }
 
-    static func setNavigationBar(navController: UINavigationController?,
-                                 navItem: UINavigationItem,
-                                 leftBarButtonItem: UIBarButtonItem? = nil,
-                                 rightBarButtonItem: UIBarButtonItem? = nil) {
-        let bar = navController?.navigationBar
-        bar?.tintColor = Color.customNavy
-        
-        if leftBarButtonItem != nil {
-            navItem.leftBarButtonItem = leftBarButtonItem
-        }
-        navItem.hidesBackButton = true
-        
-        if rightBarButtonItem != nil {
-            navItem.rightBarButtonItem = rightBarButtonItem
-        }
-    }
-
     static func createMainTitle(text: String,
                                 textColor: UIColor? = nil,
                                 noOfLines: Int? = nil) -> UILabel {
