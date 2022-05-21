@@ -322,7 +322,7 @@
 			);
 			mainGroup = 0933D89E270BC56100080FCD;
 			packageReferences = (
-				098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject" */,
+				098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject.git" */,
 			);
 			productRefGroup = 0933D8A8270BC56100080FCD /* Products */;
 			projectDirPath = "";
@@ -592,7 +592,7 @@
 		};
 		0933D8BD270BC56200080FCD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8FE3BA3ABDB9C89D7D6D6FEB /* Pods-MacroHero.debug.xcconfig */;
+			baseConfigurationReference = E5560F4DFE6B4D6B2881C8A3 /* Pods-MacroHero.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -635,7 +635,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject" */ = {
+		098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
 			requirement = {
@@ -648,7 +648,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		0986973A2806064400564CD4 /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject" */;
+			package = 098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject.git" */;
 			productName = Inject;
 		};
 /* End XCSwiftPackageProductDependency section */

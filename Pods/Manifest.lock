@@ -2,15 +2,21 @@ PODS:
   - Alamofire (5.5.0)
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
+  - Charts (4.0.2):
+    - Charts/Core (= 4.0.2)
+  - Charts/Core (4.0.2):
+    - SwiftAlgorithms (~> 1.0)
   - DropDown (2.3.13)
   - Gifu (3.3.1)
   - IQKeyboardManager (6.5.9)
   - PKHUD (5.3.0)
+  - SwiftAlgorithms (1.0.0)
   - TinyConstraints (4.0.2)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
+  - Charts
   - DropDown
   - Gifu
   - IQKeyboardManager
@@ -21,21 +27,25 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
+    - Charts
     - DropDown
     - Gifu
     - IQKeyboardManager
     - PKHUD
+    - SwiftAlgorithms
     - TinyConstraints
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
+  Charts: cfa4e911e6dc289582c2fe011a0e87c03d96727f
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   Gifu: 416d4e38c4c2fed012f019e0a1d3ffcb58e5b842
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: dcb5b6288691899656d631176706d54a5d120f42
+PODFILE CHECKSUM: c8026578a877550fd7494e10bc07342dad8473a8
 
 COCOAPODS: 1.11.2

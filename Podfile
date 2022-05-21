@@ -13,5 +13,6 @@ target 'MacroHero' do
   pod 'PKHUD'
   pod 'Alamofire'
   pod 'AlamofireImage'
+  pod 'Charts'
   
 end
