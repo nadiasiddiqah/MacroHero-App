@@ -39,4 +39,5 @@ struct Image {
     static let theoStrong = UIImage(named: "theoStrong")
     static let aboutButtonBg = UIImage(named: "aboutButtonBg")
     static let ctaButton = UIImage(named: "ctaButton")
+    static let planViewBg = UIImage(named: "planViewBg")
 }

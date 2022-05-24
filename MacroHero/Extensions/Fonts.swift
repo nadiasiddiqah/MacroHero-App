@@ -16,6 +16,7 @@ struct Fonts {
     static let solid_20 = UIFont(name: "KGHAPPYSolid", size: 20)
     static let solid_23 = UIFont(name: "KGHAPPYSolid", size: 23)
     static let solid_30 = UIFont(name: "KGHAPPYSolid", size: 30)
+    static let solid_35 = UIFont(name: "KGHAPPYSolid", size: 35)
     
     static let shadow_25 = UIFont(name: "KGHAPPY", size: 25)
     static let shadow_30 = UIFont(name: "KGHAPPY", size: 30)

@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import UIKit
-import Alamofire
 
 struct AllMealReqs {
     var breakfast: MealReq

@@ -23,135 +23,53 @@ class SetActivityVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        var label = UILabel()
-        label.text = """
-        What's your activity
-        level?
-        """
-        label.font = Fonts.solid_30
-        label.textColor = Color.customOrange
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 2
-        label.textAlignment = .center
+        var label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: """
+                   What's your activity
+                   level?
+                   """,
+            numberOfLines: 2))
         
         return label
     }()
     
-    #warning("change highlight color from gray to something else bc it hides gray text")
     lazy var firstButton: UIButton = {
-        let button = UIButton()
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapFirst))
-        button.addGestureRecognizer(tapGesture)
-        
-        button.setBackgroundImage(Image.setButtonBg, for: .normal)
-        button.addShadowEffect()
-        
-        let label = UILabel()
-        label.text = "No Exercise"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        
-        let subLabel = UILabel()
-        subLabel.text = "no exercise or very infrequent"
-        subLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        subLabel.textColor = .gray
-        
-        let stack = UIStackView(arrangedSubviews: [label, subLabel])
-        stack.axis = .vertical
-        stack.alignment = .center
-        stack.isUserInteractionEnabled = true
-        stack.addGestureRecognizer(tapGesture)
-        
-        button.addSubview(stack)
-        stack.centerInSuperview()
+        let button = TwoLineButton()
+        button.configure(with: TwoLineButtonModel(
+            title: "No Exercise",
+            subTitle: "no exercise or very infrequent",
+            action: didTapFirst))
         
         return button
     }()
     
     lazy var secondButton: UIButton = {
-        let button = UIButton()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSecond))
-        button.addGestureRecognizer(tapGesture)
-        
-        button.setBackgroundImage(Image.setButtonBg, for: .normal)
-        button.addTarget(self, action: #selector(didTapSecond), for: .touchUpInside)
-        button.addShadowEffect()
-        
-        let label = UILabel()
-        label.text = "Light Exercise"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        
-        let subLabel = UILabel()
-        subLabel.text = "some light cardio/weights a few times per week"
-        subLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        subLabel.textColor = .gray
-        
-        let stack = UIStackView(arrangedSubviews: [label, subLabel])
-        stack.axis = .vertical
-        stack.alignment = .center
-        
-        button.addSubview(stack)
-        stack.centerInSuperview()
+        let button = TwoLineButton()
+        button.configure(with: TwoLineButtonModel(
+            title: "Light Exercise",
+            subTitle: "some light cardio/weights a few times per week",
+            action: didTapSecond))
         
         return button
     }()
     
     lazy var thirdButton: UIButton = {
-        let button = UIButton()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapThird))
-        button.addGestureRecognizer(tapGesture)
-        
-        button.setBackgroundImage(Image.setButtonBg, for: .normal)
-        button.addTarget(self, action: #selector(didTapSecond), for: .touchUpInside)
-        button.addShadowEffect()
-        
-        let label = UILabel()
-        label.text = "Moderate Exercise"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        
-        let subLabel = UILabel()
-        subLabel.text = "lifting/cardio regularly but not super intense"
-        subLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        subLabel.textColor = .gray
-        
-        let stack = UIStackView(arrangedSubviews: [label, subLabel])
-        stack.axis = .vertical
-        stack.alignment = .center
-        
-        button.addSubview(stack)
-        stack.centerInSuperview()
+        let button = TwoLineButton()
+        button.configure(with: TwoLineButtonModel(
+            title: "Moderate Exercise",
+            subTitle: "lifting/cardio regularly but not super intense",
+            action: didTapThird))
         
         return button
     }()
     
     lazy var fourthButton: UIButton = {
-        let button = UIButton()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapFourth))
-        button.addGestureRecognizer(tapGesture)
-        
-        button.setBackgroundImage(Image.setButtonBg, for: .normal)
-        button.addTarget(self, action: #selector(didTapSecond), for: .touchUpInside)
-        button.addShadowEffect()
-        
-        let label = UILabel()
-        label.text = "Hard Exercise"
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
-        
-        let subLabel = UILabel()
-        subLabel.text = "most days per week involve demanding exercise"
-        subLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        subLabel.textColor = .gray
-        
-        let stack = UIStackView(arrangedSubviews: [label, subLabel])
-        stack.axis = .vertical
-        stack.alignment = .center
-        
-        button.addSubview(stack)
-        stack.centerInSuperview()
+        let button = TwoLineButton()
+        button.configure(with: TwoLineButtonModel(
+            title: "Hard Exercise",
+            subTitle: "most days per week involve demanding exercise",
+            action: didTapFourth))
         
         return button
     }()
@@ -164,22 +82,22 @@ class SetActivityVC: UIViewController {
     }()
     
     // MARK: - TAP METHODS
-    @objc func didTapFirst() {
+    func didTapFirst() {
         print("Tapped 1")
         goToNextScreen()
     }
     
-    @objc func didTapSecond() {
+    func didTapSecond() {
         print("Tapped 2")
         goToNextScreen()
     }
     
-    @objc func didTapThird() {
+    func didTapThird() {
         print("Tapped 3")
         goToNextScreen()
     }
     
-    @objc func didTapFourth() {
+    func didTapFourth() {
         print("Tapped 4")
         goToNextScreen()
     }

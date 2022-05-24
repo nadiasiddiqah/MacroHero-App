@@ -23,27 +23,10 @@ class SetGoalVC: UIViewController {
     }
     
     // MARK: - VIEW OBJECTS
-    lazy var navController: UINavigationController = {
-        let navController = UINavigationController()
-        var navBar = navController.navigationBar
-        navBar.tintColor = Color.customNavy
-        
-        let navItem = UINavigationItem()
-        navItem.leftBarButtonItem = UIBarButtonItem(image: Image.backButton,
-                                                    style: .done, target: self,
-                                                    action: #selector(goBack))
-        
-        return navController
-    }()
-    
     lazy var mainTitle: UILabel = {
-        var label = UILabel()
-        label.text = "What's your goal?"
-        label.font = Fonts.solid_30
-        label.textColor = Color.customOrange
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 1
-        label.textAlignment = .center
+        var label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: "What's your goal?"))
         
         return label
     }()

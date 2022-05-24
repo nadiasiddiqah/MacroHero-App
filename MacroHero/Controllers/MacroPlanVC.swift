@@ -23,17 +23,13 @@ class MacroPlanVC: UIViewController, ChartViewDelegate {
     }
     
     let yValues: [ChartDataEntry] = [ChartDataEntry(x: 1.0, y: 31.0),
-                                    ChartDataEntry(x: 2.0, y: 23.0),
-                                    ChartDataEntry(x: 3.0, y: 46.0)]
-
+                                     ChartDataEntry(x: 2.0, y: 23.0),
+                                     ChartDataEntry(x: 3.0, y: 46.0)]
+    
     lazy var mainTitle: UILabel = {
-        var label = UILabel()
-        label.text = "Here's your plan"
-        label.font = Fonts.solid_30
-        label.textColor = Color.customOrange
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 1
-        label.textAlignment = .center
+        var label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: "Here's your plan"))
         
         return label
     }()
@@ -43,11 +39,26 @@ class MacroPlanVC: UIViewController, ChartViewDelegate {
         chart.holeRadiusPercent = 0.78
         chart.legend.enabled = false
         chart.drawEntryLabelsEnabled = false
-        chart.centerAttributedText = centerAttributedStringInPieHole(calories: calories)
+        chart.centerAttributedText = createCenterAttributedText(
+            calories: calories
+        )
         
         return chart
     }()
-
+    
+    #warning("figure out how to make bgImageView bigger")
+    lazy var carbView: UIView = {
+        var carbView = UIView()
+        
+        var bgImageView = UIImageView(image: Image.planViewBg)
+        bgImageView.contentMode = .scaleAspectFit
+        bgImageView.addShadowEffect()
+        
+        carbView.addSubview(bgImageView)
+        
+        return carbView
+    }()
+    
     // Stack view
     // Add carbs - %, g, and title
     // Add protein -
@@ -68,25 +79,34 @@ class MacroPlanVC: UIViewController, ChartViewDelegate {
         pieChartView.data = data
     }
     
-    func centerAttributedStringInPieHole(calories: Int) -> NSMutableAttributedString {
-        let centerText = """
-                        \(calories)
-                        cal
-                        """
+    func createCenterAttributedText(
+        calories: Int
+    ) -> NSMutableAttributedString {
+        let centeredParagraphStyle = NSMutableParagraphStyle()
+        centeredParagraphStyle.alignment = .center
         
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
+        let twoLines = [
+            NSAttributedString(
+                string: "\(calories)" + "\n",
+                attributes: [
+                    .font: Fonts.solid_35!,
+                    .foregroundColor: Color.customNavy!,
+                    .paragraphStyle: centeredParagraphStyle
+                ]
+            ),
+            NSAttributedString(
+                string: "cal",
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 25,
+                                             weight: .regular),
+                    .paragraphStyle: centeredParagraphStyle
+                ]
+            )
+        ]
         
-        let attributedString = NSMutableAttributedString(string: centerText)
-        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle,
-                                      range: NSRange(location: 0, length: 7))
-        attributedString.addAttribute(.foregroundColor, value: Color.customBlue!,
-                                      range: NSRange(location: 0, length: 4))
-        attributedString.addAttribute(.font, value: Fonts.solid_30!, range: NSRange(location: 0, length: 4))
-        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 25, weight: .regular),
-                                      range: NSRange(location: 5, length: 3))
-        
-        return attributedString
+        let string = NSMutableAttributedString()
+        twoLines.forEach { string.append($0) }
+        return string
     }
 }
 
@@ -113,11 +133,13 @@ extension MacroPlanVC {
     fileprivate func addViews() {
         view.addSubview(mainTitle)
         view.addSubview(pieChartView)
+        view.addSubview(carbView)
     }
     
     fileprivate func autoLayoutViews() {
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         pieChartView.translatesAutoresizingMaskIntoConstraints = false
+        carbView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     fileprivate func constrainViews() {
@@ -130,7 +152,13 @@ extension MacroPlanVC {
             pieChartView.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
                                               constant: screenHeight * 0.05),
             pieChartView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            pieChartView.widthAnchor.constraint(equalTo: pieChartView.heightAnchor, multiplier: 1)
+            pieChartView.widthAnchor.constraint(equalTo: pieChartView.heightAnchor, multiplier: 1),
+            
+            carbView.topAnchor.constraint(equalTo: pieChartView.bottomAnchor,
+                                          constant: screenHeight * 0.05),
+            carbView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                              constant: screenWidth * 0.07),
+            carbView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3)
         ])
     }
 }

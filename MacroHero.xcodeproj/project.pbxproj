@@ -18,7 +18,7 @@
 		093870E4270D6B0D0036A3D7 /* StartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093870E3270D6B0D0036A3D7 /* StartVC.swift */; };
 		094E90182835FD1900BCE92E /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E90172835FD1900BCE92E /* UIView+Ext.swift */; };
 		094E901A28360E3300BCE92E /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E901928360E3300BCE92E /* UIButton+Ext.swift */; };
-		094E901C2836123500BCE92E /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E901B2836123500BCE92E /* ActivityButton.swift */; };
+		094E901C2836123500BCE92E /* TwoLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E901B2836123500BCE92E /* TwoLineButton.swift */; };
 		0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */; };
 		0966D42727CD804100A90754 /* MealPlanAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42627CD804100A90754 /* MealPlanAPI.swift */; };
 		0966D42F27CEC51300A90754 /* MealPlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42E27CEC51300A90754 /* MealPlanVM.swift */; };
@@ -33,6 +33,9 @@
 		09ABA5FD27B3095D008A9641 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABA5FC27B3095D008A9641 /* Image.swift */; };
 		09ABA5FF27B30B9C008A9641 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABA5FE27B30B9C008A9641 /* Fonts.swift */; };
 		09ABA62327B346EC008A9641 /* MealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09ABA62227B346EC008A9641 /* MealCell.swift */; };
+		09B29823283D6E28008F19BF /* TwoLineButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B29822283D6E28008F19BF /* TwoLineButtonModel.swift */; };
+		09B29825283D71DC008F19BF /* MainLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B29824283D71DC008F19BF /* MainLabel.swift */; };
+		09B29827283D7390008F19BF /* MainLabelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B29826283D7390008F19BF /* MainLabelModel.swift */; };
 		09B353D3279F806B00871FA2 /* MacroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B353D2279F806B00871FA2 /* MacroData.swift */; };
 		09D20BBC28306FC60085BAA5 /* SetGoalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D20BBB28306FC60085BAA5 /* SetGoalVC.swift */; };
 		09DC9A5427A1E78500EF78E7 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC9A5327A1E78500EF78E7 /* Colors.swift */; };
@@ -70,7 +73,7 @@
 		093870E3270D6B0D0036A3D7 /* StartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVC.swift; sourceTree = "<group>"; };
 		094E90172835FD1900BCE92E /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		094E901928360E3300BCE92E /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
-		094E901B2836123500BCE92E /* ActivityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityButton.swift; sourceTree = "<group>"; };
+		094E901B2836123500BCE92E /* TwoLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLineButton.swift; sourceTree = "<group>"; };
 		0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroCalculatorAPI.swift; sourceTree = "<group>"; };
 		0966D42627CD804100A90754 /* MealPlanAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanAPI.swift; sourceTree = "<group>"; };
 		0966D42E27CEC51300A90754 /* MealPlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanVM.swift; sourceTree = "<group>"; };
@@ -84,6 +87,9 @@
 		09ABA5FC27B3095D008A9641 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		09ABA5FE27B30B9C008A9641 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		09ABA62227B346EC008A9641 /* MealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCell.swift; sourceTree = "<group>"; };
+		09B29822283D6E28008F19BF /* TwoLineButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLineButtonModel.swift; sourceTree = "<group>"; };
+		09B29824283D71DC008F19BF /* MainLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabel.swift; sourceTree = "<group>"; };
+		09B29826283D7390008F19BF /* MainLabelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabelModel.swift; sourceTree = "<group>"; };
 		09B353D2279F806B00871FA2 /* MacroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroData.swift; sourceTree = "<group>"; };
 		09D20BBB28306FC60085BAA5 /* SetGoalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalVC.swift; sourceTree = "<group>"; };
 		09DC9A5327A1E78500EF78E7 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -177,6 +183,8 @@
 				09E304452798F2DE003FB240 /* MealData.swift */,
 				09E304442798F2DE003FB240 /* MealPlan.swift */,
 				09E304472798F2DE003FB240 /* MealReq.swift */,
+				09B29822283D6E28008F19BF /* TwoLineButtonModel.swift */,
+				09B29826283D7390008F19BF /* MainLabelModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -232,7 +240,8 @@
 				0933D8B5270BC56200080FCD /* LaunchScreen.storyboard */,
 				09ABA62227B346EC008A9641 /* MealCell.swift */,
 				091DFB15280753E400EBD110 /* FavoriteMealCell.swift */,
-				094E901B2836123500BCE92E /* ActivityButton.swift */,
+				094E901B2836123500BCE92E /* TwoLineButton.swift */,
+				09B29824283D71DC008F19BF /* MainLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -322,7 +331,7 @@
 			);
 			mainGroup = 0933D89E270BC56100080FCD;
 			packageReferences = (
-				098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject.git" */,
+				098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject" */,
 			);
 			productRefGroup = 0933D8A8270BC56100080FCD /* Products */;
 			projectDirPath = "";
@@ -405,10 +414,12 @@
 				09ABA5FF27B30B9C008A9641 /* Fonts.swift in Sources */,
 				09E3044D2798F2DE003FB240 /* MealReq.swift in Sources */,
 				091DFB16280753E400EBD110 /* FavoriteMealCell.swift in Sources */,
-				094E901C2836123500BCE92E /* ActivityButton.swift in Sources */,
+				094E901C2836123500BCE92E /* TwoLineButton.swift in Sources */,
 				09092AC2283843DA00CA12F2 /* MacroPlanVC.swift in Sources */,
 				09EE8142277A8D9D00579224 /* RankVC.swift in Sources */,
 				0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */,
+				09B29825283D71DC008F19BF /* MainLabel.swift in Sources */,
+				09B29827283D7390008F19BF /* MainLabelModel.swift in Sources */,
 				097F8F75279783D600B638BC /* StartVM.swift in Sources */,
 				09E304502798F3C1003FB240 /* MealDetailsVC.swift in Sources */,
 				093870E4270D6B0D0036A3D7 /* StartVC.swift in Sources */,
@@ -425,6 +436,7 @@
 				09975BC4278CF78F0096E00A /* FavoritesView.swift in Sources */,
 				097F8F772797889E00B638BC /* PlanVM.swift in Sources */,
 				0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */,
+				09B29823283D6E28008F19BF /* TwoLineButtonModel.swift in Sources */,
 				09ABA62327B346EC008A9641 /* MealCell.swift in Sources */,
 				09D20BBC28306FC60085BAA5 /* SetGoalVC.swift in Sources */,
 				09DC9A5427A1E78500EF78E7 /* Colors.swift in Sources */,
@@ -635,7 +647,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject.git" */ = {
+		098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/krzysztofzablocki/Inject.git";
 			requirement = {
@@ -648,7 +660,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		0986973A2806064400564CD4 /* Inject */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject.git" */;
+			package = 098697392806064400564CD4 /* XCRemoteSwiftPackageReference "Inject" */;
 			productName = Inject;
 		};
 /* End XCSwiftPackageProductDependency section */

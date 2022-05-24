@@ -23,13 +23,9 @@ class AboutYouVC: UIViewController {
     
     // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        var label = UILabel()
-        label.text = "Tell us about yourself"
-        label.font = Fonts.solid_30
-        label.textColor = Color.customOrange
-        label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 1
-        label.textAlignment = .center
+        var label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: "Tell us about yourself"))
         
         return label
     }()
