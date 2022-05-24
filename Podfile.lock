@@ -11,6 +11,7 @@ PODS:
   - IQKeyboardManager (6.5.9)
   - PKHUD (5.3.0)
   - SwiftAlgorithms (1.0.0)
+  - SwiftLint (0.44.0)
   - TinyConstraints (4.0.2)
 
 DEPENDENCIES:
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - Gifu
   - IQKeyboardManager
   - PKHUD
+  - SwiftLint
   - TinyConstraints
 
 SPEC REPOS:
@@ -33,6 +35,7 @@ SPEC REPOS:
     - IQKeyboardManager
     - PKHUD
     - SwiftAlgorithms
+    - SwiftLint
     - TinyConstraints
 
 SPEC CHECKSUMS:
@@ -44,8 +47,9 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
 
-PODFILE CHECKSUM: c8026578a877550fd7494e10bc07342dad8473a8
+PODFILE CHECKSUM: c0dd7c161e2783016c0c26a6e7d449299acb1168
 
 COCOAPODS: 1.11.2

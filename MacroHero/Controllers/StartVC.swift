@@ -58,22 +58,30 @@ class StartVC: UIViewController {
 extension StartVC {
     fileprivate func setupViews() {
         view.backgroundColor = Color.bgColor
-        addSubviews()
-        constrainSubviews()
+        addViews()
+        autoLayoutViews()
+        constrainViews()
     }
     
-    fileprivate func addSubviews() {
+    fileprivate func addViews() {
         view.addSubview(introImage)
         view.addSubview(startButton)
     }
     
-    fileprivate func constrainSubviews() {
-        introImage.centerXToSuperview()
-        introImage.topToSuperview(offset: screenHeight * 0.18)
-        introImage.width(screenWidth * 0.9)
-        
-        startButton.centerXToSuperview()
-        startButton.bottomToSuperview(offset: screenHeight * -0.15)
-        startButton.width(screenWidth * 0.82)
+    fileprivate func autoLayoutViews() {
+        introImage.translatesAutoresizingMaskIntoConstraints = false
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    fileprivate func constrainViews() {
+        NSLayoutConstraint.activate([
+            introImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            introImage.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.18),
+            introImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: screenHeight * -0.15),
+            startButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.82)
+        ])
     }
 }

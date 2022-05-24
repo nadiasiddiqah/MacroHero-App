@@ -47,21 +47,20 @@ class AboutYouVC: UIViewController {
         maleButton.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         maleButton.addTarget(self, action: #selector(didTapMale),
                              for: .touchUpInside)
-        maleButton.width(screenWidth * 0.4)
         maleButton.addShadowEffect()
-        
+    
         let femaleButton = UIButton()
         femaleButton.setTitle("Female", for: .normal)
         femaleButton.setTitleColor(UIColor.black, for: .normal)
         femaleButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         femaleButton.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         femaleButton.addTarget(self, action: #selector(didTapFemale),
-                             for: .touchUpInside)
-        femaleButton.width(screenWidth * 0.4)
+                               for: .touchUpInside)
         femaleButton.addShadowEffect()
         
         let stack = UIStackView(arrangedSubviews: [maleButton, femaleButton])
         stack.axis = .horizontal
+        stack.distribution = .fillEqually
         stack.spacing = screenWidth * 0.07
         
         let fullStack = UIStackView(arrangedSubviews: [title, stack])
@@ -82,10 +81,12 @@ class AboutYouVC: UIViewController {
         dateLabel.text = "00 / 00 / 0000"
         dateLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         dateLabel.textColor = .black
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let calendarIV = UIImageView()
         calendarIV.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))
         calendarIV.tintColor = Color.customNavy
+        calendarIV.translatesAutoresizingMaskIntoConstraints = false
     
         let button = UIButton()
         button.setImage(Image.setButtonBg, for: .normal)
@@ -95,9 +96,13 @@ class AboutYouVC: UIViewController {
         // Add button's subviews and constraints
         button.addSubview(dateLabel)
         button.addSubview(calendarIV)
-        dateLabel.centerInSuperview()
-        calendarIV.centerYToSuperview()
-        calendarIV.leftToSuperview(offset: screenWidth * 0.86 * 0.05)
+        
+        NSLayoutConstraint.activate([
+            dateLabel.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+            dateLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            calendarIV.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            calendarIV.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: screenWidth * 0.86 * 0.05)
+        ])
         
         let stack = UIStackView(arrangedSubviews: [title, button])
         stack.axis = .vertical
@@ -119,7 +124,6 @@ class AboutYouVC: UIViewController {
         button1.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button1.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         button1.addTarget(self, action: #selector(didTapWeight), for: .touchUpInside)
-        button1.width(screenWidth * 0.4)
         button1.addShadowEffect()
         
         let stack1 = UIStackView(arrangedSubviews: [title1, button1])
@@ -139,7 +143,6 @@ class AboutYouVC: UIViewController {
         button2.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button2.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         button2.addTarget(self, action: #selector(didTapHeight), for: .touchUpInside)
-        button2.width(screenWidth * 0.4)
         button2.addShadowEffect()
 
         let stack2 = UIStackView(arrangedSubviews: [title2, button2])
@@ -151,6 +154,7 @@ class AboutYouVC: UIViewController {
         let fullStack = UIStackView(arrangedSubviews: [stack1, stack2])
         fullStack.axis = .horizontal
         fullStack.spacing = screenWidth * 0.07
+        fullStack.distribution = .fillEqually
 
         return fullStack
     }()
@@ -207,6 +211,7 @@ extension AboutYouVC {
         view.backgroundColor = Color.bgColor
         addBackButton()
         addViews()
+        autoLayoutViews()
         constrainViews()
     }
     
@@ -229,24 +234,38 @@ extension AboutYouVC {
         view.addSubview(calculateButton)
     }
     
+    fileprivate func autoLayoutViews() {
+        mainTitle.translatesAutoresizingMaskIntoConstraints = false
+        sexSection.translatesAutoresizingMaskIntoConstraints = false
+        birthdaySection.translatesAutoresizingMaskIntoConstraints = false
+        bottomSection.translatesAutoresizingMaskIntoConstraints = false
+        calculateButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     fileprivate func constrainViews() {
-        mainTitle.centerXToSuperview()
-        mainTitle.topToSuperview(offset: screenHeight * 0.12)
-        mainTitle.width(screenWidth * 0.9)
-        
-        sexSection.centerXToSuperview()
-        sexSection.topToBottom(of: mainTitle, offset: screenHeight * 0.05)
-        
-        birthdaySection.centerXToSuperview()
-        birthdaySection.topToBottom(of: sexSection, offset: screenHeight * 0.08)
-        birthdaySection.width(screenWidth * 0.87)
-        
-        bottomSection.centerXToSuperview()
-        bottomSection.topToBottom(of: birthdaySection, offset: screenHeight * 0.08)
-        
-        calculateButton.centerXToSuperview()
-        calculateButton.bottomToSuperview(offset: screenHeight * -0.1)
-        calculateButton.width(screenWidth * 0.83)
+        NSLayoutConstraint.activate([
+            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.12),
+            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            sexSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            sexSection.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
+                                            constant: screenHeight * 0.05),
+            
+            birthdaySection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            birthdaySection.topAnchor.constraint(equalTo: sexSection.bottomAnchor,
+                                                 constant: screenHeight * 0.08),
+            birthdaySection.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.87),
+            
+            bottomSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bottomSection.topAnchor.constraint(equalTo: birthdaySection.bottomAnchor,
+                                               constant: screenHeight * 0.08),
+            
+            calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            calculateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                                    constant: screenHeight * -0.1),
+            calculateButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
+        ])
     }
 }
 

@@ -13,6 +13,7 @@ class MacroPlanVC: UIViewController, ChartViewDelegate {
     // MARK: - PROPERTIES
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
+    var calories = 1890
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
@@ -42,21 +43,7 @@ class MacroPlanVC: UIViewController, ChartViewDelegate {
         chart.holeRadiusPercent = 0.78
         chart.legend.enabled = false
         chart.drawEntryLabelsEnabled = false
-        
-        let centerText = """
-                        1890
-                        cal
-                        """
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        
-        let attributedString = NSMutableAttributedString(string: centerText)
-        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: 7))
-        attributedString.addAttribute(.foregroundColor, value: Color.customBlue!, range: NSRange(location: 0, length: 4))
-        attributedString.addAttribute(.font, value: Fonts.solid_30!, range: NSRange(location: 0, length: 4))
-        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 25, weight: .regular), range: NSRange(location: 5, length: 3))
-        chart.centerAttributedText = attributedString
+        chart.centerAttributedText = centerAttributedStringInPieHole(calories: calories)
         
         return chart
     }()
@@ -80,6 +67,27 @@ class MacroPlanVC: UIViewController, ChartViewDelegate {
         let data = PieChartData(dataSet: dataSet)
         pieChartView.data = data
     }
+    
+    func centerAttributedStringInPieHole(calories: Int) -> NSMutableAttributedString {
+        let centerText = """
+                        \(calories)
+                        cal
+                        """
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        
+        let attributedString = NSMutableAttributedString(string: centerText)
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle,
+                                      range: NSRange(location: 0, length: 7))
+        attributedString.addAttribute(.foregroundColor, value: Color.customBlue!,
+                                      range: NSRange(location: 0, length: 4))
+        attributedString.addAttribute(.font, value: Fonts.solid_30!, range: NSRange(location: 0, length: 4))
+        attributedString.addAttribute(.font, value: UIFont.systemFont(ofSize: 25, weight: .regular),
+                                      range: NSRange(location: 5, length: 3))
+        
+        return attributedString
+    }
 }
 
 extension MacroPlanVC {
@@ -87,6 +95,7 @@ extension MacroPlanVC {
         view.backgroundColor = Color.bgColor
         addBackButton()
         addViews()
+        autoLayoutViews()
         constrainViews()
     }
     
@@ -106,14 +115,22 @@ extension MacroPlanVC {
         view.addSubview(pieChartView)
     }
     
+    fileprivate func autoLayoutViews() {
+        mainTitle.translatesAutoresizingMaskIntoConstraints = false
+        pieChartView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     fileprivate func constrainViews() {
-        mainTitle.centerXToSuperview()
-        mainTitle.topToSuperview(offset: screenHeight * 0.12)
-        mainTitle.width(screenWidth * 0.9)
-        
-        pieChartView.centerXToSuperview()
-        pieChartView.topToBottom(of: mainTitle, offset: screenHeight * 0.05)
-        pieChartView.width(screenWidth * 0.8)
-        pieChartView.aspectRatio(1)
+        NSLayoutConstraint.activate([
+            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.12),
+            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            pieChartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pieChartView.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
+                                              constant: screenHeight * 0.05),
+            pieChartView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            pieChartView.widthAnchor.constraint(equalTo: pieChartView.heightAnchor, multiplier: 1)
+        ])
     }
 }

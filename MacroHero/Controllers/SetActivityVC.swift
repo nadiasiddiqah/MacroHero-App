@@ -196,6 +196,7 @@ extension SetActivityVC {
         view.backgroundColor = Color.bgColor
         addBackButton()
         addViews()
+        autoLayoutViews()
         constrainViews()
     }
     
@@ -219,29 +220,41 @@ extension SetActivityVC {
         view.addSubview(lowerImage)
     }
     
+    fileprivate func autoLayoutViews() {
+        mainTitle.translatesAutoresizingMaskIntoConstraints = false
+        firstButton.translatesAutoresizingMaskIntoConstraints = false
+        secondButton.translatesAutoresizingMaskIntoConstraints = false
+        thirdButton.translatesAutoresizingMaskIntoConstraints = false
+        fourthButton.translatesAutoresizingMaskIntoConstraints = false
+        lowerImage.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    
     fileprivate func constrainViews() {
-        mainTitle.centerXToSuperview()
-        mainTitle.topToSuperview(offset: screenHeight * 0.12)
-        mainTitle.width(screenWidth * 0.9)
-        
-        firstButton.centerXToSuperview()
-        firstButton.topToBottom(of: mainTitle, offset: screenHeight * 0.04)
-        firstButton.width(screenWidth * 0.9)
-        
-        secondButton.centerXToSuperview()
-        secondButton.topToBottom(of: firstButton, offset: screenHeight * 0.03)
-        secondButton.width(screenWidth * 0.9)
-        
-        thirdButton.centerXToSuperview()
-        thirdButton.topToBottom(of: secondButton, offset: screenHeight * 0.03)
-        thirdButton.width(screenWidth * 0.9)
-        
-        fourthButton.centerXToSuperview()
-        fourthButton.topToBottom(of: thirdButton, offset: screenHeight * 0.03)
-        fourthButton.width(screenWidth * 0.9)
-        
-        lowerImage.centerXToSuperview()
-        lowerImage.topToBottom(of: fourthButton, offset: screenHeight * 0.06)
-        lowerImage.width(screenWidth * 0.8)
+        NSLayoutConstraint.activate([
+            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.12),
+            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            firstButton.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.04),
+            firstButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            secondButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: screenHeight * 0.03),
+            secondButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            thirdButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            thirdButton.topAnchor.constraint(equalTo: secondButton.bottomAnchor, constant: screenHeight * 0.03),
+            thirdButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            fourthButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            fourthButton.topAnchor.constraint(equalTo: thirdButton.bottomAnchor, constant: screenHeight * 0.03),
+            fourthButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            
+            lowerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            lowerImage.topAnchor.constraint(equalTo: fourthButton.bottomAnchor, constant: screenHeight * 0.03),
+            lowerImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+        ])
     }
 }

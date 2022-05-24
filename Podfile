@@ -14,5 +14,6 @@ target 'MacroHero' do
   pod 'Alamofire'
   pod 'AlamofireImage'
   pod 'Charts'
+  pod 'SwiftLint'
   
 end
