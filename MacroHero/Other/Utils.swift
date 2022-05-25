@@ -85,10 +85,10 @@ class Utils {
         label.text = text
         
         if textColor != nil {
-            label.font = Fonts.shadow_30
+            label.font = Font.shadow_30
             label.textColor = textColor
         } else {
-            label.font = Fonts.solid_30
+            label.font = Font.solid_30
             label.textColor = Color.customOrange
         }
         

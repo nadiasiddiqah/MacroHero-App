@@ -21,7 +21,7 @@ final class MainLabel: UILabel {
     func configure(with model: MainLabelModel) {
         text = model.title
         numberOfLines = model.numberOfLines ?? 1
-        font = Fonts.solid_30
+        font = Font.solid_30
         textColor = Color.customOrange
         adjustsFontSizeToFitWidth = true
         textAlignment = .center

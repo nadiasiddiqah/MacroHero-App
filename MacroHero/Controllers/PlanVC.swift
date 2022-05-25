@@ -137,13 +137,13 @@ class PlanVC: UIViewController {
         
         macroLabel.attributedText = attributedLabel
         macroLabel.textAlignment = .left
-        macroLabel.font = Fonts.solid_20
+        macroLabel.font = Font.solid_20
         
         let valueLabel = UILabel()
         valueLabel.text = value
         valueLabel.textColor = Color.customOrange
         valueLabel.textAlignment = .right
-        valueLabel.font = Fonts.solid_20
+        valueLabel.font = Font.solid_20
         
         let HStack = UIStackView(arrangedSubviews: [macroLabel, valueLabel])
         HStack.axis = .horizontal

@@ -69,7 +69,7 @@ class MealDetailsVC: UIViewController {
             title.textAlignment = .center
             
             let label = UILabel()
-            label.font = Fonts.solid_23
+            label.font = Font.solid_23
             label.textColor = Color.customNavy
             label.textAlignment = .center
             label.text = name
@@ -197,7 +197,7 @@ class MealDetailsVC: UIViewController {
     // MARK: - HELPER FUNCTIONS
     func createHeader(title: String) -> UILabel {
         let label = UILabel()
-        label.font = Fonts.shadow_25
+        label.font = Font.shadow_25
         label.textColor = Color.customNavy
         label.text = title
         label.adjustsFontSizeToFitWidth = true
@@ -206,7 +206,7 @@ class MealDetailsVC: UIViewController {
     }
     
     func createMacroHStack(macro: String, value: String) -> UIStackView {
-        let font = Fonts.solid_17
+        let font = Font.solid_17
         
         let macroLabel = UILabel()
         macroLabel.text = macro
@@ -227,7 +227,7 @@ class MealDetailsVC: UIViewController {
     }
     
     func add(stringList: [String],
-             font: UIFont = Fonts.solid_15!,
+             font: UIFont = Font.solid_15!,
              bullet: String = "\u{2022}",
              indentation: CGFloat = 20,
              lineSpacing: CGFloat = 0,

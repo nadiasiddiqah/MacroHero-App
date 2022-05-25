@@ -34,12 +34,12 @@ class FavoriteMealCell: UITableViewCell {
     lazy var titleVStack: UIStackView = {
         let gridWidth = screenWidth * 0.9
         
-        typeLabel.font = Fonts.solid_30
+        typeLabel.font = Font.solid_30
         typeLabel.textColor = Color.customOrange
         typeLabel.width(gridWidth)
         typeLabel.adjustsFontSizeToFitWidth = true
         
-        nameLabel.font = Fonts.solid_20
+        nameLabel.font = Font.solid_20
         nameLabel.textColor = Color.customNavy
         nameLabel.width(gridWidth)
         nameLabel.lineBreakStrategy = []
@@ -73,11 +73,11 @@ class FavoriteMealCell: UITableViewCell {
         let macroLabel = UILabel()
         macroLabel.text = macro
         macroLabel.textColor = Color.customBlue
-        macroLabel.font = Fonts.solid_15
+        macroLabel.font = Font.solid_15
         macroLabel.adjustsFontSizeToFitWidth = true
         
         valueLabel.textColor = Color.customBlue
-        valueLabel.font = Fonts.solid_15
+        valueLabel.font = Font.solid_15
         valueLabel.adjustsFontSizeToFitWidth = true
         
         let macroHStack = UIStackView(arrangedSubviews: [macroLabel, valueLabel])

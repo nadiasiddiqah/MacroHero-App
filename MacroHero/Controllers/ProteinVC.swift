@@ -152,7 +152,7 @@ class ProteinVC: UIViewController {
         let macroLabel = UILabel()
         macroLabel.text = macro
         macroLabel.textColor = Color.customBlue
-        macroLabel.font = Fonts.solid_15
+        macroLabel.font = Font.solid_15
         macroLabel.adjustsFontSizeToFitWidth = true
         
         let macroHStack = UIStackView(arrangedSubviews: [macroLabel, textField])
@@ -167,7 +167,7 @@ class ProteinVC: UIViewController {
         
         textField.background = Image.proteinTextArea
         textField.textAlignment = .center
-        textField.font = Fonts.solid_15
+        textField.font = Font.solid_15
         textField.adjustsFontSizeToFitWidth = true
         textField.keyboardType = .numberPad
         

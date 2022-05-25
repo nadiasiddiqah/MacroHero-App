@@ -142,7 +142,7 @@ extension SetGoalVC {
             mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             
             firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            firstButton.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.06),
+            firstButton.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.05),
             firstButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             
             secondButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -154,7 +154,8 @@ extension SetGoalVC {
             thirdButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             
             lowerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            lowerImage.topAnchor.constraint(equalTo: thirdButton.bottomAnchor, constant: screenHeight * 0.09),
+            lowerImage.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+                                            constant: screenHeight * -0.05),
             lowerImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
         ])
     }

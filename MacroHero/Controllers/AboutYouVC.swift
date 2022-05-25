@@ -97,7 +97,8 @@ class AboutYouVC: UIViewController {
             dateLabel.centerXAnchor.constraint(equalTo: button.centerXAnchor),
             dateLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor),
             calendarIV.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-            calendarIV.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: screenWidth * 0.86 * 0.05)
+            calendarIV.leadingAnchor.constraint(equalTo: button.leadingAnchor,
+                                                constant: screenWidth * 0.86 * 0.05)
         ])
         
         let stack = UIStackView(arrangedSubviews: [title, button])
@@ -159,7 +160,7 @@ class AboutYouVC: UIViewController {
         let button = UIButton()
         button.setTitle("CALCULATE MACROS", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = Fonts.solid_20
+        button.titleLabel?.font = Font.solid_20
         button.setBackgroundImage(Image.ctaButton, for: .normal)
         button.addTarget(self, action: #selector(didTapCalculate), for: .touchUpInside)
         button.addShadowEffect()
@@ -194,10 +195,8 @@ class AboutYouVC: UIViewController {
     }
     
     // MARK: - HELPER METHODS
-    
-    #warning("add go to next screen functionality")
     func goToNextScreen() {
-        let nextScreen = Inject.ViewControllerHost(MacroPlanVC())
+        let nextScreen = Inject.ViewControllerHost(NutritionPlanVC())
         navigationController?.pushViewController(nextScreen, animated: true)
     }
 }
@@ -241,8 +240,10 @@ extension AboutYouVC {
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
             mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.12),
-            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            mainTitle.topAnchor.constraint(equalTo: view.topAnchor,
+                                           constant: screenHeight * 0.12),
+            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor,
+                                                   multiplier: 0.9),
             
             sexSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             sexSection.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
@@ -251,7 +252,8 @@ extension AboutYouVC {
             birthdaySection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             birthdaySection.topAnchor.constraint(equalTo: sexSection.bottomAnchor,
                                                  constant: screenHeight * 0.08),
-            birthdaySection.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.87),
+            birthdaySection.widthAnchor.constraint(equalTo: view.widthAnchor,
+                                                   multiplier: 0.87),
             
             bottomSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             bottomSection.topAnchor.constraint(equalTo: birthdaySection.bottomAnchor,

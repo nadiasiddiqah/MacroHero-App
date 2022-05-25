@@ -61,7 +61,7 @@ class RankVC: UIViewController {
     lazy var firstGoal: UILabel = {
         let label = UILabel()
         label.text = "#1"
-        label.font = Fonts.solid_20
+        label.font = Font.solid_20
         label.textColor = Color.customOrange
         label.adjustsFontSizeToFitWidth = true
 
@@ -82,7 +82,7 @@ class RankVC: UIViewController {
     lazy var firstGoalLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = Fonts.normal_14
+        label.font = Font.normal_14
         label.textColor = Color.customDarkGray
 
         return label
@@ -100,7 +100,7 @@ class RankVC: UIViewController {
     lazy var secondGoal: UILabel = {
         let label = UILabel()
         label.text = "#2"
-        label.font = Fonts.solid_20
+        label.font = Font.solid_20
         label.textColor = Color.customOrange
         label.adjustsFontSizeToFitWidth = true
 
@@ -121,7 +121,7 @@ class RankVC: UIViewController {
     lazy var secondGoalLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.font = Fonts.normal_14
+        label.font = Font.normal_14
         label.textColor = Color.customDarkGray
 
         return label

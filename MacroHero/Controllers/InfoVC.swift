@@ -71,7 +71,7 @@ class InfoVC: UIViewController {
         label.text = "    yrs"
         label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = Fonts.solid_15
+        label.font = Font.solid_15
         
         return label
     }()
@@ -112,7 +112,7 @@ class InfoVC: UIViewController {
         label.text = "  '"
         label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = Fonts.solid_15
+        label.font = Font.solid_15
         
         return label
     }()
@@ -147,7 +147,7 @@ class InfoVC: UIViewController {
         label.text = #"   ""#
         label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = Fonts.solid_15
+        label.font = Font.solid_15
         
         return label
     }()
@@ -200,7 +200,7 @@ class InfoVC: UIViewController {
         label.text = "     lbs"
         label.textColor = Color.customOrange
         label.textAlignment = .center
-        label.font = Fonts.solid_15
+        label.font = Font.solid_15
         
         return label
     }()
@@ -244,7 +244,7 @@ class InfoVC: UIViewController {
         label.textColor = Color.customOrange
         label.text = " "
         label.textAlignment = .center
-        label.font = Fonts.solid_15
+        label.font = Font.solid_15
         
         return label
     }()
