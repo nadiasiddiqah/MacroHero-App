@@ -13,7 +13,7 @@ class AboutYouVC: UIViewController {
     // MARK: - PROPERTIES
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
-
+    
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,29 +30,37 @@ class AboutYouVC: UIViewController {
         return label
     }()
     
+    lazy var maleButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Male", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
+        button.addTarget(self, action: #selector(didTapMale),
+                             for: .touchUpInside)
+        button.addShadowEffect(type: .normalButton)
+        
+        return button
+    }()
+    
+    lazy var femaleButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Female", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
+        button.addTarget(self, action: #selector(didTapFemale),
+                             for: .touchUpInside)
+        button.addShadowEffect(type: .normalButton)
+        
+        return button
+    }()
+    
     lazy var sexSection: UIStackView = {
         let title = UILabel()
         title.text = " Sex"
         title.textColor = .black
         title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        
-        let maleButton = UIButton()
-        maleButton.setTitle("Male", for: .normal)
-        maleButton.setTitleColor(UIColor.black, for: .normal)
-        maleButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        maleButton.setBackgroundImage(Image.aboutButtonBg, for: .normal)
-        maleButton.addTarget(self, action: #selector(didTapMale),
-                             for: .touchUpInside)
-        maleButton.addShadowEffect(type: .normalButton)
-    
-        let femaleButton = UIButton()
-        femaleButton.setTitle("Female", for: .normal)
-        femaleButton.setTitleColor(UIColor.black, for: .normal)
-        femaleButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        femaleButton.setBackgroundImage(Image.aboutButtonBg, for: .normal)
-        femaleButton.addTarget(self, action: #selector(didTapFemale),
-                               for: .touchUpInside)
-        femaleButton.addShadowEffect(type: .normalButton)
         
         let stack = UIStackView(arrangedSubviews: [maleButton, femaleButton])
         stack.axis = .horizontal
@@ -169,12 +177,18 @@ class AboutYouVC: UIViewController {
     }()
     
     // MARK: - TAP METHODS
-    @objc func didTapMale(sender: UIButton) {
-        print("male")
+    @objc func didTapMale() {
+        if !maleButton.isSelected {
+            select(maleButton)
+            deselect(femaleButton)
+        }
     }
     
     @objc func didTapFemale() {
-        print("female")
+        if !femaleButton.isSelected {
+            select(femaleButton)
+            deselect(maleButton)
+        }
     }
     
     @objc func didTapCalendar() {
@@ -198,6 +212,16 @@ class AboutYouVC: UIViewController {
     func goToNextScreen() {
         let nextScreen = Inject.ViewControllerHost(NutritionPlanVC())
         navigationController?.pushViewController(nextScreen, animated: true)
+    }
+    
+    func select(_ button: UIButton) {
+        button.setBackgroundImage(Image.aboutButtonBgSelected, for: .selected)
+        button.isSelected = true
+    }
+    
+    func deselect(_ button: UIButton) {
+        button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
+        button.isSelected = false
     }
 }
 

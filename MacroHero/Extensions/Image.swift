@@ -40,4 +40,6 @@ struct Image {
     static let aboutButtonBg = UIImage(named: "aboutButtonBg")
     static let ctaButton = UIImage(named: "ctaButton")
     static let planViewBg = UIImage(named: "planViewBg")
+    static let aboutButtonBgSelected = UIImage(named: "aboutButtonBgSelected")
+    static let setButtonBgSelected = UIImage(named: "setButtonBgSelected")
 }

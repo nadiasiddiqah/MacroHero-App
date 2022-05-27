@@ -75,23 +75,50 @@ class SetGoalVC: UIViewController {
     }()
     
     // MARK: - TOUCH METHODS
-    #warning("add functionality to buttons")
     @objc func didTapFirst() {
-        print("User selected to lose weight")
-        goToNextScreen()
+        if firstButton.isSelected {
+            goToNextScreen()
+        } else {
+            deselect([secondButton, thirdButton])
+            select(firstButton)
+            goToNextScreen()
+        }
     }
     
     @objc func didTapSecond() {
-        print("User selected to gain weight")
-        goToNextScreen()
+        if secondButton.isSelected {
+            goToNextScreen()
+        } else {
+            deselect([thirdButton, firstButton])
+            select(secondButton)
+            goToNextScreen()
+        }
     }
     
     @objc func didTapThird() {
-        print("User selected to maintain weight")
-        goToNextScreen()
+        if thirdButton.isSelected {
+            goToNextScreen()
+        } else {
+            deselect([firstButton, secondButton])
+            select(thirdButton)
+            goToNextScreen()
+        }
     }
     
     // MARK: - HELPER METHODS
+    func select(_ button: UIButton) {
+        button.setBackgroundImage(Image.setButtonBgSelected, for: .selected)
+        button.isSelected = true
+    }
+    
+    func deselect(_ buttons: [UIButton]) {
+        buttons.forEach {
+            $0.setBackgroundImage(Image.setButtonBg, for: .normal)
+            $0.isSelected = false
+        }
+    }
+    
+    // MARK: - NAV METHODS
     func goToNextScreen() {
         let setActivityVC = Inject.ViewControllerHost(SetActivityVC())
         navigationController?.pushViewController(setActivityVC, animated: true)
