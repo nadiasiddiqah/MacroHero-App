@@ -43,8 +43,12 @@ class StartVC: UIViewController {
     
     lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setBackgroundImage(Image.startButton, for: .normal)
+        button.setTitle("START", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = Font.solid_25
+        button.setBackgroundImage(Image.ctaButton, for: .normal)
         button.addTarget(self, action: #selector(didTapStart), for: .touchUpInside)
+        button.addShadowEffect(type: .ctaButton)
         
         return button
     }()
@@ -81,7 +85,7 @@ extension StartVC {
             
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: screenHeight * -0.15),
-            startButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.82)
+            startButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
         ])
     }
 }

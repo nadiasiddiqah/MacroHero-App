@@ -43,7 +43,7 @@ class AboutYouVC: UIViewController {
         maleButton.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         maleButton.addTarget(self, action: #selector(didTapMale),
                              for: .touchUpInside)
-        maleButton.addShadowEffect()
+        maleButton.addShadowEffect(type: .normalButton)
     
         let femaleButton = UIButton()
         femaleButton.setTitle("Female", for: .normal)
@@ -52,7 +52,7 @@ class AboutYouVC: UIViewController {
         femaleButton.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         femaleButton.addTarget(self, action: #selector(didTapFemale),
                                for: .touchUpInside)
-        femaleButton.addShadowEffect()
+        femaleButton.addShadowEffect(type: .normalButton)
         
         let stack = UIStackView(arrangedSubviews: [maleButton, femaleButton])
         stack.axis = .horizontal
@@ -87,7 +87,7 @@ class AboutYouVC: UIViewController {
         let button = UIButton()
         button.setImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapCalendar), for: .touchUpInside)
-        button.addShadowEffect()
+        button.addShadowEffect(type: .normalButton)
         
         // Add button's subviews and constraints
         button.addSubview(dateLabel)
@@ -121,7 +121,7 @@ class AboutYouVC: UIViewController {
         button1.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button1.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         button1.addTarget(self, action: #selector(didTapWeight), for: .touchUpInside)
-        button1.addShadowEffect()
+        button1.addShadowEffect(type: .normalButton)
         
         let stack1 = UIStackView(arrangedSubviews: [title1, button1])
         stack1.axis = .vertical
@@ -140,7 +140,7 @@ class AboutYouVC: UIViewController {
         button2.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button2.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         button2.addTarget(self, action: #selector(didTapHeight), for: .touchUpInside)
-        button2.addShadowEffect()
+        button2.addShadowEffect(type: .normalButton)
 
         let stack2 = UIStackView(arrangedSubviews: [title2, button2])
         stack2.axis = .vertical
@@ -156,14 +156,14 @@ class AboutYouVC: UIViewController {
         return fullStack
     }()
     
-    lazy var calculateButton: UIButton = {
+    lazy var nextButton: UIButton = {
         let button = UIButton()
-        button.setTitle("CALCULATE MACROS", for: .normal)
+        button.setTitle("NEXT", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = Font.solid_20
+        button.titleLabel?.font = Font.solid_25
         button.setBackgroundImage(Image.ctaButton, for: .normal)
-        button.addTarget(self, action: #selector(didTapCalculate), for: .touchUpInside)
-        button.addShadowEffect()
+        button.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
+        button.addShadowEffect(type: .ctaButton)
         
         return button
     }()
@@ -189,8 +189,8 @@ class AboutYouVC: UIViewController {
         print("open height")
     }
     
-    @objc func didTapCalculate() {
-        print("calculate")
+    @objc func didTapNext() {
+        print("next")
         goToNextScreen()
     }
     
@@ -226,7 +226,7 @@ extension AboutYouVC {
         view.addSubview(sexSection)
         view.addSubview(birthdaySection)
         view.addSubview(bottomSection)
-        view.addSubview(calculateButton)
+        view.addSubview(nextButton)
     }
     
     fileprivate func autoLayoutViews() {
@@ -234,7 +234,7 @@ extension AboutYouVC {
         sexSection.translatesAutoresizingMaskIntoConstraints = false
         birthdaySection.translatesAutoresizingMaskIntoConstraints = false
         bottomSection.translatesAutoresizingMaskIntoConstraints = false
-        calculateButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     fileprivate func constrainViews() {
@@ -259,10 +259,10 @@ extension AboutYouVC {
             bottomSection.topAnchor.constraint(equalTo: birthdaySection.bottomAnchor,
                                                constant: screenHeight * 0.08),
             
-            calculateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            calculateButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
+            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
                                                     constant: screenHeight * -0.1),
-            calculateButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
+            nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
         ])
     }
 }

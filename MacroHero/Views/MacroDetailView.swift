@@ -8,8 +8,8 @@
 import UIKit
 
 struct MacroDetailModel {
-    var label: String
-    var color: UIColor
+    var percent, grams, label: String
+    var percentColor: UIColor
 }
 
 final class MacroDetailView: UIView {
@@ -19,17 +19,52 @@ final class MacroDetailView: UIView {
     var screenHeight = Utils.screenHeight
     
     // MARK: - VIEW OBJECTS
-    var iv = UIImageView(image: Image.planViewBg)
-    var stackView = UIStackView()
-    var percent = "31%"
-    var grams = "30g"
-    var label = "Carbs"
+    lazy var iv: UIView = {
+        var iv = UIImageView(image: Image.planViewBg)
+        iv.contentMode = .scaleAspectFit
+        iv.addShadowEffect(type: .normalButton)
+        
+        return iv
+    }()
+    
+    lazy var label1: UILabel = {
+        var label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    lazy var label2: UILabel = {
+        var label = UILabel()
+        label.font = Font.solid_25
+        label.textColor = Color.customNavy
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    lazy var label3: UILabel = {
+        var label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.textColor = Color.customDarkGray
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
+    lazy var labelStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [label1, label2, label3])
+        stack.axis = .vertical
+        stack.spacing = screenHeight * 0.01
+        
+        return stack
+    }()
     
     // MARK: - VIEW METHODS
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        addViews()
     }
     
     required init(coder: NSCoder) {
@@ -38,20 +73,36 @@ final class MacroDetailView: UIView {
     
     // MARK: - HELPER METHODS
     func configure(with model: MacroDetailModel) {
-        
+        label1.text = model.percent
+        label2.text = model.grams
+        label3.text = model.label
+        label1.textColor = model.percentColor
     }
     
     private func setupViews() {
-        iv.frame = CGRect(x: 0, y: 0, width: screenWidth * 0.29,
-                                   height: screenHeight * 0.15)
-        iv.contentMode = .scaleAspectFit
-        iv.addShadowEffect()
-        
-        
+        addViews()
+        autoLayoutViews()
+        constrainViews()
     }
     
     private func addViews() {
         addSubview(iv)
+        iv.addSubview(labelStack)
     }
+    
+    private func autoLayoutViews() {
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func constrainViews() {
+        NSLayoutConstraint.activate([
+            iv.centerXAnchor.constraint(equalTo: centerXAnchor),
+            iv.centerYAnchor.constraint(equalTo: centerYAnchor),
+            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
+        ])
+    }
+    
 }
 

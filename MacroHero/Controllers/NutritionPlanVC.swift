@@ -47,132 +47,25 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
         return chart
     }()
     
-    #warning("create class for macrodetailview")
-    lazy var carbView: UIView = {
-        var iv = UIImageView(image: Image.planViewBg)
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.addShadowEffect()
-        
-        var label1 = UILabel()
-        label1.text = "31%"
-        label1.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label1.textColor = UIColor.systemGreen
-        label1.textAlignment = .center
-        
-        var label2 = UILabel()
-        label2.text = "30g"
-        label2.font = Font.solid_25
-        label2.textColor = Color.customNavy
-        label2.textAlignment = .center
-        
-        var label3 = UILabel()
-        label3.text = "Carbs"
-        label3.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label3.textColor = Color.customDarkGray
-        label3.textAlignment = .center
-        
-        var labelStack = UIStackView(arrangedSubviews: [label1, label2, label3])
-        labelStack.axis = .vertical
-        labelStack.spacing = screenHeight * 0.01
-        labelStack.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(iv)
-        iv.addSubview(labelStack)
-        
-        NSLayoutConstraint.activate([
-            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
-        ])
-
-        return iv
-    }()
-    
-    lazy var proteinView: UIView = {
-        var iv = UIImageView(image: Image.planViewBg)
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.addShadowEffect()
-        
-        var label1 = UILabel()
-        label1.text = "23%"
-        label1.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label1.textColor = UIColor.systemYellow
-        label1.textAlignment = .center
-        
-        var label2 = UILabel()
-        label2.text = "23g"
-        label2.font = Font.solid_25
-        label2.textColor = Color.customNavy
-        label2.textAlignment = .center
-        
-        var label3 = UILabel()
-        label3.text = "Protein"
-        label3.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label3.textColor = Color.customDarkGray
-        label3.textAlignment = .center
-        
-        var labelStack = UIStackView(arrangedSubviews: [label1, label2, label3])
-        labelStack.axis = .vertical
-        labelStack.spacing = screenHeight * 0.01
-        labelStack.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(iv)
-        iv.addSubview(labelStack)
-        
-        NSLayoutConstraint.activate([
-            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
-        ])
-
-        return iv
-    }()
-    
-    lazy var fatView: UIView = {
-        var iv = UIImageView(image: Image.planViewBg)
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.addShadowEffect()
-        
-        var label1 = UILabel()
-        label1.text = "46%"
-        label1.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label1.textColor = UIColor.systemRed
-        label1.textAlignment = .center
-        
-        var label2 = UILabel()
-        label2.text = "20g"
-        label2.font = Font.solid_25
-        label2.textColor = Color.customNavy
-        label2.textAlignment = .center
-        
-        var label3 = UILabel()
-        label3.text = "Fat"
-        label3.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label3.textColor = Color.customDarkGray
-        label3.textAlignment = .center
-        
-        var labelStack = UIStackView(arrangedSubviews: [label1, label2, label3])
-        labelStack.axis = .vertical
-        labelStack.spacing = screenHeight * 0.01
-        labelStack.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(iv)
-        iv.addSubview(labelStack)
-        
-        NSLayoutConstraint.activate([
-            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
-        ])
-
-        return iv
-    }()
-    
     lazy var macroStackView: UIStackView = {
+        var carbView = MacroDetailView()
+        carbView.configure(with: MacroDetailModel(
+            percent: "31%", grams: "30g",
+            label: "Carbs", percentColor: .systemGreen))
+        
+        var proteinView = MacroDetailView()
+        proteinView.configure(with: MacroDetailModel(
+            percent: "23%", grams: "23g",
+            label: "Protein", percentColor: .systemYellow))
+        
+        var fatView = MacroDetailView()
+        fatView.configure(with: MacroDetailModel(
+            percent: "46%", grams: "20g",
+            label: "Fat", percentColor: .systemRed))
+        
         var stack = UIStackView(arrangedSubviews: [carbView, proteinView, fatView])
         stack.axis = .horizontal
         stack.distribution = .fillEqually
-        stack.alignment = .center
         
         return stack
     }()
@@ -181,10 +74,10 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
         let button = UIButton()
         button.setTitle("NEXT", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = Font.solid_20
+        button.titleLabel?.font = Font.solid_25
         button.setBackgroundImage(Image.ctaButton, for: .normal)
         button.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
-        button.addShadowEffect()
+        button.addShadowEffect(type: .ctaButton)
         
         return button
     }()
@@ -290,20 +183,21 @@ extension NutritionPlanVC {
             pieChartView.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
                                               constant: screenHeight * 0.04),
             pieChartView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            pieChartView.widthAnchor.constraint(equalTo: pieChartView.heightAnchor, multiplier: 1),
+            pieChartView.widthAnchor.constraint(equalTo: pieChartView.heightAnchor,
+                                                multiplier: 1),
             
             macroStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             macroStackView.topAnchor.constraint(equalTo: pieChartView.bottomAnchor,
-                                          constant: screenHeight * 0.04),
+                                                constant: screenHeight * 0.04),
             macroStackView.widthAnchor.constraint(equalTo: view.widthAnchor,
                                                   multiplier: 0.9),
             macroStackView.heightAnchor.constraint(equalTo: view.heightAnchor,
                                                    multiplier: 0.14),
-
+            
             
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                                    constant: screenHeight * -0.1),
+                                               constant: screenHeight * -0.1),
             nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
         ])
     }
