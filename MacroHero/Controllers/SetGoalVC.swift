@@ -75,6 +75,7 @@ class SetGoalVC: UIViewController {
     }()
     
     // MARK: - TOUCH METHODS
+    #warning("store selection in user object")
     @objc func didTapFirst() {
         if firstButton.isSelected {
             goToNextScreen()

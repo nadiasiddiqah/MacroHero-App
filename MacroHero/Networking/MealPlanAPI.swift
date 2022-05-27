@@ -18,7 +18,7 @@ class MealPlanAPI {
         let lunchReq = mealReqs.lunch
         let dinnerReq = mealReqs.dinner
         
-        #warning("is this code best practice? post on stackoverflow, is it concurrent threading?")
+        #warning("TODO: is this code best practice? post on stackoverflow, is it concurrent threading?")
         // https://betterprogramming.pub/a-deep-dive-into-dispatch-groups-8251bbb8b001 (avoid using wait or put timeout)
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()

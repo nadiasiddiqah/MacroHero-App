@@ -82,6 +82,8 @@ class SetActivityVC: UIViewController {
     }()
     
     // MARK: - TAP METHODS
+    #warning("TODO: store selection in user object")
+    #warning("TODO: add selection/deselection properties")
     func didTapFirst() {
         print("Tapped 1")
         goToNextScreen()

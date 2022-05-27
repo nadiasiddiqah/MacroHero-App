@@ -74,7 +74,6 @@ class AboutYouVC: UIViewController {
         return fullStack
     }()
     
-    #warning("add calendar popup functionality to set birthday")
     lazy var birthdaySection: UIStackView = {
         let title = UILabel()
         title.text = " Birthday"
@@ -191,18 +190,23 @@ class AboutYouVC: UIViewController {
         }
     }
     
+    #warning("TODO: add calendar popup to set parameter")
     @objc func didTapCalendar() {
         print("open calendar")
     }
     
+    #warning("TODO: add dropdown to set parameter")
     @objc func didTapWeight() {
         print("open weight")
     }
     
+    #warning("TODO: add dropdown to set parameter")
     @objc func didTapHeight() {
         print("open height")
     }
     
+    #warning("TODO: save parameters into user object")
+    #warning("TODO: loading circle to generate nutrition plan in screen based on user object")
     @objc func didTapNext() {
         print("next")
         goToNextScreen()

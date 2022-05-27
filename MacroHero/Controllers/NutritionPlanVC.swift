@@ -11,6 +11,7 @@ import Inject
 
 class NutritionPlanVC: UIViewController, ChartViewDelegate {
     
+    #warning("TODO: retrieve generated personalized nutrition and show in views")
     // MARK: - PROPERTIES
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
@@ -35,6 +36,8 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
         return label
     }()
     
+    #warning("TODO: update with personalized nutrition parameters derived from API")
+    #warning("TODO: update pie chart colors to match views below")
     lazy var pieChartView: PieChartView = {
         var chart = PieChartView()
         chart.holeRadiusPercent = 0.78
@@ -47,6 +50,7 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
         return chart
     }()
     
+    #warning("TODO: update with personalized nutrition parameters derived from API")
     lazy var macroStackView: UIStackView = {
         var carbView = MacroDetailView()
         carbView.configure(with: MacroDetailModel(
@@ -89,6 +93,7 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
     }
     
     // MARK: - NAV METHODS
+    #warning("TODO: generate meal plan based on nutrition plan, go to MealPlan screen")
     func goToNextScreen() {
 //        let nextScreen = Inject.ViewControllerHost(MealPlanVC())
 //        navigationController?.pushViewController(nextScreen, animated: true)
