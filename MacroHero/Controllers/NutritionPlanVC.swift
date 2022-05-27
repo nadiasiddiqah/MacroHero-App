@@ -48,14 +48,10 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
     }()
     
     #warning("create class for macrodetailview")
-    #warning("how to center stack view in superview")
     lazy var carbView: UIView = {
-        var view = UIView()
-        
         var iv = UIImageView(image: Image.planViewBg)
-        iv.frame = CGRect(x: 0, y: 0, width: screenWidth * 0.27,
-                                   height: screenHeight * 0.14)
         iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.addShadowEffect()
         
         var label1 = UILabel()
@@ -89,16 +85,13 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
             labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
         ])
 
-        return view
+        return iv
     }()
     
     lazy var proteinView: UIView = {
-        var view = UIView()
-        
         var iv = UIImageView(image: Image.planViewBg)
-        iv.frame = CGRect(x: 0, y: 0, width: screenWidth * 0.27,
-                                   height: screenHeight * 0.14)
         iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.addShadowEffect()
         
         var label1 = UILabel()
@@ -132,16 +125,13 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
             labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
         ])
 
-        return view
+        return iv
     }()
     
     lazy var fatView: UIView = {
-        var view = UIView()
-        
         var iv = UIImageView(image: Image.planViewBg)
-        iv.frame = CGRect(x: 0, y: 0, width: screenWidth * 0.27,
-                                   height: screenHeight * 0.14)
         iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
         iv.addShadowEffect()
         
         var label1 = UILabel()
@@ -175,7 +165,7 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
             labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
         ])
 
-        return view
+        return iv
     }()
     
     lazy var macroStackView: UIStackView = {
@@ -307,6 +297,9 @@ extension NutritionPlanVC {
                                           constant: screenHeight * 0.04),
             macroStackView.widthAnchor.constraint(equalTo: view.widthAnchor,
                                                   multiplier: 0.9),
+            macroStackView.heightAnchor.constraint(equalTo: view.heightAnchor,
+                                                   multiplier: 0.14),
+
             
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
