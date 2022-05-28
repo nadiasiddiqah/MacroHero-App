@@ -74,93 +74,103 @@ class AboutYouVC: UIViewController {
         return fullStack
     }()
     
+    lazy var datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .date
+        picker.addTarget(self, action: #selector(didPickDate), for: .valueChanged)
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.preferredDatePickerStyle = .compact
+        picker.tintColor = Color.customOrange
+
+        return picker
+    }()
+    
     lazy var birthdaySection: UIStackView = {
         let title = UILabel()
         title.text = " Birthday"
         title.textColor = .black
         title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         
-        let dateLabel = UILabel()
-        dateLabel.text = "00 / 00 / 0000"
-        dateLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        dateLabel.textColor = .black
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         let calendarIV = UIImageView()
         calendarIV.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))
         calendarIV.tintColor = Color.customNavy
         calendarIV.translatesAutoresizingMaskIntoConstraints = false
     
-        let button = UIButton()
-        button.setImage(Image.setButtonBg, for: .normal)
-        button.addTarget(self, action: #selector(didTapCalendar), for: .touchUpInside)
-        button.addShadowEffect(type: .normalButton)
+        let iv = UIImageView(image: Image.setButtonBg)
+        iv.addShadowEffect(type: .normalButton)
+        iv.isUserInteractionEnabled = true
         
         // Add button's subviews and constraints
-        button.addSubview(dateLabel)
-        button.addSubview(calendarIV)
+        iv.addSubview(datePicker)
+        iv.addSubview(calendarIV)
         
         NSLayoutConstraint.activate([
-            dateLabel.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-            dateLabel.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-            calendarIV.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-            calendarIV.leadingAnchor.constraint(equalTo: button.leadingAnchor,
+            datePicker.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            datePicker.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
+            calendarIV.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
+            calendarIV.leadingAnchor.constraint(equalTo: iv.leadingAnchor,
                                                 constant: screenWidth * 0.86 * 0.05)
         ])
         
-        let stack = UIStackView(arrangedSubviews: [title, button])
+        let stack = UIStackView(arrangedSubviews: [title, iv])
         stack.axis = .vertical
         stack.spacing = screenHeight * 0.02
         
         return stack
     }()
+    
+    lazy var weightStack: UIStackView = {
+        let title = UILabel()
+        title.text = "Weight"
+        title.textColor = .black
+        title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        
+        let button = UIButton()
+        button.setTitle("-", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
+        button.addTarget(self, action: #selector(didTapWeight), for: .touchUpInside)
+        button.addShadowEffect(type: .normalButton)
+        
+        let stack = UIStackView(arrangedSubviews: [title, button])
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = screenHeight * 0.02
+        
+        return stack
+    }()
+    
+    lazy var heightStack: UIStackView = {
+        let title = UILabel()
+        title.text = "Height"
+        title.textColor = .black
+        title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+
+        let button = UIButton()
+        button.setTitle("-", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
+        button.addTarget(self, action: #selector(didTapHeight), for: .touchUpInside)
+        button.addShadowEffect(type: .normalButton)
+
+        let stack = UIStackView(arrangedSubviews: [title, button])
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = screenHeight * 0.02
+        
+        return stack
+    }()
+   
    
     lazy var bottomSection: UIStackView = {
-        // Weight Stack
-        let title1 = UILabel()
-        title1.text = "Weight"
-        title1.textColor = .black
-        title1.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        
-        let button1 = UIButton()
-        button1.setTitle("-", for: .normal)
-        button1.setTitleColor(UIColor.black, for: .normal)
-        button1.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        button1.setBackgroundImage(Image.aboutButtonBg, for: .normal)
-        button1.addTarget(self, action: #selector(didTapWeight), for: .touchUpInside)
-        button1.addShadowEffect(type: .normalButton)
-        
-        let stack1 = UIStackView(arrangedSubviews: [title1, button1])
-        stack1.axis = .vertical
-        stack1.alignment = .center
-        stack1.spacing = screenHeight * 0.02
-        
-        // Height Stack
-        let title2 = UILabel()
-        title2.text = "Height"
-        title2.textColor = .black
-        title2.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        let stack = UIStackView(arrangedSubviews: [heightStack, weightStack])
+        stack.axis = .horizontal
+        stack.spacing = screenWidth * 0.07
+        stack.distribution = .fillEqually
 
-        let button2 = UIButton()
-        button2.setTitle("-", for: .normal)
-        button2.setTitleColor(UIColor.black, for: .normal)
-        button2.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        button2.setBackgroundImage(Image.aboutButtonBg, for: .normal)
-        button2.addTarget(self, action: #selector(didTapHeight), for: .touchUpInside)
-        button2.addShadowEffect(type: .normalButton)
-
-        let stack2 = UIStackView(arrangedSubviews: [title2, button2])
-        stack2.axis = .vertical
-        stack2.alignment = .center
-        stack2.spacing = screenHeight * 0.02
-
-        // Full Stack
-        let fullStack = UIStackView(arrangedSubviews: [stack1, stack2])
-        fullStack.axis = .horizontal
-        fullStack.spacing = screenWidth * 0.07
-        fullStack.distribution = .fillEqually
-
-        return fullStack
+        return stack
     }()
     
     lazy var nextButton: UIButton = {
@@ -190,34 +200,27 @@ class AboutYouVC: UIViewController {
         }
     }
     
-    #warning("TODO: add calendar popup to set parameter")
-    @objc func didTapCalendar() {
-        print("open calendar")
+    // TODO: save picked date to user object
+    @objc func didPickDate(_ sender: UIDatePicker) {
     }
     
-    #warning("TODO: add dropdown to set parameter")
-    @objc func didTapWeight() {
-        print("open weight")
-    }
-    
-    #warning("TODO: add dropdown to set parameter")
+    // TODO: create picker view for height
     @objc func didTapHeight() {
         print("open height")
     }
     
-    #warning("TODO: save parameters into user object")
-    #warning("TODO: loading circle to generate nutrition plan in screen based on user object")
+    // TODO: create picker view for weight
+    @objc func didTapWeight() {
+    }
+    
+    // TODO: save parameters into user object
+    // TODO: loading circle to generate nutrition plan in screen based on user object
     @objc func didTapNext() {
         print("next")
         goToNextScreen()
     }
     
     // MARK: - HELPER METHODS
-    func goToNextScreen() {
-        let nextScreen = Inject.ViewControllerHost(NutritionPlanVC())
-        navigationController?.pushViewController(nextScreen, animated: true)
-    }
-    
     func select(_ button: UIButton) {
         button.setBackgroundImage(Image.aboutButtonBgSelected, for: .selected)
         button.isSelected = true
@@ -227,7 +230,17 @@ class AboutYouVC: UIViewController {
         button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         button.isSelected = false
     }
+    
+    // MARK: - NAV METHODS
+    func goToNextScreen() {
+        let nextScreen = Inject.ViewControllerHost(NutritionPlanVC())
+        navigationController?.pushViewController(nextScreen, animated: true)
+    }
 }
+
+//extension AboutYouVC: UIPickerViewDelegate, UIPickerViewDataSource {
+//
+//}
 
 extension AboutYouVC {
     fileprivate func setupViews() {
