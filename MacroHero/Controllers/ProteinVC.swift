@@ -268,7 +268,6 @@ extension ProteinVC: UITextFieldDelegate {
         }
     }
     
-    // Ends all editing
     func gestureToHideKeyboard() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tap)

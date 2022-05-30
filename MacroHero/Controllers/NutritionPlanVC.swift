@@ -180,8 +180,8 @@ extension NutritionPlanVC {
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
             mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: view.topAnchor,
-                                           constant: screenHeight * 0.12),
+            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                           constant: screenHeight * 0.01),
             mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             
             pieChartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),

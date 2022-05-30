@@ -8,6 +8,7 @@
 import UIKit
 import Inject
 
+#warning("create wheneditingbegins delegate for textfields height and weight")
 class AboutYouVC: UIViewController {
     
     // MARK: - PROPERTIES
@@ -22,6 +23,12 @@ class AboutYouVC: UIViewController {
     }
     
     // MARK: - VIEW OBJECTS
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        
+        return scrollView
+    }()
+    
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
@@ -37,7 +44,7 @@ class AboutYouVC: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapMale),
-                             for: .touchUpInside)
+                         for: .touchUpInside)
         button.addShadowEffect(type: .normalButton)
         
         return button
@@ -50,7 +57,7 @@ class AboutYouVC: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapFemale),
-                             for: .touchUpInside)
+                         for: .touchUpInside)
         button.addShadowEffect(type: .normalButton)
         
         return button
@@ -81,7 +88,7 @@ class AboutYouVC: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         picker.preferredDatePickerStyle = .compact
         picker.tintColor = Color.customOrange
-
+        
         return picker
     }()
     
@@ -95,7 +102,7 @@ class AboutYouVC: UIViewController {
         calendarIV.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))
         calendarIV.tintColor = Color.customNavy
         calendarIV.translatesAutoresizingMaskIntoConstraints = false
-    
+        
         let iv = UIImageView(image: Image.setButtonBg)
         iv.addShadowEffect(type: .normalButton)
         iv.isUserInteractionEnabled = true
@@ -125,15 +132,28 @@ class AboutYouVC: UIViewController {
         title.textColor = .black
         title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         
-        let button = UIButton()
-        button.setTitle("-", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
-        button.addTarget(self, action: #selector(didTapWeight), for: .touchUpInside)
-        button.addShadowEffect(type: .normalButton)
+        let iv = UIImageView(image: Image.aboutButtonBg)
+        iv.addShadowEffect(type: .normalButton)
+        iv.isUserInteractionEnabled = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
         
-        let stack = UIStackView(arrangedSubviews: [title, button])
+        let textField = UITextField()
+        textField.text = "-"
+        textField.textColor = .black
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .center
+        textField.keyboardType = .numberPad
+        
+        iv.addSubview(textField)
+        
+        NSLayoutConstraint.activate([
+            textField.heightAnchor.constraint(equalTo: iv.heightAnchor),
+            textField.widthAnchor.constraint(equalTo: iv.widthAnchor),
+            textField.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            textField.centerYAnchor.constraint(equalTo: iv.centerYAnchor)
+        ])
+        
+        let stack = UIStackView(arrangedSubviews: [title, iv])
         stack.axis = .vertical
         stack.alignment = .center
         stack.spacing = screenHeight * 0.02
@@ -146,30 +166,43 @@ class AboutYouVC: UIViewController {
         title.text = "Height"
         title.textColor = .black
         title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-
-        let button = UIButton()
-        button.setTitle("-", for: .normal)
-        button.setTitleColor(UIColor.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        button.setBackgroundImage(Image.aboutButtonBg, for: .normal)
-        button.addTarget(self, action: #selector(didTapHeight), for: .touchUpInside)
-        button.addShadowEffect(type: .normalButton)
-
-        let stack = UIStackView(arrangedSubviews: [title, button])
+        
+        let iv = UIImageView(image: Image.aboutButtonBg)
+        iv.addShadowEffect(type: .normalButton)
+        iv.isUserInteractionEnabled = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        
+        let textField = UITextField()
+        textField.text = "-"
+        textField.textColor = .black
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .center
+        textField.keyboardType = .numberPad
+        
+        iv.addSubview(textField)
+        
+        NSLayoutConstraint.activate([
+            textField.heightAnchor.constraint(equalTo: iv.heightAnchor),
+            textField.widthAnchor.constraint(equalTo: iv.widthAnchor),
+            textField.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            textField.centerYAnchor.constraint(equalTo: iv.centerYAnchor)
+        ])
+        
+        let stack = UIStackView(arrangedSubviews: [title, iv])
         stack.axis = .vertical
         stack.alignment = .center
         stack.spacing = screenHeight * 0.02
         
         return stack
     }()
-   
-   
+    
+    
     lazy var bottomSection: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [heightStack, weightStack])
         stack.axis = .horizontal
         stack.spacing = screenWidth * 0.07
         stack.distribution = .fillEqually
-
+        
         return stack
     }()
     
@@ -204,15 +237,6 @@ class AboutYouVC: UIViewController {
     @objc func didPickDate(_ sender: UIDatePicker) {
     }
     
-    // TODO: create picker view for height
-    @objc func didTapHeight() {
-        print("open height")
-    }
-    
-    // TODO: create picker view for weight
-    @objc func didTapWeight() {
-    }
-    
     // TODO: save parameters into user object
     // TODO: loading circle to generate nutrition plan in screen based on user object
     @objc func didTapNext() {
@@ -231,16 +255,33 @@ class AboutYouVC: UIViewController {
         button.isSelected = false
     }
     
+    func gestureToHideKeyboard() {
+        let tap = UITapGestureRecognizer(target: self,
+                                         action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        let downSwipe = UISwipeGestureRecognizer(target: self,
+                                                 action: #selector(hideKeyboard))
+        downSwipe.direction = .down
+        view.addGestureRecognizer(downSwipe)
+        
+        
+        let upSwipe = UISwipeGestureRecognizer(target: self,
+                                               action: #selector(hideKeyboard))
+        upSwipe.direction = .up
+        view.addGestureRecognizer(upSwipe)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
     // MARK: - NAV METHODS
     func goToNextScreen() {
         let nextScreen = Inject.ViewControllerHost(NutritionPlanVC())
         navigationController?.pushViewController(nextScreen, animated: true)
     }
 }
-
-//extension AboutYouVC: UIPickerViewDelegate, UIPickerViewDataSource {
-//
-//}
 
 extension AboutYouVC {
     fileprivate func setupViews() {
@@ -249,6 +290,7 @@ extension AboutYouVC {
         addViews()
         autoLayoutViews()
         constrainViews()
+        gestureToHideKeyboard()
     }
     
     fileprivate func addBackButton() {
@@ -263,14 +305,16 @@ extension AboutYouVC {
     }
     
     fileprivate func addViews() {
-        view.addSubview(mainTitle)
-        view.addSubview(sexSection)
-        view.addSubview(birthdaySection)
-        view.addSubview(bottomSection)
-        view.addSubview(nextButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(mainTitle)
+        scrollView.addSubview(sexSection)
+        scrollView.addSubview(birthdaySection)
+        scrollView.addSubview(bottomSection)
+        scrollView.addSubview(nextButton)
     }
     
     fileprivate func autoLayoutViews() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         sexSection.translatesAutoresizingMaskIntoConstraints = false
         birthdaySection.translatesAutoresizingMaskIntoConstraints = false
@@ -280,29 +324,44 @@ extension AboutYouVC {
     
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
-            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: view.topAnchor,
-                                           constant: screenHeight * 0.12),
-            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                                   multiplier: 0.9),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            mainTitle.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            mainTitle.topAnchor.constraint(equalTo: scrollView.topAnchor,
+                                           constant: screenHeight * 0.01),
+            mainTitle.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
+                                             multiplier: 0.9)
+        ])
             
-            sexSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        NSLayoutConstraint.activate([
+            sexSection.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             sexSection.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
-                                            constant: screenHeight * 0.05),
-            
-            birthdaySection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                            constant: screenHeight * 0.05)
+        ])
+
+        NSLayoutConstraint.activate([
+            birthdaySection.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             birthdaySection.topAnchor.constraint(equalTo: sexSection.bottomAnchor,
                                                  constant: screenHeight * 0.08),
-            birthdaySection.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                                   multiplier: 0.87),
-            
-            bottomSection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            birthdaySection.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
+                                                   multiplier: 0.87)
+        ])
+
+        NSLayoutConstraint.activate([
+            bottomSection.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             bottomSection.topAnchor.constraint(equalTo: birthdaySection.bottomAnchor,
-                                               constant: screenHeight * 0.08),
-            
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                               constant: screenHeight * 0.08)
+        ])
+
+        NSLayoutConstraint.activate([
+            nextButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                                    constant: screenHeight * -0.1),
+                                               constant: screenHeight * -0.1),
             nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
         ])
     }
