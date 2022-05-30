@@ -8,7 +8,6 @@
 import UIKit
 import Inject
 
-#warning("create wheneditingbegins delegate for textfields height and weight")
 class AboutYouVC: UIViewController {
     
     // MARK: - PROPERTIES
@@ -106,6 +105,7 @@ class AboutYouVC: UIViewController {
         let iv = UIImageView(image: Image.setButtonBg)
         iv.addShadowEffect(type: .normalButton)
         iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapCalendar)))
         
         // Add button's subviews and constraints
         iv.addSubview(datePicker)
@@ -126,39 +126,26 @@ class AboutYouVC: UIViewController {
         return stack
     }()
     
-    lazy var weightStack: UIStackView = {
-        let title = UILabel()
-        title.text = "Weight"
-        title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        
-        let iv = UIImageView(image: Image.aboutButtonBg)
-        iv.addShadowEffect(type: .normalButton)
-        iv.isUserInteractionEnabled = true
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        
+    lazy var ftTextField: UITextField = {
         let textField = UITextField()
-        textField.text = "-"
+        textField.delegate = self
         textField.textColor = .black
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textAlignment = .center
         textField.keyboardType = .numberPad
+        textField.textAlignment = .right
         
-        iv.addSubview(textField)
+        return textField
+    }()
+    
+    lazy var inTextField: UITextField = {
+        let textField = UITextField()
+        textField.delegate = self
+        textField.textColor = .black
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.keyboardType = .numberPad
+        textField.textAlignment = .right
         
-        NSLayoutConstraint.activate([
-            textField.heightAnchor.constraint(equalTo: iv.heightAnchor),
-            textField.widthAnchor.constraint(equalTo: iv.widthAnchor),
-            textField.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            textField.centerYAnchor.constraint(equalTo: iv.centerYAnchor)
-        ])
-        
-        let stack = UIStackView(arrangedSubviews: [title, iv])
-        stack.axis = .vertical
-        stack.alignment = .center
-        stack.spacing = screenHeight * 0.02
-        
-        return stack
+        return textField
     }()
     
     lazy var heightStack: UIStackView = {
@@ -171,21 +158,46 @@ class AboutYouVC: UIViewController {
         iv.addShadowEffect(type: .normalButton)
         iv.isUserInteractionEnabled = true
         iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeight)))
         
-        let textField = UITextField()
-        textField.text = "-"
-        textField.textColor = .black
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.textAlignment = .center
-        textField.keyboardType = .numberPad
+        let label1 = UILabel()
+        label1.text = "'"
+        label1.textColor = .black
+        label1.translatesAutoresizingMaskIntoConstraints = false
         
-        iv.addSubview(textField)
+        let label2 = UILabel()
+        label2.text = #"""#
+        label2.textColor = .black
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        
+        let ftStack = UIStackView(arrangedSubviews: [ftTextField, label1])
+        ftStack.axis = .horizontal
+        ftStack.translatesAutoresizingMaskIntoConstraints = false
+        ftStack.spacing = 0
+//        ftTextField.backgroundColor = .red
+//        label1.backgroundColor = .blue
+        
+        let inStack = UIStackView(arrangedSubviews: [inTextField, label2])
+        inStack.axis = .horizontal
+        inStack.translatesAutoresizingMaskIntoConstraints = false
+        inStack.spacing = 0
+//        inTextField.backgroundColor = .yellow
+//        label2.backgroundColor = .green
+        
+        let labelStack = UIStackView(arrangedSubviews: [ftStack, inStack])
+        labelStack.axis = .horizontal
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        iv.addSubview(labelStack)
         
         NSLayoutConstraint.activate([
-            textField.heightAnchor.constraint(equalTo: iv.heightAnchor),
-            textField.widthAnchor.constraint(equalTo: iv.widthAnchor),
-            textField.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            textField.centerYAnchor.constraint(equalTo: iv.centerYAnchor)
+            label1.widthAnchor.constraint(equalToConstant: 10),
+            label2.widthAnchor.constraint(equalTo: label1.widthAnchor),
+            ftTextField.widthAnchor.constraint(equalTo: inTextField.widthAnchor),
+            labelStack.heightAnchor.constraint(equalTo: iv.heightAnchor),
+            labelStack.widthAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.5),
+            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor)
         ])
         
         let stack = UIStackView(arrangedSubviews: [title, iv])
@@ -196,6 +208,55 @@ class AboutYouVC: UIViewController {
         return stack
     }()
     
+    lazy var weightTextField: UITextField = {
+        let textField = UITextField()
+        textField.delegate = self
+        textField.textColor = .black
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.textAlignment = .center
+        textField.keyboardType = .numberPad
+        
+        return textField
+    }()
+    
+    lazy var weightStack: UIStackView = {
+        let title = UILabel()
+        title.text = "Weight"
+        title.textColor = .black
+        title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        
+        let iv = UIImageView(image: Image.aboutButtonBg)
+        iv.addShadowEffect(type: .normalButton)
+        iv.isUserInteractionEnabled = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapWeight)))
+        
+        let label = UILabel()
+        label.text = "lbs"
+        label.textColor = .black
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let labelStack = UIStackView(arrangedSubviews: [weightTextField, label])
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+        labelStack.axis = .horizontal
+    
+        iv.addSubview(labelStack)
+        
+        NSLayoutConstraint.activate([
+            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
+            labelStack.widthAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.5),
+            labelStack.heightAnchor.constraint(equalTo: iv.heightAnchor)
+        ])
+        
+        let stack = UIStackView(arrangedSubviews: [title, iv])
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = screenHeight * 0.02
+        
+        return stack
+    }()
     
     lazy var bottomSection: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [heightStack, weightStack])
@@ -231,6 +292,26 @@ class AboutYouVC: UIViewController {
             select(femaleButton)
             deselect(maleButton)
         }
+    }
+    
+    @objc func didTapCalendar() {
+        print("clicked calendar")
+        datePicker.becomeFirstResponder()
+    }
+    
+    @objc func didTapHeight(_ gesture: UITapGestureRecognizer) {
+        if let view = gesture.view {
+            let touchPoint = gesture.location(in: view)
+                if touchPoint.x <= view.center.x {
+                ftTextField.becomeFirstResponder()
+            } else {
+                inTextField.becomeFirstResponder()
+            }
+        }
+    }
+    
+    @objc func didTapWeight() {
+        weightTextField.becomeFirstResponder()
     }
     
     // TODO: save picked date to user object
@@ -280,6 +361,32 @@ class AboutYouVC: UIViewController {
     func goToNextScreen() {
         let nextScreen = Inject.ViewControllerHost(NutritionPlanVC())
         navigationController?.pushViewController(nextScreen, animated: true)
+    }
+}
+
+extension AboutYouVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        var maxLength = 0
+        
+        if textField == weightTextField {
+            maxLength = 3
+        } else if textField == ftTextField {
+            maxLength = 1
+        } else {
+            maxLength = 2
+        }
+        
+        let currentString = (textField.text ?? "") as NSString
+        let newString = currentString.replacingCharacters(in: range, with: string)
+        
+        return newString.count <= maxLength
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
