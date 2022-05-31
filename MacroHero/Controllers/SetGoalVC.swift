@@ -71,9 +71,16 @@ class SetGoalVC: UIViewController {
     }()
     
     lazy var buttonStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [firstButton, secondButton, thirdButton])
+        let buttons = [firstButton, secondButton, thirdButton]
+        let stack = UIStackView(arrangedSubviews: buttons)
         stack.axis = .vertical
         stack.spacing = screenHeight * 0.05
+        
+        buttons.forEach {
+            NSLayoutConstraint.activate([
+                $0.heightAnchor.constraint(equalTo: $0.widthAnchor, multiplier: 0.15)
+            ])
+        }
         
         return stack
     }()

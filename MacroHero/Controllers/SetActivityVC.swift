@@ -25,11 +25,7 @@ class SetActivityVC: UIViewController {
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
-            title: """
-                   What's your activity
-                   level?
-                   """,
-            numberOfLines: 2))
+            title: "Do you exercise?"))
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -80,6 +76,13 @@ class SetActivityVC: UIViewController {
                                                    thirdButton, fourthButton])
         stack.axis = .vertical
         stack.spacing = screenHeight * 0.03
+        
+        let buttons = [firstButton, secondButton, thirdButton, fourthButton]
+        buttons.forEach {
+            NSLayoutConstraint.activate([
+                $0.heightAnchor.constraint(equalTo: $0.widthAnchor, multiplier: 0.15)
+            ])
+        }
         
         return stack
     }()

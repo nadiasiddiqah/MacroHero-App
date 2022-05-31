@@ -8,6 +8,14 @@
 import UIKit
 import Inject
 
+//extension UITextField {
+//    func setDatePickerAsInputViewFor(target: UIViewController, selector: Selector) {
+//        let datePicker = UIDatePicker()
+//        datePicker.datePickerMode = .date
+//        self.inputView = datePicker
+//    }
+//}
+
 class AboutYouVC: UIViewController {
     
     // MARK: - PROPERTIES
@@ -97,23 +105,32 @@ class AboutYouVC: UIViewController {
         title.textColor = .black
         title.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         title.translatesAutoresizingMaskIntoConstraints = false
-
-        let calendarIV = UIImageView()
-        calendarIV.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))
-        calendarIV.tintColor = Color.customNavy
-        calendarIV.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let iv = UIImageView(image: Image.setButtonBg)
         iv.addShadowEffect(type: .normalButton)
         iv.isUserInteractionEnabled = true
         iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapCalendar)))
         iv.translatesAutoresizingMaskIntoConstraints = false
 
+        let calendarIV = UIImageView()
+        calendarIV.image = UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))
+        calendarIV.tintColor = Color.customNavy
+        calendarIV.translatesAutoresizingMaskIntoConstraints = false
+        
+//        let textField = UITextField()
+//        textField.text = "00 / 00 / 00"
+//        textField.backgroundColor = .red
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        textField.setDatePickerAsInputViewFor(target: self, selector: #selector(dateSelected))
+
         // Add button's subviews and constraints
         iv.addSubview(datePicker)
+//        iv.addSubview(textField)
         iv.addSubview(calendarIV)
 
         NSLayoutConstraint.activate([
+//            textField.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+//            textField.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
             datePicker.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
             datePicker.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
             calendarIV.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
@@ -127,6 +144,10 @@ class AboutYouVC: UIViewController {
 
         return stack
     }()
+    
+    @objc func dateSelected() {
+        
+    }
 
     lazy var ftTextField: UITextField = {
         let textField = UITextField()
