@@ -158,11 +158,6 @@ extension PlanVC {
         view.backgroundColor = Color.bgColor
         addSubviews()
         constrainSubviews()
-        
-//        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-//                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
-//                                                            style: .done, target: self,
-//                                                            action: #selector(didTapBackButton)))
     }
 
     @objc func didTapBackButton(sender: UIBarButtonItem) {

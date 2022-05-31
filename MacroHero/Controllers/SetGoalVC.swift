@@ -39,6 +39,7 @@ class SetGoalVC: UIViewController {
         button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapFirst), for: .touchUpInside)
         button.addShadowEffect(type: .normalButton)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
@@ -51,6 +52,7 @@ class SetGoalVC: UIViewController {
         button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapSecond), for: .touchUpInside)
         button.addShadowEffect(type: .normalButton)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
@@ -63,8 +65,17 @@ class SetGoalVC: UIViewController {
         button.setBackgroundImage(Image.setButtonBg, for: .normal)
         button.addTarget(self, action: #selector(didTapThird), for: .touchUpInside)
         button.addShadowEffect(type: .normalButton)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
+    }()
+    
+    lazy var buttonStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [firstButton, secondButton, thirdButton])
+        stack.axis = .vertical
+        stack.spacing = screenHeight * 0.05
+        
+        return stack
     }()
     
     lazy var lowerImage: UIImageView = {
@@ -148,17 +159,13 @@ extension SetGoalVC {
     
     fileprivate func addViews() {
         view.addSubview(mainTitle)
-        view.addSubview(firstButton)
-        view.addSubview(secondButton)
-        view.addSubview(thirdButton)
+        view.addSubview(buttonStack)
         view.addSubview(lowerImage)
     }
     
     fileprivate func autoLayoutViews() {
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
-        firstButton.translatesAutoresizingMaskIntoConstraints = false
-        secondButton.translatesAutoresizingMaskIntoConstraints = false
-        thirdButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
         lowerImage.translatesAutoresizingMaskIntoConstraints = false
     }
 
@@ -170,21 +177,12 @@ extension SetGoalVC {
                                            constant: screenHeight * 0.01),
             mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             
-            firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            firstButton.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.05),
-            firstButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            
-            secondButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: screenHeight * 0.05),
-            secondButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            
-            thirdButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            thirdButton.topAnchor.constraint(equalTo: secondButton.bottomAnchor, constant: screenHeight * 0.05),
-            thirdButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonStack.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.05),
+            buttonStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             
             lowerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            lowerImage.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                            constant: screenHeight * -0.05),
+            lowerImage.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: screenHeight * 0.05),
             lowerImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
         ])
     }

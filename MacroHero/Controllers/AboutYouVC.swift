@@ -357,7 +357,7 @@ class AboutYouVC: UIViewController {
 
     // MARK: - NAV METHODS
     func goToNextScreen() {
-        let nextScreen = Inject.ViewControllerHost(NutritionPlanVC())
+        let nextScreen = Inject.ViewControllerHost(NutritionChartVC())
         navigationController?.pushViewController(nextScreen, animated: true)
     }
 }
@@ -452,9 +452,7 @@ extension AboutYouVC {
         NSLayoutConstraint.activate([
             birthdaySection.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             birthdaySection.topAnchor.constraint(equalTo: sexSection.bottomAnchor,
-                                                 constant: screenHeight * 0.08),
-//            birthdaySection.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
-//                                                   multiplier: 0.87)
+                                                 constant: screenHeight * 0.08)
         ])
 
         NSLayoutConstraint.activate([
@@ -466,7 +464,7 @@ extension AboutYouVC {
         NSLayoutConstraint.activate([
             nextButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                               constant: screenHeight * -0.1),
+                                               constant: screenHeight * -0.09),
             nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
         ])
     }

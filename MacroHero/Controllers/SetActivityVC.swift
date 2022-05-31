@@ -30,6 +30,7 @@ class SetActivityVC: UIViewController {
                    level?
                    """,
             numberOfLines: 2))
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -74,12 +75,22 @@ class SetActivityVC: UIViewController {
         return button
     }()
     
-    lazy var lowerImage: UIImageView = {
+    lazy var topStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [mainTitle, firstButton, secondButton,
+                                                   thirdButton, fourthButton])
+        stack.axis = .vertical
+        stack.spacing = screenHeight * 0.03
+        
+        return stack
+    }()
+    
+    lazy var bottomImage: UIImageView = {
         let imageView = UIImageView(image: Image.theoStrong)
         imageView.contentMode = .scaleAspectFit
         
         return imageView
     }()
+    
     
     // MARK: - TAP METHODS
     #warning("TODO: store selection in user object")
@@ -132,61 +143,27 @@ extension SetActivityVC {
     }
     
     fileprivate func addViews() {
-        view.addSubview(mainTitle)
-        view.addSubview(firstButton)
-        view.addSubview(secondButton)
-        view.addSubview(thirdButton)
-        view.addSubview(fourthButton)
-        view.addSubview(lowerImage)
+        view.addSubview(topStack)
+        view.addSubview(bottomImage)
     }
     
     fileprivate func autoLayoutViews() {
-        mainTitle.translatesAutoresizingMaskIntoConstraints = false
-        firstButton.translatesAutoresizingMaskIntoConstraints = false
-        secondButton.translatesAutoresizingMaskIntoConstraints = false
-        thirdButton.translatesAutoresizingMaskIntoConstraints = false
-        fourthButton.translatesAutoresizingMaskIntoConstraints = false
-        lowerImage.translatesAutoresizingMaskIntoConstraints = false
+        topStack.translatesAutoresizingMaskIntoConstraints = false
+        bottomImage.translatesAutoresizingMaskIntoConstraints = false
     }
     
     
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
-            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                           constant: screenHeight * 0.01),
-            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                             multiplier: 0.9),
+            topStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                          constant: screenHeight * 0.01),
+            topStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
             
-            firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            firstButton.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
-                                             constant: screenHeight * 0.04),
-            firstButton.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                               multiplier: 0.9),
-            
-            secondButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            secondButton.topAnchor.constraint(equalTo: firstButton.bottomAnchor,
-                                              constant: screenHeight * 0.035),
-            secondButton.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                                multiplier: 0.9),
-            
-            thirdButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            thirdButton.topAnchor.constraint(equalTo: secondButton.bottomAnchor,
-                                             constant: screenHeight * 0.035),
-            thirdButton.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                               multiplier: 0.9),
-            
-            fourthButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            fourthButton.topAnchor.constraint(equalTo: thirdButton.bottomAnchor,
-                                              constant: screenHeight * 0.035),
-            fourthButton.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                                multiplier: 0.9),
-            
-            lowerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            lowerImage.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                               constant: screenHeight * -0.05),
-            lowerImage.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                              multiplier: 0.8),
+            bottomImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bottomImage.topAnchor.constraint(greaterThanOrEqualTo: topStack.bottomAnchor, constant: screenHeight * 0.03),
+            bottomImage.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: screenHeight * -0.04),
+            bottomImage.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8)
         ])
     }
 }

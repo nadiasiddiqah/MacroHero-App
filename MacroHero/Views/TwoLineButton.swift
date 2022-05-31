@@ -39,6 +39,7 @@ final class TwoLineButton: UIButton {
     private func setupView() {
         setBackgroundImage(Image.setButtonBg, for: .normal)
         titleLabel?.numberOfLines = 0
+        translatesAutoresizingMaskIntoConstraints = false
         addShadowEffect(type: .normalButton)
     }
     

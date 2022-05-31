@@ -10,6 +10,7 @@ import TinyConstraints
 import Gifu
 import Combine
 import Inject
+import SwiftUI
 
 class StartVC: UIViewController {
     
@@ -37,7 +38,8 @@ class StartVC: UIViewController {
     lazy var introImage: UIImageView = {
         let imageView = UIImageView(image: Image.introImage)
         imageView.contentMode = .scaleAspectFit
-
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
     }()
     
@@ -49,8 +51,18 @@ class StartVC: UIViewController {
         button.setBackgroundImage(Image.ctaButton, for: .normal)
         button.addTarget(self, action: #selector(didTapStart), for: .touchUpInside)
         button.addShadowEffect(type: .ctaButton)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
+    }()
+    
+    lazy var stack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [introImage, startButton])
+        stack.axis = .vertical
+        stack.spacing = screenHeight * 0.12
+        stack.alignment = .center
+        
+        return stack
     }()
     
     @objc func didTapStart() {
@@ -68,24 +80,19 @@ extension StartVC {
     }
     
     fileprivate func addViews() {
-        view.addSubview(introImage)
-        view.addSubview(startButton)
+        view.addSubview(stack)
     }
     
     fileprivate func autoLayoutViews() {
-        introImage.translatesAutoresizingMaskIntoConstraints = false
-        startButton.translatesAutoresizingMaskIntoConstraints = false
+        stack.translatesAutoresizingMaskIntoConstraints = false
     }
     
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
-            introImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            introImage.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.18),
             introImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: screenHeight * -0.15),
-            startButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
+            startButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83),
+            stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }

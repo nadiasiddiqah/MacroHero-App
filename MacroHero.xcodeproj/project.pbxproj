@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09092AC2283843DA00CA12F2 /* NutritionPlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09092AC1283843DA00CA12F2 /* NutritionPlanVC.swift */; };
+		09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */; };
 		091DFB16280753E400EBD110 /* FavoriteMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DFB15280753E400EBD110 /* FavoriteMealCell.swift */; };
 		0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AA270BC56100080FCD /* AppDelegate.swift */; };
 		0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AC270BC56100080FCD /* SceneDelegate.swift */; };
@@ -60,7 +60,7 @@
 
 /* Begin PBXFileReference section */
 		0904DAB327CECC9800478415 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Keys.xcconfig; path = MacroHero/Keys.xcconfig; sourceTree = SOURCE_ROOT; };
-		09092AC1283843DA00CA12F2 /* NutritionPlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionPlanVC.swift; sourceTree = "<group>"; };
+		09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionChartVC.swift; sourceTree = "<group>"; };
 		091DFB15280753E400EBD110 /* FavoriteMealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMealCell.swift; sourceTree = "<group>"; };
 		0933D8A7270BC56100080FCD /* MacroHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0933D8AA270BC56100080FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -221,14 +221,8 @@
 				09D20BBB28306FC60085BAA5 /* SetGoalVC.swift */,
 				09E55AB128342E55008BCE23 /* SetActivityVC.swift */,
 				09E55AB32834407A008BCE23 /* AboutYouVC.swift */,
-				09092AC1283843DA00CA12F2 /* NutritionPlanVC.swift */,
-				09FD0BDF270E24830094BAAC /* InfoVC.swift */,
-				096CA545274DB7C40071C6EE /* PlanVC.swift */,
-				09EE8141277A8D9D00579224 /* RankVC.swift */,
-				0989FA70277D0E2100234819 /* ProteinVC.swift */,
-				09A26981277EB17E005C0BFF /* MealPlanVC.swift */,
-				09E3044F2798F3C1003FB240 /* MealDetailsVC.swift */,
-				09975BC3278CF78F0096E00A /* FavoritesView.swift */,
+				09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */,
+				09E4B4252846A2FD00F319BB /* Need to update UI */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -253,6 +247,20 @@
 				0966D42627CD804100A90754 /* MealPlanAPI.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		09E4B4252846A2FD00F319BB /* Need to update UI */ = {
+			isa = PBXGroup;
+			children = (
+				09FD0BDF270E24830094BAAC /* InfoVC.swift */,
+				096CA545274DB7C40071C6EE /* PlanVC.swift */,
+				09EE8141277A8D9D00579224 /* RankVC.swift */,
+				0989FA70277D0E2100234819 /* ProteinVC.swift */,
+				09A26981277EB17E005C0BFF /* MealPlanVC.swift */,
+				09E3044F2798F3C1003FB240 /* MealDetailsVC.swift */,
+				09975BC3278CF78F0096E00A /* FavoritesView.swift */,
+			);
+			path = "Need to update UI";
 			sourceTree = "<group>";
 		};
 		09FD0BEB270E2E0B0094BAAC /* Fonts */ = {
@@ -415,7 +423,7 @@
 				09E3044D2798F2DE003FB240 /* MealReq.swift in Sources */,
 				091DFB16280753E400EBD110 /* FavoriteMealCell.swift in Sources */,
 				094E901C2836123500BCE92E /* TwoLineButton.swift in Sources */,
-				09092AC2283843DA00CA12F2 /* NutritionPlanVC.swift in Sources */,
+				09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */,
 				09EE8142277A8D9D00579224 /* RankVC.swift in Sources */,
 				0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */,
 				09B29825283D71DC008F19BF /* MainLabel.swift in Sources */,

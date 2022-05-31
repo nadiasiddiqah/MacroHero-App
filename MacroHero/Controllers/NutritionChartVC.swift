@@ -9,9 +9,8 @@ import UIKit
 import Charts
 import Inject
 
-class NutritionPlanVC: UIViewController, ChartViewDelegate {
+class NutritionChartVC: UIViewController, ChartViewDelegate {
     
-    // TODO: retrieve generated personalized nutrition and show in views
     // MARK: - PROPERTIES
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
@@ -32,12 +31,12 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
             title: "Here's your plan"))
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
     
     // TODO: update with personalized nutrition parameters derived from API
-    // TODO: update pie chart colors to match views below
     lazy var pieChartView: PieChartView = {
         var chart = PieChartView()
         chart.holeRadiusPercent = 0.78
@@ -46,6 +45,7 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
         chart.centerAttributedText = createCenterAttributedText(
             calories: calories
         )
+        chart.translatesAutoresizingMaskIntoConstraints = false
         
         return chart
     }()
@@ -70,6 +70,16 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
         var stack = UIStackView(arrangedSubviews: [carbView, proteinView, fatView])
         stack.axis = .horizontal
         stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
+    lazy var topStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [mainTitle, pieChartView, macroStackView])
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = screenHeight * 0.03
         
         return stack
     }()
@@ -107,6 +117,7 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
     func setData() {
         let dataSet = PieChartDataSet(entries: yValues)
         dataSet.colors = [.systemGreen, .systemYellow, .systemRed]
+//        dataSet.drawValuesEnabled = false
         
         let data = PieChartData(dataSet: dataSet)
         pieChartView.data = data
@@ -143,7 +154,7 @@ class NutritionPlanVC: UIViewController, ChartViewDelegate {
     }
 }
 
-extension NutritionPlanVC {
+extension NutritionChartVC {
     fileprivate func setupViews() {
         view.backgroundColor = Color.bgColor
         addBackButton()
@@ -164,46 +175,48 @@ extension NutritionPlanVC {
     }
     
     fileprivate func addViews() {
-        view.addSubview(mainTitle)
-        view.addSubview(pieChartView)
-        view.addSubview(macroStackView)
+        view.addSubview(topStack)
         view.addSubview(nextButton)
     }
     
     fileprivate func autoLayoutViews() {
-        mainTitle.translatesAutoresizingMaskIntoConstraints = false
-        pieChartView.translatesAutoresizingMaskIntoConstraints = false
-        macroStackView.translatesAutoresizingMaskIntoConstraints = false
+        topStack.translatesAutoresizingMaskIntoConstraints = false
         nextButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
-            mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                           constant: screenHeight * 0.01),
-            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            
-            pieChartView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pieChartView.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
-                                              constant: screenHeight * 0.04),
-            pieChartView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9)
+        ])
+        
+        NSLayoutConstraint.activate([
+            pieChartView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor,
+                                                multiplier: 0.5),
             pieChartView.widthAnchor.constraint(equalTo: pieChartView.heightAnchor,
-                                                multiplier: 1),
-            
-            macroStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            macroStackView.topAnchor.constraint(equalTo: pieChartView.bottomAnchor,
-                                                constant: screenHeight * 0.04),
+                                                multiplier: 1)
+        ])
+        
+        NSLayoutConstraint.activate([
             macroStackView.widthAnchor.constraint(equalTo: view.widthAnchor,
                                                   multiplier: 0.9),
             macroStackView.heightAnchor.constraint(equalTo: view.heightAnchor,
-                                                   multiplier: 0.14),
-            
-            
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                               constant: screenHeight * -0.1),
-            nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
+                                                   multiplier: 0.14)
         ])
+        
+        NSLayoutConstraint.activate([
+            topStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                          constant: screenHeight * 0.01),
+            topStack.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, multiplier: 0.65)
+        ])
+        
+        NSLayoutConstraint.activate([
+            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextButton.topAnchor.constraint(greaterThanOrEqualTo: topStack.bottomAnchor, constant: screenHeight * 0.04),
+            nextButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: screenHeight * -0.09),
+            nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83),
+            nextButton.heightAnchor.constraint(equalTo: nextButton.widthAnchor, multiplier: 0.16)
+        ])
+        
     }
 }
