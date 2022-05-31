@@ -54,6 +54,7 @@ final class TwoLineButton: UIButton {
                 string: title + "\n",
                 attributes: [
                     .font: UIFont.systemFont(ofSize: 18, weight: .bold),
+                    .foregroundColor: UIColor.black,
                     .paragraphStyle: centeredParagraphStyle
                 ]),
             NSAttributedString(
