@@ -22,6 +22,23 @@ class AboutYouVC: UIViewController {
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
     
+    private var userData: UserData
+    var sex: Sex?
+    var birthday = String()
+    var ftData = String()
+    var inData = String()
+    var weight = String()
+    
+    // MARK: - INITIALIZER
+    init(userData: UserData) {
+        self.userData = userData
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,10 +162,7 @@ class AboutYouVC: UIViewController {
         return stack
     }()
     
-    @objc func dateSelected() {
-        
-    }
-
+    // MARK: - HEIGHT
     lazy var ftTextField: UITextField = {
         let textField = UITextField()
         textField.delegate = self
@@ -170,6 +184,42 @@ class AboutYouVC: UIViewController {
 
         return textField
     }()
+    
+    lazy var heightLabelStack: UIStackView = {
+        // Feet
+        let label1 = UILabel()
+        label1.text = "'"
+        label1.textColor = .black
+        label1.translatesAutoresizingMaskIntoConstraints = false
+
+        let ftStack = UIStackView(arrangedSubviews: [ftTextField, label1])
+        ftStack.axis = .horizontal
+        ftStack.translatesAutoresizingMaskIntoConstraints = false
+        ftStack.spacing = 0
+
+        // Inches
+        let label2 = UILabel()
+        label2.text = #"""#
+        label2.textColor = .black
+        label2.translatesAutoresizingMaskIntoConstraints = false
+        
+        let inStack = UIStackView(arrangedSubviews: [inTextField, label2])
+        inStack.axis = .horizontal
+        inStack.translatesAutoresizingMaskIntoConstraints = false
+        inStack.spacing = 0
+
+        // Feet and inches
+        let labelStack = UIStackView(arrangedSubviews: [ftStack, inStack])
+        labelStack.axis = .horizontal
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            label1.widthAnchor.constraint(equalToConstant: 10),
+            label2.widthAnchor.constraint(equalTo: label1.widthAnchor)
+        ])
+        
+        return labelStack
+    }()
 
     lazy var heightStack: UIStackView = {
         let title = UILabel()
@@ -183,40 +233,15 @@ class AboutYouVC: UIViewController {
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeight)))
 
-        let label1 = UILabel()
-        label1.text = "'"
-        label1.textColor = .black
-        label1.translatesAutoresizingMaskIntoConstraints = false
-
-        let label2 = UILabel()
-        label2.text = #"""#
-        label2.textColor = .black
-        label2.translatesAutoresizingMaskIntoConstraints = false
-
-        let ftStack = UIStackView(arrangedSubviews: [ftTextField, label1])
-        ftStack.axis = .horizontal
-        ftStack.translatesAutoresizingMaskIntoConstraints = false
-        ftStack.spacing = 0
-
-        let inStack = UIStackView(arrangedSubviews: [inTextField, label2])
-        inStack.axis = .horizontal
-        inStack.translatesAutoresizingMaskIntoConstraints = false
-        inStack.spacing = 0
-
-        let labelStack = UIStackView(arrangedSubviews: [ftStack, inStack])
-        labelStack.axis = .horizontal
-        labelStack.translatesAutoresizingMaskIntoConstraints = false
-
-        iv.addSubview(labelStack)
+        iv.addSubview(heightLabelStack)
 
         NSLayoutConstraint.activate([
-            label1.widthAnchor.constraint(equalToConstant: 10),
-            label2.widthAnchor.constraint(equalTo: label1.widthAnchor),
             ftTextField.widthAnchor.constraint(equalTo: inTextField.widthAnchor),
-            labelStack.heightAnchor.constraint(equalTo: iv.heightAnchor),
-            labelStack.widthAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.4),
-            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor)
+            heightLabelStack.heightAnchor.constraint(equalTo: iv.heightAnchor),
+            heightLabelStack.widthAnchor.constraint(
+                equalTo: iv.widthAnchor, multiplier: 0.4),
+            heightLabelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            heightLabelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor)
         ])
 
         let stack = UIStackView(arrangedSubviews: [title, iv])
@@ -227,6 +252,7 @@ class AboutYouVC: UIViewController {
         return stack
     }()
 
+    // MARK: - WEIGHT
     lazy var weightTextField: UITextField = {
         let textField = UITextField()
         textField.delegate = self
@@ -236,6 +262,19 @@ class AboutYouVC: UIViewController {
         textField.keyboardType = .numberPad
 
         return textField
+    }()
+    lazy var weightLabelStack: UIStackView = {
+        let label = UILabel()
+        label.text = "lbs"
+        label.textColor = .black
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        let labelStack = UIStackView(arrangedSubviews: [weightTextField, label])
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+        labelStack.axis = .horizontal
+        
+        return labelStack
     }()
 
     lazy var weightStack: UIStackView = {
@@ -250,23 +289,14 @@ class AboutYouVC: UIViewController {
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapWeight)))
 
-        let label = UILabel()
-        label.text = "lbs"
-        label.textColor = .black
-        label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        let labelStack = UIStackView(arrangedSubviews: [weightTextField, label])
-        labelStack.translatesAutoresizingMaskIntoConstraints = false
-        labelStack.axis = .horizontal
-
-        iv.addSubview(labelStack)
+        iv.addSubview(weightLabelStack)
 
         NSLayoutConstraint.activate([
-            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
-            labelStack.widthAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.5),
-            labelStack.heightAnchor.constraint(equalTo: iv.heightAnchor)
+            weightLabelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
+            weightLabelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
+            weightLabelStack.widthAnchor.constraint(
+                equalTo: iv.widthAnchor, multiplier: 0.5),
+            weightLabelStack.heightAnchor.constraint(equalTo: iv.heightAnchor)
         ])
 
         let stack = UIStackView(arrangedSubviews: [title, iv])
@@ -301,21 +331,27 @@ class AboutYouVC: UIViewController {
     // MARK: - TAP METHODS
     @objc func didTapMale() {
         if !maleButton.isSelected {
-            select(maleButton)
+            select(maleButton, sex: Sex.male)
             deselect(femaleButton)
         }
     }
 
     @objc func didTapFemale() {
         if !femaleButton.isSelected {
-            select(femaleButton)
+            select(femaleButton, sex: Sex.female)
             deselect(maleButton)
         }
     }
 
     @objc func didTapCalendar() {
         print("clicked calendar")
-        datePicker.becomeFirstResponder()
+    }
+    
+    // TODO: save picked date to user object
+    @objc func didPickDate(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm/dd/yy"
+        birthday = dateFormatter.string(from: sender.date)
     }
 
     @objc func didTapHeight(_ gesture: UITapGestureRecognizer) {
@@ -333,21 +369,20 @@ class AboutYouVC: UIViewController {
         weightTextField.becomeFirstResponder()
     }
 
-    // TODO: save picked date to user object
-    @objc func didPickDate(_ sender: UIDatePicker) {
-    }
-
     // TODO: save parameters into user object
     // TODO: loading circle to generate nutrition plan in screen based on user object
     @objc func didTapNext() {
-        print("next")
-        goToNextScreen()
+        if let selectedSex = sex {
+            goToNextScreen(sex: selectedSex, age: birthday,
+                           height: "\(ftData)\(inData)", weight: weight)
+        }
     }
 
     // MARK: - HELPER METHODS
-    func select(_ button: UIButton) {
+    func select(_ button: UIButton, sex: Sex) {
         button.setBackgroundImage(Image.aboutButtonBgSelected, for: .selected)
         button.isSelected = true
+        self.sex = sex
     }
 
     func deselect(_ button: UIButton) {
@@ -377,9 +412,19 @@ class AboutYouVC: UIViewController {
     }
 
     // MARK: - NAV METHODS
-    func goToNextScreen() {
-        let nextScreen = Inject.ViewControllerHost(NutritionChartVC())
-        navigationController?.pushViewController(nextScreen, animated: true)
+    func goToNextScreen(sex: Sex, age: String,
+                        height: String, weight: String) {
+        
+        // Passed Data
+        userData.sex = sex
+        // TODO: convert birthday into age
+        userData.age = age
+        // TODO: convert height and weight to cm and kg
+        userData.heightCm = height
+        userData.weightKg = weight
+        
+        let vc = Inject.ViewControllerHost(NutritionChartVC())
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -401,6 +446,23 @@ extension AboutYouVC: UITextFieldDelegate {
         let newString = currentString.replacingCharacters(in: range, with: string)
 
         return newString.count <= maxLength
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("\(textField) did end editing")
+        if let userInput = textField.text, !userInput.isEmpty {
+            if textField == weightTextField {
+                weight = userInput
+            } else if textField == ftTextField {
+                ftData = userInput
+            } else if textField == inTextField {
+                inData = userInput
+            }
+        }
+        
+        print(weight)
+        print(ftData)
+        print(inData)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -455,38 +517,47 @@ extension AboutYouVC {
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-
+        
         NSLayoutConstraint.activate([
             mainTitle.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: scrollView.topAnchor,
-                                           constant: screenHeight * 0.01),
-            mainTitle.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
-                                             multiplier: 0.9)
+            mainTitle.topAnchor.constraint(
+                equalTo: scrollView.topAnchor,
+                constant: screenHeight * 0.01),
+            mainTitle.widthAnchor.constraint(
+                equalTo: scrollView.widthAnchor,
+                multiplier: 0.9)
         ])
-
+        
         NSLayoutConstraint.activate([
-            sexSection.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            sexSection.topAnchor.constraint(equalTo: mainTitle.bottomAnchor,
-                                            constant: screenHeight * 0.05)
+            sexSection.centerXAnchor.constraint(
+                equalTo: scrollView.centerXAnchor),
+            sexSection.topAnchor.constraint(
+                equalTo: mainTitle.bottomAnchor,
+                constant: screenHeight * 0.05)
         ])
-
+        
         NSLayoutConstraint.activate([
-            birthdaySection.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            birthdaySection.topAnchor.constraint(equalTo: sexSection.bottomAnchor,
-                                                 constant: screenHeight * 0.08)
+            birthdaySection.centerXAnchor.constraint(
+                equalTo: scrollView.centerXAnchor),
+            birthdaySection.topAnchor.constraint(
+                equalTo: sexSection.bottomAnchor,
+                constant: screenHeight * 0.08)
         ])
-
+        
         NSLayoutConstraint.activate([
             bottomSection.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            bottomSection.topAnchor.constraint(equalTo: birthdaySection.bottomAnchor,
-                                               constant: screenHeight * 0.08)
+            bottomSection.topAnchor.constraint(
+                equalTo: birthdaySection.bottomAnchor,
+                constant: screenHeight * 0.08)
         ])
-
+        
         NSLayoutConstraint.activate([
             nextButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,
-                                               constant: screenHeight * -0.09),
-            nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83)
+            nextButton.bottomAnchor.constraint(
+                equalTo: view.bottomAnchor,
+                constant: screenHeight * -0.09),
+            nextButton.widthAnchor.constraint(
+                equalTo: view.widthAnchor, multiplier: 0.83)
         ])
     }
 }

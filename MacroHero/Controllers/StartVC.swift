@@ -89,8 +89,13 @@ extension StartVC {
     
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
-            introImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            startButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83),
+            introImage.widthAnchor.constraint(
+                equalTo: view.widthAnchor, multiplier: 0.9),
+            startButton.widthAnchor.constraint(
+                equalTo: view.widthAnchor, multiplier: 0.83)
+        ])
+        
+        NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])

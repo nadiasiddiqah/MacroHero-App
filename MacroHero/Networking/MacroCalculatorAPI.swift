@@ -17,7 +17,7 @@ class MacroCalculatorAPI {
                    method: .get,
                    parameters: [
                     "age": user.age,
-                    "gender": user.gender,
+                    "gender": user.sex,
                     "height": user.heightCm,
                     "weight": user.weightKg,
                     "activitylevel": user.activityLevel,

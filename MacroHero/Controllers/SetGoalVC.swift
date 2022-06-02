@@ -14,6 +14,7 @@ class SetGoalVC: UIViewController {
     // MARK: - PROPERTIES
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
+    private var userData = UserData()
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
@@ -93,34 +94,34 @@ class SetGoalVC: UIViewController {
     }()
     
     // MARK: - TOUCH METHODS
-    #warning("store selection in user object")
     @objc func didTapFirst() {
         if firstButton.isSelected {
-            goToNextScreen()
+            goToNextScreen(Goal.lose)
         } else {
             deselect([secondButton, thirdButton])
             select(firstButton)
-            goToNextScreen()
+            
+            goToNextScreen(Goal.lose)
         }
     }
     
     @objc func didTapSecond() {
         if secondButton.isSelected {
-            goToNextScreen()
+            goToNextScreen(Goal.gain)
         } else {
             deselect([thirdButton, firstButton])
             select(secondButton)
-            goToNextScreen()
+            goToNextScreen(Goal.gain)
         }
     }
     
     @objc func didTapThird() {
         if thirdButton.isSelected {
-            goToNextScreen()
+            goToNextScreen(Goal.maintain)
         } else {
             deselect([firstButton, secondButton])
             select(thirdButton)
-            goToNextScreen()
+            goToNextScreen(Goal.maintain)
         }
     }
     
@@ -138,9 +139,10 @@ class SetGoalVC: UIViewController {
     }
     
     // MARK: - NAV METHODS
-    func goToNextScreen() {
-        let setActivityVC = Inject.ViewControllerHost(SetActivityVC())
-        navigationController?.pushViewController(setActivityVC, animated: true)
+    func goToNextScreen(_ selection: Goal) {
+        let goalData = UserData(goal: selection)
+        let vc = Inject.ViewControllerHost(SetActivityVC(userData: goalData))
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -180,17 +182,32 @@ extension SetGoalVC {
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
             mainTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                           constant: screenHeight * 0.01),
-            mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            
+            mainTitle.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: screenHeight * 0.01),
+            mainTitle.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 0.9)
+        ])
+        
+        NSLayoutConstraint.activate([
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonStack.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.05),
-            buttonStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            
+            buttonStack.topAnchor.constraint(
+                equalTo: mainTitle.bottomAnchor,
+                constant: screenHeight * 0.05),
+            buttonStack.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 0.9)
+        ])
+        
+        NSLayoutConstraint.activate([
             lowerImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            lowerImage.topAnchor.constraint(equalTo: buttonStack.bottomAnchor, constant: screenHeight * 0.05),
-            lowerImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            lowerImage.topAnchor.constraint(
+                equalTo: buttonStack.bottomAnchor,
+                constant: screenHeight * 0.05),
+            lowerImage.widthAnchor.constraint(
+                equalTo: view.widthAnchor,
+                multiplier: 0.8)
         ])
     }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import Alamofire
 
 class StartVM {
     @Published var userData: UserData?

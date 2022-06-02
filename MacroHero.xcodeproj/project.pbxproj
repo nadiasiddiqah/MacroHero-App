@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */; };
+		091AAC7C2849472500D1431B /* UserDataVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091AAC7B2849472500D1431B /* UserDataVM.swift */; };
 		091DFB16280753E400EBD110 /* FavoriteMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DFB15280753E400EBD110 /* FavoriteMealCell.swift */; };
 		0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AA270BC56100080FCD /* AppDelegate.swift */; };
 		0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AC270BC56100080FCD /* SceneDelegate.swift */; };
@@ -61,6 +62,7 @@
 /* Begin PBXFileReference section */
 		0904DAB327CECC9800478415 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Keys.xcconfig; path = MacroHero/Keys.xcconfig; sourceTree = SOURCE_ROOT; };
 		09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionChartVC.swift; sourceTree = "<group>"; };
+		091AAC7B2849472500D1431B /* UserDataVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataVM.swift; sourceTree = "<group>"; };
 		091DFB15280753E400EBD110 /* FavoriteMealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMealCell.swift; sourceTree = "<group>"; };
 		0933D8A7270BC56100080FCD /* MacroHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0933D8AA270BC56100080FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 		0966D41C27C9A9BC00A90754 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				091AAC7B2849472500D1431B /* UserDataVM.swift */,
 				097F8F74279783D600B638BC /* StartVM.swift */,
 				097F8F762797889E00B638BC /* PlanVM.swift */,
 				09E3043627989F0D003FB240 /* RankVM.swift */,
@@ -418,6 +421,7 @@
 				09E55AB228342E55008BCE23 /* SetActivityVC.swift in Sources */,
 				09E55AB42834407A008BCE23 /* AboutYouVC.swift in Sources */,
 				09E3043A2798D3E6003FB240 /* ProteinVM.swift in Sources */,
+				091AAC7C2849472500D1431B /* UserDataVM.swift in Sources */,
 				09E304522798F3DA003FB240 /* ProfileVC.swift in Sources */,
 				09ABA5FF27B30B9C008A9641 /* Font.swift in Sources */,
 				09E3044D2798F2DE003FB240 /* MealReq.swift in Sources */,

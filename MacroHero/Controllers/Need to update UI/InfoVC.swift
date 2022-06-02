@@ -374,33 +374,35 @@ class InfoVC: UIViewController {
               let weight = weightLabel.text, weight != "     lbs",
               let activity = activityLabel.text, activity != " " else { return nil }
 
-        let ageData = age.replacingOccurrences(of: " yrs", with: "")
-        let genderData = "female"
-        let ftData = (Double(ft.replacingOccurrences(of: "'", with: "")) ?? 0) * 12
-        let inData = Double(inch.replacingOccurrences(of: #"""#, with: "")) ?? 0
-        let heightData = round((ftData + inData) * 2.54)
-        let weightData = round((Double(weight.replacingOccurrences(of: " lbs", with: "")) ?? 0) * 0.45)
-        var activityData = ""
-        let goalData = "maintain"
+//        let ageData = age.replacingOccurrences(of: " yrs", with: "")
+//        let genderData = Gender.female
+//        let ftData = (Double(ft.replacingOccurrences(of: "'", with: "")) ?? 0) * 12
+//        let inData = Double(inch.replacingOccurrences(of: #"""#, with: "")) ?? 0
+//        let heightData = round((ftData + inData) * 2.54)
+//        let weightData = round((Double(weight.replacingOccurrences(of: " lbs", with: "")) ?? 0) * 0.45)
+//        let activityData = Activity.noExercise
+//        let goalData = Goal.maintain
 
-        switch activity {
-        case "Sedentary":
-            activityData = "1"
-        case "Lightly active":
-            activityData = "2"
-        case "Active":
-            activityData = "3"
-        case "Very Active":
-            activityData = "4"
-        default:
-            activityData = "1"
-        }
+//        switch activity {
+//        case "Sedentary":
+//            activityData = "1"
+//        case "Lightly active":
+//            activityData = "2"
+//        case "Active":
+//            activityData = "3"
+//        case "Very Active":
+//            activityData = "4"
+//        default:
+//            activityData = "1"
+//        }
         
-        let userData = UserData(age: ageData, gender: genderData,
-                                heightCm: "\(Int(heightData))",
-                                weightKg: "\(Int(weightData))",
-                                activityLevel: activityData,
-                                goal: goalData)
+//        let userData = UserData(age: ageData, gender: genderData,
+//                                heightCm: "\(Int(heightData))",
+//                                weightKg: "\(Int(weightData))",
+//                                activityLevel: activityData,
+//                                goal: goalData)
+//
+        let userData = UserData()
         
         return userData
     }

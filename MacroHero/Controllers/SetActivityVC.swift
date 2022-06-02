@@ -14,10 +14,22 @@ class SetActivityVC: UIViewController {
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
     
+    private var userData: UserData
+    
+    // MARK: - INITIALIZER
+    init(userData: UserData) {
+        self.userData = userData
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(userData)
         setupViews()
     }
     
@@ -96,32 +108,29 @@ class SetActivityVC: UIViewController {
     
     
     // MARK: - TAP METHODS
-    #warning("TODO: store selection in user object")
-    #warning("TODO: add selection/deselection properties")
+    
+    // TODO: add selection/deselection properties
     func didTapFirst() {
-        print("Tapped 1")
-        goToNextScreen()
+        goToNextScreen(Activity.noExercise)
     }
     
     func didTapSecond() {
-        print("Tapped 2")
-        goToNextScreen()
+        goToNextScreen(Activity.lightExercise)
     }
     
     func didTapThird() {
-        print("Tapped 3")
-        goToNextScreen()
+        goToNextScreen(Activity.moderateExercise)
     }
     
     func didTapFourth() {
-        print("Tapped 4")
-        goToNextScreen()
+        goToNextScreen(Activity.hardExercise)
     }
     
-    // MARK: - HELPER METHODS
-    func goToNextScreen() {
-        let aboutYouVC = Inject.ViewControllerHost(AboutYouVC())
-        navigationController?.pushViewController(aboutYouVC, animated: true)
+    // MARK: - NAV METHODS
+    func goToNextScreen(_ selection: Activity) {
+        userData.activityLevel = selection
+        let vc = Inject.ViewControllerHost(AboutYouVC(userData: self.userData))
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -155,18 +164,28 @@ extension SetActivityVC {
         bottomImage.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
             topStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
-                                          constant: screenHeight * 0.01),
-            topStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
-            
+            topStack.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: screenHeight * 0.01),
+            topStack.widthAnchor.constraint(
+                equalTo: view.widthAnchor,     
+                multiplier: 0.9)
+        ])
+        
+        NSLayoutConstraint.activate([
             bottomImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            bottomImage.topAnchor.constraint(greaterThanOrEqualTo: topStack.bottomAnchor, constant: screenHeight * 0.03),
-            bottomImage.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: screenHeight * -0.04),
-            bottomImage.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor, multiplier: 0.8)
+            bottomImage.topAnchor.constraint(
+                greaterThanOrEqualTo: topStack.bottomAnchor,
+                constant: screenHeight * 0.03),
+            bottomImage.bottomAnchor.constraint(
+                lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: screenHeight * -0.04),
+            bottomImage.widthAnchor.constraint(
+                lessThanOrEqualTo: view.widthAnchor,
+                multiplier: 0.8)
         ])
     }
 }
