@@ -24,7 +24,7 @@ class AboutYouVC: UIViewController {
     
     private var userData: UserData
     var sex: Sex?
-    var birthday = String()
+    var birthday = Date()
     var ftData = String()
     var inData = String()
     var weight = String()
@@ -349,9 +349,7 @@ class AboutYouVC: UIViewController {
     
     // TODO: save picked date to user object
     @objc func didPickDate(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm/dd/yy"
-        birthday = dateFormatter.string(from: sender.date)
+        birthday = sender.date
     }
 
     @objc func didTapHeight(_ gesture: UITapGestureRecognizer) {
@@ -369,13 +367,10 @@ class AboutYouVC: UIViewController {
         weightTextField.becomeFirstResponder()
     }
 
-    // TODO: save parameters into user object
     // TODO: loading circle to generate nutrition plan in screen based on user object
     @objc func didTapNext() {
-        if let selectedSex = sex {
-            goToNextScreen(sex: selectedSex, age: birthday,
-                           height: "\(ftData)\(inData)", weight: weight)
-        }
+        view.endEditing(true)
+        goToNextScreen()
     }
 
     // MARK: - HELPER METHODS
@@ -410,21 +405,51 @@ class AboutYouVC: UIViewController {
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
+    
+    func convertBirthdayToAge() -> String {
+        let now = Date()
+        let calendar = Calendar.current
+        let ageComponents = calendar.dateComponents([.year], from: birthday, to: now)
+        
+        return "\(ageComponents.year!)"
+    }
+    
+    func convertHeightToCm() -> String {
+        guard let ftData = Int(ftData), let inData = Int(inData) else { return "" }
+        let totalIn = (ftData * 12) + inData
+        let totalCm = Int(Double(totalIn) * 2.54)
+        
+        return "\(totalCm)"
+    }
+    
+    func convertWeightToKg() -> String {
+        guard let weight = Int(weight) else { return "" }
+        let kg = Int(Double(weight) * 0.45)
+        
+        return "\(kg)"
+    }
 
     // MARK: - NAV METHODS
-    func goToNextScreen(sex: Sex, age: String,
-                        height: String, weight: String) {
-        
+    func goToNextScreen() {
         // Passed Data
-        userData.sex = sex
-        // TODO: convert birthday into age
-        userData.age = age
-        // TODO: convert height and weight to cm and kg
-        userData.heightCm = height
-        userData.weightKg = weight
+//        userData.sex = sex
+//        userData.age = convertBirthdayToAge()
+//        userData.heightCm = convertHeightToCm()
+//        userData.weightKg = convertWeightToKg()
         
-        let vc = Inject.ViewControllerHost(NutritionChartVC())
-        navigationController?.pushViewController(vc, animated: true)
+        userData = UserData(age: "25", heightCm: "160", weightKg: "68", sex: Sex.female, activityLevel: Activity.moderateExercise, goal: Goal.lose)
+        
+        DispatchQueue.main.async {
+            MacroCalculatorAPI.fetchMacroData(for: self.userData) { [weak self] results in
+                guard let self = self else { return }
+                self.userData.macroPlan = results
+                
+                guard let macroPlan = self.userData.macroPlan else { return }
+                let vc = Inject.ViewControllerHost(
+                    NutritionChartVC(userData: self.userData))
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 

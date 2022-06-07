@@ -12,6 +12,11 @@ struct UserData {
     var sex: Sex?
     var activityLevel: Activity?
     var goal: Goal?
+    var macroPlan: MacroPlan?
+}
+
+struct MacroPlan {
+    var calories, carbs, protein, fat: String
 }
 
 enum Sex: String {
@@ -20,8 +25,8 @@ enum Sex: String {
 }
 
 enum Goal: String {
-    case lose = "lose"
-    case gain = "gain"
+    case lose = "weightlose"
+    case gain = "weightGain"
     case maintain = "maintain"
 }
 

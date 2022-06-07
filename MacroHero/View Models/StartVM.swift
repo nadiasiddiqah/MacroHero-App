@@ -10,5 +10,5 @@ import Combine
 
 class StartVM {
     @Published var userData: UserData?
-    @Published var dailyMacro: MacroBreakdown?
+    @Published var dailyMacro: MacroPlan?
 }

@@ -15,19 +15,19 @@ class MealPlanVM {
     
     // MARK: - PROPERTIES
     var breakfastReq = MealReq(type: MealType.breakfast.rawValue,
-                               macros: MacroBreakdown(calories: "100+", carbs: "20+",
+                               macros: MacroPlan(calories: "100+", carbs: "20+",
                                                       protein: "15+", fat: "10+"),
                                random: true,
                                macroPriority: MacroPriority(macro1: "calories",
                                                             macro2: "protein"))
     var lunchReq = MealReq(type: MealType.lunch.rawValue,
-                           macros: MacroBreakdown(calories: "100+", carbs: "20+",
+                           macros: MacroPlan(calories: "100+", carbs: "20+",
                                                   protein: "15+", fat: "10+"),
                            random: true,
                            macroPriority: MacroPriority(macro1: "calories",
                                                         macro2: "protein"))
     var dinnerReq = MealReq(type: MealType.dinner.rawValue,
-                            macros: MacroBreakdown(calories: "100+", carbs: "20+",
+                            macros: MacroPlan(calories: "100+", carbs: "20+",
                                                    protein: "15+", fat: "10+"),
                             random: true,
                             macroPriority: MacroPriority(macro1: "calories",

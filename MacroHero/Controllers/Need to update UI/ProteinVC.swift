@@ -28,7 +28,7 @@ class ProteinVC: UIViewController {
         self.proteinData = MealInfo(mealOrder: 3,
                                     image: "defaultMealImage",
                                     type: "Protein", name: "Protein Shake",
-                                    macros: MacroBreakdown(calories: "", carbs: "", protein: "", fat: ""))
+                                    macros: MacroPlan(calories: "", carbs: "", protein: "", fat: ""))
         super.init(nibName: nil, bundle: nil)
     }
     

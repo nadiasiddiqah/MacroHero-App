@@ -133,7 +133,7 @@ class MealPlanAPI {
             
             let parsedMeal = MealInfo(mealOrder: mealOrder, image: image,
                                       type: req.type, name: updatedName.capitalized,
-                                      macros: MacroBreakdown(calories: calories,
+                                      macros: MacroPlan(calories: calories,
                                                              carbs: carbs,
                                                              protein: protein,
                                                              fat: fat),

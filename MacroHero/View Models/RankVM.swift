@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class RankVM {
-    @Published var dailyMacro: MacroBreakdown
+    @Published var dailyMacro: MacroPlan
     
-    init(dailyMacro: MacroBreakdown) {
+    init(dailyMacro: MacroPlan) {
         self.dailyMacro = dailyMacro
     }
 }

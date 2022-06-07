@@ -9,5 +9,5 @@ import Foundation
 
 class UserDataVM {
     var userData: UserData?
-    var dailyMacro: MacroBreakdown?
+    var dailyMacro: MacroPlan?
 }

@@ -14,19 +14,33 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
     // MARK: - PROPERTIES
     var screenWidth = Utils.screenWidth
     var screenHeight = Utils.screenHeight
-    var calories = 1890
+    
+    private var userData: UserData
+    var yValues = [ChartDataEntry]()
+    
+    var carbsPercent = Double()
+    var proteinPercent = Double()
+    var fatPercent = Double()
+    
+    // MARK: - INITIALIZERS
+    init(userData: UserData) {
+        self.userData = userData
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
         setData()
+        setupViews()
     }
     
-    let yValues: [ChartDataEntry] = [ChartDataEntry(x: 1.0, y: 31.0),
-                                     ChartDataEntry(x: 2.0, y: 23.0),
-                                     ChartDataEntry(x: 3.0, y: 46.0)]
-    
+    // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
@@ -42,9 +56,11 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         chart.holeRadiusPercent = 0.78
         chart.legend.enabled = false
         chart.drawEntryLabelsEnabled = false
-        chart.centerAttributedText = createCenterAttributedText(
-            calories: calories
-        )
+        if let calories = userData.macroPlan?.calories {
+            chart.centerAttributedText = createCenterAttributedText(
+                calories: calories
+            )
+        }
         chart.translatesAutoresizingMaskIntoConstraints = false
         
         return chart
@@ -53,19 +69,22 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
    // TODO: update with personalized nutrition parameters derived from API
     lazy var macroStackView: UIStackView = {
         var carbView = MacroDetailView()
-        carbView.configure(with: MacroDetailModel(
-            percent: "31%", grams: "30g",
-            label: "Carbs", percentColor: .systemGreen))
-        
         var proteinView = MacroDetailView()
-        proteinView.configure(with: MacroDetailModel(
-            percent: "23%", grams: "23g",
-            label: "Protein", percentColor: .systemYellow))
-        
         var fatView = MacroDetailView()
-        fatView.configure(with: MacroDetailModel(
-            percent: "46%", grams: "20g",
-            label: "Fat", percentColor: .systemRed))
+        
+        if let macroPlan = userData.macroPlan {
+            carbView.configure(with: MacroDetailModel(
+                percent: "\(Int(carbsPercent))%", grams: "\(macroPlan.carbs)g",
+                label: "Carbs", percentColor: .systemGreen))
+            
+            proteinView.configure(with: MacroDetailModel(
+                percent: "\(Int(proteinPercent))%", grams: "\(macroPlan.protein)g",
+                label: "Protein", percentColor: .systemYellow))
+            
+            fatView.configure(with: MacroDetailModel(
+                percent: "\(Int(fatPercent))%", grams: "\(macroPlan.fat)g",
+                label: "Fat", percentColor: .systemRed))
+        }
         
         var stack = UIStackView(arrangedSubviews: [carbView, proteinView, fatView])
         stack.axis = .horizontal
@@ -114,24 +133,53 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         print(entry)
     }
     
+    func convertGramsToPercentageValue() {
+        guard let macros = userData.macroPlan,
+              let calories = Double(macros.calories),
+              let carbs = Double(macros.carbs),
+              let protein = Double(macros.protein),
+              let fat = Double(macros.fat) else { return }
+        
+        carbsPercent = round(((carbs * 4) / calories) * 100)
+        proteinPercent = round(((protein * 4) / calories) * 100)
+        fatPercent = round(((fat * 9) / calories) * 100)
+        
+        yValues = [ChartDataEntry(x: 1.0, y: carbsPercent),
+                   ChartDataEntry(x: 2.0, y: proteinPercent),
+                   ChartDataEntry(x: 3.0, y: fatPercent)]
+    }
+
+    func formatToPercentage(data: PieChartData) {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .percent
+        formatter.multiplier = 1.0
+        formatter.percentSymbol = "%"
+        formatter.zeroSymbol = ""
+        data.setValueFormatter(DefaultValueFormatter(formatter: formatter))
+    }
+    
     func setData() {
+        convertGramsToPercentageValue()
+        
         let dataSet = PieChartDataSet(entries: yValues)
         dataSet.colors = [.systemGreen, .systemYellow, .systemRed]
 //        dataSet.drawValuesEnabled = false
         
         let data = PieChartData(dataSet: dataSet)
         pieChartView.data = data
+        
+        formatToPercentage(data: data)
     }
     
     func createCenterAttributedText(
-        calories: Int
+        calories: String
     ) -> NSMutableAttributedString {
         let centeredParagraphStyle = NSMutableParagraphStyle()
         centeredParagraphStyle.alignment = .center
         
         let twoLines = [
             NSAttributedString(
-                string: "\(calories)" + "\n",
+                string: calories + "\n",
                 attributes: [
                     .font: Font.solid_35!,
                     .foregroundColor: Color.customNavy!,
