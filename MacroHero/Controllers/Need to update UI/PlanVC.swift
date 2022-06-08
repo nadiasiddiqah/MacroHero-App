@@ -107,8 +107,8 @@ class PlanVC: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func didTapNextButton() {
-        let rankVC = RankVC(viewModel: .init(dailyMacro: viewModel.dailyMacro))
-        navigationController?.pushViewController(rankVC, animated: true)
+//        let rankVC = RankVC(viewModel: .init(dailyMacro: viewModel.dailyMacro))
+//        navigationController?.pushViewController(rankVC, animated: true)
     }
     
     // MARK: - FUNCTIONS

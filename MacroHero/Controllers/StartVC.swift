@@ -97,8 +97,6 @@ extension StartVC {
                 equalTo: startButton.widthAnchor, multiplier: 0.16)
         ])
         
-        dump(startButton)
-        
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stack.centerYAnchor.constraint(equalTo: view.centerYAnchor)

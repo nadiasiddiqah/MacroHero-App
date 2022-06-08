@@ -36,7 +36,7 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-        setData()
+        setChartData()
         setupViews()
     }
     
@@ -50,10 +50,9 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         return label
     }()
     
-    // TODO: update with personalized nutrition parameters derived from API
     lazy var pieChartView: PieChartView = {
         var chart = PieChartView()
-        chart.holeRadiusPercent = 0.78
+        chart.holeRadiusPercent = 0.72
         chart.legend.enabled = false
         chart.drawEntryLabelsEnabled = false
         if let calories = userData.macroPlan?.calories {
@@ -66,7 +65,6 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         return chart
     }()
     
-   // TODO: update with personalized nutrition parameters derived from API
     lazy var macroStackView: UIStackView = {
         var carbView = MacroDetailView()
         var proteinView = MacroDetailView()
@@ -122,10 +120,9 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
     }
     
     // MARK: - NAV METHODS
-    // TODO: generate meal plan based on nutrition plan, go to MealPlan screen
     func goToNextScreen() {
-//        let nextScreen = Inject.ViewControllerHost(MealPlanVC())
-//        navigationController?.pushViewController(nextScreen, animated: true)
+        let nextScreen = Inject.ViewControllerHost(RankVC(userData: self.userData))
+        navigationController?.pushViewController(nextScreen, animated: true)
     }
     
     // MARK: - HELPER METHODS
@@ -158,7 +155,7 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         data.setValueFormatter(DefaultValueFormatter(formatter: formatter))
     }
     
-    func setData() {
+    func setChartData() {
         convertGramsToPercentageValue()
         
         let dataSet = PieChartDataSet(entries: yValues)

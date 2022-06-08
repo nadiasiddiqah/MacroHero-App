@@ -89,6 +89,10 @@ class SetActivityVC: UIViewController {
         stack.axis = .vertical
         stack.spacing = screenHeight * 0.03
         
+        NSLayoutConstraint.activate([
+            mainTitle.heightAnchor.constraint(equalTo: mainTitle.widthAnchor, multiplier: 0.14)
+        ])
+        
         let buttons = [firstButton, secondButton, thirdButton, fourthButton]
         buttons.forEach {
             NSLayoutConstraint.activate([
