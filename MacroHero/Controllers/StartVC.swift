@@ -92,8 +92,12 @@ extension StartVC {
             introImage.widthAnchor.constraint(
                 equalTo: view.widthAnchor, multiplier: 0.9),
             startButton.widthAnchor.constraint(
-                equalTo: view.widthAnchor, multiplier: 0.83)
+                equalTo: view.widthAnchor, multiplier: 0.83),
+            startButton.heightAnchor.constraint(
+                equalTo: startButton.widthAnchor, multiplier: 0.16)
         ])
+        
+        dump(startButton)
         
         NSLayoutConstraint.activate([
             stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),

@@ -582,7 +582,9 @@ extension AboutYouVC {
                 equalTo: view.bottomAnchor,
                 constant: screenHeight * -0.09),
             nextButton.widthAnchor.constraint(
-                equalTo: view.widthAnchor, multiplier: 0.83)
+                equalTo: view.widthAnchor, multiplier: 0.83),
+            nextButton.heightAnchor.constraint(
+                equalTo: nextButton.widthAnchor, multiplier: 0.16)
         ])
     }
 }
