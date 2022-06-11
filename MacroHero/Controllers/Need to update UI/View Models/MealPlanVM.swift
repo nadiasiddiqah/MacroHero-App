@@ -7,8 +7,6 @@
 
 import Foundation
 import Combine
-import PKHUD
-import Alamofire
 
 class MealPlanVM {
     @Published var mealPlan: [MealInfo]

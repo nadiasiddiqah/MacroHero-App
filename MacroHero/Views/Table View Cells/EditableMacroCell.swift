@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProteinDetailsCell: UITableViewCell {
+class EditableMacroCell: UITableViewCell {
 
     // MARK: - PROPERTIES
     var screenHeight = Utils.screenHeight

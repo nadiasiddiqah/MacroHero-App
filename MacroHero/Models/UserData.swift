@@ -20,14 +20,13 @@ struct MacroPlan {
 }
 
 enum Sex: String {
-    case male = "male"
-    case female = "female"
+    case male, female
 }
 
 enum Goal: String {
     case lose = "weightlose"
     case gain = "weightGain"
-    case maintain = "maintain"
+    case maintain 
 }
 
 enum Activity: String {

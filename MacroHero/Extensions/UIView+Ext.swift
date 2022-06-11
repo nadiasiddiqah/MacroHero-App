@@ -10,8 +10,7 @@ import UIKit
 
 extension UIView {
     enum ViewType {
-        case ctaButton
-        case normalButton
+        case ctaButton, normalButton
     }
     
     func addShadowEffect(type: ViewType) {

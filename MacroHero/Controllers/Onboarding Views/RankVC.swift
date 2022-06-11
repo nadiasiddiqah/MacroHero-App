@@ -47,7 +47,7 @@ class RankVC: UIViewController {
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
-            title: "Rank your macro goals:"))
+            title: "Rank your macro goals:", type: .onboardingView))
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -146,7 +146,7 @@ extension RankVC {
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             tableView.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.05),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
-            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34)
+            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.32)
         ])
         
         NSLayoutConstraint.activate([

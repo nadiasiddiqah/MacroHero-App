@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FavoritesView: UIViewController {
+class FavoritesTabVC: UIViewController {
     
     // MARK: - PROPERTIES
     var screenHeight = Utils.screenHeight
@@ -81,7 +81,7 @@ class FavoritesView: UIViewController {
     }
 }
 
-extension FavoritesView: UITableViewDelegate, UITableViewDataSource {
+extension FavoritesTabVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }

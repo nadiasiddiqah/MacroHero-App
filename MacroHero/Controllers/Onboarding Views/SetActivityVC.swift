@@ -37,7 +37,7 @@ class SetActivityVC: UIViewController {
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
-            title: "Select activity level"))
+            title: "Select activity level", type: .onboardingView))
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

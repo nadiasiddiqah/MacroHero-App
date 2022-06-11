@@ -44,7 +44,7 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
-            title: "Here's your plan"))
+            title: "Here's your plan", type: .onboardingView))
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

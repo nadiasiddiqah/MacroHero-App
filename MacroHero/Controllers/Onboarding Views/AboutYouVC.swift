@@ -56,7 +56,8 @@ class AboutYouVC: UIViewController {
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
-            title: "Tell us about yourself"))
+            title: "Tell us about yourself",
+            type: .onboardingView))
 
         return label
     }()
@@ -428,16 +429,23 @@ class AboutYouVC: UIViewController {
         
         return "\(kg)"
     }
+    
+    func passDummyData() {
+        userData = UserData(age: "25", heightCm: "160", weightKg: "68", sex: Sex.female, activityLevel: Activity.moderateExercise, goal: Goal.lose)
+    }
+    
+    func updateUserData() {
+        userData.sex = sex
+        userData.age = convertBirthdayToAge()
+        userData.heightCm = convertHeightToCm()
+        userData.weightKg = convertWeightToKg()
+    }
 
     // MARK: - NAV METHODS
     func goToNextScreen() {
         // Passed Data
-//        userData.sex = sex
-//        userData.age = convertBirthdayToAge()
-//        userData.heightCm = convertHeightToCm()
-//        userData.weightKg = convertWeightToKg()
-        
-        userData = UserData(age: "25", heightCm: "160", weightKg: "68", sex: Sex.female, activityLevel: Activity.moderateExercise, goal: Goal.lose)
+        passDummyData()
+//        updateUserData()
         
         DispatchQueue.main.async {
             MacroCalculatorAPI.fetchMacroData(for: self.userData) { [weak self] results in

@@ -31,6 +31,7 @@ class ProteinVC: UIViewController {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
             title: "What's the scoop on your protein shake?",
+            type: .onboardingView,
             numberOfLines: 2))
         
         return label
@@ -48,7 +49,7 @@ class ProteinVC: UIViewController {
         var tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ProteinDetailsCell.self, forCellReuseIdentifier: "proteinDetailsCell")
+        tableView.register(EditableMacroCell.self, forCellReuseIdentifier: "proteinDetailsCell")
         
         tableView.backgroundColor = Color.customYellow
         tableView.separatorStyle = .none
@@ -76,7 +77,7 @@ class ProteinVC: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func didTapNext() {
-        segueToMealPlanTab()
+        goToTabViews()
     }
 
     // MARK: - HELPER FUNCTIONS
@@ -89,39 +90,45 @@ class ProteinVC: UIViewController {
         ]
     }
     
-    // MARK: - NAV METHODS
-    func segueToMealPlanTab() {
-        let tabBarController = UITabBarController()
+    func createMealPlanNC() -> UINavigationController {
+        let vc = Inject.ViewControllerHost(MealPlanTabVC())
+        let tabImage = UIImage(systemName: "note.text")
+        vc.tabBarItem = UITabBarItem(title: "Meal Plan", image: tabImage, tag: 0)
         
-//        let vc1 = UINavigationController(rootViewController:
-//                                            MealPlanVC(viewModel: .init(mealPlan: [proteinData])))
-//        let vc2 = UINavigationController(rootViewController: Inject.ViewControllerHost(FavoritesView()))
-//        let vc3 = UINavigationController(rootViewController: ProfileView())
-//
-//        tabBarController.setViewControllers([vc1, vc2, vc3], animated: false)
-//
-//        guard let items = tabBarController.tabBar.items else { return }
-//        let images = ["note.text", "plus.circle", "person.circle"]
-//
-//        for item in 0..<items.count {
-//            items[item].image = UIImage(systemName: images[item])
-//        }
-//
-//        tabBarController.tabBar.tintColor = Color.customNavy
-//        tabBarController.modalPresentationStyle = .fullScreen
-//        present(tabBarController, animated: false)
-//    }
-//
-//    func createMacroVStack() -> UIStackView {
-//        let cal = createMacroHStack(macro: "Calories", textField: calTextField)
-//        let carbs = createMacroHStack(macro: "Carbs (g)", textField: carbsTextField)
-//        let protein = createMacroHStack(macro: "Protein (g)", textField: proteinTextField)
-//        let fat = createMacroHStack(macro: "Fat (g)", textField: fatTextField)
-//
-//        let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat],
-//                                             spacing: screenHeight * 0.02)
-//
-//        return macroVStack
+        return UINavigationController(rootViewController: vc)
+    }
+    
+    func createFavoritesNC() -> UINavigationController {
+        let vc = Inject.ViewControllerHost(FavoritesTabVC())
+        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        
+        return UINavigationController(rootViewController: vc)
+    }
+    
+    func createProfileNC() -> UINavigationController {
+        let vc = Inject.ViewControllerHost(ProfileTabVC())
+        let tabImage = UIImage(systemName: "person.circle")
+        vc.tabBarItem = UITabBarItem(title: "Profile", image: tabImage, tag: 2)
+        
+        return UINavigationController(rootViewController: vc)
+    }
+    
+    func createTabBarController() -> UITabBarController {
+        let tabBar = UITabBarController()
+        tabBar.viewControllers = [createMealPlanNC(), createFavoritesNC(), createProfileNC()]
+        
+        let tabBarAppearance = UITabBar.appearance()
+        tabBarAppearance.tintColor = Color.customNavy
+        tabBarAppearance.backgroundColor = Color.customYellow
+        
+        tabBar.modalPresentationStyle = .fullScreen
+        
+        return tabBar
+    }
+    
+    // MARK: - NAV METHODS
+    func goToTabViews() {
+        present(createTabBarController(), animated: false)
     }
 }
 
@@ -131,7 +138,7 @@ extension ProteinVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "proteinDetailsCell") as! ProteinDetailsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "proteinDetailsCell") as! EditableMacroCell
         
         cell.backgroundColor = Color.customYellow
         
@@ -167,12 +174,14 @@ extension ProteinVC {
         view.addSubview(mainTitle)
         view.addSubview(tableView)
         view.addSubview(proteinShakeGif)
+        view.addSubview(nextButton)
     }
     
     fileprivate func autoLayoutViews() {
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         proteinShakeGif.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     fileprivate func constrainSubviews() {
@@ -186,15 +195,22 @@ extension ProteinVC {
         NSLayoutConstraint.activate([
             proteinShakeGif.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             proteinShakeGif.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * -0.03),
-            proteinShakeGif.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            proteinShakeGif.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             proteinShakeGif.heightAnchor.constraint(equalTo: proteinShakeGif.widthAnchor, multiplier: 0.62)
         ])
         
         NSLayoutConstraint.activate([
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: proteinShakeGif.bottomAnchor, constant: screenHeight * 0.05),
+            tableView.topAnchor.constraint(equalTo: proteinShakeGif.bottomAnchor, constant: screenHeight * 0.03),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
-            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34)
+            tableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3)
+        ])
+        
+        NSLayoutConstraint.activate([
+            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: screenHeight * -0.09),
+            nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83),
+            nextButton.heightAnchor.constraint(equalTo: nextButton.widthAnchor, multiplier: 0.16)
         ])
     }
 }

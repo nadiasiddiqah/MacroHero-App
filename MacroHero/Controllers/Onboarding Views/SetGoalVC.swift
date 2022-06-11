@@ -27,7 +27,7 @@ class SetGoalVC: UIViewController {
     lazy var mainTitle: UILabel = {
         var label = MainLabel()
         label.configure(with: MainLabelModel(
-            title: "What's your goal?"))
+            title: "What's your goal?", type: .onboardingView))
         
         return label
     }()

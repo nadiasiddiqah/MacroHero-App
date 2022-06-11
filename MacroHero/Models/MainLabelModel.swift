@@ -9,5 +9,10 @@ import Foundation
 
 struct MainLabelModel {
     var title: String
+    var type: MainLabelType
     var numberOfLines: Int?
+}
+
+enum MainLabelType {
+    case onboardingView, tabView
 }
