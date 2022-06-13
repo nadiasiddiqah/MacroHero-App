@@ -160,6 +160,7 @@
 				0933D8C2270BC6A200080FCD /* Models */,
 				0966D42027C9AA5D00A90754 /* Views */,
 				0966D41D27C9A9F600A90754 /* Controllers */,
+				09E4B4252846A2FD00F319BB /* Not in use */,
 				0966D42327C9AC6C00A90754 /* Networking */,
 				0966D41B27C9A96500A90754 /* Extensions */,
 				0933D8BE270BC66600080FCD /* Other */,
@@ -276,7 +277,6 @@
 				094358D42854304500A27A17 /* Onboarding Views */,
 				094358D22854302900A27A17 /* Tab Views */,
 				094358D32854303800A27A17 /* Detail Views */,
-				09E4B4252846A2FD00F319BB /* Need to update UI */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -302,14 +302,14 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		09E4B4252846A2FD00F319BB /* Need to update UI */ = {
+		09E4B4252846A2FD00F319BB /* Not in use */ = {
 			isa = PBXGroup;
 			children = (
 				0966D41C27C9A9BC00A90754 /* View Models */,
 				09FD0BDF270E24830094BAAC /* InfoVC.swift */,
 				096CA545274DB7C40071C6EE /* PlanVC.swift */,
 			);
-			path = "Need to update UI";
+			path = "Not in use";
 			sourceTree = "<group>";
 		};
 		09FD0BEB270E2E0B0094BAAC /* Fonts */ = {

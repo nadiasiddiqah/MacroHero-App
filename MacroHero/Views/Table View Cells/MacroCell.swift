@@ -31,9 +31,11 @@ class MacroCell: UITableViewCell {
         var labels = [leftLabel, rightLabel]
         leftLabel.textColor = .black
         leftLabel.textAlignment = .left
+        leftLabel.translatesAutoresizingMaskIntoConstraints = false
         
         rightLabel.textColor = .gray
         rightLabel.textAlignment = .center
+        rightLabel.translatesAutoresizingMaskIntoConstraints = false
         
         var stack = UIStackView(arrangedSubviews: labels)
         stack.axis = .horizontal
@@ -45,8 +47,6 @@ class MacroCell: UITableViewCell {
     func setupView() {
         contentView.addSubview(stackView)
         
-        leftLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([

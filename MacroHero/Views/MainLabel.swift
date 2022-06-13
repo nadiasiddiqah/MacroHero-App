@@ -24,11 +24,11 @@ final class MainLabel: UILabel {
         if model.type == MainLabelType.onboardingView {
             font = Font.solid_30
             textColor = Color.customOrange
+            textAlignment = .center
         } else {
-            font = Font.shadow_30
+            font = Font.shadow_28
             textColor = Color.customNavy
         }
         adjustsFontSizeToFitWidth = true
-        textAlignment = .center
     }
 }

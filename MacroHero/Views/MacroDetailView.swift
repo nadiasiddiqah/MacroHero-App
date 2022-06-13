@@ -78,24 +78,26 @@ final class MacroDetailView: UIView {
         label3.text = model.label
         label1.textColor = model.percentColor
     }
-    
-    private func setupViews() {
+}
+
+extension MacroDetailView {
+    func setupViews() {
         addViews()
         autoLayoutViews()
         constrainViews()
     }
     
-    private func addViews() {
+    func addViews() {
         addSubview(iv)
         iv.addSubview(labelStack)
     }
     
-    private func autoLayoutViews() {
+    func autoLayoutViews() {
         iv.translatesAutoresizingMaskIntoConstraints = false
         labelStack.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func constrainViews() {
+    func constrainViews() {
         NSLayoutConstraint.activate([
             iv.centerXAnchor.constraint(equalTo: centerXAnchor),
             iv.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -103,6 +105,4 @@ final class MacroDetailView: UIView {
             labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
         ])
     }
-    
 }
-
