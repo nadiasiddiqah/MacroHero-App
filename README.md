@@ -30,10 +30,10 @@ A health app that allows users to calculate a personalized nutrition plan and ea
 - Used **Alamofire** and **Codable** to decode data requested from RESTful APIs
 - Utilized APIs and CRUD methodology to make it easy for users to reach their diet goals by generating personalized nutrition plans
 - Used **DispatchGroups** to make concurrent API requests to generate daily meal plans from a database of 2.3M+ recipes
-- Created app design system using **Figma** and developed **UI programmatically** with **MVVM** architectural pattern
+- Created app design system using **Figma** and developed **UI programmatically** with **MVC** architectural pattern
 ## Tech Stack
 
-UIKit, Programmatic UI, RESTful APIs, Alamofire, CocoaPods, Figma, MVVM
+UIKit, Programmatic UI, RESTful APIs, Alamofire, CocoaPods, Figma, MVC
 
 
 ## Feedback
