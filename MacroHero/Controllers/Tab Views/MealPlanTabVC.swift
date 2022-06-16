@@ -63,7 +63,7 @@ class MealPlanTabVC: UIViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.register(MealCell.self, forCellReuseIdentifier: "mealCell")
         
         tableView.backgroundColor = .none
@@ -76,7 +76,7 @@ class MealPlanTabVC: UIViewController {
     func fetchDummyMealPlan() {
         mealPlan = [
             MealInfo(mealOrder: 0, image: "", type: MealType.breakfast.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: MacroPlan(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: [], instructions: []),
-            MealInfo(mealOrder: 1, image: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: MacroPlan(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: [], instructions: []),
+            MealInfo(mealOrder: 1, image: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast", macros: MacroPlan(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: [], instructions: []),
             MealInfo(mealOrder: 2, image: "", type: MealType.dinner.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: MacroPlan(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: [], instructions: [])
         ]
     }

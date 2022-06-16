@@ -66,20 +66,20 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
     }()
     
     lazy var macroStackView: UIStackView = {
-        var carbView = MacroDetailView()
-        var proteinView = MacroDetailView()
-        var fatView = MacroDetailView()
+        var carbView = VerticalMacroView()
+        var proteinView = VerticalMacroView()
+        var fatView = VerticalMacroView()
         
         if let macroPlan = userData.macroPlan {
-            carbView.configure(with: MacroDetailModel(
+            carbView.configure(with: VerticalMacroModel(
                 percent: "\(Int(carbsPercent))%", grams: "\(macroPlan.carbs)g",
                 label: "Carbs", percentColor: .systemGreen))
             
-            proteinView.configure(with: MacroDetailModel(
+            proteinView.configure(with: VerticalMacroModel(
                 percent: "\(Int(proteinPercent))%", grams: "\(macroPlan.protein)g",
                 label: "Protein", percentColor: .systemYellow))
             
-            fatView.configure(with: MacroDetailModel(
+            fatView.configure(with: VerticalMacroModel(
                 percent: "\(Int(fatPercent))%", grams: "\(macroPlan.fat)g",
                 label: "Fat", percentColor: .systemRed))
         }

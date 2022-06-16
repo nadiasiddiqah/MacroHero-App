@@ -10,18 +10,12 @@ import UIKit
 import AlamofireImage
 import PKHUD
 
-struct MealCellModel {
-    var mealInfo: MealInfo
-    var refreshAction: () -> Void
-}
-
 class MealCell: UITableViewCell {
     
     // MARK: - PROPERTIES
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
     
-    var iv = UIImageView()
     var refreshAction: (() -> Void)?
     
     var calLabel = UILabel()
@@ -39,14 +33,16 @@ class MealCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - VIEW METHODS
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: screenHeight * 0.03, right: 0))
-//    }
-    
     // MARK: - VIEW OBJECTS
+    lazy var bgView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Color.customYellow
+        view.layer.cornerRadius = 20
+        view.addShadowEffect(type: .normalButton)
+        
+        return view
+    }()
+    
     lazy var typeLabel: UILabel = {
         let label = UILabel()
         label.font = Font.solid_25
@@ -60,8 +56,9 @@ class MealCell: UITableViewCell {
         let label = UILabel()
         label.font = Font.solid_17
         label.textColor = Color.customNavy
-        label.lineBreakStrategy = []
         label.numberOfLines = 2
+        label.lineBreakStrategy = []
+        label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -70,29 +67,21 @@ class MealCell: UITableViewCell {
     lazy var titleStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [typeLabel, nameLabel])
         stack.axis = .vertical
-        stack.translatesAutoresizingMaskIntoConstraints = true
-        
+
+        NSLayoutConstraint.activate([
+            typeLabel.topAnchor.constraint(equalTo: stack.topAnchor),
+            typeLabel.leftAnchor.constraint(equalTo: stack.leftAnchor),
+            typeLabel.rightAnchor.constraint(equalTo: stack.rightAnchor),
+            typeLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            nameLabel.bottomAnchor.constraint(equalTo: stack.bottomAnchor),
+            nameLabel.leftAnchor.constraint(equalTo: stack.leftAnchor),
+            nameLabel.rightAnchor.constraint(equalTo: stack.rightAnchor)
+        ])
+
         return stack
-    }()
-    
-    lazy var fullStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [titleStack, iv])
-        stack.axis = .vertical
-        stack.spacing = screenHeight * 0.01
-        
-        return stack
-    }()
-    
-    lazy var macroVStack: UIStackView = {
-        let cal = createMacroHStack(macro: "Calories", valueLabel: calLabel)
-        let carbs = createMacroHStack(macro: "Carbs", valueLabel: carbLabel)
-        let protein = createMacroHStack(macro: "Protein", valueLabel: proteinLabel)
-        let fat = createMacroHStack(macro: "Fat", valueLabel: fatLabel)
-        
-        let macroVStack = Utils.createVStack(subviews: [cal, carbs, protein, fat],
-                                             spacing: screenHeight * 0.006)
-        
-        return macroVStack
     }()
     
     lazy var refreshButton: UIButton = {
@@ -100,9 +89,54 @@ class MealCell: UITableViewCell {
         button.setBackgroundImage(Image.refreshButton, for: .normal)
         button.addTarget(self, action: #selector(didTapRefresh(_:)), for: .touchUpInside)
         button.tintColor = Color.customOrange
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 5, right: 10)
         
         return button
+    }()
+    
+    lazy var macroStack: UIStackView = {
+        let cal = createMacroHStack("Calories", calLabel)
+        let carbs = createMacroHStack("Carbs", carbLabel)
+        let protein = createMacroHStack("Protein", proteinLabel)
+        let fat = createMacroHStack("Fat", fatLabel)
+        
+        let finalStack = UIStackView(arrangedSubviews: [cal, carbs, protein, fat])
+        finalStack.axis = .vertical
+        finalStack.distribution = .fillEqually
+        
+        return finalStack
+    }()
+    
+    lazy var iv: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.layer.cornerRadius = 6
+        iv.layer.masksToBounds = true
+        
+        return iv
+    }()
+    
+    lazy var bottomStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [iv, macroStack])
+        stack.axis = .horizontal
+        stack.distribution = .fillProportionally
+        stack.spacing = screenHeight * 0.02
+        
+        NSLayoutConstraint.activate([
+            iv.topAnchor.constraint(equalTo: stack.topAnchor),
+            iv.leftAnchor.constraint(equalTo: stack.leftAnchor),
+            iv.widthAnchor.constraint(equalTo: stack.widthAnchor, multiplier: 0.55),
+            iv.heightAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.6),
+            iv.bottomAnchor.constraint(equalTo: stack.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            macroStack.topAnchor.constraint(equalTo: stack.topAnchor),
+            macroStack.rightAnchor.constraint(equalTo: stack.rightAnchor),
+            macroStack.bottomAnchor.constraint(equalTo: stack.bottomAnchor)
+        ])
+        
+        return stack
     }()
     
     // MARK: - TAP FUNCTIONS
@@ -140,74 +174,71 @@ class MealCell: UITableViewCell {
         refreshAction = model.refreshAction
     }
     
-    func createMacroHStack(macro: String, valueLabel: UILabel) -> UIStackView {
-        let macroLabel = UILabel()
-        macroLabel.text = macro
-        macroLabel.textColor = Color.customBlue
-        macroLabel.font = Font.solid_15
-        macroLabel.adjustsFontSizeToFitWidth = true
+    func createMacroHStack(_ macro: String, _ label2: UILabel) -> UIStackView {
+        let label1 = UILabel()
+        label1.text = macro
+        label1.textAlignment = .left
+        label1.translatesAutoresizingMaskIntoConstraints = false
         
-        valueLabel.textColor = Color.customBlue
-        valueLabel.font = Font.solid_15
-        valueLabel.adjustsFontSizeToFitWidth = true
+        label2.textColor = .systemGray
+        label2.textAlignment = .right
+        label2.translatesAutoresizingMaskIntoConstraints = false
         
-        let macroHStack = UIStackView(arrangedSubviews: [macroLabel, valueLabel])
-        macroHStack.width(screenWidth * 0.33)
-        macroHStack.axis = .horizontal
+        let stack = UIStackView(arrangedSubviews: [label1, label2])
+        stack.axis = .horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
         
-        return macroHStack
+        return stack
     }
 }
 
 extension MealCell {
     func setupView() {
-        contentView.backgroundColor = Color.customYellow
-        contentView.layer.cornerRadius = 20
-        contentView.addShadowEffect(type: .normalButton)
-        
         addSubviews()
         autoLayoutViews()
         addConstraints()
     }
     
     func addSubviews() {
-        contentView.addSubview(titleStack)
-        contentView.addSubview(iv)
-//        contentView.addSubview(macroVStack)
-        contentView.addSubview(refreshButton)
+        contentView.addSubview(bgView)
+        bgView.addSubview(titleStack)
+        bgView.addSubview(bottomStack)
+        bgView.addSubview(refreshButton)
     }
     
     func autoLayoutViews() {
+        bgView.translatesAutoresizingMaskIntoConstraints = false
         titleStack.translatesAutoresizingMaskIntoConstraints = false
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        
+        bottomStack.translatesAutoresizingMaskIntoConstraints = false
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func addConstraints() {
         NSLayoutConstraint.activate([
-            titleStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            titleStack.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: screenHeight * 0.01),
+            bgView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            bgView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            bgView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            bgView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: screenHeight * -0.03)
+        ])
+        
+        NSLayoutConstraint.activate([
+            titleStack.centerXAnchor.constraint(equalTo: bgView.centerXAnchor),
+            titleStack.topAnchor.constraint(equalTo: bgView.topAnchor, constant: screenHeight * 0.01),
             titleStack.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.9)
         ])
         
         NSLayoutConstraint.activate([
-            refreshButton.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: screenHeight * 0.015),
+            refreshButton.topAnchor.constraint(equalTo: bgView.topAnchor, constant: screenHeight * 0.015),
             refreshButton.rightAnchor.constraint(equalTo: titleStack.rightAnchor),
-            refreshButton.heightAnchor.constraint(equalTo: typeLabel.heightAnchor, multiplier: 0.8),
+            refreshButton.heightAnchor.constraint(equalTo: typeLabel.heightAnchor, multiplier: 0.75),
             refreshButton.widthAnchor.constraint(equalTo: refreshButton.heightAnchor, multiplier: 1)
         ])
         
         NSLayoutConstraint.activate([
-            iv.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: screenHeight * 0.01),
-            iv.leftAnchor.constraint(equalTo: titleStack.leftAnchor),
-            iv.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
-            iv.heightAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.6),
-            iv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: screenHeight * -0.02)
+            bottomStack.centerXAnchor.constraint(equalTo: bgView.centerXAnchor),
+            bottomStack.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: screenHeight * 0.01),
+            bottomStack.widthAnchor.constraint(equalTo: titleStack.widthAnchor),
+            bottomStack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.02)
         ])
-        
-//        macroVStack.topToBottom(of: titleStack, offset: screenHeight * 0.01)
-//        macroVStack.leftToRight(of: imageIV, offset: screenWidth * 0.025)
-//        macroVStack.width(screenWidth * 0.33)
     }
 }

@@ -7,12 +7,7 @@
 
 import UIKit
 
-struct MacroDetailModel {
-    var percent, grams, label: String
-    var percentColor: UIColor
-}
-
-final class MacroDetailView: UIView {
+final class VerticalMacroView: UIView {
     
     // MARK: - PROPERTIES
     var screenWidth = Utils.screenWidth
@@ -72,7 +67,7 @@ final class MacroDetailView: UIView {
     }
     
     // MARK: - HELPER METHODS
-    func configure(with model: MacroDetailModel) {
+    func configure(with model: VerticalMacroModel) {
         label1.text = model.percent
         label2.text = model.grams
         label3.text = model.label
@@ -80,7 +75,7 @@ final class MacroDetailView: UIView {
     }
 }
 
-extension MacroDetailView {
+extension VerticalMacroView {
     func setupViews() {
         addViews()
         autoLayoutViews()

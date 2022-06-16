@@ -23,7 +23,7 @@ class Utils {
         }
         dropDown.anchorView = anchorView
         dropDown.direction = .bottom
-        
+
         if screen == "info" {
             dropDown.cornerRadius = 18
             dropDown.backgroundColor = Color.bgColor
@@ -56,7 +56,7 @@ class Utils {
             image.frame = CGRect(x: 0, y: 0, width: width, height: height)
         }
         image.contentMode = .scaleAspectFit
-        
+
         return image
     }
 
@@ -68,7 +68,7 @@ class Utils {
                                   width: width,
                                   height: height)
         }
-        
+
         if let spacing = spacing {
             VStack.spacing = spacing
         }
