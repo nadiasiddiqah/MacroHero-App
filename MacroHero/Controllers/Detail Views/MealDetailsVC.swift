@@ -6,21 +6,26 @@
 //
 
 import UIKit
-import Combine
 import AlamofireImage
+import Charts
 
-class MealDetailsVC: UIViewController {
+class MealDetailsVC: UIViewController, ChartViewDelegate {
     
     // MARK: - PROPERTIES
-    private var viewModel: MealDetailsVM
-    private var cancellables = Set<AnyCancellable>()
-    
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
     
+    private var mealInfo: MealInfo
+    var isFavorite = false
+    
+    var yValues = [ChartDataEntry]()
+    var carbsPercent = Double()
+    var proteinPercent = Double()
+    var fatPercent = Double()
+    
     // MARK: - Initializers
-    init(viewModel: MealDetailsVM) {
-        self.viewModel = viewModel
+    init(mealInfo: MealInfo) {
+        self.mealInfo = mealInfo
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,127 +37,231 @@ class MealDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setChartData()
         setupViews()
     }
     
     // MARK: - LAZY PROPERTIES
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.contentInsetAdjustmentBehavior = .never
         
         return scrollView
     }()
     
-    lazy var contentView: UIView = {
-        let view = Utils.createVStack(subviews: [topView, nutritionView, ingredientsView],
-                                             spacing: Utils.screenHeight * 0.03)
-        view.translatesAutoresizingMaskIntoConstraints = false
+    lazy var iv: UIImageView = {
+        let iv = UIImageView()
+        if let image = mealInfo.image, let url = URL(string: image), image != "defaultMealImage" {
+            let filter = AspectScaledToFillSizeFilter(size: iv.frame.size)
+            iv.af.setImage(withURL: url, filter: filter)
+        } else {
+            iv.image = Image.defaultMealImage
+        }
+        iv.contentMode = .scaleAspectFill
         
+        return iv
+    }()
+    
+    lazy var starButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "star")
+        button.setBackgroundImage(image, for: .normal)
+        button.tintColor = .systemYellow
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapStarButton), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var titleBlock: UIView = {
+        let bgView = UIView()
+        bgView.backgroundColor = Color.customYellow
+        bgView.layer.cornerRadius = 20
+        bgView.addShadowEffect(type: .normalButton)
+        
+        let typeLabel = MainLabel()
+        if let type = mealInfo.type {
+            typeLabel.configure(with: MainLabelModel(
+                title: type.uppercased(),
+                type: .tabView,
+                textColor: Color.customOrange))
+        }
+        typeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let nameLabel = UILabel()
+        nameLabel.text = mealInfo.name
+        nameLabel.font = Font.solid_17
+        nameLabel.textColor = Color.customNavy
+        nameLabel.numberOfLines = 0
+        nameLabel.lineBreakStrategy = []
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stack = UIStackView(arrangedSubviews: [typeLabel, nameLabel])
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        bgView.addSubview(stack)
+        bgView.addSubview(starButton)
+        
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: bgView.topAnchor, constant: screenHeight * 0.02),
+            stack.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: screenHeight * 0.02),
+            stack.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: screenHeight * -0.02),
+            stack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.025)
+        ])
+        
+        NSLayoutConstraint.activate([
+            starButton.topAnchor.constraint(equalTo: bgView.topAnchor, constant: screenHeight * 0.022),
+            starButton.rightAnchor.constraint(equalTo: stack.rightAnchor),
+            starButton.heightAnchor.constraint(equalTo: typeLabel.heightAnchor, multiplier: 0.75),
+            starButton.widthAnchor.constraint(equalTo: starButton.heightAnchor, multiplier: 1.1)
+        ])
+        
+        return bgView
+    }()
+    
+    lazy var pieChartView: PieChartView = {
+        var chart = PieChartView()
+        chart.holeRadiusPercent = 0.7
+        chart.legend.enabled = false
+        if let calories = mealInfo.macros?.calories {
+            chart.centerAttributedText = createCenterAttributedText(
+                calories: calories
+            )
+        }
+        chart.holeColor = .clear
+        chart.translatesAutoresizingMaskIntoConstraints = false
+        return chart
+    }()
+    
+    lazy var nutritionBlock: UIView = {
+        let bgView = UIView()
+        bgView.backgroundColor = Color.customYellow
+        bgView.layer.cornerRadius = 20
+        bgView.addShadowEffect(type: .normalButton)
+
+        let label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: "NUTRITION", type: .tabView))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        var carbView = VerticalMacroView()
+        var proteinView = VerticalMacroView()
+        var fatView = VerticalMacroView()
+
+        if let macros = mealInfo.macros {
+            carbView.configure(with: VerticalMacroModel(
+                percent: "\(Int(carbsPercent))%", grams: "\(macros.carbs)g",
+                label: "Carbs", percentColor: .systemGreen,
+                bgColor: UIColor.clear, gramsFont: Font.solid_20))
+            carbView.translatesAutoresizingMaskIntoConstraints = false
+
+            proteinView.configure(with: VerticalMacroModel(
+                percent: "\(Int(proteinPercent))%", grams: "\(macros.protein)g",
+                label: "Protein", percentColor: .systemYellow,
+                bgColor: UIColor.clear, gramsFont: Font.solid_20))
+            proteinView.translatesAutoresizingMaskIntoConstraints = false
+
+            fatView.configure(with: VerticalMacroModel(
+                percent: "\(Int(fatPercent))%", grams: "\(macros.fat)g",
+                label: "Fat", percentColor: .systemRed,
+                bgColor: UIColor.clear, gramsFont: Font.solid_20))
+            fatView.translatesAutoresizingMaskIntoConstraints = false
+        }
+
+        let macroStack = UIStackView(arrangedSubviews: [carbView, proteinView, fatView])
+        macroStack.axis = .horizontal
+        macroStack.distribution = .fillEqually
+        macroStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        let chartMacroStack = UIStackView(arrangedSubviews: [pieChartView, macroStack])
+        chartMacroStack.axis = .horizontal
+        chartMacroStack.distribution = .fill
+        chartMacroStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        bgView.addSubview(label)
+        bgView.addSubview(chartMacroStack)
+        
+        NSLayoutConstraint.activate([
+            macroStack.leftAnchor.constraint(equalTo: pieChartView.rightAnchor, constant: screenHeight * -0.015)
+        ])
+        
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: bgView.topAnchor, constant: screenHeight * 0.02),
+            label.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: screenHeight * 0.02),
+            label.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: screenHeight * -0.02),
+        ])
+        
+        NSLayoutConstraint.activate([
+            pieChartView.widthAnchor.constraint(equalTo: bgView.widthAnchor,
+                                                multiplier: 0.3),
+            pieChartView.heightAnchor.constraint(equalTo: pieChartView.widthAnchor,
+                                                multiplier: 1),
+        ])
+        
+        NSLayoutConstraint.activate([
+            chartMacroStack.topAnchor.constraint(equalTo: label.bottomAnchor),
+            chartMacroStack.leftAnchor.constraint(equalTo: bgView.leftAnchor),
+            chartMacroStack.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: screenHeight * -0.01),
+            chartMacroStack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.02),
+        ])
+        
+        return bgView
+    }()
+
+    lazy var ingredientBlock: UIView = {
+        let bgView = UIView()
+        bgView.backgroundColor = Color.customYellow
+        bgView.layer.cornerRadius = 20
+        bgView.addShadowEffect(type: .normalButton)
+        
+        return bgView
+    }()
+
+    lazy var instructionsButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("INSTRUCTIONS", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = Font.solid_25
+        button.setBackgroundImage(Image.ctaButton, for: .normal)
+        button.addTarget(self, action: #selector(didTapInstructions), for: .touchUpInside)
+        button.addShadowEffect(type: .ctaButton)
+        
+        return button
+    }()
+
+    lazy var contentView: UIView = {
+        let view = UIView()
+//        let view = Utils.createVStack(subviews: [topView, nutritionView, ingredientsView], spacing: Utils.screenHeight * 0.03)
+//        view.translatesAutoresizingMaskIntoConstraints = false
+
 //        let fullView = Utils.createVStack(subviews: [partialView, instructionsView],
 //                                          spacing: Utils.screenHeight * 0.001)
-        
+
         return view
     }()
     
-    lazy var topView: UIStackView = {
-        var titleLabelStack = UIStackView()
-        var imageView = UIImageView(frame: CGRect(x: 0, y: 0,
-                                                  width: screenWidth * 0.8,
-                                                  height: screenHeight * 0.22))
+    // MARK: - TAP METHODS
+    @objc func didTapStarButton() {
+        isFavorite.toggle()
         
-        if let type = viewModel.mealInfo.type,
-           let name = viewModel.mealInfo.name,
-           let image = viewModel.mealInfo.image {
-            let title = Utils.createMainTitle(text: type.uppercased(),
-                                              textColor: Color.customNavy,
-                                              noOfLines: 1)
-            title.textAlignment = .center
-            
-            let label = UILabel()
-            label.font = Font.solid_23
-            label.textColor = Color.customNavy
-            label.textAlignment = .center
-            label.text = name
-            label.numberOfLines = 0
-            label.lineBreakStrategy = []
-            label.adjustsFontSizeToFitWidth = true
-            
-            titleLabelStack = Utils.createVStack(subviews: [title, label],
-                                                 spacing: screenHeight * 0.01)
-            
-            imageView.width(screenWidth * 0.8)
-            imageView.aspectRatio(1.63)
-            
-            if let url = URL(string: image) {
-                let filter = AspectScaledToFillSizeFilter(size: imageView.frame.size)
-                imageView.af.setImage(withURL: url, filter: filter)
-            } else {
-                imageView = UIImageView(image: Image.defaultMealImage)
-            }
-        }
-        
-        let fullVStack = Utils.createVStack(subviews: [titleLabelStack, imageView],
-                                            spacing: screenHeight * 0.02)
-        
-        return fullVStack
-    }()
+        let image = isFavorite ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
+        starButton.setBackgroundImage(image?.withTintColor(.systemYellow), for: .normal)
+    }
     
-    lazy var nutritionView: UIStackView = {
-        let label = createHeader(title: "NUTRITION:")
-        
-        var cal = UIStackView()
-        var carbs = UIStackView()
-        var protein = UIStackView()
-        var fat = UIStackView()
-        
-        if let macroData = viewModel.mealInfo.macros {
-            cal = createMacroHStack(macro: "Calories", value: macroData.calories)
-            carbs = createMacroHStack(macro: "Carbs", value: "\(macroData.carbs)g")
-            protein = createMacroHStack(macro: "Protein", value: "\(macroData.protein)g")
-            fat = createMacroHStack(macro: "Fat", value: "\(macroData.fat)g")
-        }
-        
-        let leftVStack = Utils.createVStack(subviews: [cal, carbs],
-                                            width: screenWidth * 0.375,
-                                            spacing: screenHeight * 0.01)
-        
-        let rightVStack = Utils.createVStack(subviews: [protein, fat],
-                                             width: screenWidth * 0.375,
-                                             spacing: screenHeight * 0.01)
-        
-        let macroHStack = UIStackView(arrangedSubviews: [leftVStack, rightVStack])
-        macroHStack.axis = .horizontal
-        macroHStack.spacing = screenWidth * 0.05
-        
-        let fullVStack = Utils.createVStack(subviews: [label, macroHStack],
-                                            spacing: screenWidth * 0.02)
-        
-        return fullVStack
-    }()
+    @objc func didTapInstructions() {
+        print("instructions")
+    }
     
-    lazy var ingredientsView: UIStackView = {
-        let label = createHeader(title: "INGREDIENTS:")
-        let textView = UILabel()
-        
-        if let ingredients = viewModel.mealInfo.ingredients {
-            textView.numberOfLines = 0
-            textView.attributedText = add(stringList: ingredients)
-        }
-        
-        let VStack = Utils.createVStack(subviews: [label, textView],
-                                        spacing: screenWidth * 0.02)
-        
-        return VStack
-    }()
-    
-//    lazy var instructionsView: UIStackView = {
-//        let label = createHeader(title: "INSTRUCTIONS:")
+//    lazy var ingredientsView: UIStackView = {
+//        let label = createHeader(title: "INGREDIENTS:")
 //        let textView = UILabel()
-//        textView.numberOfLines = 0
 //
-//        if let instructions = viewModel.mealInfo.instructions {
-//            textView.attributedText = add(stringList: instructions,
-//                                          indentation: 25, numberedList: true)
+//        if let ingredients = mealInfo.ingredients {
+//            textView.numberOfLines = 0
+//            textView.attributedText = add(stringList: ingredients)
 //        }
 //
 //        let VStack = Utils.createVStack(subviews: [label, textView],
@@ -161,69 +270,62 @@ class MealDetailsVC: UIViewController {
 //        return VStack
 //    }()
     
-    // MARK: - SETUP FUNCTIONS
-    func setupViews() {
-        view.backgroundColor = Color.bgColor
-        addSubviews()
-        constrainSubviews()
-//        Utils.setNavigationBar(navController: navigationController, navItem: navigationItem,
-//                               leftBarButtonItem: UIBarButtonItem(image: Image.backButton,
-//                                                            style: .done, target: self,
-//                                                            action: #selector(didTapBackButton)))
-    }
-
-    @objc func didTapBackButton(sender: UIBarButtonItem) {
-        self.navigationController?.popViewController(animated: true)
-    }
-
-    fileprivate func addSubviews() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-    }
-
-    fileprivate func constrainSubviews() {
-        scrollView.topToSuperview(usingSafeArea: true)
-        scrollView.bottomToSuperview()
-        scrollView.horizontalToSuperview()
-
-        contentView.topToSuperview(offset: screenHeight * 0.04)
-        contentView.centerXToSuperview()
-        contentView.bottomToSuperview()
-        contentView.width(screenWidth * 0.8)
-    }
-    
-    // MARK: - TAP METHODS
-    
     // MARK: - HELPER FUNCTIONS
-    func createHeader(title: String) -> UILabel {
-        let label = UILabel()
-        label.font = Font.shadow_25
-        label.textColor = Color.customNavy
-        label.text = title
-        label.adjustsFontSizeToFitWidth = true
+    func setChartData() {
+        convertGramsToPercentageValue()
         
-        return label
+        let dataSet = PieChartDataSet(entries: yValues)
+        dataSet.colors = [.systemGreen, .systemYellow, .systemRed]
+        dataSet.drawValuesEnabled = false
+        
+        let data = PieChartData(dataSet: dataSet)
+        pieChartView.data = data
     }
     
-    func createMacroHStack(macro: String, value: String) -> UIStackView {
-        let font = Font.solid_17
+    func convertGramsToPercentageValue() {
+        guard let macros = mealInfo.macros,
+              let calories = Double(macros.calories),
+              let carbs = Double(macros.carbs),
+              let protein = Double(macros.protein),
+              let fat = Double(macros.fat) else { return }
         
-        let macroLabel = UILabel()
-        macroLabel.text = macro
-        macroLabel.textColor = Color.customBlue
-        macroLabel.font = font
+        carbsPercent = round(((carbs * 4) / calories) * 100)
+        proteinPercent = round(((protein * 4) / calories) * 100)
+        fatPercent = round(((fat * 9) / calories) * 100)
         
-        let valueLabel = UILabel()
-        valueLabel.text = value
-        valueLabel.textColor = Color.customNavy
-        valueLabel.font = font
-        valueLabel.textAlignment = .right
+        yValues = [ChartDataEntry(x: 1.0, y: carbsPercent),
+                   ChartDataEntry(x: 2.0, y: proteinPercent),
+                   ChartDataEntry(x: 3.0, y: fatPercent)]
+    }
+    
+    func createCenterAttributedText(
+        calories: String
+    ) -> NSMutableAttributedString {
+        let centeredParagraphStyle = NSMutableParagraphStyle()
+        centeredParagraphStyle.alignment = .center
         
-        let macroHStack = UIStackView(arrangedSubviews: [macroLabel, valueLabel])
-        macroHStack.axis = .horizontal
-        macroHStack.spacing = screenWidth * 0.06
+        let twoLines = [
+            NSAttributedString(
+                string: calories + "\n",
+                attributes: [
+                    .font: Font.solid_17!,
+                    .foregroundColor: Color.customNavy!,
+                    .paragraphStyle: centeredParagraphStyle,
+                ]
+            ),
+            NSAttributedString(
+                string: "cal",
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 15,
+                                             weight: .regular),
+                    .paragraphStyle: centeredParagraphStyle
+                ]
+            )
+        ]
         
-        return macroHStack
+        let string = NSMutableAttributedString()
+        twoLines.forEach { string.append($0) }
+        return string
     }
     
     func add(stringList: [String],
@@ -290,4 +392,100 @@ class MealDetailsVC: UIViewController {
     }
 }
 
+extension MealDetailsVC {
+    func setupViews() {
+        view.backgroundColor = Color.bgColor
+        addBackButton()
+        addSubviews()
+        autoLayoutViews()
+        constrainSubviews()
+    }
 
+    fileprivate func addBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: Image.backButton,
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(goBack))
+    }
+    
+    @objc func goBack(sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+
+    fileprivate func addSubviews() {
+        view.addSubview(scrollView)
+//        scrollView.addSubview(contentView)
+        scrollView.addSubview(iv)
+        scrollView.addSubview(titleBlock)
+        scrollView.addSubview(nutritionBlock)
+//        scrollView.addSubview(pieChartView)
+//        scrollView.addSubview(instructionsButton)
+    }
+    
+    fileprivate func autoLayoutViews() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        contentView.translatesAutoresizingMaskIntoConstraints = false
+        titleBlock.translatesAutoresizingMaskIntoConstraints = false
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        instructionsButton.translatesAutoresizingMaskIntoConstraints = false
+        nutritionBlock.translatesAutoresizingMaskIntoConstraints = false
+//        pieChartView.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    fileprivate func constrainSubviews() {
+        NSLayoutConstraint.activate([
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+//        NSLayoutConstraint.activate([
+//            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+//            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+//        ])
+        
+        NSLayoutConstraint.activate([
+            iv.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            iv.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            iv.heightAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.7)
+        ])
+        
+        NSLayoutConstraint.activate([
+            titleBlock.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            titleBlock.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.92),
+            titleBlock.topAnchor.constraint(equalTo: iv.bottomAnchor, constant: screenHeight * 0.03)
+        ])
+        
+        NSLayoutConstraint.activate([
+            nutritionBlock.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            nutritionBlock.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.92),
+            nutritionBlock.topAnchor.constraint(equalTo: titleBlock.bottomAnchor, constant: screenHeight * 0.03),
+//            nutritionBlock.heightAnchor.constraint(equalTo: scrollView.heightAnchor, constant: 0.05),
+//            nutritionBlock.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+        
+//        NSLayoutConstraint.activate([
+//            pieChartView.topAnchor.constraint(equalTo: titleBlock.bottomAnchor),
+//            pieChartView.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
+//                                                multiplier: 0.3),
+//            pieChartView.heightAnchor.constraint(equalTo: pieChartView.widthAnchor,
+//                                                multiplier: 1)
+//        ])
+        
+//        NSLayoutConstraint.activate([
+//            instructionsButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+//            instructionsButton.topAnchor.constraint(equalTo: iv.bottomAnchor),
+////            instructionsButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: screenHeight * -0.09),
+//            instructionsButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.83),
+//            instructionsButton.heightAnchor.constraint(equalTo: instructionsButton.widthAnchor, multiplier: 0.16)
+//        ])
+        
+        //        contentView.topToSuperview(offset: screenHeight * 0.04)
+        //        contentView.centerXToSuperview()
+        //        contentView.bottomToSuperview()
+        //        contentView.width(screenWidth * 0.8)
+    }
+}

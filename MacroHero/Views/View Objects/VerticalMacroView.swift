@@ -14,12 +14,12 @@ final class VerticalMacroView: UIView {
     var screenHeight = Utils.screenHeight
     
     // MARK: - VIEW OBJECTS
-    lazy var iv: UIView = {
-        var iv = UIImageView(image: Image.planViewBg)
-        iv.contentMode = .scaleAspectFit
-        iv.addShadowEffect(type: .normalButton)
+    lazy var bgView: UIView = {
+        var view = UIView()
+        view.layer.cornerRadius = 20
+        view.addShadowEffect(type: .normalButton)
         
-        return iv
+        return view
     }()
     
     lazy var label1: UILabel = {
@@ -32,7 +32,6 @@ final class VerticalMacroView: UIView {
     
     lazy var label2: UILabel = {
         var label = UILabel()
-        label.font = Font.solid_25
         label.textColor = Color.customNavy
         label.textAlignment = .center
         
@@ -68,10 +67,15 @@ final class VerticalMacroView: UIView {
     
     // MARK: - HELPER METHODS
     func configure(with model: VerticalMacroModel) {
+        bgView.backgroundColor = model.bgColor ?? Color.customYellow
+        
         label1.text = model.percent
-        label2.text = model.grams
-        label3.text = model.label
         label1.textColor = model.percentColor
+        
+        label2.text = model.grams
+        label2.font = model.gramsFont ?? Font.solid_25
+        
+        label3.text = model.label
     }
 }
 
@@ -83,21 +87,27 @@ extension VerticalMacroView {
     }
     
     func addViews() {
-        addSubview(iv)
-        iv.addSubview(labelStack)
+        addSubview(bgView)
+        bgView.addSubview(labelStack)
     }
     
     func autoLayoutViews() {
-        iv.translatesAutoresizingMaskIntoConstraints = false
+        bgView.translatesAutoresizingMaskIntoConstraints = false
         labelStack.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func constrainViews() {
         NSLayoutConstraint.activate([
-            iv.centerXAnchor.constraint(equalTo: centerXAnchor),
-            iv.centerYAnchor.constraint(equalTo: centerYAnchor),
-            labelStack.centerXAnchor.constraint(equalTo: iv.centerXAnchor),
-            labelStack.centerYAnchor.constraint(equalTo: iv.centerYAnchor),
+            bgView.topAnchor.constraint(equalTo: topAnchor),
+            bgView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            bgView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9),
+            bgView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            bgView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            labelStack.centerXAnchor.constraint(equalTo: bgView.centerXAnchor),
+            labelStack.centerYAnchor.constraint(equalTo: bgView.centerYAnchor),
         ])
     }
 }

@@ -237,7 +237,7 @@ extension NutritionChartVC {
         NSLayoutConstraint.activate([
             pieChartView.widthAnchor.constraint(greaterThanOrEqualTo: view.widthAnchor,
                                                 multiplier: 0.5),
-            pieChartView.widthAnchor.constraint(equalTo: pieChartView.heightAnchor,
+            pieChartView.heightAnchor.constraint(equalTo: pieChartView.widthAnchor,
                                                 multiplier: 1)
         ])
         

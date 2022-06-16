@@ -42,7 +42,6 @@ class MealPlanTabVC: UIViewController {
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load")
         
         fetchDummyMealPlan()
         setupView()
@@ -137,9 +136,12 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let meal = mealPlan[indexPath.row]
+        let selectedMeal = mealPlan[indexPath.row]
 
-        let nextVC = Inject.ViewControllerHost(MealDetailsVC(viewModel: .init(mealInfo: meal)))
+        let nextVC = Inject.ViewControllerHost(MealDetailsVC(mealInfo: selectedMeal))
+        navigationController?.navigationBar.tintColor = Color.customNavy
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.pushViewController(nextVC, animated: true)
     }
 
@@ -156,33 +158,6 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
             print("refresh \(mealInfo.type)")
 //            self.fetchNewMeal(type: type)
         }))
-//        if let name = meal.name, let type = meal.type, let image = meal.image, let macros = meal.macros {
-//            cell.nameLabel.text = name
-//            cell.typeLabel.text = type.capitalized
-//
-//            if type == "Protein" {
-//                cell.refreshButton.isHidden = true
-//            } else {
-//                cell.refreshButton.isHidden = false
-//            }
-//
-//            if let url = URL(string: image), image != "defaultMealImage" {
-//                let filter = AspectScaledToFillSizeFilter(size: cell.iv.frame.size)
-//                cell.iv.af.setImage(withURL: url, filter: filter)
-//            } else {
-//                cell.iv.image = Image.defaultMealImage
-//            }
-//
-//            cell.calLabel.text = macros.calories
-//            cell.carbLabel.text = "\(macros.carbs)g"
-//            cell.proteinLabel.text = "\(macros.protein)g"
-//            cell.fatLabel.text = "\(macros.fat)g"
-//
-//            cell.buttonAction = {
-//                print("refresh \(type)")
-//                self.fetchNewMeal(type: type)
-//            }
-//        }
 
         // update cell UI
         cell.backgroundColor = UIColor.clear

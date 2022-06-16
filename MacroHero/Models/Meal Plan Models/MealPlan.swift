@@ -12,6 +12,7 @@ struct MealInfo {
     var image, type, name: String?
     var macros: MacroPlan?
     var ingredients, instructions: [String]?
+    var isFavorite: Bool? = false
 }
 
 

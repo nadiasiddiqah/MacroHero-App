@@ -155,26 +155,6 @@ extension RankVC {
             nextButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.83),
             nextButton.heightAnchor.constraint(equalTo: nextButton.widthAnchor, multiplier: 0.16)
         ])
-        
-//        firstGoalLabel.leftToSuperview(offset: screenWidth * 0.04)
-//        firstGoalLabel.centerYToSuperview()
-//
-//        firstGoalHStack.leftToSuperview(offset: screenWidth * 0.09)
-//        firstGoalHStack.topToBottom(of: mainTitle, offset: screenWidth * 0.05)
-//        firstGoalHStack.width(screenWidth * 0.7)
-//
-//        secondGoalLabel.leftToSuperview(offset: screenWidth * 0.04)
-//        secondGoalLabel.centerYToSuperview()
-//
-//        secondGoalHStack.leftToSuperview(offset: screenWidth * 0.09)
-//
-//        collapsedFirstGoal = secondGoalHStack.topToBottom(of: firstGoalHStack,
-//                                                          offset: screenHeight * 0.04,
-//                                                          isActive: false)
-//        expandedFirstGoal = secondGoalHStack.topToBottom(of: firstGoalHStack,
-//                                                         offset: screenHeight * 0.26,
-//                                                         isActive: false)
-//        secondGoalHStack.width(screenWidth * 0.7)
     }
 }
 

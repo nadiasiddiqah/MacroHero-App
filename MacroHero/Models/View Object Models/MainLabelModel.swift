@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
 struct MainLabelModel {
     var title: String
     var type: MainLabelType
     var numberOfLines: Int?
+    var textColor: UIColor?
 }
 
 enum MainLabelType {

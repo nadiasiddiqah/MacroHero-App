@@ -11,4 +11,6 @@ import UIKit
 struct VerticalMacroModel {
     var percent, grams, label: String
     var percentColor: UIColor
+    var bgColor: UIColor?
+    var gramsFont: UIFont?
 }

@@ -27,7 +27,7 @@ final class MainLabel: UILabel {
             textAlignment = .center
         } else {
             font = Font.shadow_28
-            textColor = Color.customNavy
+            textColor = model.textColor ?? Color.customNavy
         }
         adjustsFontSizeToFitWidth = true
     }
