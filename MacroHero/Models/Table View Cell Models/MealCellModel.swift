@@ -10,4 +10,5 @@ import Foundation
 struct MealCellModel {
     var mealInfo: MealInfo
     var refreshAction: () -> Void
+    var starButtonAction: () -> Void
 }

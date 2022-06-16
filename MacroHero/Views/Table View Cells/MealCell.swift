@@ -17,6 +17,8 @@ class MealCell: UITableViewCell {
     var screenWidth = Utils.screenWidth
     
     var refreshAction: (() -> Void)?
+    var starButtonAction: (() -> Void)?
+    var isFavorite = false
     
     var calLabel = UILabel()
     var carbLabel = UILabel()
@@ -93,6 +95,17 @@ class MealCell: UITableViewCell {
         return button
     }()
     
+    lazy var starButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "star")
+        button.setBackgroundImage(image, for: .normal)
+        button.tintColor = .systemYellow
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapStarButton(_:)), for: .touchUpInside)
+        
+        return button
+    }()
+    
     lazy var macroStack: UIStackView = {
         let cal = createMacroHStack("Calories", calLabel)
         let carbs = createMacroHStack("Carbs", carbLabel)
@@ -144,6 +157,14 @@ class MealCell: UITableViewCell {
         refreshAction?()
     }
     
+    @objc func didTapStarButton(_ sender: Any) {
+        isFavorite.toggle()
+        
+        let image = isFavorite ? UIImage(systemName: "star.fill") : UIImage(systemName: "star")
+        starButton.setBackgroundImage(image?.withTintColor(.systemYellow), for: .normal)
+        starButtonAction?()
+    }
+    
     // MARK: - HELPER FUNCTIONS
     func configure(with model: MealCellModel) {
         let mealData = model.mealInfo
@@ -172,6 +193,7 @@ class MealCell: UITableViewCell {
         fatLabel.text = "\(macros.fat)g"
         
         refreshAction = model.refreshAction
+        starButtonAction = model.starButtonAction
     }
     
     func createMacroHStack(_ macro: String, _ label2: UILabel) -> UIStackView {
@@ -203,6 +225,7 @@ extension MealCell {
         contentView.addSubview(bgView)
         bgView.addSubview(titleStack)
         bgView.addSubview(bottomStack)
+        bgView.addSubview(starButton)
         bgView.addSubview(refreshButton)
     }
     
@@ -210,6 +233,7 @@ extension MealCell {
         bgView.translatesAutoresizingMaskIntoConstraints = false
         titleStack.translatesAutoresizingMaskIntoConstraints = false
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
+        starButton.translatesAutoresizingMaskIntoConstraints = false
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -232,6 +256,13 @@ extension MealCell {
             refreshButton.rightAnchor.constraint(equalTo: titleStack.rightAnchor),
             refreshButton.heightAnchor.constraint(equalTo: typeLabel.heightAnchor, multiplier: 0.75),
             refreshButton.widthAnchor.constraint(equalTo: refreshButton.heightAnchor, multiplier: 1)
+        ])
+        
+        NSLayoutConstraint.activate([
+            starButton.topAnchor.constraint(equalTo: refreshButton.topAnchor),
+            starButton.rightAnchor.constraint(equalTo: refreshButton.leftAnchor, constant: screenHeight * -0.005),
+            starButton.heightAnchor.constraint(equalTo: refreshButton.heightAnchor),
+            starButton.widthAnchor.constraint(equalTo: starButton.heightAnchor, multiplier: 1.1)
         ])
         
         NSLayoutConstraint.activate([

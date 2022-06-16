@@ -177,17 +177,12 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
         
         let chartMacroStack = UIStackView(arrangedSubviews: [pieChartView, macroStack])
         chartMacroStack.axis = .horizontal
-        chartMacroStack.distribution = .fill
+        chartMacroStack.spacing = screenHeight * -0.015
         chartMacroStack.translatesAutoresizingMaskIntoConstraints = false
         
         bgView.addSubview(label)
         bgView.addSubview(chartMacroStack)
-        
-        NSLayoutConstraint.activate([
-            macroStack.leftAnchor.constraint(equalTo: pieChartView.rightAnchor, constant: screenHeight * -0.015)
-        ])
-        
-        
+
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: bgView.topAnchor, constant: screenHeight * 0.02),
             label.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: screenHeight * 0.02),

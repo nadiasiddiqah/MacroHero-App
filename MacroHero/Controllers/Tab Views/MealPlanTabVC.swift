@@ -157,6 +157,8 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: MealCellModel(mealInfo: mealInfo, refreshAction: {
             print("refresh \(mealInfo.type)")
 //            self.fetchNewMeal(type: type)
+        }, starButtonAction: {
+            print("starred")
         }))
 
         // update cell UI
