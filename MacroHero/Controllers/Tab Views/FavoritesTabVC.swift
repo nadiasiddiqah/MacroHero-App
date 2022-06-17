@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Inject
 
 class FavoritesTabVC: UIViewController {
     
@@ -14,70 +15,58 @@ class FavoritesTabVC: UIViewController {
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
     
+    var favMeals = [MealInfo]()
+    
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        fetchDummyFavMeals()
         setupViews()
     }
     
-    // MARK: - LAZY OBJECTS
+    // MARK: - VIEW OBJECTS
     lazy var mainTitle: UILabel = {
-        var label = Utils.createMainTitle(text: "FAVORITES",
-                                          textColor: Color.customNavy,
-                                          noOfLines: 1)
+        var label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: "FAVORITES",
+            type: .tabView
+        ))
         
         return label
     }()
     
     lazy var searchBar: UISearchBar = {
-        var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0,
-                                                  width: screenWidth * 0.93,
-                                                  height: screenHeight * 0.04))
-        searchBar.barTintColor = Color.customNavy
-        searchBar.placeholder = "Search"
-        searchBar.showsCancelButton = true
+        var bar = UISearchBar()
+        bar.searchBarStyle = .minimal
+        bar.placeholder = "Search"
+        bar.searchTextField.clearButtonMode = .always
         
-        return searchBar
+        return bar
     }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
+        
         tableView.estimatedRowHeight = UITableView.automaticDimension
-        tableView.register(FavoriteMealCell.self,
+        tableView.register(FavMealCell.self,
                            forCellReuseIdentifier: "favMealCell")
+        
         tableView.backgroundColor = .none
         tableView.separatorStyle = .none
         
         return tableView
     }()
     
-    func setupViews() {
-        view.backgroundColor = Color.bgColor
-        addSubviews()
-        constrainSubviews()
-    }
-    
-    func addSubviews() {
-        view.addSubview(mainTitle)
-        view.addSubview(searchBar)
-        view.addSubview(tableView)
-    }
-    
-    func constrainSubviews() {
-        mainTitle.leftToSuperview(offset: screenWidth * 0.09)
-        mainTitle.topToSuperview(offset: screenHeight * 0.07)
-        
-        searchBar.centerXToSuperview()
-        searchBar.topToBottom(of: mainTitle, offset: screenHeight * 0.03,
-                              isActive: true)
-        
-        tableView.centerXToSuperview()
-        tableView.width(screenWidth * 0.9)
-        tableView.topToBottom(of: mainTitle, offset: screenHeight * 0.03)
-        tableView.bottomToSuperview()
+    // MARK: - FETCH DATA
+    func fetchDummyFavMeals() {
+        favMeals = [
+            MealInfo(mealOrder: 0, image: "", type: MealType.breakfast.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: MacroPlan(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructions: []),
+            MealInfo(mealOrder: 1, image: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast", macros: MacroPlan(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructions: []),
+            MealInfo(mealOrder: 2, image: "", type: MealType.dinner.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: MacroPlan(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructions: [])
+        ]
     }
 }
 
@@ -87,6 +76,69 @@ extension FavoritesTabVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "favMealCell") as! FavMealCell
+        
+        let meal = favMeals[indexPath.row]
+        cell.configure(with: MealCellModel(mealInfo: meal))
+        
+        // update cell UI
+        cell.backgroundColor = UIColor.clear
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedMeal = favMeals[indexPath.row]
+
+        let nextVC = Inject.ViewControllerHost(MealDetailsVC(mealInfo: selectedMeal))
+        navigationController?.navigationBar.tintColor = Color.customNavy
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+
+}
+
+extension FavoritesTabVC {
+    func setupViews() {
+        view.backgroundColor = Color.bgColor
+        addSubviews()
+        autoLayoutViews()
+        constrainSubviews()
+    }
+    
+    func addSubviews() {
+        view.addSubview(mainTitle)
+        view.addSubview(searchBar)
+        view.addSubview(tableView)
+    }
+    
+    func autoLayoutViews() {
+        let views = [mainTitle, searchBar, tableView]
+        
+        views.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+    
+    func constrainSubviews() {
+        NSLayoutConstraint.activate([
+            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.09),
+            mainTitle.leadingAnchor.constraint(equalTo: tableView.leadingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchBar.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.01),
+            searchBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.94)
+        ])
+        
+        NSLayoutConstraint.activate([
+            tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: screenHeight * 0.01),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }

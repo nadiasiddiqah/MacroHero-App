@@ -11,7 +11,7 @@
 		0903DF3D285AACB900E97FA9 /* MealCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0903DF3C285AACB900E97FA9 /* MealCellModel.swift */; };
 		09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */; };
 		091AAC7C2849472500D1431B /* UserDataVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091AAC7B2849472500D1431B /* UserDataVM.swift */; };
-		091DFB16280753E400EBD110 /* FavoriteMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DFB15280753E400EBD110 /* FavoriteMealCell.swift */; };
+		091DFB16280753E400EBD110 /* FavMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DFB15280753E400EBD110 /* FavMealCell.swift */; };
 		0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AA270BC56100080FCD /* AppDelegate.swift */; };
 		0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AC270BC56100080FCD /* SceneDelegate.swift */; };
 		0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0933D8B3270BC56200080FCD /* Assets.xcassets */; };
@@ -69,7 +69,7 @@
 		0904DAB327CECC9800478415 /* Keys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Keys.xcconfig; path = MacroHero/Keys.xcconfig; sourceTree = SOURCE_ROOT; };
 		09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionChartVC.swift; sourceTree = "<group>"; };
 		091AAC7B2849472500D1431B /* UserDataVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataVM.swift; sourceTree = "<group>"; };
-		091DFB15280753E400EBD110 /* FavoriteMealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMealCell.swift; sourceTree = "<group>"; };
+		091DFB15280753E400EBD110 /* FavMealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavMealCell.swift; sourceTree = "<group>"; };
 		0933D8A7270BC56100080FCD /* MacroHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0933D8AA270BC56100080FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0933D8AC270BC56100080FCD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -239,7 +239,7 @@
 				0995DE9428513A2A00F102E5 /* MacroCell.swift */,
 				0995DE96285162DD00F102E5 /* EditableMacroCell.swift */,
 				09ABA62227B346EC008A9641 /* MealCell.swift */,
-				091DFB15280753E400EBD110 /* FavoriteMealCell.swift */,
+				091DFB15280753E400EBD110 /* FavMealCell.swift */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -512,7 +512,7 @@
 				09ABA5FF27B30B9C008A9641 /* Font.swift in Sources */,
 				0995DE97285162DD00F102E5 /* EditableMacroCell.swift in Sources */,
 				09E3044D2798F2DE003FB240 /* MealReq.swift in Sources */,
-				091DFB16280753E400EBD110 /* FavoriteMealCell.swift in Sources */,
+				091DFB16280753E400EBD110 /* FavMealCell.swift in Sources */,
 				094E901C2836123500BCE92E /* TwoLineButton.swift in Sources */,
 				09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */,
 				09EE8142277A8D9D00579224 /* RankVC.swift in Sources */,

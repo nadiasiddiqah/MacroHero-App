@@ -135,16 +135,6 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
         return mealPlan.count
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedMeal = mealPlan[indexPath.row]
-
-        let nextVC = Inject.ViewControllerHost(MealDetailsVC(mealInfo: selectedMeal))
-        navigationController?.navigationBar.tintColor = Color.customNavy
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.pushViewController(nextVC, animated: true)
-    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mealCell") as! MealCell
 
@@ -166,6 +156,16 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedMeal = mealPlan[indexPath.row]
+
+        let nextVC = Inject.ViewControllerHost(MealDetailsVC(mealInfo: selectedMeal))
+        navigationController?.navigationBar.tintColor = Color.customNavy
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
