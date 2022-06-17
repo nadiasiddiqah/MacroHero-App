@@ -13,4 +13,5 @@ struct VerticalMacroModel {
     var percentColor: UIColor
     var bgColor: UIColor?
     var gramsFont: UIFont?
+    var addShadow: Bool? 
 }

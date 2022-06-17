@@ -13,6 +13,7 @@ struct MainLabelModel {
     var type: MainLabelType
     var numberOfLines: Int?
     var textColor: UIColor?
+    var font: UIFont?
 }
 
 enum MainLabelType {

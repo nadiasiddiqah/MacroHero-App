@@ -17,7 +17,6 @@ final class VerticalMacroView: UIView {
     lazy var bgView: UIView = {
         var view = UIView()
         view.layer.cornerRadius = 20
-        view.addShadowEffect(type: .normalButton)
         
         return view
     }()
@@ -68,6 +67,9 @@ final class VerticalMacroView: UIView {
     // MARK: - HELPER METHODS
     func configure(with model: VerticalMacroModel) {
         bgView.backgroundColor = model.bgColor ?? Color.customYellow
+        if model.addShadow != false { 
+            bgView.addShadowEffect(type: .normalButton)
+        }
         
         label1.text = model.percent
         label1.textColor = model.percentColor
@@ -100,7 +102,8 @@ extension VerticalMacroView {
         NSLayoutConstraint.activate([
             bgView.topAnchor.constraint(equalTo: topAnchor),
             bgView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bgView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.9),
+            bgView.heightAnchor.constraint(equalTo: heightAnchor),
+            bgView.widthAnchor.constraint(equalTo: bgView.heightAnchor, multiplier: 0.85),
             bgView.centerXAnchor.constraint(equalTo: centerXAnchor),
             bgView.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])

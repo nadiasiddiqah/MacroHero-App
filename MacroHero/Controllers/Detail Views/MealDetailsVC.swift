@@ -135,17 +135,7 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
         return chart
     }()
     
-    lazy var nutritionBlock: UIView = {
-        let bgView = UIView()
-        bgView.backgroundColor = Color.customYellow
-        bgView.layer.cornerRadius = 20
-        bgView.addShadowEffect(type: .normalButton)
-
-        let label = MainLabel()
-        label.configure(with: MainLabelModel(
-            title: "NUTRITION", type: .tabView))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+    lazy var macroStack: UIStackView = {
         var carbView = VerticalMacroView()
         var proteinView = VerticalMacroView()
         var fatView = VerticalMacroView()
@@ -154,26 +144,45 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
             carbView.configure(with: VerticalMacroModel(
                 percent: "\(Int(carbsPercent))%", grams: "\(macros.carbs)g",
                 label: "Carbs", percentColor: .systemGreen,
-                bgColor: UIColor.clear, gramsFont: Font.solid_20))
+                bgColor: UIColor.clear, gramsFont: Font.solid_18,
+                addShadow: false))
             carbView.translatesAutoresizingMaskIntoConstraints = false
 
             proteinView.configure(with: VerticalMacroModel(
                 percent: "\(Int(proteinPercent))%", grams: "\(macros.protein)g",
                 label: "Protein", percentColor: .systemYellow,
-                bgColor: UIColor.clear, gramsFont: Font.solid_20))
+                bgColor: UIColor.clear, gramsFont: Font.solid_18,
+                addShadow: false))
             proteinView.translatesAutoresizingMaskIntoConstraints = false
 
             fatView.configure(with: VerticalMacroModel(
                 percent: "\(Int(fatPercent))%", grams: "\(macros.fat)g",
                 label: "Fat", percentColor: .systemRed,
-                bgColor: UIColor.clear, gramsFont: Font.solid_20))
+                bgColor: UIColor.clear, gramsFont: Font.solid_18,
+                addShadow: false))
             fatView.translatesAutoresizingMaskIntoConstraints = false
         }
 
-        let macroStack = UIStackView(arrangedSubviews: [carbView, proteinView, fatView])
-        macroStack.axis = .horizontal
-        macroStack.distribution = .fillEqually
-        macroStack.translatesAutoresizingMaskIntoConstraints = false
+        let stack = UIStackView(arrangedSubviews: [carbView, proteinView, fatView])
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stack
+    }()
+    
+    lazy var nutritionBlock: UIView = {
+        let bgView = UIView()
+        bgView.backgroundColor = Color.customYellow
+        bgView.layer.cornerRadius = 20
+        bgView.addShadowEffect(type: .normalButton)
+
+        let label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: "NUTRITION", type: .tabView,
+            font: Font.shadow_23
+        ))
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         let chartMacroStack = UIStackView(arrangedSubviews: [pieChartView, macroStack])
         chartMacroStack.axis = .horizontal
@@ -200,17 +209,46 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
             chartMacroStack.topAnchor.constraint(equalTo: label.bottomAnchor),
             chartMacroStack.leftAnchor.constraint(equalTo: bgView.leftAnchor),
             chartMacroStack.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: screenHeight * -0.01),
-            chartMacroStack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.02),
+            chartMacroStack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.01),
         ])
         
         return bgView
     }()
 
-    lazy var ingredientBlock: UIView = {
+    lazy var ingredientsBlock: UIView = {
         let bgView = UIView()
         bgView.backgroundColor = Color.customYellow
         bgView.layer.cornerRadius = 20
         bgView.addShadowEffect(type: .normalButton)
+        
+        let label = MainLabel()
+        label.configure(with: MainLabelModel(
+            title: "INGREDIENTS", type: .tabView,
+            font: Font.shadow_23
+        ))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let textView = UITextView()
+        textView.isScrollEnabled = false
+        textView.isUserInteractionEnabled = false
+        textView.backgroundColor = .clear
+        if let ingredients = mealInfo.ingredients {
+            textView.attributedText = add(stringList: ingredients)
+        }
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stack = UIStackView(arrangedSubviews: [label, textView])
+        stack.axis = .vertical
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        bgView.addSubview(stack)
+        
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: bgView.topAnchor, constant: screenHeight * 0.02),
+            stack.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: screenHeight * 0.02),
+            stack.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: screenHeight * -0.02),
+            stack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.02)
+        ])
         
         return bgView
     }()
@@ -226,17 +264,6 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
         
         return button
     }()
-
-    lazy var contentView: UIView = {
-        let view = UIView()
-//        let view = Utils.createVStack(subviews: [topView, nutritionView, ingredientsView], spacing: Utils.screenHeight * 0.03)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-
-//        let fullView = Utils.createVStack(subviews: [partialView, instructionsView],
-//                                          spacing: Utils.screenHeight * 0.001)
-
-        return view
-    }()
     
     // MARK: - TAP METHODS
     @objc func didTapStarButton() {
@@ -249,21 +276,6 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
     @objc func didTapInstructions() {
         print("instructions")
     }
-    
-//    lazy var ingredientsView: UIStackView = {
-//        let label = createHeader(title: "INGREDIENTS:")
-//        let textView = UILabel()
-//
-//        if let ingredients = mealInfo.ingredients {
-//            textView.numberOfLines = 0
-//            textView.attributedText = add(stringList: ingredients)
-//        }
-//
-//        let VStack = Utils.createVStack(subviews: [label, textView],
-//                                        spacing: screenWidth * 0.02)
-//
-//        return VStack
-//    }()
     
     // MARK: - HELPER FUNCTIONS
     func setChartData() {
@@ -324,15 +336,15 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
     }
     
     func add(stringList: [String],
-             font: UIFont = Font.solid_15!,
+             font: UIFont = UIFont.systemFont(ofSize: 17),
              bullet: String = "\u{2022}",
              indentation: CGFloat = 20,
-             lineSpacing: CGFloat = 0,
+             lineSpacing: CGFloat = 5,
              paragraphSpacing: CGFloat = 0,
              numberedList: Bool = false) -> NSAttributedString {
         
-        let textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Color.customBlue!]
-        let bulletAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Color.customBlue!]
+        let textAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
+        let bulletAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: font]
         
         let paragraphStyle = NSMutableParagraphStyle()
         let nonOptions = [NSTextTab.OptionKey: Any]()
@@ -365,7 +377,8 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
             }
         } else {
             for string in stringList {
-                let formattedString = "\(bullet)\t\(string)\n"
+                let isLastString = (string == stringList.last)
+                let formattedString = isLastString ? "\(bullet)\t\(string)" : "\(bullet)\t\(string)\n"
                 let attributedString = NSMutableAttributedString(string: formattedString)
                 
                 attributedString.addAttributes(
@@ -409,22 +422,21 @@ extension MealDetailsVC {
 
     fileprivate func addSubviews() {
         view.addSubview(scrollView)
-//        scrollView.addSubview(contentView)
         scrollView.addSubview(iv)
         scrollView.addSubview(titleBlock)
         scrollView.addSubview(nutritionBlock)
-//        scrollView.addSubview(pieChartView)
-//        scrollView.addSubview(instructionsButton)
+        scrollView.addSubview(ingredientsBlock)
+        scrollView.addSubview(instructionsButton)
     }
     
     fileprivate func autoLayoutViews() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.translatesAutoresizingMaskIntoConstraints = false
-        titleBlock.translatesAutoresizingMaskIntoConstraints = false
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        instructionsButton.translatesAutoresizingMaskIntoConstraints = false
-        nutritionBlock.translatesAutoresizingMaskIntoConstraints = false
-//        pieChartView.translatesAutoresizingMaskIntoConstraints = false
+        let views = [scrollView, titleBlock, iv,
+                     nutritionBlock, ingredientsBlock,
+                     instructionsButton]
+        
+        views.forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     fileprivate func constrainSubviews() {
@@ -435,12 +447,6 @@ extension MealDetailsVC {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-//        NSLayoutConstraint.activate([
-//            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-//            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
-//        ])
         
         NSLayoutConstraint.activate([
             iv.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -457,30 +463,21 @@ extension MealDetailsVC {
         NSLayoutConstraint.activate([
             nutritionBlock.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             nutritionBlock.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.92),
-            nutritionBlock.topAnchor.constraint(equalTo: titleBlock.bottomAnchor, constant: screenHeight * 0.03),
-//            nutritionBlock.heightAnchor.constraint(equalTo: scrollView.heightAnchor, constant: 0.05),
-//            nutritionBlock.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            nutritionBlock.topAnchor.constraint(equalTo: titleBlock.bottomAnchor, constant: screenHeight * 0.03)
         ])
         
-//        NSLayoutConstraint.activate([
-//            pieChartView.topAnchor.constraint(equalTo: titleBlock.bottomAnchor),
-//            pieChartView.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
-//                                                multiplier: 0.3),
-//            pieChartView.heightAnchor.constraint(equalTo: pieChartView.widthAnchor,
-//                                                multiplier: 1)
-//        ])
+        NSLayoutConstraint.activate([
+            ingredientsBlock.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            ingredientsBlock.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.92),
+            ingredientsBlock.topAnchor.constraint(equalTo: nutritionBlock.bottomAnchor, constant: screenHeight * 0.03)
+        ])
         
-//        NSLayoutConstraint.activate([
-//            instructionsButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-//            instructionsButton.topAnchor.constraint(equalTo: iv.bottomAnchor),
-////            instructionsButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: screenHeight * -0.09),
-//            instructionsButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.83),
-//            instructionsButton.heightAnchor.constraint(equalTo: instructionsButton.widthAnchor, multiplier: 0.16)
-//        ])
-        
-        //        contentView.topToSuperview(offset: screenHeight * 0.04)
-        //        contentView.centerXToSuperview()
-        //        contentView.bottomToSuperview()
-        //        contentView.width(screenWidth * 0.8)
+        NSLayoutConstraint.activate([
+            instructionsButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            instructionsButton.topAnchor.constraint(equalTo: ingredientsBlock.bottomAnchor, constant: screenHeight * 0.03),
+            instructionsButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: screenHeight * -0.15),
+            instructionsButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9),
+            instructionsButton.heightAnchor.constraint(equalTo: instructionsButton.widthAnchor, multiplier: 0.16)
+        ])
     }
 }
