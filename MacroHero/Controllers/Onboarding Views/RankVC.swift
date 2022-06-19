@@ -11,15 +11,11 @@ import Inject
 
 // TODO: - Implement long press gesture re-ordering
 // TODO: - Add reorder symbol to the left of each cell 
-struct MacroCellModel {
-    var title, amount: String
-}
-
 class RankVC: UIViewController {
     
     // MARK: - PROPERTIES
     private var userData: UserData
-    private var cellData = [MacroCellModel]()
+    private var cellData = [TwoLabelCellModel]()
     
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
@@ -57,7 +53,7 @@ class RankVC: UIViewController {
         var tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MacroCell.self, forCellReuseIdentifier: "macroCell")
+        tableView.register(TwoLabelCell.self, forCellReuseIdentifier: "macroCell")
         
         tableView.backgroundColor = Color.customYellow
         tableView.separatorStyle = .none
@@ -93,10 +89,10 @@ class RankVC: UIViewController {
     func setTableViewData() {
         guard let macros = userData.macroPlan else { return }
         cellData = [
-            MacroCellModel(title: "Calories", amount: "\(macros.calories)"),
-            MacroCellModel(title: "Carbs", amount: "\(macros.carbs) g"),
-            MacroCellModel(title: "Protein", amount: "\(macros.protein) g"),
-            MacroCellModel(title: "Fat", amount: "\(macros.fat) g")
+            TwoLabelCellModel(title: "Calories", value: "\(macros.calories)"),
+            TwoLabelCellModel(title: "Carbs", value: "\(macros.carbs) g"),
+            TwoLabelCellModel(title: "Protein", value: "\(macros.protein) g"),
+            TwoLabelCellModel(title: "Fat", value: "\(macros.fat) g")
         ]
     }
 }
@@ -164,12 +160,12 @@ extension RankVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "macroCell") as! MacroCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "macroCell") as! TwoLabelCell
         
         cell.backgroundColor = Color.customYellow
         
         cell.leftLabel.text = cellData[indexPath.row].title
-        cell.rightLabel.text = cellData[indexPath.row].amount
+        cell.rightLabel.text = cellData[indexPath.row].value
         
         return cell
     }

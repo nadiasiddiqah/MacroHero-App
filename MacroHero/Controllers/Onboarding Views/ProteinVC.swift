@@ -16,7 +16,7 @@ class ProteinVC: UIViewController {
     var screenHeight = Utils.screenHeight
     var screenWidth = Utils.screenWidth
     
-    var cellData = [MacroCellModel]()
+    var cellData = [TwoLabelCellModel]()
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
@@ -49,7 +49,7 @@ class ProteinVC: UIViewController {
         var tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(EditableMacroCell.self, forCellReuseIdentifier: "proteinDetailsCell")
+        tableView.register(LabelTextFieldCell.self, forCellReuseIdentifier: "proteinDetailsCell")
         
         tableView.backgroundColor = Color.customYellow
         tableView.separatorStyle = .none
@@ -83,10 +83,10 @@ class ProteinVC: UIViewController {
     // MARK: - HELPER FUNCTIONS
     func setTableViewData() {
         cellData = [
-            MacroCellModel(title: "Calories", amount: ""),
-            MacroCellModel(title: "Carbs", amount: ""),
-            MacroCellModel(title: "Protein", amount: ""),
-            MacroCellModel(title: "Fat", amount: "")
+            TwoLabelCellModel(title: "Calories", value: ""),
+            TwoLabelCellModel(title: "Carbs", value: ""),
+            TwoLabelCellModel(title: "Protein", value: ""),
+            TwoLabelCellModel(title: "Fat", value: "")
         ]
     }
     
@@ -138,12 +138,13 @@ extension ProteinVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "proteinDetailsCell") as! EditableMacroCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "proteinDetailsCell") as! LabelTextFieldCell
+        
+        let rowData = cellData[indexPath.row]
+        cell.configure(with: TwoLabelCellModel(title: rowData.title,
+                                            value: rowData.value))
         
         cell.backgroundColor = Color.customYellow
-        
-        cell.label.text = cellData[indexPath.row].title
-        cell.textField.text = cellData[indexPath.row].amount
         
         return cell
     }

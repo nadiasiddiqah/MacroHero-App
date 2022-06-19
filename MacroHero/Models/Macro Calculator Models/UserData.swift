@@ -13,6 +13,7 @@ struct UserData {
     var activityLevel: Activity?
     var goal: Goal?
     var macroPlan: MacroPlan?
+    var mealPlan: [MealInfo]?
 }
 
 struct MacroPlan {

@@ -192,7 +192,7 @@ extension MealPlanTabVC {
     
     func constrainSubviews() {
         NSLayoutConstraint.activate([
-            mainTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeight * 0.09),
+            mainTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             mainTitle.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
             mainTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85)
         ])

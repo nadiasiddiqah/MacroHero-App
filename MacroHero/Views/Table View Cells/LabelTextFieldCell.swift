@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditableMacroCell: UITableViewCell {
+class LabelTextFieldCell: UITableViewCell {
 
     // MARK: - PROPERTIES
     var screenHeight = Utils.screenHeight
@@ -62,4 +62,9 @@ class EditableMacroCell: UITableViewCell {
         ])
     }
 
+    func configure(with model: TwoLabelCellModel) {
+        label.text = model.title
+        textField.text = model.value
+    }
 }
+

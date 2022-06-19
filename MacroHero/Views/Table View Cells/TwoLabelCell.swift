@@ -1,5 +1,5 @@
 //
-//  MacroCell.swift
+//  TwoLabelCell.swift
 //  MacroHero
 //
 //  Created by Nadia Siddiqah on 6/8/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MacroCell: UITableViewCell {
+class TwoLabelCell: UITableViewCell {
     
     // MARK: - PROPERTIES
     var screenHeight = Utils.screenHeight
