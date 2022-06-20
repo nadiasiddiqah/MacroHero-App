@@ -55,7 +55,7 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         chart.holeRadiusPercent = 0.72
         chart.legend.enabled = false
         chart.drawEntryLabelsEnabled = false
-        if let calories = userData.macroPlan?.calories {
+        if let calories = userData.nutritionPlan?.calories {
             chart.centerAttributedText = createCenterAttributedText(
                 calories: calories
             )
@@ -70,7 +70,7 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         var proteinView = VerticalMacroView()
         var fatView = VerticalMacroView()
         
-        if let macroPlan = userData.macroPlan {
+        if let macroPlan = userData.nutritionPlan {
             carbView.configure(with: VerticalMacroModel(
                 percent: "\(Int(carbsPercent))%", grams: "\(macroPlan.carbs)g",
                 label: "Carbs", percentColor: .systemGreen))
@@ -131,7 +131,7 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
     }
     
     func convertGramsToPercentageValue() {
-        guard let macros = userData.macroPlan,
+        guard let macros = userData.nutritionPlan,
               let calories = Double(macros.calories),
               let carbs = Double(macros.carbs),
               let protein = Double(macros.protein),

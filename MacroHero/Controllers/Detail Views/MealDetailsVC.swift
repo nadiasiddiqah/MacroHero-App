@@ -51,13 +51,15 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
     
     lazy var iv: UIImageView = {
         let iv = UIImageView()
+        iv.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth * 0.61)
+        iv.contentMode = .scaleAspectFill
+        
         if let image = mealInfo.image, let url = URL(string: image), image != "defaultMealImage" {
             let filter = AspectScaledToFillSizeFilter(size: iv.frame.size)
             iv.af.setImage(withURL: url, filter: filter)
         } else {
             iv.image = Image.defaultMealImage
         }
-        iv.contentMode = .scaleAspectFill
         
         return iv
     }()

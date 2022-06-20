@@ -7,11 +7,10 @@ target 'MacroHero' do
 
   # Pods for MacroHero
   pod 'Gifu'
-  pod 'DropDown'
   pod 'IQKeyboardManager'
   pod 'PKHUD'
+  pod 'Charts'
   pod 'Alamofire'
   pod 'AlamofireImage'
-  pod 'Charts'
   
 end

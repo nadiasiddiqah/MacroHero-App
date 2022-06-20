@@ -10,8 +10,8 @@ import UIKit
 final class VerticalMacroView: UIView {
     
     // MARK: - PROPERTIES
-    var screenWidth = Utils.screenWidth
-    var screenHeight = Utils.screenHeight
+    var screenWidth = UIScreen.main.bounds.width
+    var screenHeight = UIScreen.main.bounds.height
     
     // MARK: - VIEW OBJECTS
     lazy var bgView: UIView = {

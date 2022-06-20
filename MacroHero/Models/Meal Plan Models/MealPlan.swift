@@ -10,8 +10,9 @@ import Foundation
 struct MealInfo {
     var mealOrder: Int
     var image, type, name: String?
-    var macros: MacroPlan?
-    var ingredients, instructions: [String]?
+    var macros: Macros?
+    var ingredients: [String]?
+    var instructionsURL: String?
     var isFavorite: Bool? = false
 }
 

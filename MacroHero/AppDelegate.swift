@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import DropDown
 import IQKeyboardManager
 import AlamofireImage
 
@@ -24,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ImageResponseSerializer.addAcceptableImageContentTypes(["image/jpg", "image/png", "binary/octet-stream"])
         
         // Show dropdown menu
-        DropDown.startListeningToKeyboard()
+//        DropDown.startListeningToKeyboard()
         
         return true
     }

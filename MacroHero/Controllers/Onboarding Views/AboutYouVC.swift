@@ -440,11 +440,10 @@ class AboutYouVC: UIViewController {
 //        updateUserData()
         
         DispatchQueue.main.async {
-            MacroCalculatorAPI.fetchMacroData(for: self.userData) { [weak self] results in
+            NutritionManager.fetchNutritionPlan(for: self.userData) { [weak self] results in
                 guard let self = self else { return }
-                self.userData.macroPlan = results
+                self.userData.nutritionPlan = results
                 
-                guard self.userData.macroPlan != nil else { return }
                 let vc = Inject.ViewControllerHost(
                     NutritionChartVC(userData: self.userData))
                 self.navigationController?.pushViewController(vc, animated: true)

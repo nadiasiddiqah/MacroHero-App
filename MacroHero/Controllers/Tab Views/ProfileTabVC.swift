@@ -72,8 +72,8 @@ class ProfileTabVC: UIViewController {
                             goal: Goal.lose,
                             mealPlan: [
                                 MealInfo(mealOrder: 0, type: "Protein Shake",
-                                         macros: MacroPlan(calories: "130", carbs: "16",
-                                                           protein: "22", fat: "16"))
+                                         macros: Macros(calories: "130", carbs: "16",
+                                                        protein: "22", fat: "16"))
                             ])
         
         guard let goal = userData.goal, let age = userData.age,

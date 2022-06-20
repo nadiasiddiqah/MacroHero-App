@@ -87,7 +87,7 @@ class RankVC: UIViewController {
     
     // MARK: - FUNCTIONS
     func setTableViewData() {
-        guard let macros = userData.macroPlan else { return }
+        guard let macros = userData.nutritionPlan else { return }
         cellData = [
             TwoLabelCellModel(title: "Calories", value: "\(macros.calories)"),
             TwoLabelCellModel(title: "Carbs", value: "\(macros.carbs) g"),

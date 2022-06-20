@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import DropDown
 
 class Utils {
     static var keyboardDistanceFromTextField: CGFloat = 10

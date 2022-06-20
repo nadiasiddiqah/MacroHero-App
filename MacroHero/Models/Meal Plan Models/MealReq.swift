@@ -15,7 +15,7 @@ struct AllMealReqs {
 
 struct MealReq {
     var type: String
-    var macros: MacroPlan
+    var macros: Macros
     var random: Bool = false
     var macroPriority: MacroPriority?
 }

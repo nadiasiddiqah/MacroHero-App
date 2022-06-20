@@ -23,8 +23,8 @@
 		094E90182835FD1900BCE92E /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E90172835FD1900BCE92E /* UIView+Ext.swift */; };
 		094E901C2836123500BCE92E /* TwoLineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E901B2836123500BCE92E /* TwoLineButton.swift */; };
 		09531A86285EC25F0015851A /* TwoLabelCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09531A85285EC25F0015851A /* TwoLabelCellModel.swift */; };
-		0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */; };
-		0966D42727CD804100A90754 /* MealPlanAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42627CD804100A90754 /* MealPlanAPI.swift */; };
+		0966D42527C9ACD700A90754 /* NutritionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42427C9ACD700A90754 /* NutritionManager.swift */; };
+		0966D42727CD804100A90754 /* MealPlanManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42627CD804100A90754 /* MealPlanManager.swift */; };
 		0966D42F27CEC51300A90754 /* MealPlanVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0966D42E27CEC51300A90754 /* MealPlanVM.swift */; };
 		096CA546274DB7C40071C6EE /* PlanVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096CA545274DB7C40071C6EE /* PlanVC.swift */; };
 		097F8F75279783D600B638BC /* StartVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097F8F74279783D600B638BC /* StartVM.swift */; };
@@ -42,7 +42,7 @@
 		09B29823283D6E28008F19BF /* TwoLineButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B29822283D6E28008F19BF /* TwoLineButtonModel.swift */; };
 		09B29825283D71DC008F19BF /* MainLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B29824283D71DC008F19BF /* MainLabel.swift */; };
 		09B29827283D7390008F19BF /* MainLabelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B29826283D7390008F19BF /* MainLabelModel.swift */; };
-		09B353D3279F806B00871FA2 /* MacroData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B353D2279F806B00871FA2 /* MacroData.swift */; };
+		09B353D3279F806B00871FA2 /* NutritionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B353D2279F806B00871FA2 /* NutritionData.swift */; };
 		09D20BBC28306FC60085BAA5 /* SetGoalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D20BBB28306FC60085BAA5 /* SetGoalVC.swift */; };
 		09DC9A5427A1E78500EF78E7 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DC9A5327A1E78500EF78E7 /* Color.swift */; };
 		09E3043727989F0D003FB240 /* RankVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E3043627989F0D003FB240 /* RankVM.swift */; };
@@ -84,8 +84,8 @@
 		094E90172835FD1900BCE92E /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		094E901B2836123500BCE92E /* TwoLineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLineButton.swift; sourceTree = "<group>"; };
 		09531A85285EC25F0015851A /* TwoLabelCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLabelCellModel.swift; sourceTree = "<group>"; };
-		0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroCalculatorAPI.swift; sourceTree = "<group>"; };
-		0966D42627CD804100A90754 /* MealPlanAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanAPI.swift; sourceTree = "<group>"; };
+		0966D42427C9ACD700A90754 /* NutritionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionManager.swift; sourceTree = "<group>"; };
+		0966D42627CD804100A90754 /* MealPlanManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanManager.swift; sourceTree = "<group>"; };
 		0966D42E27CEC51300A90754 /* MealPlanVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPlanVM.swift; sourceTree = "<group>"; };
 		096CA545274DB7C40071C6EE /* PlanVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanVC.swift; sourceTree = "<group>"; };
 		097F8F74279783D600B638BC /* StartVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartVM.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 		09B29822283D6E28008F19BF /* TwoLineButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLineButtonModel.swift; sourceTree = "<group>"; };
 		09B29824283D71DC008F19BF /* MainLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabel.swift; sourceTree = "<group>"; };
 		09B29826283D7390008F19BF /* MainLabelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabelModel.swift; sourceTree = "<group>"; };
-		09B353D2279F806B00871FA2 /* MacroData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroData.swift; sourceTree = "<group>"; };
+		09B353D2279F806B00871FA2 /* NutritionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionData.swift; sourceTree = "<group>"; };
 		09D20BBB28306FC60085BAA5 /* SetGoalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalVC.swift; sourceTree = "<group>"; };
 		09DC9A5327A1E78500EF78E7 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		09E3043627989F0D003FB240 /* RankVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankVM.swift; sourceTree = "<group>"; };
@@ -168,13 +168,13 @@
 			path = "View Objects";
 			sourceTree = "<group>";
 		};
-		0903DF41285AAD4700E97FA9 /* Macro Calculator Models */ = {
+		0903DF41285AAD4700E97FA9 /* Nutrition Plan Models */ = {
 			isa = PBXGroup;
 			children = (
-				09B353D2279F806B00871FA2 /* MacroData.swift */,
 				09E304432798F2DE003FB240 /* UserData.swift */,
+				09B353D2279F806B00871FA2 /* NutritionData.swift */,
 			);
-			path = "Macro Calculator Models";
+			path = "Nutrition Plan Models";
 			sourceTree = "<group>";
 		};
 		0933D89E270BC56100080FCD = {
@@ -204,7 +204,7 @@
 				0933D8C2270BC6A200080FCD /* Models */,
 				0966D42027C9AA5D00A90754 /* Views */,
 				0966D41D27C9A9F600A90754 /* Controllers */,
-				0966D42327C9AC6C00A90754 /* Networking */,
+				0966D42327C9AC6C00A90754 /* Managers */,
 				0966D41B27C9A96500A90754 /* Extensions */,
 				0933D8BE270BC66600080FCD /* Other */,
 				09E4B4252846A2FD00F319BB /* Ignore */,
@@ -228,7 +228,7 @@
 		0933D8C2270BC6A200080FCD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0903DF41285AAD4700E97FA9 /* Macro Calculator Models */,
+				0903DF41285AAD4700E97FA9 /* Nutrition Plan Models */,
 				094358D128542C0700A27A17 /* Meal Plan Models */,
 				0903DF3F285AAD2C00E97FA9 /* View Object Models */,
 				0903DF3E285AACD200E97FA9 /* Table View Cell Models */,
@@ -334,13 +334,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		0966D42327C9AC6C00A90754 /* Networking */ = {
+		0966D42327C9AC6C00A90754 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				0966D42427C9ACD700A90754 /* MacroCalculatorAPI.swift */,
-				0966D42627CD804100A90754 /* MealPlanAPI.swift */,
+				0966D42427C9ACD700A90754 /* NutritionManager.swift */,
+				0966D42627CD804100A90754 /* MealPlanManager.swift */,
 			);
-			path = Networking;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		09E4B4252846A2FD00F319BB /* Ignore */ = {
@@ -519,7 +519,7 @@
 				094E901C2836123500BCE92E /* TwoLineButton.swift in Sources */,
 				09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */,
 				09EE8142277A8D9D00579224 /* RankVC.swift in Sources */,
-				0966D42527C9ACD700A90754 /* MacroCalculatorAPI.swift in Sources */,
+				0966D42527C9ACD700A90754 /* NutritionManager.swift in Sources */,
 				09531A86285EC25F0015851A /* TwoLabelCellModel.swift in Sources */,
 				09B29825283D71DC008F19BF /* MainLabel.swift in Sources */,
 				09B29827283D7390008F19BF /* MainLabelModel.swift in Sources */,
@@ -531,7 +531,7 @@
 				09E3044B2798F2DE003FB240 /* MealData.swift in Sources */,
 				0989FA71277D0E2100234819 /* ProteinVC.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Utils.swift in Sources */,
-				0966D42727CD804100A90754 /* MealPlanAPI.swift in Sources */,
+				0966D42727CD804100A90754 /* MealPlanManager.swift in Sources */,
 				0903DF3D285AACB900E97FA9 /* MealCellModel.swift in Sources */,
 				0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */,
 				09FD0BE0270E24830094BAAC /* InfoVC.swift in Sources */,
@@ -545,7 +545,7 @@
 				09ABA62327B346EC008A9641 /* MealCell.swift in Sources */,
 				09D20BBC28306FC60085BAA5 /* SetGoalVC.swift in Sources */,
 				09DC9A5427A1E78500EF78E7 /* Color.swift in Sources */,
-				09B353D3279F806B00871FA2 /* MacroData.swift in Sources */,
+				09B353D3279F806B00871FA2 /* NutritionData.swift in Sources */,
 				09ABA5FD27B3095D008A9641 /* Image.swift in Sources */,
 				0966D42F27CEC51300A90754 /* MealPlanVM.swift in Sources */,
 				09E3044A2798F2DE003FB240 /* MealPlan.swift in Sources */,

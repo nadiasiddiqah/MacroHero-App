@@ -1,5 +1,5 @@
 //
-//  MacroData.swift
+//  NutritionData.swift
 //  MacroHero
 //
 //  Created by Nadia Siddiqah on 1/24/22.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-// MARK: - MacroData
-struct MacroData: Codable {
+// MARK: - NutritionData
+struct NutritionData: Codable {
     let statusCode: Int?
     let requestResult: String?
     let data: MacroOptions?

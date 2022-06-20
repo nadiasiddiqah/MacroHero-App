@@ -12,11 +12,11 @@ struct UserData {
     var sex: Sex?
     var activityLevel: Activity?
     var goal: Goal?
-    var macroPlan: MacroPlan?
+    var nutritionPlan: Macros?
     var mealPlan: [MealInfo]?
 }
 
-struct MacroPlan {
+struct Macros {
     var calories, carbs, protein, fat: String
 }
 

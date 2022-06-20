@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class PlanVM {
-    @Published var dailyMacro: MacroPlan
+    @Published var dailyMacro: Macros
     
-    init(dailyMacro: MacroPlan) {
+    init(dailyMacro: Macros) {
         self.dailyMacro = dailyMacro
     }
 }

@@ -120,6 +120,7 @@ class MealCell: UITableViewCell {
     
     lazy var iv: UIImageView = {
         let iv = UIImageView()
+        iv.frame = CGRect(x: 0, y: 0, width: 150, height: 92)
         iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 6
@@ -131,7 +132,6 @@ class MealCell: UITableViewCell {
     lazy var bottomStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [iv, macroStack])
         stack.axis = .horizontal
-        stack.distribution = .fillProportionally
         stack.spacing = screenHeight * 0.02
         
         NSLayoutConstraint.activate([

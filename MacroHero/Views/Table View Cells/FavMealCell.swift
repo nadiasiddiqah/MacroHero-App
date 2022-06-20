@@ -38,6 +38,7 @@ class FavMealCell: UITableViewCell {
     
     lazy var iv: UIImageView = {
         let iv = UIImageView()
+        iv.frame = CGRect(x: 0, y: 0, width: 100, height: 61.33)
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 6
         iv.layer.masksToBounds = true
