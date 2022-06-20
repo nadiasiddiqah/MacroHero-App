@@ -204,10 +204,10 @@
 				0933D8C2270BC6A200080FCD /* Models */,
 				0966D42027C9AA5D00A90754 /* Views */,
 				0966D41D27C9A9F600A90754 /* Controllers */,
-				09E4B4252846A2FD00F319BB /* Ignore */,
 				0966D42327C9AC6C00A90754 /* Networking */,
 				0966D41B27C9A96500A90754 /* Extensions */,
 				0933D8BE270BC66600080FCD /* Other */,
+				09E4B4252846A2FD00F319BB /* Ignore */,
 			);
 			path = MacroHero;
 			sourceTree = "<group>";

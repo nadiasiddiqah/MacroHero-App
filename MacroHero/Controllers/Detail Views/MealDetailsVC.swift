@@ -12,8 +12,8 @@ import Charts
 class MealDetailsVC: UIViewController, ChartViewDelegate {
     
     // MARK: - PROPERTIES
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     private var mealInfo: MealInfo
     var isFavorite = false

@@ -10,8 +10,8 @@ import UIKit
 class LabelTextFieldCell: UITableViewCell {
 
     // MARK: - PROPERTIES
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     var label = UILabel()
     var textField = UITextField()

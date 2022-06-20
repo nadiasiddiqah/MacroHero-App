@@ -10,8 +10,8 @@ import UIKit
 class TwoLabelCell: UITableViewCell {
     
     // MARK: - PROPERTIES
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     var leftLabel = UILabel()
     var rightLabel = UILabel()

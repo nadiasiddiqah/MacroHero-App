@@ -12,8 +12,8 @@ import Inject
 class FavoritesTabVC: UIViewController {
     
     // MARK: - PROPERTIES
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     var favMeals = [MealInfo]()
     

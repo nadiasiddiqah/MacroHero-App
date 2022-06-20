@@ -8,19 +8,11 @@
 import UIKit
 import Inject
 
-//extension UITextField {
-//    func setDatePickerAsInputViewFor(target: UIViewController, selector: Selector) {
-//        let datePicker = UIDatePicker()
-//        datePicker.datePickerMode = .date
-//        self.inputView = datePicker
-//    }
-//}
-
 class AboutYouVC: UIViewController {
     
     // MARK: - PROPERTIES
-    var screenWidth = Utils.screenWidth
-    var screenHeight = Utils.screenHeight
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     private var userData: UserData
     var sex: Sex?
@@ -452,7 +444,7 @@ class AboutYouVC: UIViewController {
                 guard let self = self else { return }
                 self.userData.macroPlan = results
                 
-                guard let macroPlan = self.userData.macroPlan else { return }
+                guard self.userData.macroPlan != nil else { return }
                 let vc = Inject.ViewControllerHost(
                     NutritionChartVC(userData: self.userData))
                 self.navigationController?.pushViewController(vc, animated: true)

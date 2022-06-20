@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import PKHUD
 import AlamofireImage
 import Inject
@@ -14,8 +13,8 @@ import Inject
 class MealPlanTabVC: UIViewController {
     
     // MARK: - PROPERTIES
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     var mealPlan = [MealInfo]()
     

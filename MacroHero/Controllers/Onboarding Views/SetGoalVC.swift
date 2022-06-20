@@ -12,8 +12,9 @@ import Inject
 class SetGoalVC: UIViewController {
     
     // MARK: - PROPERTIES
-    var screenWidth = Utils.screenWidth
-    var screenHeight = Utils.screenHeight
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
+    
     private var userData = UserData()
     
     // MARK: - VIEW METHODS

@@ -6,7 +6,6 @@ target 'MacroHero' do
   use_frameworks!
 
   # Pods for MacroHero
-  pod 'TinyConstraints'
   pod 'Gifu'
   pod 'DropDown'
   pod 'IQKeyboardManager'
@@ -14,6 +13,5 @@ target 'MacroHero' do
   pod 'Alamofire'
   pod 'AlamofireImage'
   pod 'Charts'
-  pod 'SwiftLint'
   
 end

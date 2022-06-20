@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Gifu
 import Inject
+import UIKit
 
 // TODO: - Implement long press gesture re-ordering
 // TODO: - Add reorder symbol to the left of each cell 
@@ -17,8 +17,8 @@ class RankVC: UIViewController {
     private var userData: UserData
     private var cellData = [TwoLabelCellModel]()
     
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     // MARK: - INITIALIZERS
     init(userData: UserData) {

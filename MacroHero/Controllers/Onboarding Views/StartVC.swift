@@ -6,16 +6,13 @@
 //
 
 import UIKit
-import TinyConstraints
 import Gifu
-import Combine
 import Inject
-import SwiftUI
 
 class StartVC: UIViewController {
     
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {

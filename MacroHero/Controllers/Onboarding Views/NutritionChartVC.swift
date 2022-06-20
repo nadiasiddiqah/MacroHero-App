@@ -12,8 +12,8 @@ import Inject
 class NutritionChartVC: UIViewController, ChartViewDelegate {
     
     // MARK: - PROPERTIES
-    var screenWidth = Utils.screenWidth
-    var screenHeight = Utils.screenHeight
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     private var userData: UserData
     var yValues = [ChartDataEntry]()

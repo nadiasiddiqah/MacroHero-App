@@ -12,8 +12,8 @@ import UIKit
 class FavMealCell: UITableViewCell {
     
     // MARK: - PROPERTIES
-    var screenHeight = Utils.screenHeight
-    var screenWidth = Utils.screenWidth
+    var screenHeight = UIScreen.main.bounds.height
+    var screenWidth = UIScreen.main.bounds.width
     
     // MARK: - INITIALIZERS
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -109,7 +109,6 @@ extension FavMealCell {
     func autoLayoutViews() {
         bgView.translatesAutoresizingMaskIntoConstraints = false
         titleStack.translatesAutoresizingMaskIntoConstraints = false
-//        fullStack.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func addConstraints() {
@@ -124,8 +123,7 @@ extension FavMealCell {
             iv.centerYAnchor.constraint(equalTo: bgView.centerYAnchor),
             iv.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: screenHeight * 0.02),
             iv.widthAnchor.constraint(equalTo: bgView.widthAnchor, multiplier: 0.34),
-            iv.heightAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.6),
-//            iv.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.015)
+            iv.heightAnchor.constraint(equalTo: iv.widthAnchor, multiplier: 0.6)
         ])
         
         NSLayoutConstraint.activate([
@@ -133,23 +131,6 @@ extension FavMealCell {
             titleStack.leftAnchor.constraint(equalTo: iv.rightAnchor, constant: screenHeight * 0.01),
             titleStack.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: screenHeight * -0.02),
             titleStack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.015)
-//            titleStack.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: screenHeight * -0.015)
         ])
     }
-//    func setupImageIV() {
-//        imageIV.frame = CGRect(x: 0, y: 0,
-//                               width: screenWidth * 0.45,
-//                               height: screenHeight * 0.15)
-//    }
-//
-//    func addConstraints() {
-//        titleVStack.topToSuperview()
-//        titleVStack.leftToSuperview()
-//
-//        imageIV.leftToSuperview()
-//        imageIV.topToBottom(of: titleVStack, offset: screenHeight * 0.01)
-//        imageIV.bottomToSuperview(offset: screenHeight * -0.03)
-//        imageIV.width(screenWidth * 0.45)
-//        imageIV.aspectRatio(1.63)
-//    }
 }
