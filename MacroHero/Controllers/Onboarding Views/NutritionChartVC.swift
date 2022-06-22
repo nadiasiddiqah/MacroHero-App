@@ -36,8 +36,10 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setChartData()
         setupViews()
+        calculateMealReqs()
     }
     
     // MARK: - VIEW OBJECTS
@@ -196,6 +198,23 @@ class NutritionChartVC: UIViewController, ChartViewDelegate {
         let string = NSMutableAttributedString()
         twoLines.forEach { string.append($0) }
         return string
+    }
+    
+    func calculateMealReqs() {
+        guard let macros = userData.nutritionPlan else { return }
+        
+        if let cal = Int(macros.calories), let carbs = Int(macros.carbs),
+           let protein = Int(macros.protein), let fat = Int(macros.fat) {
+            let mealReqMacros = Macros(calories: (String(cal/3)), carbs: (String(carbs/3)),
+                                       protein: String(protein/3) + "+", fat: (String(fat/3)))
+            let breakfastReq = MealReq(type: MealType.breakfast.rawValue, macros: mealReqMacros, random: true)
+            let lunchReq = MealReq(type: MealType.lunch.rawValue, macros: mealReqMacros, random: true)
+            let dinnerReq = MealReq(type: MealType.dinner.rawValue, macros: mealReqMacros, random: true)
+            
+            print(userData.nutritionPlan)
+            userData.mealReqs = [breakfastReq, lunchReq, dinnerReq]
+            print(userData.mealReqs)
+        }
     }
 }
 

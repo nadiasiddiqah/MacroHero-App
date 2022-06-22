@@ -50,7 +50,6 @@
 		09E304492798F2DE003FB240 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304432798F2DE003FB240 /* UserData.swift */; };
 		09E3044A2798F2DE003FB240 /* MealPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304442798F2DE003FB240 /* MealPlan.swift */; };
 		09E3044B2798F2DE003FB240 /* MealData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304452798F2DE003FB240 /* MealData.swift */; };
-		09E3044D2798F2DE003FB240 /* MealReq.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304472798F2DE003FB240 /* MealReq.swift */; };
 		09E304502798F3C1003FB240 /* MealDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E3044F2798F3C1003FB240 /* MealDetailsVC.swift */; };
 		09E304522798F3DA003FB240 /* ProfileTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E304512798F3DA003FB240 /* ProfileTabVC.swift */; };
 		09E55AB228342E55008BCE23 /* SetActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E55AB128342E55008BCE23 /* SetActivityVC.swift */; };
@@ -110,7 +109,6 @@
 		09E304432798F2DE003FB240 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		09E304442798F2DE003FB240 /* MealPlan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealPlan.swift; sourceTree = "<group>"; };
 		09E304452798F2DE003FB240 /* MealData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealData.swift; sourceTree = "<group>"; };
-		09E304472798F2DE003FB240 /* MealReq.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealReq.swift; sourceTree = "<group>"; };
 		09E3044F2798F3C1003FB240 /* MealDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailsVC.swift; sourceTree = "<group>"; };
 		09E304512798F3DA003FB240 /* ProfileTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabVC.swift; sourceTree = "<group>"; };
 		09E55AB128342E55008BCE23 /* SetActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetActivityVC.swift; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				09E304452798F2DE003FB240 /* MealData.swift */,
-				09E304472798F2DE003FB240 /* MealReq.swift */,
 				09E304442798F2DE003FB240 /* MealPlan.swift */,
 			);
 			path = "Meal Plan Models";
@@ -514,7 +511,6 @@
 				0995DE9528513A2A00F102E5 /* TwoLabelCell.swift in Sources */,
 				09ABA5FF27B30B9C008A9641 /* Font.swift in Sources */,
 				0995DE97285162DD00F102E5 /* LabelTextFieldCell.swift in Sources */,
-				09E3044D2798F2DE003FB240 /* MealReq.swift in Sources */,
 				091DFB16280753E400EBD110 /* FavMealCell.swift in Sources */,
 				094E901C2836123500BCE92E /* TwoLineButton.swift in Sources */,
 				09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */,

@@ -81,7 +81,9 @@ class RankVC: UIViewController {
   
     // MARK: - NAV METHODS
     @objc func didTapNext() {
-        let proteinVC = Inject.ViewControllerHost(ProteinVC())
+        updateMealReqPriority()
+        
+        let proteinVC = Inject.ViewControllerHost(ProteinVC(userData: self.userData))
         navigationController?.pushViewController(proteinVC, animated: true)
     }
     
@@ -94,6 +96,18 @@ class RankVC: UIViewController {
             TwoLabelCellModel(title: "Protein", value: "\(macros.protein) g"),
             TwoLabelCellModel(title: "Fat", value: "\(macros.fat) g")
         ]
+    }
+    
+    func updateMealReqPriority() {
+        var updatedMealReqs = [MealReq]()
+        if let mealReqs = userData.mealReqs {
+            for i in 0..<mealReqs.count {
+                updatedMealReqs.append(mealReqs[i])
+                updatedMealReqs[i].macroPriority = "Protein"
+            }
+        }
+        userData.mealReqs = updatedMealReqs
+        print(userData.mealReqs)
     }
 }
 

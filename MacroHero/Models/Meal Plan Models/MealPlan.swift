@@ -18,4 +18,9 @@ struct MealInfo {
     var isFavorite: Bool? = false
 }
 
-
+struct MealReq {
+    var type: String
+    var macros: Macros?
+    var random: Bool = false
+    var macroPriority: String?
+}

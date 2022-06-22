@@ -16,7 +16,19 @@ class ProteinVC: UIViewController {
     var screenHeight = UIScreen.main.bounds.height
     var screenWidth = UIScreen.main.bounds.width
     
+    var userData: UserData
     var cellData = [TwoLabelCellModel]()
+    
+    // MARK: - INITIALIZERS
+    init(userData: UserData) {
+        self.userData = userData
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
@@ -91,7 +103,7 @@ class ProteinVC: UIViewController {
     }
     
     func createMealPlanNC() -> UINavigationController {
-        let vc = Inject.ViewControllerHost(MealPlanTabVC())
+        let vc = Inject.ViewControllerHost(MealPlanTabVC(userData: self.userData))
         let tabImage = UIImage(systemName: "note.text")
         vc.tabBarItem = UITabBarItem(title: "Meal Plan", image: tabImage, tag: 0)
         

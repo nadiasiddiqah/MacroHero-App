@@ -14,6 +14,7 @@ struct UserData {
     var goal: Goal?
     var nutritionPlan: Macros?
     var mealPlan: [MealInfo]?
+    var mealReqs: [MealReq]?
 }
 
 struct Macros {

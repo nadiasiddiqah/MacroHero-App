@@ -40,7 +40,8 @@ class MealPlanManager {
         
         // Validate appId and appKey
         guard let appId = Bundle.main.infoDictionary?["edamam_app_id"] as? String,
-              let appKey = Bundle.main.infoDictionary?["edamam_app_key"] as? String else { return }
+              let appKey = Bundle.main.infoDictionary?["edamam_app_key"] as? String,
+              let macroReq = req.macros else { return }
         
         // Create urlPrefix with queryItems
         var urlPrefix = URLComponents(string: "https://api.edamam.com/api/recipes/v2")!
@@ -51,12 +52,12 @@ class MealPlanManager {
             URLQueryItem(name: "app_id", value: appId),
             URLQueryItem(name: "app_key", value: appKey),
             URLQueryItem(name: "mealType", value: req.type),
-            URLQueryItem(name: "calories", value: req.macros.calories),
+            URLQueryItem(name: "calories", value: macroReq.calories),
             URLQueryItem(name: "imageSize", value: "REGULAR"),
             URLQueryItem(name: "random", value: "\(req.random)"),
-            URLQueryItem(name: "nutrients[CHOCDF]", value: req.macros.carbs),
-            URLQueryItem(name: "nutrients[FAT]", value: req.macros.fat),
-            URLQueryItem(name: "nutrients[PROCNT]", value: req.macros.protein),
+            URLQueryItem(name: "nutrients[CHOCDF]", value: macroReq.carbs),
+            URLQueryItem(name: "nutrients[FAT]", value: macroReq.fat),
+            URLQueryItem(name: "nutrients[PROCNT]", value: macroReq.protein),
             URLQueryItem(name: "field", value: "label"),
             URLQueryItem(name: "field", value: "image"),
             URLQueryItem(name: "field", value: "images"),

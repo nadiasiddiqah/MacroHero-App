@@ -16,26 +16,37 @@ class MealPlanTabVC: UIViewController {
     var screenWidth = UIScreen.main.bounds.width
     
     var mealPlan = [MealInfo]()
+    var userData: UserData
     
     // TODO: Generate in the app before this screen, pass it to this screen
-    var breakfastReq = MealReq(type: MealType.breakfast.rawValue,
-                               macros: Macros(calories: "100+", carbs: "20+",
-                                                 protein: "15+", fat: "10+"),
-                               random: true,
-                               macroPriority: MacroPriority(macro1: "calories",
-                                                            macro2: "protein"))
-    var lunchReq = MealReq(type: MealType.lunch.rawValue,
-                           macros: Macros(calories: "100+", carbs: "20+",
-                                             protein: "15+", fat: "10+"),
-                           random: true,
-                           macroPriority: MacroPriority(macro1: "calories",
-                                                        macro2: "protein"))
-    var dinnerReq = MealReq(type: MealType.dinner.rawValue,
-                            macros: Macros(calories: "100+", carbs: "20+",
-                                              protein: "15+", fat: "10+"),
-                            random: true,
-                            macroPriority: MacroPriority(macro1: "calories",
-                                                         macro2: "protein"))
+//    MealReq(type: MealType.breakfast.rawValue,
+//                               macros: Macros(calories: "100+", carbs: "20+",
+//                                                 protein: "15+", fat: "10+"),
+//                               random: true,
+//                               macroPriority: MacroPriority(macro1: "calories",
+//                                                            macro2: "protein"))
+//    var lunchReq = MealReq(type: MealType.lunch.rawValue,
+//                           macros: Macros(calories: "100+", carbs: "20+",
+//                                             protein: "15+", fat: "10+"),
+//                           random: true,
+//                           macroPriority: MacroPriority(macro1: "calories",
+//                                                        macro2: "protein"))
+//    var dinnerReq = MealReq(type: MealType.dinner.rawValue,
+//                            macros: Macros(calories: "100+", carbs: "20+",
+//                                              protein: "15+", fat: "10+"),
+//                            random: true,
+//                            macroPriority: MacroPriority(macro1: "calories",
+//                                                         macro2: "protein"))
+    
+    // MARK: - INITIALIZERS
+    init(userData: UserData) {
+        self.userData = userData
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - VIEW METHODS
     override func viewDidLoad() {
@@ -71,16 +82,17 @@ class MealPlanTabVC: UIViewController {
     }()
     
     // MARK: - FETCH DATA
-    func fetchDummyMealPlan() {
-        mealPlan = [
-            MealInfo(mealOrder: 0, imageURL: "", type: MealType.breakfast.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
-            MealInfo(mealOrder: 1, imageURL: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
-            MealInfo(mealOrder: 2, imageURL: "", type: MealType.dinner.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: "")
-        ]
-    }
+//    func fetchDummyMealPlan() {
+//        mealPlan = [
+//            MealInfo(mealOrder: 0, imageURL: "", type: MealType.breakfast.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
+//            MealInfo(mealOrder: 1, imageURL: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
+//            MealInfo(mealOrder: 2, imageURL: "", type: MealType.dinner.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: "")
+//        ]
+//    }
     
     func fetchMealPlan() {
-        MealPlanManager.fetchMealPlan(mealReqs: [breakfastReq, lunchReq, dinnerReq]) { results in
+        guard let mealReqs = userData.mealReqs else { return }
+        MealPlanManager.fetchMealPlan(mealReqs: mealReqs) { results in
             self.mealPlan = results
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -97,15 +109,17 @@ class MealPlanTabVC: UIViewController {
 
         var req: MealReq?
         var removeAt = Int()
+        
+        guard let mealReqs = userData.mealReqs else { return }
 
         if type == MealType.breakfast.rawValue {
-            req = breakfastReq
+            req = mealReqs[0]
             removeAt = 0
         } else if type == MealType.lunch.rawValue {
-            req = lunchReq
+            req = mealReqs[1]
             removeAt = 1
         } else if type == MealType.dinner.rawValue {
-            req = dinnerReq
+            req = mealReqs[2]
             removeAt = 2
         }
 
@@ -142,7 +156,9 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.configure(with: MealCellModel(mealInfo: mealInfo, refreshAction: {
             print("refresh \(String(describing: mealInfo.type))")
-//            self.fetchNewMeal(type: type)
+            if let type = mealInfo.type {
+                self.fetchNewMeal(type: type)
+            }
         }, starButtonAction: {
             print("starred")
         }))
