@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AlamofireImage
 import Charts
 
 class MealDetailsVC: UIViewController, ChartViewDelegate {

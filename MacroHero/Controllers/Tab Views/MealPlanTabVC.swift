@@ -7,7 +7,6 @@
 
 import UIKit
 import PKHUD
-import AlamofireImage
 import Inject
 
 class MealPlanTabVC: UIViewController {

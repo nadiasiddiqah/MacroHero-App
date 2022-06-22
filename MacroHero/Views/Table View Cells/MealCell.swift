@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import AlamofireImage
 
 class MealCell: UITableViewCell {
     
