@@ -27,7 +27,7 @@ A health app that allows users to calculate a personalized nutrition plan and ea
 - Generate grocery list based on meal plan 
 
 ## Development Details
-- Used **URLSession* and **Codable** to decode data requested from RESTful APIs
+- Used **URLSession** and **Codable** to decode data requested from RESTful APIs
 - Utilized **RESTful APIs** to make it easy for users to reach their diet goals by generating personalized nutrition plans
 - Used **DispatchGroup** to make concurrent API requests to generate daily meal plans from a database of 2.3M+ recipes
 - Designed app using **Figma** and developed **UI programmatically** with **MVC** architectural pattern
