@@ -16,8 +16,8 @@ A health app that allows users to calculate a personalized nutrition plan and ea
 ## Features
 
 - Set your personal health goal whether it is to lose, maintain, or gain weight
-- Generate a nutrion plan with daily macronutrient requirements based on your diet goals
-- Generate daily meal plans with recipes based on your macronutrient requirements
+- Generate a personalized nutrition plan based on your diet goals
+- Generate daily meal plans with recipes based on your diet goals
 - Access recipe details in the app to help your prepare healthy meals
 - Quickly change recipes in your meal plan 
 
@@ -33,7 +33,7 @@ A health app that allows users to calculate a personalized nutrition plan and ea
 - Designed app using **Figma** and developed **UI programmatically** with **MVC** architectural pattern
 ## Tech Stack
 
-UIKit, Programmatic UI, RESTful APIs, Alamofire, CocoaPods, Figma, MVC
+UIKit, Programmatic UI, RESTful APIs, URLSession, Codable, Concurrency, CocoaPods, Figma, MVC
 
 
 ## Feedback
