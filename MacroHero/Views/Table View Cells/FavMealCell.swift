@@ -79,22 +79,13 @@ class FavMealCell: UITableViewCell {
     func configure(with model: MealCellModel) {
         let mealData = model.mealInfo
         guard let type = mealData.type,
-              let name = mealData.name,
-              let imageURL = mealData.imageURL,
-              let image = mealData.image else { return }
+              let name = mealData.name else { return }
         
         typeLabel.text = type.capitalized
         nameLabel.text = name
         
-//        if image != Image.defaultMealImage {
-//            iv.image = image
-//        } else {
-//            iv.image = Image.defaultMealImage
-//        }
-        
-        if let url = URL(string: imageURL), image != Image.defaultMealImage {
-            let filter = AspectScaledToFillSizeFilter(size: iv.frame.size)
-            iv.af.setImage(withURL: url, filter: filter)
+        if let image = mealData.image, image != Image.defaultMealImage {
+            iv.image = mealData.image
         } else {
             iv.image = Image.defaultMealImage
         }
