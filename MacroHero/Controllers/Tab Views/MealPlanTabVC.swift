@@ -74,16 +74,14 @@ class MealPlanTabVC: UIViewController {
     // MARK: - FETCH DATA
     func fetchDummyMealPlan() {
         mealPlan = [
-            MealInfo(mealOrder: 0, image: "", type: MealType.breakfast.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
-            MealInfo(mealOrder: 1, image: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
-            MealInfo(mealOrder: 2, image: "", type: MealType.dinner.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: "")
+            MealInfo(mealOrder: 0, imageURL: "", type: MealType.breakfast.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
+            MealInfo(mealOrder: 1, imageURL: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
+            MealInfo(mealOrder: 2, imageURL: "", type: MealType.dinner.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: "")
         ]
     }
     
     func fetchMealPlan() {
-        MealPlanManager.fetchMealPlan(mealReqs: AllMealReqs(breakfast: breakfastReq,
-                                                        lunch: lunchReq,
-                                                        dinner: dinnerReq)) { results in
+        MealPlanManager.fetchMealPlan(mealReqs: [breakfastReq, lunchReq, dinnerReq]) { results in
             self.mealPlan = results
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -99,7 +97,7 @@ class MealPlanTabVC: UIViewController {
         HUD.dimsBackground = true
 
         var req: MealReq?
-        var removeAt = 0
+        var removeAt = Int()
 
         if type == MealType.breakfast.rawValue {
             req = breakfastReq
@@ -114,17 +112,16 @@ class MealPlanTabVC: UIViewController {
 
         if let req = req {
             MealPlanManager.fetchMealBasedOn(req) { newMeal in
-                if let newMeal = newMeal {
-                    self.mealPlan.remove(at: removeAt)
-                    self.mealPlan.append(newMeal)
-
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        HUD.hide(animated: true) { _ in
-                            HUD.dimsBackground = false
-                        }
+                self.mealPlan.remove(at: removeAt)
+                self.mealPlan.append(newMeal)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    HUD.hide(animated: true) { _ in
+                        HUD.dimsBackground = false
                     }
                 }
+                
             }
         }
     }

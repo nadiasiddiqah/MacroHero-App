@@ -6,45 +6,28 @@
 //
 
 import Foundation
-import Alamofire
+import UIKit
 
 class MealPlanManager {
     
-    static func fetchMealPlan(mealReqs: AllMealReqs, completion: @escaping (([MealInfo]) -> Void)) {
+    static func fetchMealPlan(mealReqs: [MealReq], completion: @escaping (([MealInfo]) -> Void)) {
         
+        let dispatchGroup = DispatchGroup()
         var mealPlan = [MealInfo]()
         
-        // TODO: is this code best practice? post on stackoverflow, is it concurrent threading?
-        // https://betterprogramming.pub/a-deep-dive-into-dispatch-groups-8251bbb8b001 (avoid using wait or put timeout)
         DispatchQueue.global().async {
-            let dispatchGroup = DispatchGroup()
             
-            dispatchGroup.enter()
-            self.fetchMealBasedOn(mealReqs.breakfast) { mealInfo in
-                if let mealInfo = mealInfo {
-                    mealPlan.append(mealInfo)
+            mealReqs.forEach { req in
+                dispatchGroup.enter()
+                self.fetchMealBasedOn(req) { result in
+                    var mealInfo = result
+                    self.loadImageURL(for: mealInfo) { image in
+                        mealInfo.image = image
+                        mealPlan.append(mealInfo)
+                        dispatchGroup.leave()
+                    }
                 }
-                dispatchGroup.leave()
             }
-            dispatchGroup.wait()
-            
-            dispatchGroup.enter()
-            self.fetchMealBasedOn(mealReqs.lunch) { mealInfo in
-                if let mealInfo = mealInfo {
-                    mealPlan.append(mealInfo)
-                }
-                dispatchGroup.leave()
-            }
-            dispatchGroup.wait()
-            
-            dispatchGroup.enter()
-            self.fetchMealBasedOn(mealReqs.dinner) { mealInfo in
-                if let mealInfo = mealInfo {
-                    mealPlan.append(mealInfo)
-                }
-                dispatchGroup.leave()
-            }
-            dispatchGroup.wait()
             
             dispatchGroup.notify(queue: .main) {
                 completion(mealPlan)
@@ -52,15 +35,16 @@ class MealPlanManager {
         }
     }
     
-    static func fetchMealBasedOn(_ req: MealReq, completion: @escaping ((MealInfo?) -> Void)) {
+    static func fetchMealBasedOn(_ req: MealReq, completion: @escaping ((MealInfo) -> Void)) {
         print("running fetch meal")
         
         // Validate appId and appKey
         guard let appId = Bundle.main.infoDictionary?["edamam_app_id"] as? String,
               let appKey = Bundle.main.infoDictionary?["edamam_app_key"] as? String else { return }
-
+        
         // Create urlPrefix with queryItems
         var urlPrefix = URLComponents(string: "https://api.edamam.com/api/recipes/v2")!
+        
         let queryItems = [
             URLQueryItem(name: "type", value: "public"),
             URLQueryItem(name: "q", value: req.type),
@@ -129,6 +113,30 @@ class MealPlanManager {
         task.resume()
     }
     
+    static func loadImageURL(for meal: MealInfo, completion: @escaping ((UIImage) -> Void)) {
+        print("fetching images")
+        guard let imageURL = meal.imageURL, let url = URL(string: imageURL) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Please check connection \(String(describing: error?.localizedDescription))")
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                return
+            }
+            
+            let result: UIImage
+            result = UIImage(data: data) ?? Image.defaultMealImage!
+            
+            completion(result)
+        }
+        
+        task.resume()
+    }
+    
+    
     static func getMealDataBasedOnPriorities(reqs: MealReq) {
         print("calculate based on priorities")
     }
@@ -139,7 +147,7 @@ class MealPlanManager {
            let recipe = result.hits?[0].recipe,
            let yieldInt = recipe.yield,
            let name = recipe.label,
-           let image = recipe.images?.regular?.url ?? recipe.image,
+           let imageURL = recipe.images?.regular?.url ?? recipe.image,
            let ingredients = recipe.ingredientLines,
            let instructionsURL = recipe.shareAs,
            let totalCalories = recipe.calories,
@@ -156,7 +164,7 @@ class MealPlanManager {
             let updatedName = updateName(name: name)
             let mealOrder = determineMealOrder(type: req.type)
             
-            let parsedMeal = MealInfo(mealOrder: mealOrder, image: image,
+            let parsedMeal = MealInfo(mealOrder: mealOrder, imageURL: imageURL,
                                       type: req.type, name: updatedName.capitalized,
                                       macros: Macros(calories: calories,
                                                              carbs: carbs,
@@ -171,18 +179,19 @@ class MealPlanManager {
     
     static func updateName(name: String) -> String {
         var filteredName = name
-        let removeWords = ["recipes", "recipe", "Recipes", "Recipe"]
-        let replaceWords = ["and", "And"]
+        let removeWords = ["recipes", "recipe", "Recipes", "Recipe", "breakfast",
+                           "Breakfast", "Lunch", "lunch", "Dinner", "dinner"]
+        let replaceWords = [" and ", " And "]
         
-        for word in removeWords {
-            for word1 in replaceWords {
-                if let range = filteredName.range(of: word) {
-                    filteredName.removeSubrange(range)
-                }
-                
-                if let _ = filteredName.range(of: word1) {
-                    filteredName = filteredName.replacingOccurrences(of: word1, with: "&")
-                }
+        removeWords.forEach {
+            if let range = filteredName.range(of: $0) {
+                filteredName.removeSubrange(range)
+            }
+        }
+        
+        replaceWords.forEach {
+            if let _ = filteredName.range(of: $0) {
+                filteredName = filteredName.replacingOccurrences(of: $0, with: " & ")
             }
         }
         

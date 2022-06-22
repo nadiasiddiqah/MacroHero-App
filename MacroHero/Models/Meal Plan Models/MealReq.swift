@@ -7,12 +7,6 @@
 
 import Foundation
 
-struct AllMealReqs {
-    var breakfast: MealReq
-    var lunch: MealReq
-    var dinner: MealReq
-}
-
 struct MealReq {
     var type: String
     var macros: Macros

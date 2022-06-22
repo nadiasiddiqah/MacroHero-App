@@ -54,9 +54,8 @@ class MealDetailsVC: UIViewController, ChartViewDelegate {
         iv.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth * 0.61)
         iv.contentMode = .scaleAspectFill
         
-        if let image = mealInfo.image, let url = URL(string: image), image != "defaultMealImage" {
-            let filter = AspectScaledToFillSizeFilter(size: iv.frame.size)
-            iv.af.setImage(withURL: url, filter: filter)
+        if let image = mealInfo.image, image != Image.defaultMealImage {
+            iv.image = image
         } else {
             iv.image = Image.defaultMealImage
         }
