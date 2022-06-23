@@ -18,26 +18,6 @@ class MealPlanTabVC: UIViewController {
     var mealPlan = [MealInfo]()
     var userData: UserData
     
-    // TODO: Generate in the app before this screen, pass it to this screen
-//    MealReq(type: MealType.breakfast.rawValue,
-//                               macros: Macros(calories: "100+", carbs: "20+",
-//                                                 protein: "15+", fat: "10+"),
-//                               random: true,
-//                               macroPriority: MacroPriority(macro1: "calories",
-//                                                            macro2: "protein"))
-//    var lunchReq = MealReq(type: MealType.lunch.rawValue,
-//                           macros: Macros(calories: "100+", carbs: "20+",
-//                                             protein: "15+", fat: "10+"),
-//                           random: true,
-//                           macroPriority: MacroPriority(macro1: "calories",
-//                                                        macro2: "protein"))
-//    var dinnerReq = MealReq(type: MealType.dinner.rawValue,
-//                            macros: Macros(calories: "100+", carbs: "20+",
-//                                              protein: "15+", fat: "10+"),
-//                            random: true,
-//                            macroPriority: MacroPriority(macro1: "calories",
-//                                                         macro2: "protein"))
-    
     // MARK: - INITIALIZERS
     init(userData: UserData) {
         self.userData = userData
@@ -52,7 +32,6 @@ class MealPlanTabVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        fetchDummyMealPlan()
         fetchMealPlan()
         setupView()
     }
@@ -82,17 +61,15 @@ class MealPlanTabVC: UIViewController {
     }()
     
     // MARK: - FETCH DATA
-//    func fetchDummyMealPlan() {
-//        mealPlan = [
-//            MealInfo(mealOrder: 0, imageURL: "", type: MealType.breakfast.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
-//            MealInfo(mealOrder: 1, imageURL: "", type: MealType.lunch.rawValue, name: "Poached Egg & Avocado Toast", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: ""),
-//            MealInfo(mealOrder: 2, imageURL: "", type: MealType.dinner.rawValue, name: "Poached Egg & Avocado Toast with Sliced Cherry Tomatoes", macros: Macros(calories: "393", carbs: "60", protein: "23", fat: "20"), ingredients: ["2 eggs", "2 slices whole grain bread", "1/3 avocado", "2 tbsp shaved Parmesan cheese", "Salt and pepper, topping", "Quartered heirloom tomatoes"], instructionsURL: "")
-//        ]
-//    }
-    
     func fetchMealPlan() {
         guard let mealReqs = userData.mealReqs else { return }
+        
         MealPlanManager.fetchMealPlan(mealReqs: mealReqs) { results in
+            DispatchQueue.main.async {
+                HUD.dimsBackground = true
+                HUD.show(.progress)
+            }
+            
             self.mealPlan = results
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -103,29 +80,20 @@ class MealPlanTabVC: UIViewController {
         }
     }
     
-    func fetchNewMeal(type: String) {
-        HUD.show(.progress)
-        HUD.dimsBackground = true
-
-        var req: MealReq?
-        var removeAt = Int()
+    func fetchNewMeal(type: String, req: MealReq?) {
+        guard let req = req else { return }
         
-        guard let mealReqs = userData.mealReqs else { return }
-
-        if type == MealType.breakfast.rawValue {
-            req = mealReqs[0]
-            removeAt = 0
-        } else if type == MealType.lunch.rawValue {
-            req = mealReqs[1]
-            removeAt = 1
-        } else if type == MealType.dinner.rawValue {
-            req = mealReqs[2]
-            removeAt = 2
-        }
-
-        if let req = req {
-            MealPlanManager.fetchMealBasedOn(req) { newMeal in
-                self.mealPlan.remove(at: removeAt)
+        MealPlanManager.fetchMealBasedOn(req) { result in
+            DispatchQueue.main.async {
+                HUD.dimsBackground = true
+                HUD.show(.progress)
+            }
+            
+            var newMeal = result
+            
+            MealPlanManager.loadImageURL(for: newMeal) { image in
+                newMeal.image = image
+                self.mealPlan.removeAll(where: { $0.type == type })
                 self.mealPlan.append(newMeal)
                 
                 DispatchQueue.main.async {
@@ -134,8 +102,7 @@ class MealPlanTabVC: UIViewController {
                         HUD.dimsBackground = false
                     }
                 }
-                
-            }
+             }
         }
     }
 }
@@ -151,13 +118,13 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
         // sort meal plan data
         mealPlan = mealPlan.sorted { $0.mealOrder < $1.mealOrder }
         let mealInfo = mealPlan[indexPath.row]
+        print("\(indexPath.row) \(mealInfo.name) \(mealInfo.type)")
 
         // populate cell with sorted data
-        
         cell.configure(with: MealCellModel(mealInfo: mealInfo, refreshAction: {
-            print("refresh \(String(describing: mealInfo.type))")
-            if let type = mealInfo.type {
-                self.fetchNewMeal(type: type)
+            print("clicked refresh \(mealInfo.type)")
+            if let type = mealInfo.type, let mealReqs = self.userData.mealReqs {
+                self.fetchNewMeal(type: type, req: mealReqs.first(where: { $0.type == type }))
             }
         }, starButtonAction: {
             print("starred")

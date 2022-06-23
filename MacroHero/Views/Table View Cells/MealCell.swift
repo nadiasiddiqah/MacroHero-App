@@ -184,13 +184,6 @@ class MealCell: UITableViewCell {
             iv.image = Image.defaultMealImage
         }
         
-//        if let url = URL(string: image), image != "defaultMealImage" {
-//            let filter = AspectScaledToFillSizeFilter(size: iv.frame.size)
-//            iv.af.setImage(withURL: url, filter: filter)
-//        } else {
-//            iv.image = Image.defaultMealImage
-//        }
-        
         calLabel.text = macros.calories
         carbLabel.text = "\(macros.carbs)g"
         proteinLabel.text = "\(macros.protein)g"
