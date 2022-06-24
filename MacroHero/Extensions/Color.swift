@@ -20,4 +20,6 @@ struct Color {
     static let blueSelectedBg = UIColor(named: "blueSelectedBg")
     static let buttonShadow = UIColor(named: "buttonShadow")
     static let customYellow = UIColor(named: "yellow")
+    static let tabBarColor = UIColor(named: "tabBarColor")
+    static let ctaButtonColor = UIColor(named: "ctaButtonColor")
 }

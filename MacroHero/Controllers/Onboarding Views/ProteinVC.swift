@@ -18,6 +18,7 @@ class ProteinVC: UIViewController {
     
     var userData: UserData
     var cellData = [TwoLabelCellModel]()
+    var proteinShake = MealInfo(mealOrder: 4)
     
     // MARK: - INITIALIZERS
     init(userData: UserData) {
@@ -89,6 +90,7 @@ class ProteinVC: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func didTapNext() {
+        updateMealPlan()
         goToTabViews()
     }
 
@@ -102,8 +104,14 @@ class ProteinVC: UIViewController {
         ]
     }
     
+    func updateMealPlan() {
+        let proteinShakeMacros = Macros(calories: "130", carbs: "12", protein: "23", fat: "3")
+        proteinShake = MealInfo(mealOrder: 3, image: Image.proteinImage,
+                                type: "Protein Shake", macros: proteinShakeMacros)
+    }
+    
     func createMealPlanNC() -> UINavigationController {
-        let vc = Inject.ViewControllerHost(MealPlanTabVC(userData: self.userData))
+        let vc = Inject.ViewControllerHost(MealPlanTabVC(proteinShake: self.proteinShake, userData: self.userData))
         let tabImage = UIImage(systemName: "note.text")
         vc.tabBarItem = UITabBarItem(title: "Meal Plan", image: tabImage, tag: 0)
         
@@ -131,7 +139,7 @@ class ProteinVC: UIViewController {
         
         let tabBarAppearance = UITabBar.appearance()
         tabBarAppearance.tintColor = Color.customNavy
-        tabBarAppearance.backgroundColor = Color.customYellow
+        tabBarAppearance.backgroundColor = Color.tabBarColor
         
         tabBar.modalPresentationStyle = .fullScreen
         

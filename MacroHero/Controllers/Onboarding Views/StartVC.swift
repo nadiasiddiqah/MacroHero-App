@@ -40,31 +40,70 @@ class StartVC: UIViewController {
         return imageView
     }()
     
-    lazy var startButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("START", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = Font.solid_25
-        button.setBackgroundImage(Image.ctaButton, for: .normal)
-        button.addTarget(self, action: #selector(didTapStart), for: .touchUpInside)
-        button.addShadowEffect(type: .ctaButton)
+    lazy var signupButton: CTAButton = {
+        let button = CTAButton()
+        button.configure(with: CTAButtonModel(name: "SIGN UP", backgroundColor: Color.ctaButtonColor, action: {
+            self.didTapSignup()
+        }))
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    lazy var stack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [introImage, startButton])
+    lazy var loginButton: CTAButton = {
+        let button = CTAButton()
+        button.configure(with: CTAButtonModel(name: "LOG IN", backgroundColor: UIColor.clear,
+                                              borderColor: Color.ctaButtonColor?.cgColor, action: {
+            self.didTapLogIn()
+        }))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    lazy var buttonStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [signupButton, loginButton])
         stack.axis = .vertical
-        stack.spacing = screenHeight * 0.12
+        stack.spacing = screenHeight * 0.02
         stack.alignment = .center
+        
+        NSLayoutConstraint.activate([
+            signupButton.widthAnchor.constraint(
+                equalTo: stack.widthAnchor, multiplier: 0.83),
+            signupButton.heightAnchor.constraint(
+                equalTo: signupButton.widthAnchor, multiplier: 0.16),
+            loginButton.widthAnchor.constraint(
+                equalTo: stack.widthAnchor, multiplier: 0.83),
+            loginButton.heightAnchor.constraint(equalTo: loginButton.widthAnchor, multiplier: 0.16)
+        ])
         
         return stack
     }()
     
-    @objc func didTapStart() {
-        let setGoalVC = Inject.ViewControllerHost(SetGoalVC())
-        navigationController?.pushViewController(setGoalVC, animated: true)
+    lazy var fullStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [introImage, buttonStack])
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.distribution = .equalSpacing
+        
+        NSLayoutConstraint.activate([
+            introImage.widthAnchor.constraint(
+                equalTo: stack.widthAnchor, multiplier: 0.9),
+            introImage.bottomAnchor.constraint(lessThanOrEqualTo: buttonStack.topAnchor, constant: screenHeight * -0.1),
+            buttonStack.widthAnchor.constraint(equalTo: stack.widthAnchor)
+        ])
+        
+        return stack
+    }()
+    
+    @objc func didTapSignup() {
+        let vc = Inject.ViewControllerHost(SignupVC())
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func didTapLogIn() {
+        let vc = Inject.ViewControllerHost(LogInVC())
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -77,26 +116,18 @@ extension StartVC {
     }
     
     fileprivate func addViews() {
-        view.addSubview(stack)
+        view.addSubview(fullStack)
     }
     
     fileprivate func autoLayoutViews() {
-        stack.translatesAutoresizingMaskIntoConstraints = false
+        fullStack.translatesAutoresizingMaskIntoConstraints = false
     }
     
     fileprivate func constrainViews() {
         NSLayoutConstraint.activate([
-            introImage.widthAnchor.constraint(
-                equalTo: view.widthAnchor, multiplier: 0.9),
-            startButton.widthAnchor.constraint(
-                equalTo: view.widthAnchor, multiplier: 0.83),
-            startButton.heightAnchor.constraint(
-                equalTo: startButton.widthAnchor, multiplier: 0.16)
-        ])
-        
-        NSLayoutConstraint.activate([
-            stack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            stack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            fullStack.widthAnchor.constraint(equalTo: view.widthAnchor),
+            fullStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            fullStack.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: screenHeight * -0.05)
         ])
     }
 }

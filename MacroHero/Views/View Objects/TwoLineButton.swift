@@ -15,7 +15,6 @@ final class TwoLineButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-        addTarget(self, action: #selector(handleTap(_:)), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -39,8 +38,9 @@ final class TwoLineButton: UIButton {
     private func setupView() {
         setBackgroundImage(Image.setButtonBg, for: .normal)
         titleLabel?.numberOfLines = 0
-        translatesAutoresizingMaskIntoConstraints = false
+        addTarget(self, action: #selector(handleTap(_:)), for: .touchUpInside)
         addShadowEffect(type: .normalButton)
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupTwoLines(

@@ -12,6 +12,9 @@
 		09092AC2283843DA00CA12F2 /* NutritionChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */; };
 		091AAC7C2849472500D1431B /* UserDataVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091AAC7B2849472500D1431B /* UserDataVM.swift */; };
 		091DFB16280753E400EBD110 /* FavMealCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DFB15280753E400EBD110 /* FavMealCell.swift */; };
+		0927496E286547C400E67377 /* CTAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927496D286547C400E67377 /* CTAButton.swift */; };
+		092749702865551200E67377 /* SignupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927496F2865551200E67377 /* SignupVC.swift */; };
+		092749722865691000E67377 /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092749712865691000E67377 /* LogInVC.swift */; };
 		0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AA270BC56100080FCD /* AppDelegate.swift */; };
 		0933D8AD270BC56100080FCD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933D8AC270BC56100080FCD /* SceneDelegate.swift */; };
 		0933D8B4270BC56200080FCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0933D8B3270BC56200080FCD /* Assets.xcassets */; };
@@ -70,6 +73,9 @@
 		09092AC1283843DA00CA12F2 /* NutritionChartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionChartVC.swift; sourceTree = "<group>"; };
 		091AAC7B2849472500D1431B /* UserDataVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataVM.swift; sourceTree = "<group>"; };
 		091DFB15280753E400EBD110 /* FavMealCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavMealCell.swift; sourceTree = "<group>"; };
+		0927496D286547C400E67377 /* CTAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButton.swift; sourceTree = "<group>"; };
+		0927496F2865551200E67377 /* SignupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupVC.swift; sourceTree = "<group>"; };
+		092749712865691000E67377 /* LogInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		0933D8A7270BC56100080FCD /* MacroHero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacroHero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0933D8AA270BC56100080FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0933D8AC270BC56100080FCD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +168,7 @@
 				094E901B2836123500BCE92E /* TwoLineButton.swift */,
 				09B29824283D71DC008F19BF /* MainLabel.swift */,
 				094496B0283EBA73008AE7FC /* VerticalMacroView.swift */,
+				0927496D286547C400E67377 /* CTAButton.swift */,
 			);
 			path = "View Objects";
 			sourceTree = "<group>";
@@ -276,6 +283,8 @@
 			isa = PBXGroup;
 			children = (
 				093870E3270D6B0D0036A3D7 /* StartVC.swift */,
+				0927496F2865551200E67377 /* SignupVC.swift */,
+				092749712865691000E67377 /* LogInVC.swift */,
 				09D20BBB28306FC60085BAA5 /* SetGoalVC.swift */,
 				09E55AB128342E55008BCE23 /* SetActivityVC.swift */,
 				09E55AB32834407A008BCE23 /* AboutYouVC.swift */,
@@ -527,12 +536,15 @@
 				09E3044B2798F2DE003FB240 /* MealData.swift in Sources */,
 				0989FA71277D0E2100234819 /* ProteinVC.swift in Sources */,
 				093870E2270D2D940036A3D7 /* Utils.swift in Sources */,
+				092749722865691000E67377 /* LogInVC.swift in Sources */,
+				0927496E286547C400E67377 /* CTAButton.swift in Sources */,
 				0966D42727CD804100A90754 /* MealPlanManager.swift in Sources */,
 				0903DF3D285AACB900E97FA9 /* MealCellModel.swift in Sources */,
 				0933D8AB270BC56100080FCD /* AppDelegate.swift in Sources */,
 				09FD0BE0270E24830094BAAC /* InfoVC.swift in Sources */,
 				09F000742799F98400C80AD2 /* MealDetailsVM.swift in Sources */,
 				096CA546274DB7C40071C6EE /* PlanVC.swift in Sources */,
+				092749702865551200E67377 /* SignupVC.swift in Sources */,
 				09E304492798F2DE003FB240 /* UserData.swift in Sources */,
 				09975BC4278CF78F0096E00A /* FavoritesTabVC.swift in Sources */,
 				097F8F772797889E00B638BC /* PlanVM.swift in Sources */,

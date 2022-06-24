@@ -167,16 +167,20 @@ class MealCell: UITableViewCell {
     func configure(with model: MealCellModel) {
         let mealData = model.mealInfo
         guard let type = mealData.type,
-              let name = mealData.name,
               let image = mealData.image,
               let macros = mealData.macros else { return }
         
         typeLabel.text = type.capitalized
-        if type == "Protein" {
+        if type == "Protein Shake" {
+            nameLabel.isHidden = true
             refreshButton.isHidden = true
+            starButton.isHidden = true
+        } else {
+            guard let name = mealData.name else { return }
+            nameLabel.text = name
+            refreshAction = model.refreshAction
+            starButtonAction = model.starButtonAction
         }
-        
-        nameLabel.text = name
         
         if image != Image.defaultMealImage {
             iv.image = image
@@ -188,9 +192,6 @@ class MealCell: UITableViewCell {
         carbLabel.text = "\(macros.carbs)g"
         proteinLabel.text = "\(macros.protein)g"
         fatLabel.text = "\(macros.fat)g"
-        
-        refreshAction = model.refreshAction
-        starButtonAction = model.starButtonAction
     }
     
     func createMacroHStack(_ macro: String, _ label2: UILabel) -> UIStackView {

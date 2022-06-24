@@ -16,10 +16,12 @@ class MealPlanTabVC: UIViewController {
     var screenWidth = UIScreen.main.bounds.width
     
     var mealPlan = [MealInfo]()
+    var proteinShake: MealInfo?
     var userData: UserData
     
     // MARK: - INITIALIZERS
-    init(userData: UserData) {
+    init(proteinShake: MealInfo, userData: UserData) {
+        self.proteinShake = proteinShake
         self.userData = userData
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,6 +34,10 @@ class MealPlanTabVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DispatchQueue.main.async {
+            HUD.dimsBackground = true
+            HUD.show(.progress)
+        }
         fetchMealPlan()
         setupView()
     }
@@ -65,12 +71,11 @@ class MealPlanTabVC: UIViewController {
         guard let mealReqs = userData.mealReqs else { return }
         
         MealPlanManager.fetchMealPlan(mealReqs: mealReqs) { results in
-            DispatchQueue.main.async {
-                HUD.dimsBackground = true
-                HUD.show(.progress)
+            self.mealPlan = results
+            if let proteinShake = self.proteinShake {
+                self.mealPlan.append(proteinShake)
             }
             
-            self.mealPlan = results
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 HUD.hide(animated: true) { _ in
@@ -118,11 +123,9 @@ extension MealPlanTabVC: UITableViewDelegate, UITableViewDataSource {
         // sort meal plan data
         mealPlan = mealPlan.sorted { $0.mealOrder < $1.mealOrder }
         let mealInfo = mealPlan[indexPath.row]
-        print("\(indexPath.row) \(mealInfo.name) \(mealInfo.type)")
 
         // populate cell with sorted data
         cell.configure(with: MealCellModel(mealInfo: mealInfo, refreshAction: {
-            print("clicked refresh \(mealInfo.type)")
             if let type = mealInfo.type, let mealReqs = self.userData.mealReqs {
                 self.fetchNewMeal(type: type, req: mealReqs.first(where: { $0.type == type }))
             }
