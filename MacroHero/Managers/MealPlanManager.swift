@@ -15,7 +15,7 @@ class MealPlanManager {
         let dispatchGroup = DispatchGroup()
         var mealPlan = [MealInfo]()
         
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .userInitiated).async {
             
             mealReqs.forEach { req in
                 dispatchGroup.enter()

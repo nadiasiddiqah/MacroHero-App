@@ -437,18 +437,17 @@ class AboutYouVC: UIViewController {
     func goToNextScreen() {
         // Passed Data
         passDummyData()
-//        updateUserData()
+        //        updateUserData()
         
-        DispatchQueue.main.async {
-            NutritionManager.fetchNutritionPlan(for: self.userData) { [weak self] results in
-                guard let self = self else { return }
-                self.userData.nutritionPlan = results
-                
-                let vc = Inject.ViewControllerHost(
-                    NutritionChartVC(userData: self.userData))
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        NutritionManager.fetchNutritionPlan(for: self.userData) { [weak self] results in
+            guard let self = self else { return }
+            self.userData.nutritionPlan = results
+            
+            let vc = Inject.ViewControllerHost(
+                NutritionChartVC(userData: self.userData))
+            self.navigationController?.pushViewController(vc, animated: true)
         }
+        
     }
 }
 

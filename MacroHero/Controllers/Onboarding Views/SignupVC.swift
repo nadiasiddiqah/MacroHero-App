@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Inject
 
 class SignupVC: UIViewController {
     
@@ -101,7 +102,13 @@ class SignupVC: UIViewController {
     
     // MARK: - TAP METHODS
     @objc func didTapEmail() {
-        
+        goToNextScreen()
+    }
+    
+    // MARK: - NAV METHODS
+    func goToNextScreen() {
+        let vc = Inject.ViewControllerHost(SetGoalVC())
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

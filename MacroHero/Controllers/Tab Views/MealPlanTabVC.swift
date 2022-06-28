@@ -38,6 +38,7 @@ class MealPlanTabVC: UIViewController {
             HUD.dimsBackground = true
             HUD.show(.progress)
         }
+
         fetchMealPlan()
         setupView()
     }
