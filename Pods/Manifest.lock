@@ -1,7 +1,4 @@
 PODS:
-  - Alamofire (5.5.0)
-  - AlamofireImage (4.2.0):
-    - Alamofire (~> 5.4)
   - Charts (4.0.2):
     - Charts/Core (= 4.0.2)
   - Charts/Core (4.0.2):
@@ -12,8 +9,6 @@ PODS:
   - SwiftAlgorithms (1.0.0)
 
 DEPENDENCIES:
-  - Alamofire
-  - AlamofireImage
   - Charts
   - Gifu
   - IQKeyboardManager
@@ -21,8 +16,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
-    - AlamofireImage
     - Charts
     - Gifu
     - IQKeyboardManager
@@ -30,14 +23,12 @@ SPEC REPOS:
     - SwiftAlgorithms
 
 SPEC CHECKSUMS:
-  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
-  AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   Charts: cfa4e911e6dc289582c2fe011a0e87c03d96727f
   Gifu: 416d4e38c4c2fed012f019e0a1d3ffcb58e5b842
   IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
 
-PODFILE CHECKSUM: 8966f0324652f12527596221a03ae9f62186cffc
+PODFILE CHECKSUM: 5833eeb0ee43392438930dda8aa0c5e3a9db4b2b
 
 COCOAPODS: 1.11.2

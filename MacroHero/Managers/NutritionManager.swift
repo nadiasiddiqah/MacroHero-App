@@ -37,7 +37,7 @@ class NutritionManager {
         // Create urlRequest
         var urlRequest = URLRequest(url: urlPrefix.url!)
         urlRequest.httpMethod = "GET"
-        urlRequest.headers = [
+        urlRequest.allHTTPHeaderFields = [
             "x-rapidapi-host": "fitness-calculator.p.rapidapi.com",
             "x-rapidapi-key": apiKey
         ]

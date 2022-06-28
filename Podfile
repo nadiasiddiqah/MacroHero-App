@@ -10,7 +10,5 @@ target 'MacroHero' do
   pod 'IQKeyboardManager'
   pod 'PKHUD'
   pod 'Charts'
-  pod 'Alamofire'
-  pod 'AlamofireImage'
   
 end

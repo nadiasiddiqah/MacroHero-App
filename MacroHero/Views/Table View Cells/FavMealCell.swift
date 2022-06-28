@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import AlamofireImage
 import UIKit
 
 class FavMealCell: UITableViewCell {
