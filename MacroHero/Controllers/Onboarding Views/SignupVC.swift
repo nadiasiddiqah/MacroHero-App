@@ -40,14 +40,12 @@ class SignupVC: UIViewController {
     
     lazy var text: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         label.text = "Let's create an account:"
         label.textAlignment = .center
         
         return label
     }()
-    
     
     lazy var googleButton: UIButton = {
         let button = UIButton()
@@ -152,7 +150,7 @@ extension SignupVC {
         
         NSLayoutConstraint.activate([
             iv.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            iv.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.03),
+            iv.topAnchor.constraint(greaterThanOrEqualTo: mainTitle.bottomAnchor, constant: screenHeight * 0.04),
             iv.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0.85)
         ])
         

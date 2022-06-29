@@ -54,7 +54,7 @@ class StartVC: UIViewController {
         let button = CTAButton()
         button.configure(with: CTAButtonModel(name: "LOG IN", backgroundColor: UIColor.clear,
                                               borderColor: Color.ctaButtonColor?.cgColor, action: {
-            self.didTapLogIn()
+            self.didTapLogin()
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -101,8 +101,8 @@ class StartVC: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func didTapLogIn() {
-        let vc = Inject.ViewControllerHost(LogInVC())
+    @objc func didTapLogin() {
+        let vc = Inject.ViewControllerHost(LoginVC())
         navigationController?.pushViewController(vc, animated: true)
     }
 }

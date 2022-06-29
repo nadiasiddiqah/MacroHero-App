@@ -25,4 +25,6 @@ struct Image {
     static let googleSignup = UIImage(named: "googleSignup")
     static let emailSignup = UIImage(named: "emailSignup")
     static let theoWave = UIImage(named: "theoWave")
+    static let emailIcon = UIImage(named: "emailIcon")
+    static let keyIcon = UIImage(named: "keyIcon")
 }
