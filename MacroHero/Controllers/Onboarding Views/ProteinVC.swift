@@ -77,12 +77,10 @@ class ProteinVC: UIViewController {
     }()
     
     lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("NEXT", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = Font.solid_25
-        button.setBackgroundImage(Image.ctaButton, for: .normal)
-        button.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
+        let button = CTAButton()
+        button.configure(with: CTAButtonModel(name: "NEXT", backgroundColor: Color.ctaButtonColor) {
+            self.didTapNext()
+        })
         button.addShadowEffect(type: .ctaButton)
         
         return button

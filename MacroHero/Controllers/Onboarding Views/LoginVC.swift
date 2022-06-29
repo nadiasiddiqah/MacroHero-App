@@ -136,7 +136,41 @@ class LoginVC: UIViewController {
         
         return label
     }()
+    
+    lazy var googleLogin: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(Image.googleLogin, for: .normal)
+        button.addShadowEffect(type: .ctaButton)
+        button.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    lazy var appleLogin: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(Image.appleLogin, for: .normal)
+        button.addShadowEffect(type: .ctaButton)
+        button.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    lazy var bottomStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [googleLogin, appleLogin])
+        stack.axis = .vertical
+        stack.spacing = screenHeight * 0.02
+        
+        return stack
+    }()
 
+    // MARK: - TAP METHODS
+    @objc func didTapLogin() {
+        print("login")
+    }
 }
 
 extension LoginVC {
@@ -163,11 +197,13 @@ extension LoginVC {
         view.addSubview(mainTitle)
         view.addSubview(loginStack)
         view.addSubview(text)
+        view.addSubview(bottomStack)
     }
     
     func autoLayoutViews() {
         mainTitle.translatesAutoresizingMaskIntoConstraints = false
         loginStack.translatesAutoresizingMaskIntoConstraints = false
+        bottomStack.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func constrainViews() {
@@ -177,14 +213,21 @@ extension LoginVC {
         ])
         
         NSLayoutConstraint.activate([
-            loginStack.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.03),
+            loginStack.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: screenHeight * 0.04),
             loginStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
             loginStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            text.topAnchor.constraint(equalTo: loginStack.bottomAnchor, constant: screenHeight * 0.03),
+            text.topAnchor.constraint(equalTo: loginStack.bottomAnchor, constant: screenHeight * 0.04),
             text.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            bottomStack.topAnchor.constraint(equalTo: text.bottomAnchor, constant: screenHeight * 0.04),
+            bottomStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bottomStack.widthAnchor.constraint(equalTo: view.widthAnchor,
+                                               multiplier: 0.82)
         ])
     }
 }

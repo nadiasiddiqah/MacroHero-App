@@ -562,7 +562,7 @@
 		E93D1B0C016A5ED92EC6A2841775E0A7 /* PKHUDSystemActivityIndicatorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PKHUDSystemActivityIndicatorView.swift; path = PKHUD/PKHUDSystemActivityIndicatorView.swift; sourceTree = "<group>"; };
 		EB01057A27455FE07B9C9BCD6F430D12 /* LineRadarChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineRadarChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/LineRadarChartDataSetProtocol.swift; sourceTree = "<group>"; };
 		EB0DB883109F8EE4F0E337BC8CEF2BFF /* Range.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Range.swift; path = Source/Charts/Highlight/Range.swift; sourceTree = "<group>"; };
-		EB92FED3EE4AABDDA69FE865C840621D /* Pods-MacroHero */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-MacroHero"; path = Pods_MacroHero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB92FED3EE4AABDDA69FE865C840621D /* Pods_MacroHero.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacroHero.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC577C4A7F7ED7DE3CC09158DA96D1D1 /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IQKeyboardManagerConstants.h; path = IQKeyboardManager/Constants/IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
 		ECEDCE0CBA11FFACA34CABED817B3B2E /* PKHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PKHUD.modulemap; sourceTree = "<group>"; };
 		EDF036F5F6F49697D8E4F92DD35EE9EB /* BubbleChartDataSetProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataSetProtocol.swift; path = Source/Charts/Data/Interfaces/BubbleChartDataSetProtocol.swift; sourceTree = "<group>"; };
@@ -763,7 +763,7 @@
 				98527D7196957AAB07B79E2E2AFDE23E /* IQKeyboardManager.framework */,
 				05A2656F46E8CA87E77A035911B33D10 /* PKHUD.framework */,
 				BFCB2D5C605270A32522299AED3B5AE6 /* PKHUDResources.bundle */,
-				EB92FED3EE4AABDDA69FE865C840621D /* Pods-MacroHero */,
+				EB92FED3EE4AABDDA69FE865C840621D /* Pods_MacroHero.framework */,
 				F3E7458F7D38C89A9DE4BBACD3450C88 /* Algorithms.framework */,
 			);
 			name = Products;
@@ -1175,7 +1175,7 @@
 			);
 			name = "Pods-MacroHero";
 			productName = Pods_MacroHero;
-			productReference = EB92FED3EE4AABDDA69FE865C840621D /* Pods-MacroHero */;
+			productReference = EB92FED3EE4AABDDA69FE865C840621D /* Pods_MacroHero.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		2C511EE63C6E7D5843B971D1E441119E /* SwiftAlgorithms */ = {
