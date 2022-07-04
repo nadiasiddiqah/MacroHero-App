@@ -9,18 +9,17 @@ import Foundation
 
 class NutritionManager {
     
-    static func fetchNutritionPlan(for user: UserData,
-                                   completion: @escaping (Macros) -> Void ) {
+    static func createGETMacrosRequest(for user: UserData) -> URLRequest? {
         // Check required user parameters exist
         guard let age = user.age,
               let sex = user.sex?.rawValue,
               let height = user.heightCm,
               let weight = user.weightKg,
               let activity = user.activityLevel?.rawValue,
-              let goal = user.goal?.rawValue else { return }
+              let goal = user.goal?.rawValue else { return nil }
         
         // Check apiKey exists
-        guard let apiKey = Bundle.main.infoDictionary?["macro_calculator_key"] as? String else { return }
+        guard let apiKey = Bundle.main.infoDictionary?["macro_calculator_key"] as? String else { return nil }
         
         // Create urlPrefix with queryItems
         var urlPrefix = URLComponents(string: "https://fitness-calculator.p.rapidapi.com/macrocalculator")!
@@ -42,22 +41,37 @@ class NutritionManager {
             "x-rapidapi-key": apiKey
         ]
         
+        return urlRequest
+    }
+    
+    static func fetchNutritionPlan(for user: UserData, completion: @escaping (Macros?) -> Void ) {
+        
+        // Create GET URLRequest based on userInfo
+        guard let urlRequest = createGETMacrosRequest(for: user) else {
+            completion(nil)
+            return
+        }
+        
         // Create URLSession dataTask
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             // Handle error
             guard let data = data, error == nil else {
-                print("Check internet connection: \(error?.localizedDescription ?? "no error description")")
+                if let error = error {
+                    print("ERROR: \(error.localizedDescription)")
+                }
+                print("ERROR: No data")
+                completion(nil)
                 return
             }
             
-            // Decode JSON data into NutritionData
-            do {
-                let result = try JSONDecoder().decode(NutritionData.self, from: data)
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                let result = try? JSONDecoder().decode(NutritionData.self, from: data)
                 
                 // Convert NutritionData to Macros
-                guard let data = result.data, let cal = data.calorie, let diet = data.balanced,
+                guard let data = result?.data, let cal = data.calorie, let diet = data.balanced,
                         let carbs = diet.carbs, let protein = diet.protein, let fat = diet.fat else {
-                    print("Can't convert NutritionData to Macros")
+                    print("ERROR: Can't convert NutritionData to Macros")
+                    completion(nil)
                     return
                 }
             
@@ -67,8 +81,9 @@ class NutritionManager {
                 DispatchQueue.main.async {
                     completion(macros)
                 }
-            } catch {
-                print("Can't decode data: \(error.localizedDescription)")
+            } else {
+                print("Error: No response")
+                completion(nil)
             }
         }
         

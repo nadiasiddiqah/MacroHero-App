@@ -39,13 +39,11 @@ class MealPlanManager {
         }
     }
     
-    static func fetchMealBasedOn(_ req: MealReq, completion: @escaping ((MealInfo?) -> Void)) {
-        print("running fetch meal")
-        
+    static func createGETMealRequest(_ req: MealReq) -> URLRequest? {
         // Validate appId and appKey
         guard let appId = Bundle.main.infoDictionary?["edamam_app_id"] as? String,
               let appKey = Bundle.main.infoDictionary?["edamam_app_key"] as? String,
-              let macroReq = req.macros else { return }
+              let macroReq = req.macros else { return nil }
         
         // Create urlPrefix with queryItems
         var urlPrefix = URLComponents(string: "https://api.edamam.com/api/recipes/v2")!
@@ -82,6 +80,17 @@ class MealPlanManager {
         // Create urlRequest
         var urlRequest = URLRequest(url: urlPrefix.url!)
         urlRequest.httpMethod = "GET"
+        
+        return urlRequest
+    }
+    
+    static func fetchMealBasedOn(_ req: MealReq, completion: @escaping ((MealInfo?) -> Void)) {
+        print("running fetch meal")
+        
+        guard let urlRequest = createGETMealRequest(req) else {
+            completion(nil)
+            return
+        }
         
         // Create URLSession dataTask with urlRequest
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
