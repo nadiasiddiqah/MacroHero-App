@@ -95,9 +95,10 @@ class MealPlanTabVC: UIViewController {
                 HUD.show(.progress)
             }
             
-            if let result = result {
-                var newMeal = result
-                MealPlanManager.loadImageURL(for: newMeal) { image in
+            switch result {
+            case .success(let mealResult):
+                var newMeal = mealResult
+                MealPlanManager.loadImage(for: newMeal.imageURL ?? "") { image in
                     newMeal.image = image
                     self.mealPlan.removeAll(where: { $0.type == type })
                     self.mealPlan.append(newMeal)
@@ -109,7 +110,7 @@ class MealPlanTabVC: UIViewController {
                         }
                     }
                  }
-            } else {
+            case .failure(_):
                 // TODO: Put error message pop-up
                 print("ERROR: Can't fetch new meal")
                 DispatchQueue.main.async {

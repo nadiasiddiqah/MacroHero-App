@@ -71,14 +71,13 @@ class NutritionManager {
                 return
             }
             
-            // Decode JSON Response (NutritionData) into Swift type (Macros)
+            // Decode JSON Response -> NutritionData (Swift response) -> Macros (Swift data object)
             do {
                 let result = try JSONDecoder().decode(NutritionData.self, from: data)
                 
                 guard let data = result.data, let cal = data.calorie, let diet = data.balanced,
                         let carbs = diet.carbs, let protein = diet.protein, let fat = diet.fat else {
-                    print("ERROR: Can't convert NutritionData to Macros")
-                    completion(.failure(.decodingError))
+                    completion(.failure(.dataParsingError))
                     return
                 }
             

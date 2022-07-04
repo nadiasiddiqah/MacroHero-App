@@ -13,4 +13,7 @@ enum APIError: String, Error {
     case dataTaskError = "Error making API Request"
     case corruptData = "API Response Data not available"
     case decodingError = "JSON Data couldn't be decoded to Swift object"
+    case noHits = "No hits received"
+    case noRecipeOrYield = "No recipe or no yield provided"
+    case dataParsingError = "JSON Decoded Swift object couldn't be parsed into Swift object"
 }
