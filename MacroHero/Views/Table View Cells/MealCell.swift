@@ -166,32 +166,57 @@ class MealCell: UITableViewCell {
     // MARK: - HELPER FUNCTIONS
     func configure(with model: MealCellModel) {
         let mealData = model.mealInfo
+        
         guard let type = mealData.type,
               let image = mealData.image,
               let macros = mealData.macros else { return }
         
-        typeLabel.text = type.capitalized
         if type == "Protein Shake" {
             nameLabel.isHidden = true
             refreshButton.isHidden = true
             starButton.isHidden = true
-        } else {
-            guard let name = mealData.name else { return }
+        } else if let name = mealData.name {
+            nameLabel.isHidden = false
+            refreshButton.isHidden = false
+            starButton.isHidden = false
+            
             nameLabel.text = name
             refreshAction = model.refreshAction
             starButtonAction = model.starButtonAction
         }
         
-        if image != Image.defaultMealImage {
-            iv.image = image
-        } else {
-            iv.image = Image.defaultMealImage
-        }
+        typeLabel.text = type.capitalized
+        iv.image = image
         
         calLabel.text = macros.calories
         carbLabel.text = "\(macros.carbs)g"
         proteinLabel.text = "\(macros.protein)g"
         fatLabel.text = "\(macros.fat)g"
+        
+        
+//        if let type = mealData.type,
+//           let image = mealData.image,
+//           let macros = mealData.macros,
+//           let name = mealData.name {
+//
+//        }
+//
+//        guard let type = mealData.type,
+//              let image = mealData.image,
+//              let macros = mealData.macros else { return }
+//
+//        typeLabel.text = type.capitalized
+//
+//        if type == "Protein Shake" {
+//            nameLabel.isHidden = true
+//            refreshButton.isHidden = true
+//            starButton.isHidden = true
+//        } else {
+//            guard let name = mealData.name else { return }
+//            nameLabel.text = name
+//            refreshAction = model.refreshAction
+//            starButtonAction = model.starButtonAction
+//        }
     }
     
     func createMacroHStack(_ macro: String, _ label2: UILabel) -> UIStackView {

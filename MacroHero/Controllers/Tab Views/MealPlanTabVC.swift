@@ -95,20 +95,29 @@ class MealPlanTabVC: UIViewController {
                 HUD.show(.progress)
             }
             
-            var newMeal = result
-            
-            MealPlanManager.loadImageURL(for: newMeal) { image in
-                newMeal.image = image
-                self.mealPlan.removeAll(where: { $0.type == type })
-                self.mealPlan.append(newMeal)
-                
+            if let result = result {
+                var newMeal = result
+                MealPlanManager.loadImageURL(for: newMeal) { image in
+                    newMeal.image = image
+                    self.mealPlan.removeAll(where: { $0.type == type })
+                    self.mealPlan.append(newMeal)
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        HUD.hide(animated: true) { _ in
+                            HUD.dimsBackground = false
+                        }
+                    }
+                 }
+            } else {
+                // TODO: Put error message pop-up
+                print("ERROR: Can't fetch new meal")
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
                     HUD.hide(animated: true) { _ in
                         HUD.dimsBackground = false
                     }
                 }
-             }
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class MealPlanManager {
     
-    static func fetchMealPlan(mealReqs: [MealReq], completion: @escaping (([MealInfo]) -> Void)) {
+    static func fetchMealPlan(mealReqs: [MealReq], callBack: @escaping (([MealInfo]) -> Void)) {
         
         let dispatchGroup = DispatchGroup()
         var mealPlan = [MealInfo]()
@@ -20,22 +20,26 @@ class MealPlanManager {
             mealReqs.forEach { req in
                 dispatchGroup.enter()
                 self.fetchMealBasedOn(req) { result in
-                    var mealInfo = result
-                    self.loadImageURL(for: mealInfo) { image in
-                        mealInfo.image = image
-                        mealPlan.append(mealInfo)
+                    if let result = result {
+                        var mealInfo = result
+                        self.loadImageURL(for: mealInfo) { image in
+                            mealInfo.image = image
+                            mealPlan.append(mealInfo)
+                            dispatchGroup.leave()
+                        }
+                    } else {
                         dispatchGroup.leave()
                     }
                 }
             }
             
             dispatchGroup.notify(queue: .main) {
-                completion(mealPlan)
+                callBack(mealPlan)
             }
         }
     }
     
-    static func fetchMealBasedOn(_ req: MealReq, completion: @escaping ((MealInfo) -> Void)) {
+    static func fetchMealBasedOn(_ req: MealReq, completion: @escaping ((MealInfo?) -> Void)) {
         print("running fetch meal")
         
         // Validate appId and appKey
@@ -82,71 +86,77 @@ class MealPlanManager {
         // Create URLSession dataTask with urlRequest
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             guard let data = data, error == nil else {
-                print("Check internet connection: \(String(describing: error?.localizedDescription))")
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                }
+                print("Error: No data")
+                
+                completion(nil)
                 return
             }
             
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                return
-            }
-            
-            do {
-                let result = try JSONDecoder().decode(MealData.self, from: data)
-                guard let hits = result.hits else {
-                    print("error: no hits based on meal reqs")
-                    self.getMealDataBasedOnPriorities(reqs: req)
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                let result = try? JSONDecoder().decode(MealData.self, from: data)
+                
+                // convert result (MealData) into MealInfo
+                guard let hits = result?.hits, !hits.isEmpty else {
+                    print("Error: No meals based on meal req")
+                    // If no hits
+                    completion(self.getMealDataBasedOnPriorities(req: req))
                     return
                 }
                 
+                // TODO: select random hit index, does it need to be random bc of the GET call paramter?
+//                let randomIndex = (0..<hits.count).randomElement() ?? 0
+                
+                // TODO: Update to find recipe and yield info from another MealData object, if nil
                 guard let recipe = hits[0].recipe, recipe.yield != nil else {
-                    print("error: no recipe or yield data found")
+                    print("Error: No recipe or yield data found in randomIndex, try another randomIndex")
+                    completion(nil)
                     return
                 }
                 
-                self.convertToMealInfo(result: result, req: req) { mealInfo in
+                self.convertToMealInfo(recipe: recipe, req: req) { mealInfo in
                     completion(mealInfo)
                 }
-            } catch {
-                print("Can't decode JSON data \(error.localizedDescription)")
+            } else {
+                print("Error: No response")
+                completion(nil)
             }
         }
         
         task.resume()
     }
     
-    static func loadImageURL(for meal: MealInfo, completion: @escaping ((UIImage) -> Void)) {
+    static func loadImageURL(for meal: MealInfo, completion: @escaping ((UIImage?) -> Void)) {
         print("fetching images")
         guard let imageURL = meal.imageURL, let url = URL(string: imageURL) else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
-                print("Please check connection \(String(describing: error?.localizedDescription))")
+                completion(Image.defaultMealImage)
                 return
             }
             
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                return
+            if let response = response as? HTTPURLResponse, response.statusCode == 200 {
+                let result = UIImage(data: data)
+                completion(result ?? Image.defaultMealImage)
             }
-            
-            let result: UIImage
-            result = UIImage(data: data) ?? Image.defaultMealImage!
-            
-            completion(result)
         }
         
         task.resume()
     }
     
     
-    static func getMealDataBasedOnPriorities(reqs: MealReq) {
+    static func getMealDataBasedOnPriorities(req: MealReq) -> MealInfo? {
         print("calculate based on priorities")
+        return nil
     }
     
     // MARK: - HELPER FUNCTIONS
-    static func convertToMealInfo(result: MealData, req: MealReq, completion: @escaping (MealInfo) -> Void) {
-        if let count = result.hits?.count,
-           let recipe = result.hits?[0].recipe,
-           let yieldInt = recipe.yield,
+    static func convertToMealInfo(recipe: Recipe, req: MealReq,
+                                  completion: @escaping (MealInfo?) -> Void) {
+        if let yieldInt = recipe.yield,
            let name = recipe.label,
            let imageURL = recipe.images?.regular?.url ?? recipe.image,
            let ingredients = recipe.ingredientLines,
@@ -165,16 +175,18 @@ class MealPlanManager {
             let updatedName = updateName(name: name)
             let mealOrder = determineMealOrder(type: req.type)
             
-            let parsedMeal = MealInfo(mealOrder: mealOrder, imageURL: imageURL,
-                                      type: req.type, name: updatedName.capitalized,
-                                      macros: Macros(calories: calories,
-                                                             carbs: carbs,
-                                                             protein: protein,
-                                                             fat: fat),
-                                      ingredients: ingredients,
-                                      instructionsURL: instructionsURL)
+            let mealInfo = MealInfo(mealOrder: mealOrder, imageURL: imageURL,
+                                    type: req.type, name: updatedName.capitalized,
+                                    macros: Macros(calories: calories,
+                                                   carbs: carbs,
+                                                   protein: protein,
+                                                   fat: fat),
+                                    ingredients: ingredients,
+                                    instructionsURL: instructionsURL)
             
-            completion(parsedMeal)
+            completion(mealInfo)
+        } else {
+            completion(nil)
         }
     }
     
