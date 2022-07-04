@@ -377,24 +377,20 @@ class AboutYouVC: UIViewController {
     }
 
     func gestureToHideKeyboard() {
-        let tap = UITapGestureRecognizer(target: self,
-                                         action: #selector(hideKeyboard))
+        let tap = UITapGestureRecognizer(target: self.view,
+                                         action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
 
-        let downSwipe = UISwipeGestureRecognizer(target: self,
-                                                 action: #selector(hideKeyboard))
+        let downSwipe = UISwipeGestureRecognizer(target: self.view,
+                                                 action: #selector(UIView.endEditing(_:)))
         downSwipe.direction = .down
         view.addGestureRecognizer(downSwipe)
 
 
-        let upSwipe = UISwipeGestureRecognizer(target: self,
-                                               action: #selector(hideKeyboard))
+        let upSwipe = UISwipeGestureRecognizer(target: self.view,
+                                               action: #selector(UIView.endEditing(_:)))
         upSwipe.direction = .up
         view.addGestureRecognizer(upSwipe)
-    }
-
-    @objc func hideKeyboard() {
-        view.endEditing(true)
     }
     
     func convertBirthdayToAge() -> String {
@@ -437,13 +433,20 @@ class AboutYouVC: UIViewController {
         passDummyData()
         //        updateUserData()
         
-        NutritionManager.fetchNutritionPlan(for: self.userData) { [weak self] results in
+        NutritionManager.fetchNutritionPlan(for: self.userData) { [weak self] result in
             guard let self = self else { return }
-            self.userData.nutritionPlan = results
             
-            let vc = Inject.ViewControllerHost(
-                NutritionChartVC(userData: self.userData))
-            self.navigationController?.pushViewController(vc, animated: true)
+            switch result {
+            case .success(let macros):
+                self.userData.nutritionPlan = macros
+                
+                let vc = Inject.ViewControllerHost(
+                    NutritionChartVC(userData: self.userData))
+                self.navigationController?.pushViewController(vc, animated: true)
+            case .failure(let error):
+                // TODO: Show error pop-up
+                print(error.rawValue)
+            }
         }
         
     }

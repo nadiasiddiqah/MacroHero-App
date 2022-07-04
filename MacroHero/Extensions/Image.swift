@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 struct Image {
+    // Static = properties/functions that belong to Image struct type
+    // All static properties belong to the Image struct, and not Image struct instances 
     static let introImage = UIImage(named: "introImage")
     static let defaultMealImage = UIImage(named: "defaultMealImage")
     static let backButton = UIImage(systemName: "arrow.left")
